@@ -1,0 +1,17 @@
+<html>
+	<head>
+		<script src='WebAudioFontPlayer.js'></script>
+		<script src='webaudiofont/32.0.Accoustic_32Bsaccousticbs_461_460_45127.js'></script>
+		<script>
+			var selectedPreset=_tone_Accoustic_32Bsaccousticbs_461_460_45127;
+			var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
+			var audioContext = new AudioContextFunc();
+			var player=new WebAudioFontPlayer();
+		</script>
+	</head>
+	<body>
+		<p><a href='javascript:player.queueWaveTable(audioContext, audioContext.destination, selectedPreset, 0, 55, 3.5);'>Play a note</a></p>
+		<hr/>
+		<p><a href="WebAudioFontExampleAll.html">back</p>
+	</body>
+</html>

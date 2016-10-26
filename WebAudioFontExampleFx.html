@@ -1,0 +1,82 @@
+<html>
+    <head>
+        <script src='WebAudioFontPlayer.js'></script>
+        <script src='webaudiofont/125.3.Car_45Pass000209_461_460_45127.js'></script>
+        <script>
+            var selectedPreset=_tone_Car_45Pass000209_461_460_45127;
+            var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
+            var audioContext = new AudioContextFunc();
+            var player=new WebAudioFontPlayer();
+			var started=false;
+			var envelope=null;
+			var initialRate=1;
+			var ratio=1;
+			function startCar(){
+				//if(started){
+					//console.log('started already');
+				//}else{
+					started=true;
+					envelope=player.queueWaveTable(audioContext, audioContext.destination, selectedPreset, 0, 12*4+0, 999,true);
+					initialRate=envelope.audioBufferSourceNode.playbackRate.value;
+					//showRace();
+				//}
+			}
+			function faster(){
+				if(!started){
+					startCar();
+					showRace();
+					return;
+				}
+				if(ratio<3){
+					ratio++;
+					applyNewRatio();
+				}else{
+					console.log('max speed');
+				}
+			}
+			function slower(){
+				if(!started){
+					startCar();
+					showRace();
+					return;
+				}
+				if(ratio>1){
+					ratio--;
+					applyNewRatio();
+				}else{
+					console.log('min speed');
+				}
+			}
+			function applyNewRatio(){
+				envelope.audioBufferSourceNode.playbackRate.cancelScheduledValues(audioContext.currentTime);
+				envelope.audioBufferSourceNode.playbackRate.setValueAtTime(envelope.audioBufferSourceNode.playbackRate.value, audioContext.currentTime+0.1);
+				envelope.audioBufferSourceNode.playbackRate.linearRampToValueAtTime(initialRate*ratio, audioContext.currentTime+2);
+				showRace();
+			}
+			function showRace() {
+				document.getElementById("r0").style.display = "none";
+				document.getElementById("r1").style.display = "none";
+				document.getElementById("r2").style.display = "none";
+				if (ratio == 1) {
+					document.getElementById("r0").style.display = "inline";
+				} else {
+					if (ratio == 2) {
+						document.getElementById("r1").style.display = "inline";
+					} else {
+						document.getElementById("r2").style.display = "inline";
+					}
+				}
+			}
+        </script>
+    </head>
+    <body>
+        <p>
+			<a href='javascript:faster();'>Faster</a> | <a href='javascript:slower();'>Slower</a>
+		</p>
+		<p id="r0" style="display:none;"><img src="img/race0.gif"></p>
+		<p id="r1" style="display:none;"><img src="img/race1.gif"></p>
+		<p id="r2" style="display:none;"><img src="img/race2.gif"></p>
+		<hr/>
+		<p><a href="WebAudioFontExampleAll.html">back</p>
+    </body>
+</html>
