@@ -1,0 +1,4 @@
+,{midi:19, sample:"_tone.flutec4", originalPitch:6500, keyRangeLow:0, keyRangeHigh:60, loopStart:1365, loopEnd:1427, coarseTune:0, fineTune:-28, sampleRate:44100, ahdsr:false}
+,{midi:19, sample:"_tone.flutec4", originalPitch:6500, keyRangeLow:61, keyRangeHigh:87, loopStart:1365, loopEnd:1427, coarseTune:0, fineTune:-28, sampleRate:44100, ahdsr:false}
+,{midi:19, sample:"_tone.kpianob5", originalPitch:11100, keyRangeLow:88, keyRangeHigh:127, loopStart:2963, loopEnd:5394, coarseTune:0, fineTune:-48, sampleRate:44100, ahdsr:false}
+

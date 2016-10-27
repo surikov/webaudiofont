@@ -113,6 +113,7 @@ Parameters:
 - [WebAudioFontExampleFx.html](http://molgav.nn.ru/WebAudioFontExampleFx.html) - sound slides from one pitch to another one. This example shows how to access AudioBufferSourceNode of played note.
 - [WebAudioFontExampleTune.html](http://molgav.nn.ru/WebAudioFontExampleTune.html) - music loop. This example shows how to create and modify music in realtime.
 - [WebAudioFontExampleTouch.html](http://molgav.nn.ru/WebAudioFontExampleTouch.html) - multitouch beatpad. This example shows how to optimize application for mobile devices.
+- [WebAudioFontExampleSelector.html](http://molgav.nn.ru/WebAudioFontExampleSelector.html) - preset selector. This example shows how to load JS presets dynamically.
 
 
 
