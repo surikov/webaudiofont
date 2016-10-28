@@ -100,6 +100,7 @@ Parameters:
 - pitch - note pitch from 0 to 127, for example 2+12*4 to play D of fourth octave (use MIDI key for drums)
 - duration - note duration in seconds, for example 4 to play 4 seconds
 - continuous - true to ignore AHDSR
+
 Function queueWaveTable returns envelope object. You can use this object to cancel sound or access to AudioBufferSourceNode.
 
 ## All examples
