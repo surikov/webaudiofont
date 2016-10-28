@@ -42,7 +42,7 @@ Synthesizer uses [wavetables](https://www.google.ru/search?q=wavetable+synthesis
 </html>
 ```
 		
-This code plays instrument [_tone_Accoustic_32Bsaccousticbs_461_460_45127](http://molgav.nn.ru/webaudiofont/32.0.Accoustic_32Bsaccousticbs_461_460_45127.html) from [32.0.Accoustic_32Bsaccousticbs_461_460_45127.js](http://molgav.nn.ru/webaudiofont/32.0.Accoustic_32Bsaccousticbs_461_460_45127.js) with pitch 55. See simple example.
+This code plays instrument [_tone_Accoustic_32Bsaccousticbs_461_460_45127](http://molgav.nn.ru/webaudiofont/32.0.Accoustic_32Bsaccousticbs_461_460_45127.html) from [32.0.Accoustic_32Bsaccousticbs_461_460_45127.js](http://molgav.nn.ru/webaudiofont/32.0.Accoustic_32Bsaccousticbs_461_460_45127.js) with pitch 55. See [simple example](http://molgav.nn.ru/WebAudioFontExampleSimple.html).
 
 ### How to use catalog of sounds:
 
@@ -100,7 +100,7 @@ Parameters:
 - pitch - note pitch from 0 to 127, for example 2+12*4 to play D of fourth octave (use MIDI key for drums)
 - duration - note duration in seconds, for example 4 to play 4 seconds
 - continuous - true to ignore AHDSR
-- queueWaveTable returns envelope object. You can use this object to cancel sound or access to AudioBufferSourceNode.
+Function queueWaveTable returns envelope object. You can use this object to cancel sound or access to AudioBufferSourceNode.
 
 ## All examples
 
