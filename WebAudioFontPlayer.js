@@ -1,4 +1,4 @@
-console.log('WebAudioFont Player v1.06');
+console.log('WebAudioFont Player v1.07');
 function WebAudioFontPlayer() {
 	this.envelopes = [];
 	this.afterTime = 0.2;
@@ -86,9 +86,13 @@ function WebAudioFontPlayer() {
 		for (var i = 0; i < this.envelopes.length; i++) {
 			var e = this.envelopes[i];
 			if (e.target == target && audioContext.currentTime > e.when + e.duration + this.afterTime) {
-				e.audioBufferSourceNode.stop(0);
-				e.audioBufferSourceNode.disconnect();
-				e.audioBufferSourceNode = null;
+				try{
+					e.audioBufferSourceNode.stop(0);
+					e.audioBufferSourceNode.disconnect();
+					e.audioBufferSourceNode = null;
+				}catch(e){
+					//audioBufferSourceNode dead already
+				}
 				envelope = e;
 				break;
 			}
