@@ -26,6 +26,7 @@
 			function stopPipe(pipe){
 				if(pipe.envelope){
 					pipe.envelope.cancel();
+					pipe.envelope=null;
 				}
 			}
         </script>

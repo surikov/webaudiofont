@@ -113,8 +113,9 @@ Function queueWaveTable returns envelope object. You can use this object to canc
 - [WebAudioFontExampleVoice.html](http://molgav.nn.ru/WebAudioFontExampleVoice.html) - two voice connected to different AudioNodes. This example shows how to create chain of AudioNodes and handle each instrument individually.
 - [WebAudioFontExampleFx.html](http://molgav.nn.ru/WebAudioFontExampleFx.html) - sound slides from one pitch to another one. This example shows how to access AudioBufferSourceNode of played note.
 - [WebAudioFontExampleTune.html](http://molgav.nn.ru/WebAudioFontExampleTune.html) - music loop. This example shows how to create and modify music in realtime.
+- [WebAudioFontExampleTune2.html](http://molgav.nn.ru/WebAudioFontExampleTune2.html) - music loop. This example shows how to code music.
 - [WebAudioFontExampleTouch.html](http://molgav.nn.ru/WebAudioFontExampleTouch.html) - multitouch beatpad. This example shows how to optimize application for mobile devices.
 - [WebAudioFontExampleSelector.html](http://molgav.nn.ru/WebAudioFontExampleSelector.html) - preset selector. This example shows how to load JS presets dynamically.
-
+- [https://jsbin.com/zabike/edit?html,output](https://jsbin.com/zabike/edit?html,output) - music loop. This example shows how to exchange code.
 
 

@@ -1,75 +1,72 @@
-console.log('WebAudioFont Player v1.07');
+console.log('WebAudioFont Player v1.18');
 function WebAudioFontPlayer() {
 	this.envelopes = [];
-	this.afterTime = 0.2;
-	this.preTime = 0.001;
+	this.afterTime = 0.1;
 	this.nearZero = 0.000001;
 	this.queueWaveTable = function (audioContext, target, preset, when, pitch, duration, continuous) {
 		var zone = this.findZone(audioContext, preset, pitch);
-		if (when < audioContext.currentTime + this.preTime) {
-			when = audioContext.currentTime + this.preTime;
+		if (!continuous) {
+			continuous = !(zone.ahdsr);
 		}
 		var baseDetune = zone.originalPitch - 100.0 * zone.coarseTune - zone.fineTune;
 		var playbackRate = 1.0 * Math.pow(2, (100.0 * pitch - baseDetune) / 1200.0);
 		var sampleRatio = zone.sampleRate / audioContext.sampleRate;
-
-		var envelope = this.findEnvelope(audioContext, target, when, duration);
-		envelope.gain.cancelScheduledValues(audioContext.currentTime);
-		envelope.gain.setValueAtTime(this.nearZero, audioContext.currentTime);
-		envelope.gain.exponentialRampToValueAtTime(1, when);
-
-		envelope.audioBufferSourceNode = audioContext.createBufferSource();
-		var down = this.afterTime;
-		if (zone.loopStart > 10 && zone.loopStart < zone.loopEnd) {
-			envelope.audioBufferSourceNode.loop = true;
-			envelope.audioBufferSourceNode.loopStart = zone.loopStart / zone.sampleRate;
-			envelope.audioBufferSourceNode.loopEnd = zone.loopEnd / zone.sampleRate;
-		} else {
-			envelope.audioBufferSourceNode.loop = false;
-			var waveDuration = zone.buffer.duration / playbackRate;
-			if (duration > waveDuration - down) {
-				if (waveDuration > down * 4) {
-					//
-				} else {
-					down = waveDuration / 4;
-				}
-				duration = waveDuration - down;
+		var startWhen = when;
+		if (when < audioContext.currentTime) {
+			startWhen = audioContext.currentTime;
+		}
+		var waveDuration = duration + this.afterTime;
+		if (zone.loopStart < 10 || zone.loopStart >= zone.loopEnd) {
+			if (waveDuration > zone.buffer.duration / playbackRate) {
+				waveDuration = zone.buffer.duration / playbackRate;
 			}
 		}
-		if ((zone.ahdsr) && (!(continuous))) {
-			var decayStart = 0.1;
-			var decayVolume = 0.3;
-			var releaseStart = 0.5;
-			var releaseLength = 5.1;
-			envelope.gain.linearRampToValueAtTime(1, when + decayStart);
-			envelope.gain.linearRampToValueAtTime(decayVolume, when + releaseStart);
-			var endVolume = 0;
-			if (duration - releaseStart < releaseLength) {
-				endVolume = decayVolume * releaseLength / (duration - releaseStart);
-			}
-			if (endVolume > this.nearZero) {
-				//
+		var envelope = this.findEnvelope(audioContext, target, startWhen, waveDuration);
+		envelope.gain.setValueAtTime(0, this.nearZero);
+		envelope.gain.setValueAtTime(startWhen, this.nearZero);
+		var a = 0.005;
+		var h = 0.25;
+		var d = 0.75;
+		var s = 5.1;
+		envelope.gain.exponentialRampToValueAtTime(1, startWhen + a);
+		if (waveDuration < h) {
+			envelope.gain.linearRampToValueAtTime(1, startWhen + 7 * waveDuration / 8 - a);
+		} else {
+			if (continuous) {
+				envelope.gain.linearRampToValueAtTime(1, startWhen + waveDuration - this.afterTime);
 			} else {
-				endVolume = this.nearZero
+				if (waveDuration + this.afterTime < d) {
+					envelope.gain.linearRampToValueAtTime(0.3, startWhen + waveDuration - this.afterTime);
+				} else {
+					envelope.gain.linearRampToValueAtTime(0.3, startWhen + d - this.afterTime);
+					if (waveDuration < s) {
+						envelope.gain.linearRampToValueAtTime(0.1, startWhen + waveDuration - this.afterTime);
+					} else {
+						envelope.gain.linearRampToValueAtTime(this.nearZero, startWhen + waveDuration - this.afterTime);
+					}
+				}
 			}
-			envelope.gain.linearRampToValueAtTime(this.nearZero, when + duration);
-		} else {
-			envelope.gain.linearRampToValueAtTime(1, when + duration);
 		}
-		envelope.gain.exponentialRampToValueAtTime(this.nearZero, when + duration + down);
-
+		envelope.gain.exponentialRampToValueAtTime(this.nearZero, startWhen + waveDuration);
+		envelope.audioBufferSourceNode = audioContext.createBufferSource();
 		envelope.audioBufferSourceNode.playbackRate.value = playbackRate;
 		if (zone.buffer) {
 			envelope.audioBufferSourceNode.buffer = zone.buffer;
 		} else {
 			console.log('empty buffer ', zone);
 		}
-
+		if (zone.loopStart > 10 && zone.loopStart < zone.loopEnd) {
+			envelope.audioBufferSourceNode.loop = true;
+			envelope.audioBufferSourceNode.loopStart = zone.loopStart / zone.sampleRate;
+			envelope.audioBufferSourceNode.loopEnd = zone.loopEnd / zone.sampleRate;
+		} else {
+			envelope.audioBufferSourceNode.loop = false;
+		}
 		envelope.audioBufferSourceNode.connect(envelope);
-		envelope.audioBufferSourceNode.start(when);
-		envelope.audioBufferSourceNode.stop(when + duration + down);
-		envelope.when = when;
-		envelope.duration = duration;
+		envelope.audioBufferSourceNode.start(startWhen);
+		envelope.audioBufferSourceNode.stop(startWhen + waveDuration);
+		envelope.when = startWhen;
+		envelope.duration = waveDuration+0.1;
 		envelope.pitch = pitch;
 		envelope.preset = preset;
 		return envelope;
@@ -85,13 +82,13 @@ function WebAudioFontPlayer() {
 		var envelope = null;
 		for (var i = 0; i < this.envelopes.length; i++) {
 			var e = this.envelopes[i];
-			if (e.target == target && audioContext.currentTime > e.when + e.duration + this.afterTime) {
-				try{
-					e.audioBufferSourceNode.stop(0);
+			if (e.target == target && audioContext.currentTime > e.when + e.duration + 0.1) {
+				try {
 					e.audioBufferSourceNode.disconnect();
+					e.audioBufferSourceNode.stop(0);
 					e.audioBufferSourceNode = null;
-				}catch(e){
-					//audioBufferSourceNode dead already
+				} catch (x) {
+					//audioBufferSourceNode is dead already
 				}
 				envelope = e;
 				break;
@@ -101,20 +98,17 @@ function WebAudioFontPlayer() {
 			envelope = audioContext.createGain();
 			envelope.target = target;
 			envelope.connect(target);
-			var a = this.afterTime;
-			var t = this.nearZero;
 			envelope.cancel = function () {
-				envelope.gain.cancelScheduledValues(audioContext.currentTime);
-				var c = envelope.gain.value;
-				if (c > t) {
-					envelope.gain.setValueAtTime(envelope.gain.value, audioContext.currentTime);
-					envelope.gain.exponentialRampToValueAtTime(t, audioContext.currentTime + a);
+				if (envelope.when + envelope.duration > audioContext.currentTime) {
+					envelope.gain.cancelScheduledValues(0);
+					envelope.gain.setTargetAtTime(0.00001, audioContext.currentTime, 0.1);
+					envelope.when = audioContext.currentTime + 0.00001;
+					envelope.duration = 0;
 				}
-				envelope.when = audioContext.currentTime + a;
-				envelope.duration = 0;
 			};
+			this.envelopes.push(envelope);
 		}
-		this.envelopes.push(envelope);
+
 		return envelope;
 	};
 	this.adjustPreset = function (preset) {

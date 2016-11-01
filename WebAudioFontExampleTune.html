@@ -1,10 +1,10 @@
 <html>
     <head>
         <script src='WebAudioFontPlayer.js'></script>
-        <script src='webaudiofont/128.35.Power_4616.js'></script>
-		<script src='webaudiofont/128.38.Standard_32_32_460.js'></script>
-		<script src='webaudiofont/128.42.Power_4616.js'></script>
-		<script src='webaudiofont/34.0.Picked_32Bs_46000070_461_460_45127.js'></script>
+        <script src='http://molgav.nn.ru/webaudiofont/128.35.Power_4616.js'></script>
+		<script src='http://molgav.nn.ru/webaudiofont/128.38.Standard_32_32_460.js'></script>
+		<script src='http://molgav.nn.ru/webaudiofont/128.42.Power_4616.js'></script>
+		<script src='http://molgav.nn.ru/webaudiofont/34.0.Picked_32Bs_46000070_461_460_45127.js'></script>
         <script>
 			var bpm = 120;
 			var L = 4 * 60 / bpm;
@@ -82,6 +82,7 @@
 				queueLater(pickedBassPreset, startTime + 13 / 8 * L, 12 * 2 + 4, 1 / 8 * L);
 				queueLater(pickedBassPreset, startTime + 14 / 8 * L, 12 * 2 + 5, 1 / 8 * L);
 				queueLater(pickedBassPreset, startTime + 15 / 8 * L, 12 * 2 + 7, 1 / 8 * L);
+				console.log('sent');
 			}
 			function queueLater(preset, when, pitch, duration) {
 				if (when > audioContext.currentTime) {
@@ -97,7 +98,7 @@
 					nextPiece();
 					startTime = startTime + pieceLen;
 					setInterval(function () {
-						if (audioContext.currentTime > startTime - 1 / 8 * L) {
+						if (audioContext.currentTime > startTime - 1 / 4 * L) {
 							nextPiece();
 							startTime = startTime + pieceLen;
 						}
