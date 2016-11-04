@@ -1,4 +1,4 @@
-console.log('WebAudioFont Player v1.18');
+console.log('WebAudioFont Player v1.19');
 function WebAudioFontPlayer() {
 	this.envelopes = [];
 	this.afterTime = 0.1;
