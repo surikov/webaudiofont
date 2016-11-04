@@ -111,12 +111,12 @@ function WebAudioFontPlayer() {
 
 		return envelope;
 	};
-	this.adjustPreset = function (preset) {
+	this.adjustPreset = function (audioContext, preset) {
 		for (var i = 0; i < preset.zones.length; i++) {
-			this.adjustZone(preset.zones[i]);
+			this.adjustZone(audioContext, preset.zones[i]);
 		}
 	};
-	this.adjustZone = function (zone) {
+	this.adjustZone = function (audioContext, zone) {
 		if (zone.buffer) {
 			//
 		} else {
@@ -144,7 +144,7 @@ function WebAudioFontPlayer() {
 				break;
 			}
 		}
-		this.adjustZone(zone);
+		this.adjustZone(audioContext, zone);
 		return zone;
 	};
 	this.cancelQueue = function (audioContext) {
