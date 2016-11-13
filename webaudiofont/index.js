@@ -61,7 +61,9 @@ var webAudioFontIndex=[
 	,{midi:18, drum:false, js:'18.0.Organ_323_32_32_32_32_32organ3_461_460_45127.js', name:'_tone_Organ_323_32_32_32_32_32organ3_461_460_45127'}
 	,{midi:18, drum:false, js:'18.0.Organ_323_32_32_32_32_32sorgan3_461_460_45127.js', name:'_tone_Organ_323_32_32_32_32_32sorgan3_461_460_45127'}
 	,{midi:19, drum:false, js:'19.0.Church_32Org_321churchorg1_461_460_45127.js', name:'_tone_Church_32Org_321churchorg1_461_460_45127'}
+	,{midi:19, drum:false, js:'19.0.Church_32Org_321churchorg1_461_460_45127_file.js', name:'_tone_Church_32Org_321churchorg1_461_460_45127_file'}
 	,{midi:19, drum:false, js:'19.0.Church_32Org_321schurchorgan_461_460_45127.js', name:'_tone_Church_32Org_321schurchorgan_461_460_45127'}
+	,{midi:19, drum:false, js:'19.0.Church_32Org_321schurchorgan_461_460_45127_file.js', name:'_tone_Church_32Org_321schurchorgan_461_460_45127_file'}
 	,{midi:19, drum:false, js:'19.0.Church_32Org_461000041_461_460_45127.js', name:'_tone_Church_32Org_461000041_461_460_45127'}
 	,{midi:19, drum:false, js:'19.16.Church_32Org_463000043_461_460_45127.js', name:'_tone_Church_32Org_463000043_461_460_45127'}
 	,{midi:19, drum:false, js:'19.8.Church_32Org_462000042_461_460_45127.js', name:'_tone_Church_32Org_462000042_461_460_45127'}
