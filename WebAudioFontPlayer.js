@@ -1,12 +1,17 @@
-console.log('WebAudioFont Player v1.19');
+console.log('WebAudioFont Player v1.38');
 function WebAudioFontPlayer() {
 	this.envelopes = [];
 	this.afterTime = 0.1;
 	this.nearZero = 0.000001;
-	this.queueWaveTable = function (audioContext, target, preset, when, pitch, duration, continuous) {
+	this.queueWaveTable = function (audioContext, target, preset, when, pitch, duration) {
 		var zone = this.findZone(audioContext, preset, pitch);
-		if (!continuous) {
-			continuous = !(zone.ahdsr);
+		if (!(zone.buffer)) {
+			console.log('empty buffer ', zone);
+			return;
+		}
+		var continuous=true;
+		if(zone.ahdsr){
+			continuous=false;
 		}
 		var baseDetune = zone.originalPitch - 100.0 * zone.coarseTune - zone.fineTune;
 		var playbackRate = 1.0 * Math.pow(2, (100.0 * pitch - baseDetune) / 1200.0);
@@ -50,11 +55,7 @@ function WebAudioFontPlayer() {
 		envelope.gain.exponentialRampToValueAtTime(this.nearZero, startWhen + waveDuration);
 		envelope.audioBufferSourceNode = audioContext.createBufferSource();
 		envelope.audioBufferSourceNode.playbackRate.value = playbackRate;
-		if (zone.buffer) {
-			envelope.audioBufferSourceNode.buffer = zone.buffer;
-		} else {
-			console.log('empty buffer ', zone);
-		}
+		envelope.audioBufferSourceNode.buffer = zone.buffer;
 		if (zone.loopStart > 10 && zone.loopStart < zone.loopEnd) {
 			envelope.audioBufferSourceNode.loop = true;
 			envelope.audioBufferSourceNode.loopStart = zone.loopStart / zone.sampleRate;
@@ -66,7 +67,7 @@ function WebAudioFontPlayer() {
 		envelope.audioBufferSourceNode.start(startWhen);
 		envelope.audioBufferSourceNode.stop(startWhen + waveDuration);
 		envelope.when = startWhen;
-		envelope.duration = waveDuration+0.1;
+		envelope.duration = waveDuration + 0.1;
 		envelope.pitch = pitch;
 		envelope.preset = preset;
 		return envelope;
@@ -125,6 +126,23 @@ function WebAudioFontPlayer() {
 				var float32Array = zone.buffer.getChannelData(0);
 				for (var i = 0; i < zone.sample.length; i++) {
 					float32Array[i] = zone.sample[i] / 65536.0;
+				}
+			} else {
+				if (zone.file) {
+					var datalen = zone.file.length / 2;
+					var arraybuffer = new ArrayBuffer(datalen);
+					var view = new Uint8Array(arraybuffer);
+					var s = zone.file.substr(0, 2);
+					var n = parseInt(s, 16);
+					view[0] = n;
+					for (var i = 1; i < datalen; i++) {
+						s = zone.file.substr(i * 2, 2);
+						n = parseInt(s, 16);
+						view[i] = n;
+					}
+					audioContext.decodeAudioData(arraybuffer, function (buffer) {
+						zone.buffer = buffer;
+					});
 				}
 			}
 			zone.loopStart = this.numValue(zone.loopStart, 0);
