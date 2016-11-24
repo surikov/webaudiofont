@@ -1,9 +1,14 @@
-console.log('WebAudioFont Player v1.38');
+console.log('WebAudioFont Player v1.42');
 function WebAudioFontPlayer() {
 	this.envelopes = [];
 	this.afterTime = 0.1;
 	this.nearZero = 0.000001;
-	this.queueWaveTable = function (audioContext, target, preset, when, pitch, duration) {
+	this.queueWaveTable = function (audioContext, target, preset, when, pitch, duration,volume,slides) {
+		if(volume){
+			volume=1.0*volume;
+		}else{
+			volume=1.0;
+		}
 		var zone = this.findZone(audioContext, preset, pitch);
 		if (!(zone.buffer)) {
 			console.log('empty buffer ', zone);
@@ -21,7 +26,7 @@ function WebAudioFontPlayer() {
 			startWhen = audioContext.currentTime;
 		}
 		var waveDuration = duration + this.afterTime;
-		if (zone.loopStart < 10 || zone.loopStart >= zone.loopEnd) {
+		if (zone.loopStart < 1 || zone.loopStart >= zone.loopEnd) {
 			if (waveDuration > zone.buffer.duration / playbackRate) {
 				waveDuration = zone.buffer.duration / playbackRate;
 			}
@@ -33,19 +38,19 @@ function WebAudioFontPlayer() {
 		var h = 0.25;
 		var d = 0.75;
 		var s = 5.1;
-		envelope.gain.exponentialRampToValueAtTime(1, startWhen + a);
+		envelope.gain.exponentialRampToValueAtTime(volume, startWhen + a);
 		if (waveDuration < h) {
-			envelope.gain.linearRampToValueAtTime(1, startWhen + 7 * waveDuration / 8 - a);
+			envelope.gain.linearRampToValueAtTime(volume, startWhen + 7 * waveDuration / 8 - a);
 		} else {
 			if (continuous) {
-				envelope.gain.linearRampToValueAtTime(1, startWhen + waveDuration - this.afterTime);
+				envelope.gain.linearRampToValueAtTime(volume, startWhen + waveDuration - this.afterTime);
 			} else {
 				if (waveDuration + this.afterTime < d) {
-					envelope.gain.linearRampToValueAtTime(0.3, startWhen + waveDuration - this.afterTime);
+					envelope.gain.linearRampToValueAtTime(volume*0.3, startWhen + waveDuration - this.afterTime);
 				} else {
-					envelope.gain.linearRampToValueAtTime(0.3, startWhen + d - this.afterTime);
+					envelope.gain.linearRampToValueAtTime(volume*0.3, startWhen + d - this.afterTime);
 					if (waveDuration < s) {
-						envelope.gain.linearRampToValueAtTime(0.1, startWhen + waveDuration - this.afterTime);
+						envelope.gain.linearRampToValueAtTime(volume*0.1, startWhen + waveDuration - this.afterTime);
 					} else {
 						envelope.gain.linearRampToValueAtTime(this.nearZero, startWhen + waveDuration - this.afterTime);
 					}
@@ -55,8 +60,14 @@ function WebAudioFontPlayer() {
 		envelope.gain.exponentialRampToValueAtTime(this.nearZero, startWhen + waveDuration);
 		envelope.audioBufferSourceNode = audioContext.createBufferSource();
 		envelope.audioBufferSourceNode.playbackRate.value = playbackRate;
+		if(slides){
+			for(var i=0;i<slides.length;i++){
+				var newPlaybackRate = 1.0 * Math.pow(2, (100.0 * slides[i].pitch - baseDetune) / 1200.0);
+				envelope.audioBufferSourceNode.playbackRate.linearRampToValueAtTime(newPlaybackRate, when + slides[i].when);
+			}
+		}
 		envelope.audioBufferSourceNode.buffer = zone.buffer;
-		if (zone.loopStart > 10 && zone.loopStart < zone.loopEnd) {
+		if (zone.loopStart > 1 && zone.loopStart < zone.loopEnd) {
 			envelope.audioBufferSourceNode.loop = true;
 			envelope.audioBufferSourceNode.loopStart = zone.loopStart / zone.sampleRate;
 			envelope.audioBufferSourceNode.loopEnd = zone.loopEnd / zone.sampleRate;
@@ -70,6 +81,8 @@ function WebAudioFontPlayer() {
 		envelope.duration = waveDuration + 0.1;
 		envelope.pitch = pitch;
 		envelope.preset = preset;
+		//envelope.audioBufferSourceNode.loopStart=0;
+		//console.log(envelope);
 		return envelope;
 	};
 	this.numValue = function (aValue, defValue) {
@@ -140,8 +153,8 @@ function WebAudioFontPlayer() {
 						n = parseInt(s, 16);
 						view[i] = n;
 					}
-					audioContext.decodeAudioData(arraybuffer, function (buffer) {
-						zone.buffer = buffer;
+					audioContext.decodeAudioData(arraybuffer, function (audioBuffer) {
+						zone.buffer=audioBuffer;
 					});
 				}
 			}
