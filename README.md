@@ -89,7 +89,7 @@ Each instrument consists of one or more zones, each zone has own properties for 
 - 'sample' is an array of 16bit values with PCM data
 - 'file' is a string with HEX numbers of any supported audio file
 
-You need to add *<body onload='player.adjustPreset(audioContext,selectedPreset);'>* for compressed sounds to avoid delay of sample data parsing.
+You need to add <body onload='player.adjustPreset(audioContext,selectedPreset);'> for compressed sounds to avoid delay of sample data parsing.
 
 Some wavetables uses loops and [AHDSR volume](https://www.google.ru/search?q=ahdsr).
 
