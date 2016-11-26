@@ -12,14 +12,9 @@
 			var initialRate=1;
 			var ratio=1;
 			function startCar(){
-				//if(started){
-					//console.log('started already');
-				//}else{
 					started=true;
 					envelope=player.queueWaveTable(audioContext, audioContext.destination, selectedPreset, 0, 12*4+0, 999,true);
 					initialRate=envelope.audioBufferSourceNode.playbackRate.value;
-					//showRace();
-				//}
 			}
 			function faster(){
 				if(!started){
@@ -77,6 +72,6 @@
 		<p id="r1" style="display:none;"><img src="img/race1.gif"></p>
 		<p id="r2" style="display:none;"><img src="img/race2.gif"></p>
 		<hr/>
-		<p><a href="WebAudioFontExampleAll.html">back</a></p>
+		<p><a href="https://github.com/surikov/webaudiofont">source</a></p>
     </body>
 </html>

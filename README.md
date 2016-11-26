@@ -1,4 +1,4 @@
-# WebAudioFont
+# WebAudioFont v1.43
 
 WebAudioFont is a set of resources and associated technology that uses sample-based synthesis to play musical instruments in browser.
 
@@ -8,6 +8,7 @@ WebAudioFont is a set of resources and associated technology that uses sample-ba
 - Metadata that describe how to play sounds
 - WebAudioFontPlayer.js that uses metadata and sounds for playing instruments
 - [Catalog of available sounds](http://molgav.nn.ru/webaudiofont/index.html)
+- [Catalog of compressed sounds](http://molgav.nn.ru/compress/index.html)
 
 ### Underlaying technology
 
@@ -78,18 +79,23 @@ var _tone_Harp000087_461_460_45127={
 			,originalPitch:7001
 			,keyRangeLow:63
 			,keyRangeHigh:76
-			,...
+			,file:'4f67675300020
 ```
 
 It creates object and assigns it to a global variable.
 
 Each instrument consists of one or more zones, each zone has own properties for wavetable. Files contains of array with audio data. You can use instruments locally without [CORS problem](https://www.google.ru/search?q=cors+problem).
 
+- 'sample' is an array of 16bit values with PCM data
+- 'file' is a string with HEX numbers of any supported audio file
+
+You need to add *<body onload='player.adjustPreset(audioContext,selectedPreset);'>* for compressed sounds to avoid delay of sample data parsing.
+
 Some wavetables uses loops and [AHDSR volume](https://www.google.ru/search?q=ahdsr).
 
 ## Player
 
-WebAudioFontPlayer has function queueWaveTable (audioContext, target, preset, when, pitch, duration, continuous)
+WebAudioFontPlayer has function queueWaveTable (audioContext, target, preset, when, pitch, duration, volume, slides)
 
 Parameters:
 
@@ -99,7 +105,8 @@ Parameters:
 - when - when to play, audioContext.currentTime or 0 to play now, audioContext.currentTime + 3 to play after 3 seconds
 - pitch - note pitch from 0 to 127, for example 2+12*4 to play D of fourth octave (use MIDI key for drums)
 - duration - note duration in seconds, for example 4 to play 4 seconds
-- continuous - true to ignore AHDSR
+- volume - 0.0-1.0 volume
+- slides - array of pitch bends
 
 Function queueWaveTable returns envelope object. You can use this object to cancel sound or access to AudioBufferSourceNode.
 
@@ -114,8 +121,12 @@ Function queueWaveTable returns envelope object. You can use this object to canc
 - [WebAudioFontExampleFx.html](http://molgav.nn.ru/WebAudioFontExampleFx.html) - sound slides from one pitch to another one. This example shows how to access AudioBufferSourceNode of played note.
 - [WebAudioFontExampleTune.html](http://molgav.nn.ru/WebAudioFontExampleTune.html) - music loop. This example shows how to create and modify music in realtime.
 - [WebAudioFontExampleTune2.html](http://molgav.nn.ru/WebAudioFontExampleTune2.html) - music loop. This example shows how to code music.
-- [WebAudioFontExampleTouch.html](http://molgav.nn.ru/WebAudioFontExampleTouch.html) - multitouch beatpad. This example shows how to optimize application for mobile devices.
+- [WebAudioFontExampleTune3.html](http://molgav.nn.ru/WebAudioFontExampleTune3.html) - music loop. This example shows how to code music.
+- [WebAudioFontExampleTune4.html](http://molgav.nn.ru/WebAudioFontExampleTune4.html) - music loop. This example shows how to code music with compressed samples.
+- [WebAudioFontExampleTouch.html](http://molgav.nn.ru/WebAudioFontExampleTouc5.html) - multitouch beatpad. This example shows how to optimize application for mobile devices.
 - [WebAudioFontExampleSelector.html](http://molgav.nn.ru/WebAudioFontExampleSelector.html) - preset selector. This example shows how to load JS presets dynamically.
+- [WebAudioFontExampleBend.html](http://molgav.nn.ru/WebAudioFontExampleBend.html) - music loop. This example shows how to use pitch bend.
+- [WebAudioFontExampleMIDI.html](http://molgav.nn.ru/WebAudioFontExampleMIDI.html) - music loop. This example shows how to catch MIDI events.
 - [https://jsbin.com/zabike/edit?html,output](https://jsbin.com/zabike/edit?html,output) - music loop. This example shows how to exchange code.
 
 

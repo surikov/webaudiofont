@@ -1,50 +1,50 @@
 <html>
 	<head>
-		<script src='https://cdn.rawgit.com/surikov/webaudiofont/master/WebAudioFontPlayer.js'></script>
-		<script src='https://cdn.rawgit.com/surikov/webaudiofont/master/webaudiofont/33.0.Fingered_32Bs_46000069_461_460_45127.js'></script>
-		<script src='https://cdn.rawgit.com/surikov/webaudiofont/master/webaudiofont/128.36.Jazz_4632.js'></script>
-		<script src='https://cdn.rawgit.com/surikov/webaudiofont/master/webaudiofont/128.38.Standard_32_32_460.js'></script>
-		<script src='https://cdn.rawgit.com/surikov/webaudiofont/master/webaudiofont/128.42.Power_4616.js'></script>
-		<script src='https://cdn.rawgit.com/surikov/webaudiofont/master/webaudiofont/30.0.DistortionGt000064_461_460_45127.js'></script>
+		<script src='WebAudioFontPlayer.js'></script>
+		<script src='webaudiofont/39.16.Rubber_32Bass000079_461_460_45127.js'></script>
+		<script src='webaudiofont/128.36.Jazz_4632.js'></script>
+		<script src='webaudiofont/128.38.Standard_32_32_460.js'></script>
+		<script src='webaudiofont/128.42.Power_4616.js'></script>
+		<script src='webaudiofont/51.0.Synth_32Str_322_32synstrings2_461_460_45127.js'></script>
+		<script src='webaudiofont/128.46.Standard_32_32_460.js'></script>
+		<script src='webaudiofont/55.0.Orchestra_32Htorchestrahit_461_460_45127.js'></script>
 		<script>
 			var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
 			var audioContext = new AudioContextFunc();
 			var player = new WebAudioFontPlayer();
+			var gainDrums = audioContext.createGain();gainDrums.connect(audioContext.destination);gainDrums.gain.value=0.9;
+			var gainSynth = audioContext.createGain();gainSynth.connect(audioContext.destination);gainSynth.gain.value=0.5;
+			var gainBass = audioContext.createGain();gainBass.connect(audioContext.destination);gainBass.gain.value=1.0;
+			var gainHit = audioContext.createGain();gainHit.connect(audioContext.destination);gainHit.gain.value=0.9;
 			var bpm = 120;
 			var N = 4 * 60 / bpm;
 			var pieceLen = 4 * N;
-			var beatLen=1/8 * N;
-			var C = 0;
-			var c = 1;
-			var D = 2;
-			var d = 3;
-			var E = 4;
-			var F = 5;
-			var f = 6;
-			var G = 7;
-			var g = 8;
-			var A = 9;
-			var a = 10;
-			var B = 11;
+			var beatLen=1/16 * N;
+			var C2 = 0+12*2, c2 = 1+12*2, D2 = 2+12*2, d2 = 3+12*2, E2 = 4+12*2, F2 = 5+12*2, f2 = 6+12*2, G2 = 7+12*2, g2 = 8+12*2, A2 = 9+12*2, a2 = 10+12*2, B2 = 11+12*2;
+			var C3 = 0+12*3, c3 = 1+12*3, D3 = 2+12*3, d3 = 3+12*3, E3 = 4+12*3, F3 = 5+12*3, f3 = 6+12*3, G3 = 7+12*3, g3 = 8+12*3, A3 = 9+12*3, a3 = 10+12*3, B3 = 11+12*3;
+			var C4 = 0+12*4, c4 = 1+12*4, D4 = 2+12*4, d4 = 3+12*4, E4 = 4+12*4, F4 = 5+12*4, f4 = 6+12*4, G4 = 7+12*4, g4 = 8+12*4, A4 = 9+12*4, a4 = 10+12*4, B4 = 11+12*4;
+			var C5 = 0+12*5, c5 = 1+12*5, D5 = 2+12*5, d5 = 3+12*5, E5 = 4+12*5, F5 = 5+12*5, f5 = 6+12*5, G5 = 7+12*5, g5 = 8+12*5, A5 = 9+12*5, a5 = 10+12*5, B5 = 11+12*5;
+			var C6 = 0+12*6, c6 = 1+12*6, D6 = 2+12*6, d6 = 3+12*6, E6 = 4+12*6, F6 = 5+12*6, f6 = 6+12*6, G6 = 7+12*6, g6 = 8+12*6, A6 = 9+12*6, a6 = 10+12*6, B6 = 11+12*6;
 			var started = false;
 			var startTime = 0;
-			function guitar(pitch, duration){return {preset:_tone_DistortionGt000064_461_460_45127,pitch:12*4+pitch,duration:duration*N};}
-			function bass(pitch, duration){return {preset:_tone_Fingered_32Bs_46000069_461_460_45127,pitch:12*2+pitch,duration:duration*N};}
-			function drum(){return {preset:_drum_Jazz_4632_36,pitch:36,duration:1};}
-			function snare(){return {preset:_drum_Standard_32_32_460_38,pitch:38,duration:1};}
-			function hihat(){return {preset:_drum_Power_4616_42,pitch:42,duration:1};}
-			function beats(notes) {
+			function orchestra(pitch, duration){return {gain:gainHit,preset:_tone_Orchestra_32Htorchestrahit_461_460_45127,pitch:pitch,duration:duration*N};}
+			function synth(pitch, duration){return {gain:gainSynth,preset:_tone_Synth_32Str_322_32synstrings2_461_460_45127,pitch:pitch,duration:duration*N};}
+			function bass(pitch, duration){return {gain:gainBass,preset:_tone_Rubber_32Bass000079_461_460_45127,pitch:pitch,duration:duration*N};}
+			function drum(){return {gain:gainDrums,preset:_drum_Jazz_4632_36,pitch:36,duration:1};}
+			function snare(){return {gain:gainDrums,preset:_drum_Standard_32_32_460_38,pitch:38,duration:1};}
+			function hihat(){return {gain:gainDrums,preset:_drum_Power_4616_42,pitch:42,duration:1};}
+			function open(){return {gain:gainDrums,preset:_drum_Standard_32_32_460_46,pitch:46,duration:1};}
+			function nextPiece() {
 				for (var n = 0; n < notes.length; n++) {
 					var beat = notes[n];
 					for (var i = 0; i < beat.length; i++) {
 						if (beat[i]) {
-							player.queueWaveTable(audioContext, audioContext.destination, beat[i].preset, startTime + n * beatLen , beat[i].pitch, beat[i].duration);
+							player.queueWaveTable(audioContext, beat[i].gain, beat[i].preset, startTime + n * beatLen , beat[i].pitch, beat[i].duration);
 						}
 					}
 				}
 			}
 			function start() {
-				//console.log(loop);
 				if (started) {
 					console.log('started already');
 				} else {
@@ -60,53 +60,78 @@
 					}, 20);
 				}
 			}
-			function nextPiece() {
-				beats([
-////////////////////////////////////////////////////////////////////////////////////				
- [guitar(D,1/8),guitar(G,1/8),	bass(G,1/8),	drum(),				hihat()]
-,[								bass(G,1/8),	drum(),				hihat()]
-,[guitar(F,1/8),guitar(a,1/8),	bass(G,1/8),			snare(),	hihat()]
-,[								bass(G,1/8),						hihat()]
-,[guitar(G,1/4),guitar(C,1/4),	bass(G,1/8),	drum(),				hihat()]
-,[								bass(G,1/8),						hihat()]
-,[guitar(G,1/16),				bass(G,1/8),			snare(),	hihat()]
-,[guitar(D,1/8),guitar(G,1/8),	bass(G,1/8),						hihat()]
-,[								bass(G,1/8),	drum(),				hihat()]
-,[guitar(F,1/8),guitar(a,1/8),	bass(G,1/8),	drum(),				hihat()]
-,[								bass(G,1/8),			snare(),	hihat()]
-,[guitar(g,1/8),guitar(c,1/8),	bass(G,1/8),						hihat()]
-,[guitar(G,1/4),guitar(C,1/4),	bass(G,1/8),	drum(),				hihat()]
-,[								bass(G,1/8),						hihat()]
-,[guitar(G,1/16),				bass(G,1/8),			snare(),	hihat()]
-,[								bass(G,1/8),						hihat()]
-,[guitar(D,1/8),guitar(G,1/8),	bass(G,1/8),	drum(),				hihat()]
-,[								bass(G,1/8),	drum(),				hihat()]
-,[guitar(F,1/8),guitar(a,1/8),	bass(G,1/8),			snare(),	hihat()]
-,[								bass(G,1/8),						hihat()]
-,[guitar(G,1/8),guitar(C,1/8),	bass(C,1/8),	drum(),				hihat()]
-,[								bass(C,1/8),						hihat()]
-,[guitar(G,1/16),				bass(C,1/8),			snare(),	hihat()]
-,[guitar(F,1/8),guitar(a,1/8),	bass(a,1/4),						hihat()]
-,[												drum(),				hihat()]
-,[guitar(D,5/8),guitar(G,5/8),	bass(G,1/8),	drum(),				hihat()]
-,[								bass(G,1/8),			snare(),	hihat()]
-,[								bass(G,1/8),						hihat()]
-,[								bass(G,1/8),	drum(),				hihat()]
-,[								bass(G,1/8),			snare(),	hihat()]
-,[guitar(G,1/16),				bass(F,1/8),			snare(),	hihat()]
-,[								bass(f,1/8),			snare(),	hihat()]
-////////////////////////////////////////////////////////////////////////////////////
-				]);
-			}
-			var loop=[
-				['synth1','1234567890123456789.1234567890123456789.1234567890123456789.1*1234567890123456789.1234567890123456789.1234567890123456789.1*1234567890123456789.1234567890123456789.1234567890123456789.1*']
-				,['snare']
-			];
+var notes=[
+ [hihat(),drum(),        bass(C3,1/16),orchestra(C5,1/4),synth(C3,1/1),synth(C4,1/1),synth(G3,1/1),synth(C5,1/2),synth(d5,3/8)]//1/16
+,[hihat()                                                                                                                     ]
+,[open(),                bass(C3,1/16)                                                                                        ]
+,[                       bass(C3,1/16)                                                                                        ]
+,[hihat(),drum(),snare(),bass(C3,1/16)                                                                                        ]
+,[hihat(),               bass(C3,1/16)                                                                                        ]
+,[open(),                bass(C3,1/16),                  synth(D5,1/8)                                                        ]
+,[                       bass(C3,1/16)                                                                                        ]
+,[hihat(),drum(),        bass(C3,1/16),                  synth(C5,1/8)                                                        ]
+,[hihat(),               bass(C3,1/16),                  synth(C3,1/1)                                                        ]
+,[open(),                                                synth(D5,1/8)                                                        ]
+,[                       bass(C3,1/16)                                                                                        ]
+,[hihat(),drum(),snare(),bass(C3,1/16),                  synth(d5,1/8)                                                        ]
+,[hihat(),               bass(C3,1/16)                                                                                        ]
+,[open(),                bass(C3,1/16),orchestra(G4,1/8),synth(G5,1/8)                                                        ]
+,[                       bass(C3,1/16)                                                                                        ]
+,[hihat(),drum(),        bass(G2,1/16),orchestra(a5,1/4),synth(G3,1/1),synth(G4,1/1),synth(D5,3/1),synth(a5,3/8)              ]//16/16
+,[hihat()                                                                                                                     ]
+,[open(),                bass(G2,1/16)                                                                                        ]
+,[                       bass(G2,1/16)                                                                                        ]
+,[hihat(),drum(),snare(),bass(G2,1/16)                                                                                        ]
+,[hihat(),               bass(G2,1/16)                                                                                        ]
+,[open(),                bass(G2,1/16),                  synth(A5,1/8)                                                        ]
+,[                       bass(G2,1/16)                                                                                        ]
+,[hihat(),drum(),        bass(G2,1/16),                  synth(G5,1/8)                                                        ]
+,[hihat(),               bass(G2,1/16)                                                                                        ]
+,[open(),                bass(G2,1/16),                  synth(A5,1/8)                                                        ]
+,[                       bass(G2,1/16)                                                                                        ]
+,[hihat(),drum(),snare(),bass(G2,1/16),                  synth(a5,1/8)                                                        ]
+,[hihat(),               bass(G2,1/16)                                                                                        ]
+,[open(),                bass(G2,1/16),orchestra(d5,1/8),synth(D6,1/8)                                                        ]
+,[                       bass(G2,1/16)                                                                                        ]
+,[hihat(),drum(),        bass(a2,1/16),orchestra(F5,1/1),synth(a3,2/1),synth(a4,2/1),synth(F5,2/1),synth(F6,2/1)              ]//32/16
+,[hihat()                                                                                                                     ]
+,[open(),                bass(a2,1/16)                                                                                        ]
+,[                       bass(a2,1/16)                                                                                        ]
+,[hihat(),drum(),snare(),bass(a2,1/16)                                                                                        ]
+,[hihat(),               bass(a2,1/16)                                                                                        ]
+,[open(),                bass(a2,1/16)                                                                                        ]
+,[                       bass(a2,1/16)                                                                                        ]
+,[hihat(),drum(),        bass(a2,1/16)                                                                                        ]
+,[hihat(),               bass(a2,1/16)                                                                                        ]
+,[open(),                bass(a2,1/16)                                                                                        ]
+,[                       bass(a2,1/16)                                                                                        ]
+,[hihat(),drum(),snare(),bass(a2,1/16)                                                                                        ]
+,[hihat(),               bass(a2,1/16)                                                                                        ]
+,[open(),                bass(a2,1/16)                                                                                        ]
+,[                       bass(a2,1/16)                                                                                        ]
+,[hihat(),drum(),        bass(a2,1/16)                                                                                        ]//48/16
+,[hihat()]
+,[open(),                bass(a2,1/16)                                                                                        ]
+,[                       bass(a2,1/16)                                                                                        ]
+,[hihat(),drum(),snare(),bass(a2,1/16)                                                                                        ]
+,[hihat(),               bass(a2,1/16)                                                                                        ]
+,[open(),                bass(a2,1/16)                                                                                        ]
+,[                       bass(a2,1/16)                                                                                        ]
+,[hihat(),drum(),        bass(a2,1/16)                                                                                        ]
+,[hihat(),               bass(a2,1/16)                                                                                        ]
+,[open(),                bass(a2,1/16)                                                                                        ]
+,[                       bass(a2,1/16)                                                                                        ]
+,[hihat(),drum(),snare(),bass(a2,1/16)                                                                                        ]
+,[hihat(),               bass(a2,1/16)                                                                                        ]
+,[open(),                bass(a2,1/16)                                                                                        ]
+,[                       bass(a2,1/16)                                                                                        ]
+];
+
 		</script>
 	</head>
 	<body>
-		<p><a href="#" onmousedown="start();">start</a> <i>(see <a href="https://github.com/surikov/webaudiofont">WebAudioFont</a> for help)</i>.</p>
+		<p><a href="#" onmousedown="start();">start</a> example 3</p>
 		<hr/>
-		<p><a href="WebAudioFontExampleAll.html">back</a></p>
+		<p><a href="https://github.com/surikov/webaudiofont">source</a></p>
 	</body>
 </html>

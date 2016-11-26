@@ -1,4 +1,4 @@
-console.log('WebAudioFont Player v1.42');
+console.log('WebAudioFont Player v1.43');
 function WebAudioFontPlayer() {
 	this.envelopes = [];
 	this.afterTime = 0.1;
@@ -61,9 +61,13 @@ function WebAudioFontPlayer() {
 		envelope.audioBufferSourceNode = audioContext.createBufferSource();
 		envelope.audioBufferSourceNode.playbackRate.value = playbackRate;
 		if(slides){
-			for(var i=0;i<slides.length;i++){
-				var newPlaybackRate = 1.0 * Math.pow(2, (100.0 * slides[i].pitch - baseDetune) / 1200.0);
-				envelope.audioBufferSourceNode.playbackRate.linearRampToValueAtTime(newPlaybackRate, when + slides[i].when);
+			if(slides.length>0){
+				envelope.audioBufferSourceNode.playbackRate.setValueAtTime(playbackRate, when);
+				for(var i=0;i<slides.length;i++){
+					var newPlaybackRate = 1.0 * Math.pow(2, (100.0 * slides[i].pitch - baseDetune) / 1200.0);
+					var newWhen=when + slides[i].when;
+					envelope.audioBufferSourceNode.playbackRate.linearRampToValueAtTime(newPlaybackRate, newWhen);
+				}
 			}
 		}
 		envelope.audioBufferSourceNode.buffer = zone.buffer;
@@ -81,8 +85,6 @@ function WebAudioFontPlayer() {
 		envelope.duration = waveDuration + 0.1;
 		envelope.pitch = pitch;
 		envelope.preset = preset;
-		//envelope.audioBufferSourceNode.loopStart=0;
-		//console.log(envelope);
 		return envelope;
 	};
 	this.numValue = function (aValue, defValue) {
