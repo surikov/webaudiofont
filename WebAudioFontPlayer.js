@@ -124,7 +124,6 @@ function WebAudioFontPlayer() {
 			};
 			this.envelopes.push(envelope);
 		}
-
 		return envelope;
 	};
 	this.adjustPreset = function (audioContext, preset) {

@@ -2,7 +2,6 @@
 	<head>
 		<script src='WebAudioFontPlayer.js'></script>
 		<script src='compress/25.0.Good_Acoustic_GuitaGood_Acoustic_Guita_461_46101_45120_file.js'></script>
-		<script src='webaudiofont/master/webaudiofont/30.0.DistortionGt000064_461_460_45127.js'></script>
 		<script>
 			var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
 			var audioContext = new AudioContextFunc();
@@ -74,12 +73,20 @@
 					startTime = audioContext.currentTime + 0.1;
 					nextPiece();
 					startTime = startTime + pieceLen;
-					setInterval(function () {
+					var scriptProcessorNode = audioContext.createScriptProcessor(1024, 1, 1);
+					scriptProcessorNode.onaudioprocess = function (audioProcessingEvent) {
 						if (audioContext.currentTime > startTime - 1 / 4 * N) {
 							nextPiece();
 							startTime = startTime + pieceLen;
 						}
-					}, 20);
+					};
+					scriptProcessorNode.connect(audioContext.destination);
+					/*setInterval(function () {
+						if (audioContext.currentTime > startTime - 1 / 4 * N) {
+							nextPiece();
+							startTime = startTime + pieceLen;
+						}
+					}, 20);*/
 				}
 			}
 			function nextPiece() {
