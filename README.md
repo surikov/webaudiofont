@@ -122,7 +122,7 @@ Function queueWaveTable returns envelope object. You can use this object to canc
 - [WebAudioFontExampleTune.html](http://molgav.nn.ru/WebAudioFontExampleTune.html) - music loop. This example shows how to create and modify music in realtime.
 - [WebAudioFontExampleTune2.html](http://molgav.nn.ru/WebAudioFontExampleTune2.html) - music loop. This example shows how to code music.
 - [WebAudioFontExampleTune3.html](http://molgav.nn.ru/WebAudioFontExampleTune3.html) - music loop. This example shows how to code music.
-- [WebAudioFontExampleTune4.html](http://molgav.nn.ru/WebAudioFontExampleTune4.html) - music loop. This example shows how to code music with compressed samples.
+- [WebAudioFontExampleTune4.html](http://molgav.nn.ru/WebAudioFontExampleTune4.html) - music loop. This example shows how to code music with compressed samples and focusless timeout.
 - [WebAudioFontExampleTouch.html](http://molgav.nn.ru/WebAudioFontExampleTouch.html) - multitouch beatpad. This example shows how to optimize application for mobile devices.
 - [WebAudioFontExampleSelector.html](http://molgav.nn.ru/WebAudioFontExampleSelector.html) - preset selector. This example shows how to load JS presets dynamically.
 - [WebAudioFontExampleBend.html](http://molgav.nn.ru/WebAudioFontExampleBend.html) - music loop. This example shows how to use pitch bend.
