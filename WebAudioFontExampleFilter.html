@@ -1,14 +1,10 @@
 <html>
 	<head>
-		<script src='WebAudioFontPlayer.js'></script>
-		<script src='compress/29.0.Les_32TrippleOpenTones_461_4690_45127_file.js'></script>
-		<script src='compress/28.0.Les_32MuteMuted_32Tones_461_460_45127_file.js'></script>
-		<script src='compress/34.0.Picked_32BassPicked_32Bass_461_460_45127_file.js'></script>
-		<script src='compress/128.35.Drum_32_91Power_93_4616_file.js'></script>
-		<script src='compress/128.38.Drum_32_91Power_93_4616_file.js'></script>
-		<script src='compress/128.42.Drum_32_91Power_93_4616_file.js'></script>
-		<script src='compress/27.0.Clean_32GuitarClean_32Guitar_461_460_45127_file.js'></script>
-		<script src='compress/28.0.Guitar_32MutesMuted_32Gtr_32_45SC88P_461_460_45127_file.js'></script>
+		<script src='http://molgav.nn.ru/WebAudioFontPlayer.js'></script>
+		<script src='http://molgav.nn.ru/compress/29.0.Les_32TrippleOpenTones_461_4690_45127_file.js'></script>
+		<script src='http://molgav.nn.ru/compress/28.0.Les_32MuteMuted_32Tones_461_460_45127_file.js'></script>
+		<script src='http://molgav.nn.ru/compress/27.0.Clean_32GuitarClean_32Guitar_461_460_45127_file.js'></script>
+		<script src='http://molgav.nn.ru/compress/28.0.Guitar_32MutesMuted_32Gtr_32_45SC88P_461_460_45127_file.js'></script>
 		<script>
 			var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
 			var audioContext = new AudioContextFunc();
@@ -17,68 +13,30 @@
 			player.adjustPreset(audioContext,_tone_Clean_32GuitarClean_32Guitar_461_460_45127_file);
 			player.adjustPreset(audioContext,_tone_Les_32MuteMuted_32Tones_461_460_45127_file);
 			player.adjustPreset(audioContext,_tone_Guitar_32MutesMuted_32Gtr_32_45SC88P_461_460_45127_file);
-			player.adjustPreset(audioContext,_tone_Picked_32BassPicked_32Bass_461_460_45127_file);
-			player.adjustPreset(audioContext,_drum_Drum_32_91Power_93_4616_file_35);
-			player.adjustPreset(audioContext,_drum_Drum_32_91Power_93_4616_file_38);
-			player.adjustPreset(audioContext,_drum_Drum_32_91Power_93_4616_file_42);
 			//*************************************************************************************************
-			var inputNode = audioContext.createGain();
+			var inputCleanNode = audioContext.createGain();
+			inputCleanNode.gain.value=0.5;
 			var waveShaper = audioContext.createWaveShaper();
-			//waveShaper.curve = makeDistortionCurve(640);
-			//waveShaper.curve = classicDistorsion(640);
-			waveShaper.curve = classicDistorsion2(50);
-			var cleanGain = audioContext.createGain();
-			var mixGain = audioContext.createGain();
-			var distortGain = audioContext.createGain();
-			inputNode.connect(waveShaper);
-			inputNode.connect(cleanGain);
-			cleanGain.connect(mixGain);
-			waveShaper.connect(distortGain);
-			distortGain.connect(mixGain);
-			//mixGain.connect(audioContext.destination);
-			/*
-			var compressor=audioContext.createDynamicsCompressor();
-			compressor.threshold.value = -50;
-			compressor.knee.value = 40;
-			compressor.ratio.value = 12;
-			compressor.reduction.value = -10;
-			compressor.attack.value = 0;
-			compressor.release.value = 0.25;
-			mixGain.connect(compressor);
-			compressor.connect(audioContext.destination);
-			*/
-			mixGain.connect(audioContext.destination);
-			cleanGain.gain.value=0.5;
-			distortGain.gain.value=0.00001;
-			function makeDistortionCurve(k) {
-				var n_samples = 44100; //65536; //22050;     //44100
-				var curve = new Float32Array(n_samples);
-				var deg = Math.PI / 180;
-				for (var i = 0; i < n_samples; i += 1) {
-					var x = i * 2 / n_samples - 1;
-					curve[i] = (3 + k) * x * 20 * deg / (Math.PI + k * Math.abs(x));
+			waveShaper.curve = noDistorsion();
+			waveShaper.oversample='4x';
+			inputCleanNode.connect(waveShaper);
+			waveShaper.connect(audioContext.destination);
+			//
+			var inputOverNode = audioContext.createGain();
+			inputOverNode.connect(audioContext.destination);
+			inputOverNode.gain.value=0.5;
+			function noDistorsion() {
+				return new Float32Array([-1,0,1]);
+			};
+			function simpleDistortion() {
+				var k=50;
+				var len = 99;
+				var float32Array = new Float32Array(len);
+				for (var i = 0; i < len; i++) {
+					var x = i * 2 / len - 1;
+					float32Array[i] = (3 + k) * x * 20 * (Math.PI / 180) / (Math.PI + k * Math.abs(x));
 				}
-				return curve;
-			}
-			function classicDistorsion(k) {
-				var n_samples = 44100;
-				var curve = new Float32Array(n_samples);
-				var deg = Math.PI / 180;
-				for (var i=0; i < n_samples; ++i) {
-					var x = i * 2 / n_samples - 1;
-					curve[i] = (3 + k) * x * 57 * deg / (Math.PI + k * Math.abs(x));
-				}
-				return curve;
-			}
-			function classicDistorsion2(k) {
-				var n_samples = 44100;
-				var curve = new Float32Array(n_samples);
-				var deg = Math.PI / 180;
-				for (var i=0; i < n_samples; ++i) {
-					var x = i * 2 / n_samples - 1;
-					curve[i] = (3 + k) * x * 20 * deg / (Math.PI + k * Math.abs(x));
-				}
-				return curve;
+				return float32Array;
 			}
 			//*************************************************************************************************
 			var bpm = 120;
@@ -92,25 +50,22 @@
 			var C6 = 0+12*6, c6 = 1+12*6, D6 = 2+12*6, d6 = 3+12*6, E6 = 4+12*6, F6 = 5+12*6, f6 = 6+12*6, G6 = 7+12*6, g6 = 8+12*6, A6 = 9+12*6, a6 = 10+12*6, B6 = 11+12*6;
 			var started = false;
 			var startTime = 0;
-			//function overDrive(pitch, duration, slides){return {preset:_tone_Les_32TrippleOpenTones_461_4690_45127_file,pitch:pitch,duration:duration*N,volume:0.5,slides:slides};}
 			function open(pitch, duration, slides){
 				return {
-					//preset:_tone_Clean_32GuitarClean_32Guitar_461_460_45127_file,pitch:pitch,duration:duration*N,volume:0.5,slides:slides
-					preset:_tone_Les_32TrippleOpenTones_461_4690_45127_file,pitch:pitch,duration:duration*N,volume:0.75,slides:slides
+					presetOver:_tone_Les_32TrippleOpenTones_461_4690_45127_file,pitch:pitch
+					,presetClean:_tone_Clean_32GuitarClean_32Guitar_461_460_45127_file,pitch:pitch
+					,duration:duration*N
+					,slides:slides
 					};
 				}
-			//function palmMute(pitch, duration){return {preset:_tone_Les_32MuteMuted_32Tones_461_460_45127_file,pitch:pitch,duration:duration*N,volume:0.5};}
 			function pm(pitch, duration){
 				return {
-					//preset:_tone_Guitar_32MutesMuted_32Gtr_32_45SC88P_461_460_45127_file,pitch:pitch,duration:duration*N,volume:0.5
-					preset:_tone_Les_32MuteMuted_32Tones_461_460_45127_file,pitch:pitch,duration:duration*N,volume:0.75
+					presetOver:_tone_Les_32MuteMuted_32Tones_461_460_45127_file
+					,presetClean:_tone_Guitar_32MutesMuted_32Gtr_32_45SC88P_461_460_45127_file
+					,pitch:pitch
+					,duration:duration*N
 					};
 				}
-			//function bass(pitch, duration){return {preset:_tone_Picked_32BassPicked_32Bass_461_460_45127_file,pitch:pitch,duration:duration*N,volume:0.0001};}
-			//function drum(){return {preset:_drum_Drum_32_91Power_93_4616_file_35,pitch:35,duration:1,volume:0.0001};}
-			//function snare(){return {preset:_drum_Drum_32_91Power_93_4616_file_38,pitch:38,duration:1,volume:0.0001};}
-			//function hiHat(){return {preset:_drum_Drum_32_91Power_93_4616_file_42,pitch:42,duration:1,volume:0.0001};}
-			
 			function nextPiece() {
 				for (var n = 0; n < notes.length; n++) {
 					var beat = notes[n];
@@ -122,7 +77,8 @@
 									slides.push({when:beat[i].slides[s].when*N,pitch:beat[i].slides[s].pitch});
 								}
 							}
-							player.queueWaveTable(audioContext, inputNode, beat[i].preset, startTime + n * beatLen , beat[i].pitch, beat[i].duration,beat[i].volume, slides);//[{when:startTime + n * beatLen+beat[i].duration,pitch:beat[i].pitch-12}]);
+							player.queueWaveTable(audioContext, inputCleanNode, beat[i].presetClean, startTime + n * beatLen , beat[i].pitch, beat[i].duration,1.0, slides);//[{when:startTime + n * beatLen+beat[i].duration,pitch:beat[i].pitch-12}]);
+							player.queueWaveTable(audioContext, inputOverNode, beat[i].presetOver, startTime + n * beatLen , beat[i].pitch, beat[i].duration,1.0, slides);//[{when:startTime + n * beatLen+beat[i].duration,pitch:beat[i].pitch-12}]);
 						}
 					}
 				}
@@ -185,7 +141,15 @@ var notes=[
 		</script>
 	</head>
 	<body>
-		<p><a href="#" onmousedown="start();">Play</a> example for pitch bend.</p>
+		<p><a href="#" onmousedown="start();">Play</a></p>
+		<hr/>
+		<p>Overdrive sample <input type="range" value='0.5' min='0.0' max='0.5' step='0.1' onchange="inputOverNode.gain.value=this.value;"/></p>
+		<hr/>
+		<p>Clean sample <input type="range" value='0.5' min='0.0' max='0.5' step='0.1' onchange="inputCleanNode.gain.value=this.value;"/></p>
+		<p>
+			<input type="radio" name='distortion' checked onclick='waveShaper.curve = noDistorsion();'>noDistorsion()</input>
+			<input type="radio" name='distortion' onclick='waveShaper.curve = simpleDistortion();'>simpleDistortion()</input>
+		</p>
 		<hr/>
 		<p><a href="https://github.com/surikov/webaudiofont">source</a></p>
 	</body>
