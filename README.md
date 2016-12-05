@@ -126,7 +126,8 @@ Function queueWaveTable returns envelope object. You can use this object to canc
 - [WebAudioFontExampleTouch.html](http://molgav.nn.ru/WebAudioFontExampleTouch.html) - multitouch beatpad. This example shows how to optimize application for mobile devices.
 - [WebAudioFontExampleSelector.html](http://molgav.nn.ru/WebAudioFontExampleSelector.html) - preset selector. This example shows how to load JS presets dynamically.
 - [WebAudioFontExampleBend.html](http://molgav.nn.ru/WebAudioFontExampleBend.html) - music loop. This example shows how to use pitch bend.
-- [WebAudioFontExampleMIDI.html](http://molgav.nn.ru/WebAudioFontExampleMIDI.html) - music loop. This example shows how to catch MIDI events.
+- [WebAudioFontExampleMIDI.html](http://molgav.nn.ru/WebAudioFontExampleMIDI.html) - keyboard listener. This example shows how to catch MIDI events.
+- [WebAudioFontExampleFilter.html](http://molgav.nn.ru/WebAudioFontExampleFilter.html) - sampled overdrive vs WaveShaper. This example shows how to use filters.
 - [https://jsbin.com/zabike/edit?html,output](https://jsbin.com/zabike/edit?html,output) - music loop. This example shows how to exchange code.
 
 
