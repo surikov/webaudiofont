@@ -18,9 +18,9 @@ Synthesizer uses [wavetables](https://www.google.ru/search?q=wavetable+synthesis
 
 ## Use cases
 
-- Virtual instruments: [Drums](https://surikov.github.io/webaudiofont/WebAudioFontExampleDrums.html), [Piano](https://github.com/surikov/webaudiofont/WebAudioFontExamplePiano.html), [Pan Flute](https://surikov.github.io/webaudiofont/WebAudioFontExampleFlute.html)
-- Interactive music generated on the fly: [Melody loop](https://github.com/surikov/webaudiofont/WebAudioFontExampleTune.html)
-- Sound effects for non-music applications: [Car sound](https://github.com/surikov/webaudiofont/WebAudioFontExampleFx.html)
+- Virtual instruments: [Drums](https://surikov.github.io/webaudiofont/WebAudioFontExampleDrums.html), [Piano](https://surikov.github.io/webaudiofont/WebAudioFontExamplePiano.html), [Pan Flute](https://surikov.github.io/webaudiofont/WebAudioFontExampleFlute.html)
+- Interactive music generated on the fly: [Melody loop](https://surikov.github.io/webaudiofont/WebAudioFontExampleTune.html)
+- Sound effects for non-music applications: [Car sound](https://surikov.github.io/webaudiofont/WebAudioFontExampleFx.html)
 
 ## How to use
 
@@ -43,11 +43,11 @@ Synthesizer uses [wavetables](https://www.google.ru/search?q=wavetable+synthesis
 </html>
 ```
 		
-This code plays instrument [_tone_Accoustic_32Bsaccousticbs_461_460_45127](https://github.com/surikov/webaudiofont/webaudiofont/32.0.Accoustic_32Bsaccousticbs_461_460_45127.html) from [32.0.Accoustic_32Bsaccousticbs_461_460_45127.js](https://github.com/surikov/webaudiofont/webaudiofont/32.0.Accoustic_32Bsaccousticbs_461_460_45127.js) with pitch 55. See [simple example](https://github.com/surikov/webaudiofont/WebAudioFontExampleSimple.html).
+This code plays instrument [_tone_Accoustic_32Bsaccousticbs_461_460_45127](https://surikov.github.io/webaudiofont/webaudiofont/32.0.Accoustic_32Bsaccousticbs_461_460_45127.html) from [32.0.Accoustic_32Bsaccousticbs_461_460_45127.js](https://surikov.github.io/webaudiofont/webaudiofont/32.0.Accoustic_32Bsaccousticbs_461_460_45127.js) with pitch 55. See [simple example](https://surikov.github.io/webaudiofont/WebAudioFontExampleSimple.html).
 
 ### How to use catalog of sounds:
 
-- open [index page](https://github.com/surikov/webaudiofont/webaudiofont/index.html)
+- open [index page](https://surikov.github.io/webaudiofont/webaudiofont/index.html)
 - find instrument
 - copy name of file to include instrument data
 - copy name of variable to refer to instrument
@@ -112,22 +112,22 @@ Function queueWaveTable returns envelope object. You can use this object to canc
 
 ## All examples
 
-- [WebAudioFontExampleAll.html](https://github.com/surikov/webaudiofont/WebAudioFontExampleAll.html) - links to examples.
-- [WebAudioFontExampleSimple.html](https://github.com/surikov/webaudiofont/WebAudioFontExampleSimple.html) - simple example.
-- [WebAudioFontExampleDrums.html](https://github.com/surikov/webaudiofont/WebAudioFontExampleDrums.html) - virtual drums. This example shows using of drum instruments.
-- [WebAudioFontExamplePiano.html](https://github.com/surikov/webaudiofont/WebAudioFontExamplePiano.html) - virtual piano. This example shows using of tone instrument.
-- [WebAudioFontExampleFlute.html](https://github.com/surikov/webaudiofont/WebAudioFontExampleFlute.html) - virtual Pan flute. This example shows using of Envelope objects to start and stop a note playing.
-- [WebAudioFontExampleVoice.html](https://github.com/surikov/webaudiofont/WebAudioFontExampleVoice.html) - two voice connected to different AudioNodes. This example shows how to create chain of AudioNodes and handle each instrument individually.
-- [WebAudioFontExampleFx.html](https://github.com/surikov/webaudiofont/WebAudioFontExampleFx.html) - sound slides from one pitch to another one. This example shows how to access AudioBufferSourceNode of played note.
-- [WebAudioFontExampleTune.html](https://github.com/surikov/webaudiofont/WebAudioFontExampleTune.html) - music loop. This example shows how to create and modify music in realtime.
-- [WebAudioFontExampleTune2.html](https://github.com/surikov/webaudiofont/WebAudioFontExampleTune2.html) - music loop. This example shows how to code music.
-- [WebAudioFontExampleTune3.html](https://github.com/surikov/webaudiofont/WebAudioFontExampleTune3.html) - music loop. This example shows how to code music.
-- [WebAudioFontExampleTune4.html](https://github.com/surikov/webaudiofont/WebAudioFontExampleTune4.html) - music loop. This example shows how to code music with compressed samples and focusless timeout.
-- [WebAudioFontExampleTouch.html](https://github.com/surikov/webaudiofont/WebAudioFontExampleTouch.html) - multitouch beatpad. This example shows how to optimize application for mobile devices.
-- [WebAudioFontExampleSelector.html](https://github.com/surikov/webaudiofont/WebAudioFontExampleSelector.html) - preset selector. This example shows how to load JS presets dynamically.
-- [WebAudioFontExampleBend.html](https://github.com/surikov/webaudiofont/WebAudioFontExampleBend.html) - music loop. This example shows how to use pitch bend.
-- [WebAudioFontExampleMIDI.html](https://github.com/surikov/webaudiofont/WebAudioFontExampleMIDI.html) - keyboard listener. This example shows how to catch MIDI events.
-- [WebAudioFontExampleFilter.html](https://github.com/surikov/webaudiofont/WebAudioFontExampleFilter.html) - sampled overdrive vs WaveShaper. This example shows how to use filters.
+- [WebAudioFontExampleAll.html](https://surikov.github.io/webaudiofont/WebAudioFontExampleAll.html) - links to examples.
+- [WebAudioFontExampleSimple.html](https://surikov.github.io/webaudiofont/WebAudioFontExampleSimple.html) - simple example.
+- [WebAudioFontExampleDrums.html](https://surikov.github.io/webaudiofont/WebAudioFontExampleDrums.html) - virtual drums. This example shows using of drum instruments.
+- [WebAudioFontExamplePiano.html](https://surikov.github.io/webaudiofont/WebAudioFontExamplePiano.html) - virtual piano. This example shows using of tone instrument.
+- [WebAudioFontExampleFlute.html](https://surikov.github.io/webaudiofont/WebAudioFontExampleFlute.html) - virtual Pan flute. This example shows using of Envelope objects to start and stop a note playing.
+- [WebAudioFontExampleVoice.html](https://surikov.github.io/webaudiofont/WebAudioFontExampleVoice.html) - two voice connected to different AudioNodes. This example shows how to create chain of AudioNodes and handle each instrument individually.
+- [WebAudioFontExampleFx.html](https://surikov.github.io/webaudiofont/WebAudioFontExampleFx.html) - sound slides from one pitch to another one. This example shows how to access AudioBufferSourceNode of played note.
+- [WebAudioFontExampleTune.html](https://surikov.github.io/webaudiofont/WebAudioFontExampleTune.html) - music loop. This example shows how to create and modify music in realtime.
+- [WebAudioFontExampleTune2.html](https://surikov.github.io/webaudiofont/WebAudioFontExampleTune2.html) - music loop. This example shows how to code music.
+- [WebAudioFontExampleTune3.html](https://surikov.github.io/webaudiofont/WebAudioFontExampleTune3.html) - music loop. This example shows how to code music.
+- [WebAudioFontExampleTune4.html](https://surikov.github.io/webaudiofont/WebAudioFontExampleTune4.html) - music loop. This example shows how to code music with compressed samples and focusless timeout.
+- [WebAudioFontExampleTouch.html](https://surikov.github.io/webaudiofont/WebAudioFontExampleTouch.html) - multitouch beatpad. This example shows how to optimize application for mobile devices.
+- [WebAudioFontExampleSelector.html](https://surikov.github.io/webaudiofont/WebAudioFontExampleSelector.html) - preset selector. This example shows how to load JS presets dynamically.
+- [WebAudioFontExampleBend.html](https://surikov.github.io/webaudiofont/WebAudioFontExampleBend.html) - music loop. This example shows how to use pitch bend.
+- [WebAudioFontExampleMIDI.html](https://surikov.github.io/webaudiofont/WebAudioFontExampleMIDI.html) - keyboard listener. This example shows how to catch MIDI events.
+- [WebAudioFontExampleFilter.html](https://surikov.github.io/webaudiofont/WebAudioFontExampleFilter.html) - sampled overdrive vs WaveShaper. This example shows how to use filters.
 - [https://jsbin.com/zabike/edit?html,output](https://jsbin.com/zabike/edit?html,output) - music loop. This example shows how to exchange code.
 
 
