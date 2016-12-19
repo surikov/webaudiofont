@@ -130,7 +130,8 @@ Function queueWaveTable returns envelope object. You can use this object to canc
 - [WebAudioFontExampleFilter.html](https://surikov.github.io/webaudiofont/WebAudioFontExampleFilter.html) - sampled overdrive vs WaveShaper. This example shows how to use filters.
 - [https://jsbin.com/zabike/edit?html,output](https://jsbin.com/zabike/edit?html,output) - music loop. This example shows how to exchange code.
 
-##Source
+## Source
+
 [https://github.com/surikov/webaudiofont/](https://github.com/surikov/webaudiofont/)
 
 
