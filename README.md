@@ -7,8 +7,8 @@ WebAudioFont is a set of resources and associated technology that uses sample-ba
 - Library of sounds
 - Metadata that describe how to play sounds
 - WebAudioFontPlayer.js that uses metadata and sounds for playing instruments
-- [Catalog of available sounds](https://surikov.github.io/webaudiofont/index.html)
-- [Catalog of compressed sounds](https://surikov.github.io/webaudiofont/index.html)
+- [Catalog of available sounds](https://surikov.github.io/webaudiofont/webaudiofont/index.html)
+- [Catalog of compressed sounds](https://surikov.github.io/webaudiofont/compress/index.html)
 
 ### Underlaying technology
 
