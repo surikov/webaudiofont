@@ -1,4 +1,4 @@
-console.log('WebAudioFont Player v1.43');
+console.log('WebAudioFont Player v1.44');
 function WebAudioFontPlayer() {
 	this.envelopes = [];
 	this.afterTime = 0.1;
@@ -185,6 +185,11 @@ function WebAudioFontPlayer() {
 			e.gain.cancelScheduledValues(0);
 			e.gain.setValueAtTime(this.nearZero, audioContext.currentTime);
 			e.when = -1;
+			try{
+				e.audioBufferSourceNode.disconnect();
+			}catch(ex){
+				console.log(ex);
+			}
 		}
 	};
 	return this;
