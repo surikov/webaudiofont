@@ -1,4 +1,4 @@
-console.log('WebAudioFont Player v1.44');
+console.log('WebAudioFont Player v1.45');
 function WebAudioFontPlayer() {
 	this.envelopes = [];
 	this.afterTime = 0.1;
@@ -32,8 +32,9 @@ function WebAudioFontPlayer() {
 			}
 		}
 		var envelope = this.findEnvelope(audioContext, target, startWhen, waveDuration);
-		envelope.gain.setValueAtTime(0, this.nearZero);
-		envelope.gain.setValueAtTime(startWhen, this.nearZero);
+		//envelope.gain.setValueAtTime(0, this.nearZero);
+		//envelope.gain.setValueAtTime(startWhen, this.nearZero);
+		envelope.gain.value=this.nearZero;
 		var a = 0.005;
 		var h = 0.25;
 		var d = 0.75;
