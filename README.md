@@ -1,4 +1,4 @@
-# WebAudioFont v1.43
+# WebAudioFont v1.46
 
 WebAudioFont is a set of resources and associated technology that uses sample-based synthesis to play musical instruments in browser.
 
