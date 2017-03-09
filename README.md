@@ -2,6 +2,8 @@
 
 WebAudioFont is a set of resources and associated technology that uses sample-based synthesis to play musical instruments in browser.
 
+![Screenshot](https://surikov.github.io/riffshare/img/sp320opt.gif)
+
 ### Parts of WebAudioFont
 
 - Library of sounds
