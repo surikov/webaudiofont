@@ -1,4 +1,4 @@
-console.log('WebAudioFont Player v1.47');
+console.log('WebAudioFont Player v1.48');
 function WebAudioFontPlayer() {
 	this.envelopes = [];
 	this.afterTime = 0.05;
@@ -18,6 +18,9 @@ function WebAudioFontPlayer() {
 		var playbackRate = 1.0 * Math.pow(2, (100.0 * pitch - baseDetune) / 1200.0);
 		var sampleRatio = zone.sampleRate / audioContext.sampleRate;
 		var startWhen = when;
+		if (startWhen < audioContext.currentTime) {
+			startWhen = audioContext.currentTime;
+		}
 		var waveDuration = duration + this.afterTime;
 		var loop = true;
 		if (zone.loopStart < 1 || zone.loopStart >= zone.loopEnd) {
