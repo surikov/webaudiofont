@@ -4,6 +4,9 @@
         <script src='webaudiofont/125.3.Car_45Pass000209_461_460_45127.js'></script>
         <script>
             var selectedPreset=_tone_Car_45Pass000209_461_460_45127;
+            for(var i=0;i<selectedPreset.zones.length;i++){
+		selectedPreset.zones[i].ahdsr=false;
+		}
             var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
             var audioContext = new AudioContextFunc();
             var player=new WebAudioFontPlayer();
@@ -13,7 +16,7 @@
 			var ratio=1;
 			function startCar(){
 					started=true;
-					envelope=player.queueWaveTable(audioContext, audioContext.destination, selectedPreset, 0, 12*4+0, 999,true);
+					envelope=player.queueWaveTable(audioContext, audioContext.destination, selectedPreset, 0, 12*4+0, 999);
 					initialRate=envelope.audioBufferSourceNode.playbackRate.value;
 			}
 			function faster(){
