@@ -1,4 +1,4 @@
-console.log('WebAudioFontExampleMNX v0.2', 'https://w3c.github.io/mnx/overview/');
+console.log('WebAudioFontExampleMNX v0.3', 'https://w3c.github.io/mnx/overview/');
 var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
 var audioContext = new AudioContextFunc();
 var player = new WebAudioFontPlayer();
@@ -78,6 +78,7 @@ function parseKey(key) {
 	return k1 + k2 + 12 * k3;
 }
 function queueNote(eventStart, duration, note) {
+	console.log('queueNote', eventStart, duration, note);
 	var key = note.of('pitch').value;
 	if (key) {
 		console.log(eventStart, duration, note);
@@ -86,12 +87,14 @@ function queueNote(eventStart, duration, note) {
 	}
 }
 function queueEvent(eventStart, duration, event) {
+	console.log('queueEvent', eventStart, duration, event);
 	var notes = event.all('note');
 	for (var i = 0; i < notes.length; i++) {
 		queueNote(eventStart, duration, notes[i]);
 	}
 }
 function queueSequence(measureStart, measure) {
+	console.log('queueSequence', measureStart, measure);
 	var events = measure.all('event');
 	var eventStart = 0;
 	for (var i = 0; i < events.length; i++) {
@@ -102,6 +105,7 @@ function queueSequence(measureStart, measure) {
 	}
 }
 function queueMeasure(measureStart, measure) {
+	console.log('queueMeasure', measureStart, measure);
 	var sequences = measure.all('sequence');
 	for (var i = 0; i < sequences.length; i++) {
 		queueSequence(measureStart, sequences[i]);
