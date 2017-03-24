@@ -1,4 +1,4 @@
-console.log('WebAudioFontExampleMNX', 'https://w3c.github.io/mnx/overview/');
+console.log('WebAudioFontExampleMNX v0.2', 'https://w3c.github.io/mnx/overview/');
 var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
 var audioContext = new AudioContextFunc();
 var player = new WebAudioFontPlayer();
@@ -14,7 +14,8 @@ function mnxParse() {
 	var mnxTree = new ValueTree('');
 	var xml = document.getElementById("mnxText").value;
 	mnxTree.fromXMLstring(xml);
-	console.log('tempo', mnxTree.of('mnx').of('score').of('system').of('measure').of('attributes').of('tempo').of('bpm').value);
+	console.log('parsed', mnxTree);
+	//console.log('tempo', mnxTree.of('mnx').of('score').of('system').of('measure').of('attributes').of('tempo').of('bpm').value);
 	parts = mnxTree.of('mnx').of('score').all('part');
 	for (var i = 0; i < parts.length; i++) {
 		var n = parts[i].all('measure').length;
@@ -25,13 +26,14 @@ function mnxParse() {
 }
 function mnxPlay() {
 	console.log('play');
-	nextAudioTime = audioContext.currentTime+0.5;
-	currentMeasure=0;
+	mnxParse();
+	nextAudioTime = audioContext.currentTime + 0.5;
+	currentMeasure = 0;
 	started = true;
 }
 function mnxPause() {
 	console.log('pause');
-	this.started = false;
+	started = false;
 	player.cancelQueue(audioContext);
 }
 function parseKey(key) {
@@ -75,21 +77,34 @@ function parseKey(key) {
 	}
 	return k1 + k2 + 12 * k3;
 }
-function queueEvent(when, key, duration) {
+function queueNote(eventStart, duration, note) {
+	var key = note.of('pitch').value;
 	if (key) {
+		console.log(eventStart, duration, note);
 		var n = parseKey(key);
-		player.queueWaveTable(audioContext, audioContext.destination, piano, when, n, duration);
+		player.queueWaveTable(audioContext, audioContext.destination, piano, eventStart, n, duration);
 	}
 }
-function queueMeasure(when, measure) {
-	var events = measure.of('sequence').all('event');
-	var whenNote = 0;
+function queueEvent(eventStart, duration, event) {
+	var notes = event.all('note');
+	for (var i = 0; i < notes.length; i++) {
+		queueNote(eventStart, duration, notes[i]);
+	}
+}
+function queueSequence(measureStart, measure) {
+	var events = measure.all('event');
+	var eventStart = 0;
 	for (var i = 0; i < events.length; i++) {
 		var value = events[i].of('value').numeric(1, 8, 32);
-		var pitch = events[i].of('note').of('pitch').value;
 		var duration = measureDuration / value;
-		queueEvent(when + whenNote, pitch, duration)
-		whenNote = whenNote + duration;
+		queueEvent(measureStart + eventStart, duration, events[i]);
+		eventStart = eventStart + duration;
+	}
+}
+function queueMeasure(measureStart, measure) {
+	var sequences = measure.all('sequence');
+	for (var i = 0; i < sequences.length; i++) {
+		queueSequence(measureStart, sequences[i]);
 	}
 }
 function queueNext() {
@@ -103,7 +118,8 @@ function queueNext() {
 			this.nextAudioTime = this.nextAudioTime + measureDuration;
 			currentMeasure++;
 			if (currentMeasure >= len) {
-				currentMeasure = 0;
+				//currentMeasure = 0;
+				started = false;
 			}
 		}
 	}
