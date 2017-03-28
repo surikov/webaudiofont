@@ -1,4 +1,4 @@
-console.log('WebAudioFont Player v1.48');
+console.log('WebAudioFont Player v1.49');
 function WebAudioFontPlayer() {
 	this.envelopes = [];
 	this.afterTime = 0.05;
@@ -32,7 +32,7 @@ function WebAudioFontPlayer() {
 			}
 		}
 		var envelope = this.findEnvelope(audioContext, target, startWhen, waveDuration);
-		this.setupEnvelope(envelope, zone, volume, startWhen, waveDuration, duration);
+		this.setupEnvelope(audioContext,envelope, zone, volume, startWhen, waveDuration, duration);
 		envelope.audioBufferSourceNode = audioContext.createBufferSource();
 		envelope.audioBufferSourceNode.playbackRate.value = playbackRate;
 		if (slides) {
@@ -69,8 +69,9 @@ function WebAudioFontPlayer() {
 			return this.nearZero;
 		}
 	};
-	this.setupEnvelope = function (envelope, zone, volume, when, sampleDuration, noteDuration) {
+	this.setupEnvelope = function (audioContext,envelope, zone, volume, when, sampleDuration, noteDuration) {
 		envelope.gain.value = this.noZeroVolume(0);
+		envelope.gain.exponentialRampToValueAtTime(this.noZeroVolume(0), audioContext.currentTime);
 		var lastTime = 0;
 		var lastVolume = 0;
 		var duration = noteDuration;
@@ -84,10 +85,13 @@ function WebAudioFontPlayer() {
 						duration : 0,
 						volume : 1
 					}, {
-						duration : 1,
+						duration : 0.5,
 						volume : 1
 					}, {
-						duration : 7,
+						duration : 1.5,
+						volume : 0.5
+					}, {
+						duration : 3,
 						volume : 0
 					}
 				];
@@ -102,8 +106,9 @@ function WebAudioFontPlayer() {
 				}
 			];
 		}
-		envelope.gain.linearRampToValueAtTime(this.noZeroVolume(0), when);
-		envelope.gain.exponentialRampToValueAtTime(ahdsr[0].volume * volume, when + 0.005);
+		envelope.gain.linearRampToValueAtTime(this.noZeroVolume(0), when -this.nearZero);
+		envelope.gain.cancelScheduledValues(when);
+		envelope.gain.exponentialRampToValueAtTime(ahdsr[0].volume * volume, when);
 		for (var i = 0; i < ahdsr.length; i++) {
 			if (ahdsr[i].duration > 0) {
 				if (ahdsr[i].duration + lastTime > duration) {
