@@ -1,7 +1,12 @@
 var webAudioFontIndex=[
 	{midi:0, drum:false, js:'0.0.Piano_321Grand_32Piano_32_45SC88_461_460_45127_file.js', name:'_tone_Piano_321Grand_32Piano_32_45SC88_461_460_45127_file'}
+	,{midi:0, drum:false, js:'0.0.Piano_321Piano_321_461_460_4562_file.js', name:'_tone_Piano_321Piano_321_461_460_4562_file'}
+	,{midi:0, drum:false, js:'0.0.Piano_321pno0_461_46107_45116_file.js', name:'_tone_Piano_321pno0_461_46107_45116_file'}
 	,{midi:0, drum:false, js:'0.0.Piano_321SC55_32Piano_32MV_325_461_460_4568_file.js', name:'_tone_Piano_321SC55_32Piano_32MV_325_461_460_4568_file'}
 	,{midi:1, drum:false, js:'1.0.9ft_32Bright_32Grand9ft_32Grand_32Piano_32_32_32_32_461_460_45127_file.js', name:'_tone_9ft_32Bright_32Grand9ft_32Grand_32Piano_32_32_32_32_461_460_45127_file'}
+	,{midi:1, drum:false, js:'1.0.Bright_32PianoPiano_322_461_460_45127_file.js', name:'_tone_Bright_32PianoPiano_322_461_460_45127_file'}
+	,{midi:1, drum:false, js:'1.0.Piano_322Bright_32Piano_32_45SC88_461_460_45127_file.js', name:'_tone_Piano_322Bright_32Piano_32_45SC88_461_460_45127_file'}
+	,{midi:2, drum:false, js:'2.0.Electric_32PianoElectric_32Piano_461_460_45127_file.js', name:'_tone_Electric_32PianoElectric_32Piano_461_460_45127_file'}
 	,{midi:2, drum:false, js:'2.0.Piano_323Piano_323_461_460_45127_file.js', name:'_tone_Piano_323Piano_323_461_460_45127_file'}
 	,{midi:3, drum:false, js:'3.0.Honky_32TonkHonky_32Tonk_461_460_45127_file.js', name:'_tone_Honky_32TonkHonky_32Tonk_461_460_45127_file'}
 	,{midi:3, drum:false, js:'3.0.Honky_45tonkHonky_45tonk_461_460_45127_file.js', name:'_tone_Honky_45tonkHonky_45tonk_461_460_45127_file'}
@@ -24,26 +29,40 @@ var webAudioFontIndex=[
 	,{midi:16, drum:false, js:'16.0.Organ_321Organ_321_461_460_45127_file.js', name:'_tone_Organ_321Organ_321_461_460_45127_file'}
 	,{midi:17, drum:false, js:'17.0.Organ_322Organ_322_461_460_45127_file.js', name:'_tone_Organ_322Organ_322_461_460_45127_file'}
 	,{midi:18, drum:false, js:'18.0.Organ_323Rotary_32Org_46F_32_45SC88P_461_460_45127_file.js', name:'_tone_Organ_323Rotary_32Org_46F_32_45SC88P_461_460_45127_file'}
+	,{midi:18, drum:false, js:'18.0.Rock_32OrganOrgan_323_461_460_45127_file.js', name:'_tone_Rock_32OrganOrgan_323_461_460_45127_file'}
 	,{midi:19, drum:false, js:'19.0.Church_32OrganChurch_32Organ_461_460_45127_file.js', name:'_tone_Church_32OrganChurch_32Organ_461_460_45127_file'}
+	,{midi:19, drum:false, js:'19.0.Pipe_32OrganManual_461_460_45127_file.js', name:'_tone_Pipe_32OrganManual_461_460_45127_file'}
+	,{midi:19, drum:false, js:'19.0.Pipe_32OrganPipe_32Organ_32_32_32_32_32_32_32_32_32_461_460_45127_file.js', name:'_tone_Pipe_32OrganPipe_32Organ_32_32_32_32_32_32_32_32_32_461_460_45127_file'}
 	,{midi:19, drum:false, js:'19.0.Pipe_32OrganPipe_32Organ_461_460_45127_file.js', name:'_tone_Pipe_32OrganPipe_32Organ_461_460_45127_file'}
 	,{midi:19, drum:false, js:'19.8.Pipe_32Organ_322Hammond_32Organ_461_460_45127_file.js', name:'_tone_Pipe_32Organ_322Hammond_32Organ_461_460_45127_file'}
+	,{midi:20, drum:false, js:'20.0.Reed_32OrganAccordion_461_460_45127_file.js', name:'_tone_Reed_32OrganAccordion_461_460_45127_file'}
 	,{midi:20, drum:false, js:'20.0.Reed_32OrganReed_32Organ_461_460_45127_file.js', name:'_tone_Reed_32OrganReed_32Organ_461_460_45127_file'}
 	,{midi:21, drum:false, js:'21.0.AccordionAccordion_461_460_45127_file.js', name:'_tone_AccordionAccordion_461_460_45127_file'}
+	,{midi:21, drum:false, js:'21.0.AccordionAccordion_461_460_4535_file.js', name:'_tone_AccordionAccordion_461_460_4535_file'}
 	,{midi:22, drum:false, js:'22.0.HarmonicaHarmonica_461_460_45127_file.js', name:'_tone_HarmonicaHarmonica_461_460_45127_file'}
+	,{midi:22, drum:false, js:'22.0.HarmonicaHarmonica_461_460_4535_file.js', name:'_tone_HarmonicaHarmonica_461_460_4535_file'}
 	,{midi:23, drum:false, js:'23.0.BandoneonBandoneon_461_460_45127_file.js', name:'_tone_BandoneonBandoneon_461_460_45127_file'}
 	,{midi:24, drum:false, js:'24.0.Nylon_32GuitarNylon_32Guitar_461_460_45127_file.js', name:'_tone_Nylon_32GuitarNylon_32Guitar_461_460_45127_file'}
+	,{midi:24, drum:false, js:'24.0.Nylon_32GuitarNylon_32Guitar_461_460_4535_file.js', name:'_tone_Nylon_32GuitarNylon_32Guitar_461_460_4535_file'}
 	,{midi:24, drum:false, js:'24.0.Nylon_32Guitar_32ProProtraxNylon_pp_461_460_4584_file.js', name:'_tone_Nylon_32Guitar_32ProProtraxNylon_pp_461_460_4584_file'}
+	,{midi:25, drum:false, js:'25.0.Acoustic_32GuitarAcoustic_32Guitar_32_32_32_32_461_460_45127_file.js', name:'_tone_Acoustic_32GuitarAcoustic_32Guitar_32_32_32_32_461_460_45127_file'}
 	,{midi:25, drum:false, js:'25.0.Good_Acoustic_GuitaGood_Acoustic_Guita_461_46101_45120_file.js', name:'_tone_Good_Acoustic_GuitaGood_Acoustic_Guita_461_46101_45120_file'}
 	,{midi:25, drum:false, js:'25.0.Steel_32GuitarSteel_32Guitar_461_460_45127_file.js', name:'_tone_Steel_32GuitarSteel_32Guitar_461_460_45127_file'}
+	,{midi:26, drum:false, js:'26.0.Jazz_32GuitarElectric_32Guit_461_460_4535_file.js', name:'_tone_Jazz_32GuitarElectric_32Guit_461_460_4535_file'}
 	,{midi:26, drum:false, js:'26.0.Jazz_32GuitarJazz_32Guitar_461_460_45127_file.js', name:'_tone_Jazz_32GuitarJazz_32Guitar_461_460_45127_file'}
 	,{midi:27, drum:false, js:'27.0.Clean_32GuitarClean_32Guitar_461_460_45127_file.js', name:'_tone_Clean_32GuitarClean_32Guitar_461_460_45127_file'}
+	,{midi:27, drum:false, js:'27.0.Clean_32GuitarWashburn_45Asp_461_460_45127_file.js', name:'_tone_Clean_32GuitarWashburn_45Asp_461_460_45127_file'}
+	,{midi:28, drum:false, js:'28.0.Guitar_32MutesGuitar_32Mutes_461_460_45127_file.js', name:'_tone_Guitar_32MutesGuitar_32Mutes_461_460_45127_file'}
 	,{midi:28, drum:false, js:'28.0.Guitar_32MutesMuted_32Gtr_32_45SC88P_461_460_45127_file.js', name:'_tone_Guitar_32MutesMuted_32Gtr_32_45SC88P_461_460_45127_file'}
 	,{midi:28, drum:false, js:'28.0.Les_32MuteMuted_32Tones_461_460_45127_file.js', name:'_tone_Les_32MuteMuted_32Tones_461_460_45127_file'}
 	,{midi:28, drum:false, js:'28.0.Techno_32MutedHardScratch_461_460_45127_file.js', name:'_tone_Techno_32MutedHardScratch_461_460_45127_file'}
 	,{midi:29, drum:false, js:'29.0.Les_32TrippleOpenTones_461_4690_45127_file.js', name:'_tone_Les_32TrippleOpenTones_461_4690_45127_file'}
+	,{midi:29, drum:false, js:'29.0.Overdrive_32GuitarElec_32Guitar_32_40Over_41_461_460_45127_file.js', name:'_tone_Overdrive_32GuitarElec_32Guitar_32_40Over_41_461_460_45127_file'}
 	,{midi:29, drum:false, js:'29.0.Overdrive_32GuitarOverDrv_46Gtr_32_45SC88P_461_460_45127_file.js', name:'_tone_Overdrive_32GuitarOverDrv_46Gtr_32_45SC88P_461_460_45127_file'}
 	,{midi:29, drum:false, js:'29.0.Techno_32PickOverdriveGuitar_461_460_45127_file.js', name:'_tone_Techno_32PickOverdriveGuitar_461_460_45127_file'}
+	,{midi:30, drum:false, js:'30.0.Distorted_32GuitarDistorted_32Guitar_461_460_45127_file.js', name:'_tone_Distorted_32GuitarDistorted_32Guitar_461_460_45127_file'}
 	,{midi:30, drum:false, js:'30.0.DistortionGuitarDistortion_32Gtr_32_91H_93_461_460_45127_file.js', name:'_tone_DistortionGuitarDistortion_32Gtr_32_91H_93_461_460_45127_file'}
+	,{midi:30, drum:false, js:'30.0.Distortion_32Gtrdist_32gm500_461_460_45127_file.js', name:'_tone_Distortion_32Gtrdist_32gm500_461_460_45127_file'}
 	,{midi:30, drum:false, js:'30.0.Techno_32RhythmRhythm_32Guitar_461_460_45127_file.js', name:'_tone_Techno_32RhythmRhythm_32Guitar_461_460_45127_file'}
 	,{midi:31, drum:false, js:'31.0.Guitar_32HarmonicsGuitar_32Harmonics_461_460_45127_file.js', name:'_tone_Guitar_32HarmonicsGuitar_32Harmonics_461_460_45127_file'}
 	,{midi:31, drum:false, js:'31.0.Techno_32HarmonicsGuitar_32Harmonics_461_460_45127_file.js', name:'_tone_Techno_32HarmonicsGuitar_32Harmonics_461_460_45127_file'}
@@ -51,59 +70,114 @@ var webAudioFontIndex=[
 	,{midi:32, drum:false, js:'32.0.Acoustic_32BassAcou_46_32Bass_32_45SC88P_461_460_45127_file.js', name:'_tone_Acoustic_32BassAcou_46_32Bass_32_45SC88P_461_460_45127_file'}
 	,{midi:33, drum:false, js:'33.0.Fingered_32BassFinger_32Bass_32_45SC88P_461_460_45127_file.js', name:'_tone_Fingered_32BassFinger_32Bass_32_45SC88P_461_460_45127_file'}
 	,{midi:34, drum:false, js:'34.0.Picked_32BassPicked_32Bass_461_460_45127_file.js', name:'_tone_Picked_32BassPicked_32Bass_461_460_45127_file'}
+	,{midi:35, drum:false, js:'35.0.Fretless_32BassFanta_Fret_32bass_461_460_45127_file.js', name:'_tone_Fretless_32BassFanta_Fret_32bass_461_460_45127_file'}
 	,{midi:35, drum:false, js:'35.0.Fretless_32BassFretless_32Bass_461_460_45127_file.js', name:'_tone_Fretless_32BassFretless_32Bass_461_460_45127_file'}
 	,{midi:36, drum:false, js:'36.0.Slap_32Bass_321Slap_32Bass_321_32_45SC88P_461_460_45127_file.js', name:'_tone_Slap_32Bass_321Slap_32Bass_321_32_45SC88P_461_460_45127_file'}
 	,{midi:37, drum:false, js:'37.0.Slap_32Bass_322Slap_32Bass_321_32_45SC88P_461_460_45127_file.js', name:'_tone_Slap_32Bass_322Slap_32Bass_321_32_45SC88P_461_460_45127_file'}
+	,{midi:37, drum:false, js:'37.0.Slap_32Bass_322Slap_32Bass_322_461_460_45127_file.js', name:'_tone_Slap_32Bass_322Slap_32Bass_322_461_460_45127_file'}
 	,{midi:38, drum:false, js:'38.0.Synth_32Bass_321Synth_32Bass_321_461_460_45127_file.js', name:'_tone_Synth_32Bass_321Synth_32Bass_321_461_460_45127_file'}
 	,{midi:39, drum:false, js:'39.0.Synth_32Bass_322Synth_32Bass_322_32_45SC88P_461_460_45127_file.js', name:'_tone_Synth_32Bass_322Synth_32Bass_322_32_45SC88P_461_460_45127_file'}
+	,{midi:40, drum:false, js:'40.0.Violinsv2_461_460_4544_file.js', name:'_tone_Violinsv2_461_460_4544_file'}
 	,{midi:40, drum:false, js:'40.0.ViolinViolin_461_460_45127_file.js', name:'_tone_ViolinViolin_461_460_45127_file'}
 	,{midi:41, drum:false, js:'41.0.Viola000082_461_460_45127_file.js', name:'_tone_Viola000082_461_460_45127_file'}
+	,{midi:41, drum:false, js:'41.0.ViolaSolo_32Viola_461_461_45127_file.js', name:'_tone_ViolaSolo_32Viola_461_461_45127_file'}
 	,{midi:41, drum:false, js:'41.0.ViolaViola0_461_460_45127_file.js', name:'_tone_ViolaViola0_461_460_45127_file'}
 	,{midi:41, drum:false, js:'41.0.ViolaViola1_461_460_45127_file.js', name:'_tone_ViolaViola1_461_460_45127_file'}
+	,{midi:41, drum:false, js:'41.0.ViolaViola_32l0_461_460_4551_file.js', name:'_tone_ViolaViola_32l0_461_460_4551_file'}
 	,{midi:42, drum:false, js:'42.0.CelloCello0_461_460_45127_file.js', name:'_tone_CelloCello0_461_460_45127_file'}
 	,{midi:42, drum:false, js:'42.0.CelloCello1_461_460_45127_file.js', name:'_tone_CelloCello1_461_460_45127_file'}
+	,{midi:42, drum:false, js:'42.0.CelloCello_32_45K2000_461_460_45127_file.js', name:'_tone_CelloCello_32_45K2000_461_460_45127_file'}
+	,{midi:42, drum:false, js:'42.0.CelloCello_461_460_45127_file.js', name:'_tone_CelloCello_461_460_45127_file'}
+	,{midi:43, drum:false, js:'43.0.ContrabassArco_32Bass_32l0_461_460_4555_file.js', name:'_tone_ContrabassArco_32Bass_32l0_461_460_4555_file'}
 	,{midi:43, drum:false, js:'43.0.ContrabassContrabass_461_460_45127_file.js', name:'_tone_ContrabassContrabass_461_460_45127_file'}
 	,{midi:44, drum:false, js:'44.0.Tremolo_32StringsTremolo_32Strings_321_461_460_45127_file.js', name:'_tone_Tremolo_32StringsTremolo_32Strings_321_461_460_45127_file'}
+	,{midi:44, drum:false, js:'44.0.T_46StringsStrings_32L1_461_460_4547_file.js', name:'_tone_T_46StringsStrings_32L1_461_460_4547_file'}
 	,{midi:45, drum:false, js:'45.0.PizzicatoPizzicato_321_461_460_45127_file.js', name:'_tone_PizzicatoPizzicato_321_461_460_45127_file'}
+	,{midi:45, drum:false, js:'45.0.PizzicatoSTEREO_32PIZZ0_461_460_45127_file.js', name:'_tone_PizzicatoSTEREO_32PIZZ0_461_460_45127_file'}
 	,{midi:46, drum:false, js:'46.0.HarpHarp_461_460_45127_file.js', name:'_tone_HarpHarp_461_460_45127_file'}
+	,{midi:46, drum:false, js:'46.0.HarpHarp_461_460_4535_file.js', name:'_tone_HarpHarp_461_460_4535_file'}
+	,{midi:47, drum:false, js:'47.0.TimpaniTimpani_32_45_32EMU_461_460_4535_file.js', name:'_tone_TimpaniTimpani_32_45_32EMU_461_460_4535_file'}
 	,{midi:47, drum:false, js:'47.0.TimpaniTimpani_461_460_45127_file.js', name:'_tone_TimpaniTimpani_461_460_45127_file'}
+	,{midi:47, drum:false, js:'47.0.TimpaniTimpani_461_460_4564_file.js', name:'_tone_TimpaniTimpani_461_460_4564_file'}
+	,{midi:48, drum:false, js:'48.0.StringsPC88_32Marcato_32Strings_461_460_45127_file.js', name:'_tone_StringsPC88_32Marcato_32Strings_461_460_45127_file'}
+	,{midi:48, drum:false, js:'48.0.StringsStrings_32L4_c1_461_46111_45120_file.js', name:'_tone_StringsStrings_32L4_c1_461_46111_45120_file'}
 	,{midi:48, drum:false, js:'48.0.StringsStrings_461_460_45127_file.js', name:'_tone_StringsStrings_461_460_45127_file'}
+	,{midi:48, drum:false, js:'48.0.StringsXP50_32String_321_32_45_32rev2_461_460_45127_file.js', name:'_tone_StringsXP50_32String_321_32_45_32rev2_461_460_45127_file'}
 	,{midi:49, drum:false, js:'49.0.Slow_32StringsSlow_32Strings_461_460_45127_file.js', name:'_tone_Slow_32StringsSlow_32Strings_461_460_45127_file'}
+	,{midi:49, drum:false, js:'49.0.S_46StringsStrings_32L4_c2_461_46111_45120_file.js', name:'_tone_S_46StringsStrings_32L4_c2_461_46111_45120_file'}
 	,{midi:50, drum:false, js:'50.0.Synth_32Strings_321Synth_32Strings_321_461_460_45127_file.js', name:'_tone_Synth_32Strings_321Synth_32Strings_321_461_460_45127_file'}
 	,{midi:51, drum:false, js:'51.0.Synth_32Strings_322Synth_32Strings_322_461_460_45127_file.js', name:'_tone_Synth_32Strings_322Synth_32Strings_322_461_460_45127_file'}
 	,{midi:52, drum:false, js:'52.0.Choir_32AahsChoir_32Aahs_32_45SC88P_461_460_45127_file.js', name:'_tone_Choir_32AahsChoir_32Aahs_32_45SC88P_461_460_45127_file'}
+	,{midi:52, drum:false, js:'52.0.Choir_32AahsMelted_32Choir_461_460_45127_file.js', name:'_tone_Choir_32AahsMelted_32Choir_461_460_45127_file'}
+	,{midi:52, drum:false, js:'52.0.Choral_32AahhsChoral_32Aahs_461_460_4535_file.js', name:'_tone_Choral_32AahhsChoral_32Aahs_461_460_4535_file'}
 	,{midi:53, drum:false, js:'53.0.Voice_32OohsVoice_32Oohs_461_460_45127_file.js', name:'_tone_Voice_32OohsVoice_32Oohs_461_460_45127_file'}
+	,{midi:54, drum:false, js:'54.0.Synth_32VoxSYNTH_32VOICES_461_460_45127_file.js', name:'_tone_Synth_32VoxSYNTH_32VOICES_461_460_45127_file'}
 	,{midi:54, drum:false, js:'54.0.Synth_32VoxSynth_32Vox_461_460_45127_file.js', name:'_tone_Synth_32VoxSynth_32Vox_461_460_45127_file'}
+	,{midi:54, drum:false, js:'54.64.54_6155_32GhostGhost_461_460_45127_file.js', name:'_tone_54_6155_32GhostGhost_461_460_45127_file'}
 	,{midi:55, drum:false, js:'55.0.Orchestra_32HitOrchestraHit_32_45SC88P_461_460_45127_file.js', name:'_tone_Orchestra_32HitOrchestraHit_32_45SC88P_461_460_45127_file'}
+	,{midi:55, drum:false, js:'55.0.Orchestra_32HitOrchestra_32Hit_461_460_4535_file.js', name:'_tone_Orchestra_32HitOrchestra_32Hit_461_460_4535_file'}
+	,{midi:56, drum:false, js:'56.0.Trumpettrumpet1_461_4665_4587_file.js', name:'_tone_Trumpettrumpet1_461_4665_4587_file'}
 	,{midi:56, drum:false, js:'56.0.TrumpetTrumpet_461_460_45127_file.js', name:'_tone_TrumpetTrumpet_461_460_45127_file'}
+	,{midi:57, drum:false, js:'57.0.TromboneTrombone_32l0_461_460_4539_file.js', name:'_tone_TromboneTrombone_32l0_461_460_4539_file'}
 	,{midi:57, drum:false, js:'57.0.TromboneTrombone_461_460_45127_file.js', name:'_tone_TromboneTrombone_461_460_45127_file'}
 	,{midi:58, drum:false, js:'58.0.TubaTuba_461_460_45127_file.js', name:'_tone_TubaTuba_461_460_45127_file'}
+	,{midi:58, drum:false, js:'58.0.TubaTuba_461_460_4535_file.js', name:'_tone_TubaTuba_461_460_4535_file'}
 	,{midi:59, drum:false, js:'59.0.Mute_32TrumpetMute_32Trumpet_461_460_45127_file.js', name:'_tone_Mute_32TrumpetMute_32Trumpet_461_460_45127_file'}
+	,{midi:59, drum:false, js:'59.0.Mute_32TrumpetMute_32Trumpet_461_460_4530_file.js', name:'_tone_Mute_32TrumpetMute_32Trumpet_461_460_4530_file'}
 	,{midi:60, drum:false, js:'60.0.French_32HornsFrench_32Horns_461_460_45127_file.js', name:'_tone_French_32HornsFrench_32Horns_461_460_45127_file'}
+	,{midi:61, drum:false, js:'61.0.BrassBrassl11_461_4650_4572_file.js', name:'_tone_BrassBrassl11_461_4650_4572_file'}
 	,{midi:61, drum:false, js:'61.0.BrassBrass_461_460_45127_file.js', name:'_tone_BrassBrass_461_460_45127_file'}
+	,{midi:61, drum:false, js:'61.0.Brass_321Brass_321_461_460_45127_file.js', name:'_tone_Brass_321Brass_321_461_460_45127_file'}
 	,{midi:62, drum:false, js:'62.0.Synth_32Brass_321Synth_32Brass_321_461_460_45127_file.js', name:'_tone_Synth_32Brass_321Synth_32Brass_321_461_460_45127_file'}
+	,{midi:62, drum:false, js:'62.0.Synth_32Brass_321s_46brass_32l11_461_460_4557_file.js', name:'_tone_Synth_32Brass_321s_46brass_32l11_461_460_4557_file'}
 	,{midi:63, drum:false, js:'63.0.Synth_32Brass_322Synth_32Brass_322_461_460_45127_file.js', name:'_tone_Synth_32Brass_322Synth_32Brass_322_461_460_45127_file'}
 	,{midi:64, drum:false, js:'64.0.Soprano_32SaxSoprano_32Sax_461_460_45127_file.js', name:'_tone_Soprano_32SaxSoprano_32Sax_461_460_45127_file'}
+	,{midi:64, drum:false, js:'64.0.Sop_32Saxss2_461_4669_4581_file.js', name:'_tone_Sop_32Saxss2_461_4669_4581_file'}
 	,{midi:65, drum:false, js:'65.0.Alto_32SaxAlto_32Sax_32_45SC88Pro_461_460_45127_file.js', name:'_tone_Alto_32SaxAlto_32Sax_32_45SC88Pro_461_460_45127_file'}
+	,{midi:65, drum:false, js:'65.0.Alto_32Saxas2_461_4684_4596_file.js', name:'_tone_Alto_32Saxas2_461_4684_4596_file'}
+	,{midi:65, drum:false, js:'65.0.Alto_32Saxas_hv_461_46126_45127_file.js', name:'_tone_Alto_32Saxas_hv_461_46126_45127_file'}
 	,{midi:66, drum:false, js:'66.0.Tenor_32SaxTenor_32Sax_32_45SC88Pro_461_460_45127_file.js', name:'_tone_Tenor_32SaxTenor_32Sax_32_45SC88Pro_461_460_45127_file'}
+	,{midi:66, drum:false, js:'66.0.Tenor_32Saxts01_461_460_4547_file.js', name:'_tone_Tenor_32Saxts01_461_460_4547_file'}
 	,{midi:67, drum:false, js:'67.0.Baritone_32SaxBaritone_32Sax_461_460_45127_file.js', name:'_tone_Baritone_32SaxBaritone_32Sax_461_460_45127_file'}
+	,{midi:67, drum:false, js:'67.0.Baritone_32Saxbs41_461_46102_45112_file.js', name:'_tone_Baritone_32Saxbs41_461_46102_45112_file'}
 	,{midi:68, drum:false, js:'68.0.OboeOboe_461_460_45127_file.js', name:'_tone_OboeOboe_461_460_45127_file'}
 	,{midi:69, drum:false, js:'69.0.English_32HornEnglish_32Horn_461_460_45127_file.js', name:'_tone_English_32HornEnglish_32Horn_461_460_45127_file'}
+	,{midi:69, drum:false, js:'69.0.Eng_46_32HornEnglish_32Horn_32l0_461_460_4543_file.js', name:'_tone_Eng_46_32HornEnglish_32Horn_32l0_461_460_4543_file'}
+	,{midi:70, drum:false, js:'70.0.BassoonBassoon_32l0_461_460_4550_file.js', name:'_tone_BassoonBassoon_32l0_461_460_4550_file'}
 	,{midi:70, drum:false, js:'70.0.BassoonBassoon_461_460_45127_file.js', name:'_tone_BassoonBassoon_461_460_45127_file'}
 	,{midi:71, drum:false, js:'71.0.ClarinetClarinet_461_460_45127_file.js', name:'_tone_ClarinetClarinet_461_460_45127_file'}
+	,{midi:72, drum:false, js:'72.0.PiccoloPiccolo_32_32_32_32_32_32_32_32_32_32_32_32_461_460_4550_file.js', name:'_tone_PiccoloPiccolo_32_32_32_32_32_32_32_32_32_32_32_32_461_460_4550_file'}
 	,{midi:72, drum:false, js:'72.0.PiccoloPiccolo_461_460_45127_file.js', name:'_tone_PiccoloPiccolo_461_460_45127_file'}
+	,{midi:73, drum:false, js:'73.0.FluteFLUTE2_46KRZ11_461_460_4564_file.js', name:'_tone_FluteFLUTE2_46KRZ11_461_460_4564_file'}
 	,{midi:73, drum:false, js:'73.0.FluteFlute_461_460_45127_file.js', name:'_tone_FluteFlute_461_460_45127_file'}
 	,{midi:74, drum:false, js:'74.0.RecorderRecorder_461_460_45127_file.js', name:'_tone_RecorderRecorder_461_460_45127_file'}
+	,{midi:74, drum:false, js:'74.0.RecorderRecorder_461_460_4535_file.js', name:'_tone_RecorderRecorder_461_460_4535_file'}
+	,{midi:75, drum:false, js:'75.0.Pan_32FlutePAN_32FLUTE_32_32_32_32_32_32_32_32_32_32_461_460_45127_file.js', name:'_tone_Pan_32FlutePAN_32FLUTE_32_32_32_32_32_32_32_32_32_32_461_460_45127_file'}
 	,{midi:75, drum:false, js:'75.0.Pan_32FlutePan_32Flute_461_460_45127_file.js', name:'_tone_Pan_32FlutePan_32Flute_461_460_45127_file'}
+	,{midi:75, drum:false, js:'75.0.Pan_32FlutePan_32Flute_461_460_4535_file.js', name:'_tone_Pan_32FlutePan_32Flute_461_460_4535_file'}
 	,{midi:76, drum:false, js:'76.0.Blown_32BottleBlown_32Bottle0_461_460_45127_file.js', name:'_tone_Blown_32BottleBlown_32Bottle0_461_460_45127_file'}
 	,{midi:76, drum:false, js:'76.0.Blown_32BottleBlown_32Bottle1_461_460_45127_file.js', name:'_tone_Blown_32BottleBlown_32Bottle1_461_460_45127_file'}
+	,{midi:76, drum:false, js:'76.0.Bottle_32ChiffBlownBottle_461_460_45127_file.js', name:'_tone_Bottle_32ChiffBlownBottle_461_460_45127_file'}
+	,{midi:76, drum:false, js:'76.0.Bottle_32ChiffBottle_32Chiff_461_460_45127_file.js', name:'_tone_Bottle_32ChiffBottle_32Chiff_461_460_45127_file'}
+	,{midi:77, drum:false, js:'77.0.ShakuhachiShakuhachi_32_32_32_32_32_32_32_32_32_461_460_45127_file.js', name:'_tone_ShakuhachiShakuhachi_32_32_32_32_32_32_32_32_32_461_460_45127_file'}
 	,{midi:77, drum:false, js:'77.0.ShakuhachiShakuhachi_461_460_45127_file.js', name:'_tone_ShakuhachiShakuhachi_461_460_45127_file'}
 	,{midi:78, drum:false, js:'78.0.WhistleWhistle_461_460_45127_file.js', name:'_tone_WhistleWhistle_461_460_45127_file'}
+	,{midi:78, drum:false, js:'78.0.WhistleWhistle_461_460_4535_file.js', name:'_tone_WhistleWhistle_461_460_4535_file'}
 	,{midi:79, drum:false, js:'79.0.OcarinaOcarina_461_460_45127_file.js', name:'_tone_OcarinaOcarina_461_460_45127_file'}
+	,{midi:79, drum:false, js:'79.0.OcarinaOcarina_461_460_4535_file.js', name:'_tone_OcarinaOcarina_461_460_4535_file'}
+	,{midi:80, drum:false, js:'80.0.Heavy_32Square_32WaveSquare_32Wave1_461_460_45127_file.js', name:'_tone_Heavy_32Square_32WaveSquare_32Wave1_461_460_45127_file'}
 	,{midi:80, drum:false, js:'80.0.Square_32WaveSquare_32Wave_32_45SC88P_461_460_45127_file.js', name:'_tone_Square_32WaveSquare_32Wave_32_45SC88P_461_460_45127_file'}
+	,{midi:80, drum:false, js:'80.0.Square_32Wave_32_91XG_93Square_32Wave_461_460_45127_file.js', name:'_tone_Square_32Wave_32_91XG_93Square_32Wave_461_460_45127_file'}
+	,{midi:81, drum:false, js:'81.0.Fat_32Saw_32Wave_45AspFantaGM32_32SawWave_461_460_45127_file.js', name:'_tone_Fat_32Saw_32Wave_45AspFantaGM32_32SawWave_461_460_45127_file'}
+	,{midi:81, drum:false, js:'81.0.Fat_32Saw_32Wave_45AspSaw_32Wave_32_45SC88P_461_460_45127_file.js', name:'_tone_Fat_32Saw_32Wave_45AspSaw_32Wave_32_45SC88P_461_460_45127_file'}
+	,{midi:81, drum:false, js:'81.0.Fat_32Saw_32Wave_45AspSynth_32Brass_321_45Chaos_461_460_45127_file.js', name:'_tone_Fat_32Saw_32Wave_45AspSynth_32Brass_321_45Chaos_461_460_45127_file'}
 	,{midi:81, drum:false, js:'81.0.Saw_32WaveSaw_32Wave_32_45SC88P_461_460_45127_file.js', name:'_tone_Saw_32WaveSaw_32Wave_32_45SC88P_461_460_45127_file'}
+	,{midi:81, drum:false, js:'81.0.Saw_32Wave_32_91XG_93Saw_32Wave_461_460_45127_file.js', name:'_tone_Saw_32Wave_32_91XG_93Saw_32Wave_461_460_45127_file'}
 	,{midi:82, drum:false, js:'82.0.Synth_32CalliopeSynth_32Calliope3_461_460_45127_file.js', name:'_tone_Synth_32CalliopeSynth_32Calliope3_461_460_45127_file'}
+	,{midi:82, drum:false, js:'82.0.Synth_32CalliopeSynth_32Calliope88_461_460_45127_file.js', name:'_tone_Synth_32CalliopeSynth_32Calliope88_461_460_45127_file'}
+	,{midi:82, drum:false, js:'82.0.Synth_32CalliopeSynth_32Calliope_461_460_45127_file.js', name:'_tone_Synth_32CalliopeSynth_32Calliope_461_460_45127_file'}
 	,{midi:83, drum:false, js:'83.0.Chiffer_32LeadChiffer_32Lead_461_460_45127_file.js', name:'_tone_Chiffer_32LeadChiffer_32Lead_461_460_45127_file'}
+	,{midi:84, drum:false, js:'84.0.CharangCharang_461_460_45127_file.js', name:'_tone_CharangCharang_461_460_45127_file'}
 	,{midi:84, drum:false, js:'84.0.CharangClavinet_461_460_45127_file.js', name:'_tone_CharangClavinet_461_460_45127_file'}
 	,{midi:84, drum:false, js:'84.0.CharangDistortion_32Gtr_32_91H_93_461_460_45127_file.js', name:'_tone_CharangDistortion_32Gtr_32_91H_93_461_460_45127_file'}
 	,{midi:85, drum:false, js:'85.0.Solo_32VoxSolo_32Vox_461_460_45127_file.js', name:'_tone_Solo_32VoxSolo_32Vox_461_460_45127_file'}
@@ -118,6 +192,8 @@ var webAudioFontIndex=[
 	,{midi:94, drum:false, js:'94.0.Halo_32PadHalo_32Pad_461_460_45127_file.js', name:'_tone_Halo_32PadHalo_32Pad_461_460_45127_file'}
 	,{midi:95, drum:false, js:'95.0.Sweep_32PadSweep_32Pad_461_460_45127_file.js', name:'_tone_Sweep_32PadSweep_32Pad_461_460_45127_file'}
 	,{midi:96, drum:false, js:'96.0.Ice_32RainIce_32Rain0_461_460_45127_file.js', name:'_tone_Ice_32RainIce_32Rain0_461_460_45127_file'}
+	,{midi:96, drum:false, js:'96.0.Ice_32RainIce_32Rain_461_460_45127.js', name:'_tone_Ice_32RainIce_32Rain_461_460_45127'}
+	,{midi:96, drum:false, js:'96.0.Ice_32RainIce_32Rain_461_460_45127_file.js', name:'_tone_Ice_32RainIce_32Rain_461_460_45127_file'}
 	,{midi:97, drum:false, js:'97.0.SoundtrackSoundtrack_461_460_45127_file.js', name:'_tone_SoundtrackSoundtrack_461_460_45127_file'}
 	,{midi:98, drum:false, js:'98.0.CrystalCrystal_461_460_45127_file.js', name:'_tone_CrystalCrystal_461_460_45127_file'}
 	,{midi:99, drum:false, js:'99.0.AtmosphereAtmosphere_461_460_45127_file.js', name:'_tone_AtmosphereAtmosphere_461_460_45127_file'}
@@ -131,6 +207,7 @@ var webAudioFontIndex=[
 	,{midi:107, drum:false, js:'107.0.KotoKoto_461_460_45127_file.js', name:'_tone_KotoKoto_461_460_45127_file'}
 	,{midi:108, drum:false, js:'108.0.KalimbaKalimba_461_460_45127_file.js', name:'_tone_KalimbaKalimba_461_460_45127_file'}
 	,{midi:109, drum:false, js:'109.0.BagpipeBagpipe_461_460_45127_file.js', name:'_tone_BagpipeBagpipe_461_460_45127_file'}
+	,{midi:110, drum:false, js:'110.0.FiddleFiddle_461_460_45127_file.js', name:'_tone_FiddleFiddle_461_460_45127_file'}
 	,{midi:110, drum:false, js:'110.0.FiddleViolin_461_460_45127_file.js', name:'_tone_FiddleViolin_461_460_45127_file'}
 	,{midi:111, drum:false, js:'111.0.ShenaiShenai_321_461_460_45127_file.js', name:'_tone_ShenaiShenai_321_461_460_45127_file'}
 	,{midi:112, drum:false, js:'112.0.Tinker_32BellTinker_32Bell_461_460_45127_file.js', name:'_tone_Tinker_32BellTinker_32Bell_461_460_45127_file'}
@@ -142,13 +219,49 @@ var webAudioFontIndex=[
 	,{midi:118, drum:false, js:'118.0.Synth_32DrumSynth_32Drum_461_460_45127_file.js', name:'_tone_Synth_32DrumSynth_32Drum_461_460_45127_file'}
 	,{midi:119, drum:false, js:'119.0.Reverse_32CymbalReverse_32Cymbal_461_460_45127_file.js', name:'_tone_Reverse_32CymbalReverse_32Cymbal_461_460_45127_file'}
 	,{midi:120, drum:false, js:'120.0.Fret_32NoiseFret_32Noise_461_460_45127_file.js', name:'_tone_Fret_32NoiseFret_32Noise_461_460_45127_file'}
+	,{midi:120, drum:false, js:'120.1.Gtr_46_32Cut_32NoiseGt_46_32Cut_32noise_461_460_45127_file.js', name:'_tone_Gtr_46_32Cut_32NoiseGt_46_32Cut_32noise_461_460_45127_file'}
+	,{midi:120, drum:false, js:'120.2.String_32SlapString_32Slap_461_460_45127_file.js', name:'_tone_String_32SlapString_32Slap_461_460_45127_file'}
+	,{midi:120, drum:false, js:'120.5.bass_32slidebass_32slide_461_460_45127_file.js', name:'_tone_bass_32slidebass_32slide_461_460_45127_file'}
+	,{midi:120, drum:false, js:'120.6.Pick_32ScrapePick_Scrape1_461_460_45127_file.js', name:'_tone_Pick_32ScrapePick_Scrape1_461_460_45127_file'}
 	,{midi:121, drum:false, js:'121.0.Breath_32NoiseBreath_32Noise_461_460_45127_file.js', name:'_tone_Breath_32NoiseBreath_32Noise_461_460_45127_file'}
 	,{midi:122, drum:false, js:'122.0.SeashoreSeashore_461_460_45127_file.js', name:'_tone_SeashoreSeashore_461_460_45127_file'}
+	,{midi:122, drum:false, js:'122.1.RainRain_461_460_45127_file.js', name:'_tone_RainRain_461_460_45127_file'}
+	,{midi:122, drum:false, js:'122.2.ThunderThunder_461_460_45127_file.js', name:'_tone_ThunderThunder_461_460_45127_file'}
+	,{midi:122, drum:false, js:'122.4.StreamStream_461_460_45127_file.js', name:'_tone_StreamStream_461_460_45127_file'}
+	,{midi:122, drum:false, js:'122.5.BubbleBubble_461_460_45127_file.js', name:'_tone_BubbleBubble_461_460_45127_file'}
 	,{midi:123, drum:false, js:'123.0.BirdBird_461_460_45127_file.js', name:'_tone_BirdBird_461_460_45127_file'}
+	,{midi:123, drum:false, js:'123.1.DogDog_461_460_45127_file.js', name:'_tone_DogDog_461_460_45127_file'}
+	,{midi:123, drum:false, js:'123.2.Horse_32GallopHorse_32Gallup_461_460_45127_file.js', name:'_tone_Horse_32GallopHorse_32Gallup_461_460_45127_file'}
+	,{midi:123, drum:false, js:'123.3.Bird_32_322Bird_32Ocarina_461_460_45127_file.js', name:'_tone_Bird_32_322Bird_32Ocarina_461_460_45127_file'}
+	,{midi:124, drum:false, js:'124.0.TelephoneTelephone89_461_460_45127_file.js', name:'_tone_TelephoneTelephone89_461_460_45127_file'}
+	,{midi:124, drum:false, js:'124.0.TelephoneTelephone_461_460_45127_file.js', name:'_tone_TelephoneTelephone_461_460_45127_file'}
 	,{midi:124, drum:false, js:'124.0.TelephoneTelephone_4632769_460_45127_file.js', name:'_tone_TelephoneTelephone_4632769_460_45127_file'}
+	,{midi:124, drum:false, js:'124.2.Door_32CreakingDoor_32Creaking_461_460_45127_file.js', name:'_tone_Door_32CreakingDoor_32Creaking_461_460_45127_file'}
+	,{midi:124, drum:false, js:'124.3.Door_32SlamDoor_32Slam_461_460_45127_file.js', name:'_tone_Door_32SlamDoor_32Slam_461_460_45127_file'}
+	,{midi:124, drum:false, js:'124.4.ScratchScratch1_461_460_45127_file.js', name:'_tone_ScratchScratch1_461_460_45127_file'}
+	,{midi:124, drum:false, js:'124.5.WindChimeWindChime1_462_460_45127_file.js', name:'_tone_WindChimeWindChime1_462_460_45127_file'}
+	,{midi:124, drum:false, js:'124.5.WindChimeWindChime1_464_460_45127_file.js', name:'_tone_WindChimeWindChime1_464_460_45127_file'}
 	,{midi:125, drum:false, js:'125.0.HelicopterHelicopter_461_460_45127_file.js', name:'_tone_HelicopterHelicopter_461_460_45127_file'}
+	,{midi:125, drum:false, js:'125.1.Car_45EngineCar_32Start_461_460_45127_file.js', name:'_tone_Car_45EngineCar_32Start_461_460_45127_file'}
+	,{midi:125, drum:false, js:'125.2.Car_45StopCar_32Stop_461_460_45127_file.js', name:'_tone_Car_45StopCar_32Stop_461_460_45127_file'}
+	,{midi:125, drum:false, js:'125.3.Car_45PassCar_32Pass_461_460_45127_file.js', name:'_tone_Car_45PassCar_32Pass_461_460_45127_file'}
+	,{midi:125, drum:false, js:'125.4.Car_45CrashCar_32Crash_461_460_45127_file.js', name:'_tone_Car_45CrashCar_32Crash_461_460_45127_file'}
+	,{midi:125, drum:false, js:'125.5.SirenSiren_461_460_45127_file.js', name:'_tone_SirenSiren_461_460_45127_file'}
+	,{midi:125, drum:false, js:'125.6.TrainTrain_461_460_45127_file.js', name:'_tone_TrainTrain_461_460_45127_file'}
+	,{midi:125, drum:false, js:'125.7.Jet_32PlaneJet_32Plane_461_460_45127_file.js', name:'_tone_Jet_32PlaneJet_32Plane_461_460_45127_file'}
+	,{midi:125, drum:false, js:'125.8.StarshipUFO_461_460_45127_file.js', name:'_tone_StarshipUFO_461_460_45127_file'}
+	,{midi:125, drum:false, js:'125.9.Burst_32NoiseHarpsichord_32Pitched_461_460_45127_file.js', name:'_tone_Burst_32NoiseHarpsichord_32Pitched_461_460_45127_file'}
+	,{midi:125, drum:false, js:'125.9.Burst_32NoiseSeashore_32Trip_461_460_45127_file.js', name:'_tone_Burst_32NoiseSeashore_32Trip_461_460_45127_file'}
 	,{midi:126, drum:false, js:'126.0.ApplauseApplause_461_460_45127_file.js', name:'_tone_ApplauseApplause_461_460_45127_file'}
+	,{midi:126, drum:false, js:'126.1.LaughingLaughing_461_460_45127_file.js', name:'_tone_LaughingLaughing_461_460_45127_file'}
+	,{midi:126, drum:false, js:'126.2.ScreamingScreaming_461_460_45127_file.js', name:'_tone_ScreamingScreaming_461_460_45127_file'}
+	,{midi:126, drum:false, js:'126.3.PunchPunch_461_460_45127_file.js', name:'_tone_PunchPunch_461_460_45127_file'}
+	,{midi:126, drum:false, js:'126.4.Heart_32BeatBassDrmHeartBeat1_461_460_45127_file.js', name:'_tone_Heart_32BeatBassDrmHeartBeat1_461_460_45127_file'}
+	,{midi:126, drum:false, js:'126.5.FootstepsFootsteps_461_460_45127_file.js', name:'_tone_FootstepsFootsteps_461_460_45127_file'}
 	,{midi:127, drum:false, js:'127.0.GunshotGunshot_461_460_45127_file.js', name:'_tone_GunshotGunshot_461_460_45127_file'}
+	,{midi:127, drum:false, js:'127.0.Gun_32ShotGun_32Shot_461_460_45127_file.js', name:'_tone_Gun_32ShotGun_32Shot_461_460_45127_file'}
+	,{midi:127, drum:false, js:'127.1.Machine_32GunMachine_32Gun1_461_460_45127_file.js', name:'_tone_Machine_32GunMachine_32Gun1_461_460_45127_file'}
+	,{midi:127, drum:false, js:'127.2.LazergunLazergun1_461_460_45127_file.js', name:'_tone_LazergunLazergun1_461_460_45127_file'}
 	,{midi:35, drum:true, js:'128.35.Drum_32_91Elec_93_32_45SC88P_4624_file.js', name:'_drum_Drum_32_91Elec_93_32_45SC88P_4624_file_35'}
 	,{midi:35, drum:true, js:'128.35.Drum_32_91Jazz_93_4632_file.js', name:'_drum_Drum_32_91Jazz_93_4632_file_35'}
 	,{midi:35, drum:true, js:'128.35.Drum_32_91Power_93_4616_file.js', name:'_drum_Drum_32_91Power_93_4616_file_35'}
