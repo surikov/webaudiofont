@@ -1,0 +1,2 @@
+#!/bin/bash
+java -jar /home/sss/Desktop/Documents/jmuse-webaudiofont/jmuse-webaudiofont/sf2convert/sources/netbeansproject/MuseScoreSF2/dist/MuseScoreSF2.jar /home/sss/Desktop/Documents/GitHubWebAudioFont/webaudiofont/sf2/Chaos.sf2 128 wav
