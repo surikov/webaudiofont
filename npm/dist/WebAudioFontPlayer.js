@@ -246,5 +246,6 @@ function WebAudioFontPlayer() {
 	};
 	return this;
 }
+module.exports = WebAudioFontPlayer;
 
 },{}]},{},[1]);
