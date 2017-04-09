@@ -1,3 +1,4 @@
+'use strict'
 console.log('WebAudioFont Player v1.53');
 function WebAudioFontPlayer() {
 	this.envelopes = [];
