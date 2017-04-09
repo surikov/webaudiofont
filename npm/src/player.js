@@ -1,5 +1,5 @@
 'use strict'
-console.log('WebAudioFont Player v1.54');
+console.log('WebAudioFont Player v1.55');
 function WebAudioFontPlayer() {
 	this.envelopes = [];
 	this.afterTime = 0.05;
@@ -248,4 +248,4 @@ function WebAudioFontPlayer() {
 }
 
 if (typeof module === 'object' && module.exports) module.exports = WebAudioFontPlayer;
-if (typeof window !== 'undefined') window.Soundfont = WebAudioFontPlayer;
+if (typeof window !== 'undefined') window.WebAudioFontPlayer = WebAudioFontPlayer;
