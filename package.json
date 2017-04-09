@@ -1,0 +1,18 @@
+{
+	"name":"webaudiofont"
+	,"version":"2.0.1"
+	,"repository":{
+		"type":"git"
+		,"url":"https://github.com/surikov/webaudiofont"
+		}
+	,"license":"MIT"
+	,"main":"npm/src/player.js"
+	,"devDependencies":{
+		"browserify": "^13.1.0"
+		}
+	,"scripts":{
+		"test":"echo no testing yet"
+		,"dist": "browserify npm/src/player.js > npm/dist/WebAudioFontPlayer.js && echo all done"
+		,"prepublish":"npm test && npm run dist"
+		}
+}
