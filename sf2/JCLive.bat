@@ -1,4 +1,4 @@
-cd ..\sound
-java -jar D:\projects\jmuse-webaudiofont\jmuse-webaudiofont\sf2convert\sources\netbeansproject\MuseScoreSF2\dist\MuseScoreSF2.jar ..\sf2\JCLive.sf2 all ogg
-pause
-
+cd ../sound
+remjava -jar /home/sss/Desktop/Documents/jmuse-webaudiofont/jmuse-webaudiofont/sf2convert/executable/MuseScoreSF2.jar /home/sss/Desktop/Documents/GitHubWebAudioFont/webaudiofont/sf2/JCLive.sf2 22 ogg
+rempause
+

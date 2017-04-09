@@ -1,0 +1,143 @@
+<html>
+	<head>
+		<script src='https://surikov.github.io/webaudiofont/npm/dist/WebAudioFontPlayer.js'></script>
+		<script src='1100_JCLive_sf2_file.js'></script>
+		<script>
+			var selectedPreset=_tone_1100_JCLive_sf2_file;
+			var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
+			var audioContext = new AudioContextFunc();
+			var player=new WebAudioFontPlayer();
+			player.adjustPreset(audioContext,selectedPreset);
+			function startWaveTableNow(pitch) {
+				var audioBufferSourceNode = player.queueWaveTable(audioContext, audioContext.destination, selectedPreset, audioContext.currentTime + 0, pitch, 0.4);
+				var audioBufferSourceNode = player.queueWaveTable(audioContext, audioContext.destination, selectedPreset, audioContext.currentTime + 0.4, pitch, 0.2);
+				var audioBufferSourceNode = player.queueWaveTable(audioContext, audioContext.destination, selectedPreset, audioContext.currentTime + 0.6, pitch, 0.2);
+				var audioBufferSourceNode = player.queueWaveTable(audioContext, audioContext.destination, selectedPreset, audioContext.currentTime + 0.8, pitch, 4);
+			}
+		</script>
+	</head>
+	<body>
+		<p>file: 1100_JCLive_sf2_file.js<br/>
+		variable: _tone_1100_JCLive_sf2_file<br/>
+		MIDI: 110. Fiddle: Ethnic</p>
+		<p><a href='javascript:player.cancelQueue(audioContext);'>stop</a></p>
+		<p>chords:
+			  <a href='javascript:startWaveTableNow(4+12*4+0); startWaveTableNow(9+12*4+0); startWaveTableNow(2+12*5+2); startWaveTableNow(7+12*5+2); startWaveTableNow(11+12*5+1); startWaveTableNow(4+12*6+0);'>Am</a>
+			| <a href='javascript:startWaveTableNow(4+12*4+0); startWaveTableNow(9+12*4+3); startWaveTableNow(2+12*5+2); startWaveTableNow(7+12*5+0); startWaveTableNow(11+12*5+1); startWaveTableNow(4+12*6+0);'>C</a>
+			| <a href='javascript:startWaveTableNow(4+12*4+0); startWaveTableNow(9+12*4+2); startWaveTableNow(2+12*5+2); startWaveTableNow(7+12*5+1); startWaveTableNow(11+12*5+0); startWaveTableNow(4+12*6+0);'>E</a>
+			| <a href='javascript:startWaveTableNow(4+12*4+3); startWaveTableNow(9+12*4+2); startWaveTableNow(2+12*5+0); startWaveTableNow(7+12*5+0); startWaveTableNow(11+12*5+0); startWaveTableNow(4+12*6+3);'>G</a>
+		</p>
+		<p>1.
+			<a href='javascript:startWaveTableNow(0+12*1);'>C</a>
+			<a href='javascript:startWaveTableNow(1+12*1);'>C#</a>
+			<a href='javascript:startWaveTableNow(2+12*1);'>D</a>
+			<a href='javascript:startWaveTableNow(3+12*1);'>D#</a>
+			<a href='javascript:startWaveTableNow(4+12*1);'>E</a>
+			<a href='javascript:startWaveTableNow(5+12*1);'>F</a>
+			<a href='javascript:startWaveTableNow(6+12*1);'>F#</a>
+			<a href='javascript:startWaveTableNow(7+12*1);'>G</a>
+			<a href='javascript:startWaveTableNow(8+12*1);'>G#</a>
+			<a href='javascript:startWaveTableNow(9+12*1);'>A</a>
+			<a href='javascript:startWaveTableNow(10+12*1);'>A#</a>
+			<a href='javascript:startWaveTableNow(11+12*1);'>B</a>
+		</p>
+		<p>2.
+			<a href='javascript:startWaveTableNow(0+12*2);'>C</a>
+			<a href='javascript:startWaveTableNow(1+12*2);'>C#</a>
+			<a href='javascript:startWaveTableNow(2+12*2);'>D</a>
+			<a href='javascript:startWaveTableNow(3+12*2);'>D#</a>
+			<a href='javascript:startWaveTableNow(4+12*2);'>E</a>
+			<a href='javascript:startWaveTableNow(5+12*2);'>F</a>
+			<a href='javascript:startWaveTableNow(6+12*2);'>F#</a>
+			<a href='javascript:startWaveTableNow(7+12*2);'>G</a>
+			<a href='javascript:startWaveTableNow(8+12*2);'>G#</a>
+			<a href='javascript:startWaveTableNow(9+12*2);'>A</a>
+			<a href='javascript:startWaveTableNow(10+12*2);'>A#</a>
+			<a href='javascript:startWaveTableNow(11+12*2);'>B</a>
+		</p>
+		<p>3.
+			<a href='javascript:startWaveTableNow(0+12*3);'>C</a>
+			<a href='javascript:startWaveTableNow(1+12*3);'>C#</a>
+			<a href='javascript:startWaveTableNow(2+12*3);'>D</a>
+			<a href='javascript:startWaveTableNow(3+12*3);'>D#</a>
+			<a href='javascript:startWaveTableNow(4+12*3);'>E</a>
+			<a href='javascript:startWaveTableNow(5+12*3);'>F</a>
+			<a href='javascript:startWaveTableNow(6+12*3);'>F#</a>
+			<a href='javascript:startWaveTableNow(7+12*3);'>G</a>
+			<a href='javascript:startWaveTableNow(8+12*3);'>G#</a>
+			<a href='javascript:startWaveTableNow(9+12*3);'>A</a>
+			<a href='javascript:startWaveTableNow(10+12*3);'>A#</a>
+			<a href='javascript:startWaveTableNow(11+12*3);'>B</a>
+		</p>
+		<p>4.
+			<a href='javascript:startWaveTableNow(0+12*4);'>C</a>
+			<a href='javascript:startWaveTableNow(1+12*4);'>C#</a>
+			<a href='javascript:startWaveTableNow(2+12*4);'>D</a>
+			<a href='javascript:startWaveTableNow(3+12*4);'>D#</a>
+			<a href='javascript:startWaveTableNow(4+12*4);'>E</a>
+			<a href='javascript:startWaveTableNow(5+12*4);'>F</a>
+			<a href='javascript:startWaveTableNow(6+12*4);'>F#</a>
+			<a href='javascript:startWaveTableNow(7+12*4);'>G</a>
+			<a href='javascript:startWaveTableNow(8+12*4);'>G#</a>
+			<a href='javascript:startWaveTableNow(9+12*4);'>A</a>
+			<a href='javascript:startWaveTableNow(10+12*4);'>A#</a>
+			<a href='javascript:startWaveTableNow(11+12*4);'>B</a>
+		</p>
+		<p>5.
+			<a href='javascript:startWaveTableNow(0+12*5);'>C</a>
+			<a href='javascript:startWaveTableNow(1+12*5);'>C#</a>
+			<a href='javascript:startWaveTableNow(2+12*5);'>D</a>
+			<a href='javascript:startWaveTableNow(3+12*5);'>D#</a>
+			<a href='javascript:startWaveTableNow(4+12*5);'>E</a>
+			<a href='javascript:startWaveTableNow(5+12*5);'>F</a>
+			<a href='javascript:startWaveTableNow(6+12*5);'>F#</a>
+			<a href='javascript:startWaveTableNow(7+12*5);'>G</a>
+			<a href='javascript:startWaveTableNow(8+12*5);'>G#</a>
+			<a href='javascript:startWaveTableNow(9+12*5);'>A</a>
+			<a href='javascript:startWaveTableNow(10+12*5);'>A#</a>
+			<a href='javascript:startWaveTableNow(11+12*5);'>B</a>
+		</p>
+		<p>6.
+			<a href='javascript:startWaveTableNow(0+12*6);'>C</a>
+			<a href='javascript:startWaveTableNow(1+12*6);'>C#</a>
+			<a href='javascript:startWaveTableNow(2+12*6);'>D</a>
+			<a href='javascript:startWaveTableNow(3+12*6);'>D#</a>
+			<a href='javascript:startWaveTableNow(4+12*6);'>E</a>
+			<a href='javascript:startWaveTableNow(5+12*6);'>F</a>
+			<a href='javascript:startWaveTableNow(6+12*6);'>F#</a>
+			<a href='javascript:startWaveTableNow(7+12*6);'>G</a>
+			<a href='javascript:startWaveTableNow(8+12*6);'>G#</a>
+			<a href='javascript:startWaveTableNow(9+12*6);'>A</a>
+			<a href='javascript:startWaveTableNow(10+12*6);'>A#</a>
+			<a href='javascript:startWaveTableNow(11+12*6);'>B</a>
+		</p>
+		<p>7.
+			<a href='javascript:startWaveTableNow(0+12*7);'>C</a>
+			<a href='javascript:startWaveTableNow(1+12*7);'>C#</a>
+			<a href='javascript:startWaveTableNow(2+12*7);'>D</a>
+			<a href='javascript:startWaveTableNow(3+12*7);'>D#</a>
+			<a href='javascript:startWaveTableNow(4+12*7);'>E</a>
+			<a href='javascript:startWaveTableNow(5+12*7);'>F</a>
+			<a href='javascript:startWaveTableNow(6+12*7);'>F#</a>
+			<a href='javascript:startWaveTableNow(7+12*7);'>G</a>
+			<a href='javascript:startWaveTableNow(8+12*7);'>G#</a>
+			<a href='javascript:startWaveTableNow(9+12*7);'>A</a>
+			<a href='javascript:startWaveTableNow(10+12*7);'>A#</a>
+			<a href='javascript:startWaveTableNow(11+12*7);'>B</a>
+		</p>
+		<p>8.
+			<a href='javascript:startWaveTableNow(0+12*8);'>C</a>
+			<a href='javascript:startWaveTableNow(1+12*8);'>C#</a>
+			<a href='javascript:startWaveTableNow(2+12*8);'>D</a>
+			<a href='javascript:startWaveTableNow(3+12*8);'>D#</a>
+			<a href='javascript:startWaveTableNow(4+12*8);'>E</a>
+			<a href='javascript:startWaveTableNow(5+12*8);'>F</a>
+			<a href='javascript:startWaveTableNow(6+12*8);'>F#</a>
+			<a href='javascript:startWaveTableNow(7+12*8);'>G</a>
+			<a href='javascript:startWaveTableNow(8+12*8);'>G#</a>
+			<a href='javascript:startWaveTableNow(9+12*8);'>A</a>
+			<a href='javascript:startWaveTableNow(10+12*8);'>A#</a>
+			<a href='javascript:startWaveTableNow(11+12*8);'>B</a>
+		</p>
+	</body>
+</html>

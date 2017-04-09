@@ -1,0 +1,115 @@
+<html>
+	<head>
+		<script src='https://surikov.github.io/webaudiofont/npm/dist/WebAudioFontPlayer.js'></script>
+		<script src='12835_26_JCLive_sf2_file.js'></script>
+		<script src='12836_26_JCLive_sf2_file.js'></script>
+		<script src='12837_26_JCLive_sf2_file.js'></script>
+		<script src='12838_26_JCLive_sf2_file.js'></script>
+		<script src='12839_26_JCLive_sf2_file.js'></script>
+		<script src='12840_26_JCLive_sf2_file.js'></script>
+		<script src='12841_26_JCLive_sf2_file.js'></script>
+		<script src='12842_26_JCLive_sf2_file.js'></script>
+		<script src='12843_26_JCLive_sf2_file.js'></script>
+		<script src='12844_26_JCLive_sf2_file.js'></script>
+		<script src='12845_26_JCLive_sf2_file.js'></script>
+		<script src='12846_26_JCLive_sf2_file.js'></script>
+		<script src='12847_26_JCLive_sf2_file.js'></script>
+		<script src='12848_26_JCLive_sf2_file.js'></script>
+		<script src='12849_26_JCLive_sf2_file.js'></script>
+		<script src='12850_26_JCLive_sf2_file.js'></script>
+		<script src='12851_26_JCLive_sf2_file.js'></script>
+		<script src='12852_26_JCLive_sf2_file.js'></script>
+		<script src='12853_26_JCLive_sf2_file.js'></script>
+		<script src='12854_26_JCLive_sf2_file.js'></script>
+		<script src='12855_26_JCLive_sf2_file.js'></script>
+		<script src='12856_26_JCLive_sf2_file.js'></script>
+		<script src='12857_26_JCLive_sf2_file.js'></script>
+		<script src='12858_26_JCLive_sf2_file.js'></script>
+		<script src='12859_26_JCLive_sf2_file.js'></script>
+		<script src='12860_26_JCLive_sf2_file.js'></script>
+		<script src='12861_26_JCLive_sf2_file.js'></script>
+		<script src='12862_26_JCLive_sf2_file.js'></script>
+		<script src='12863_26_JCLive_sf2_file.js'></script>
+		<script src='12864_26_JCLive_sf2_file.js'></script>
+		<script src='12865_26_JCLive_sf2_file.js'></script>
+		<script src='12866_26_JCLive_sf2_file.js'></script>
+		<script src='12867_26_JCLive_sf2_file.js'></script>
+		<script src='12868_26_JCLive_sf2_file.js'></script>
+		<script src='12869_26_JCLive_sf2_file.js'></script>
+		<script src='12870_26_JCLive_sf2_file.js'></script>
+		<script src='12871_26_JCLive_sf2_file.js'></script>
+		<script src='12872_26_JCLive_sf2_file.js'></script>
+		<script src='12873_26_JCLive_sf2_file.js'></script>
+		<script src='12874_26_JCLive_sf2_file.js'></script>
+		<script src='12875_26_JCLive_sf2_file.js'></script>
+		<script src='12876_26_JCLive_sf2_file.js'></script>
+		<script src='12877_26_JCLive_sf2_file.js'></script>
+		<script src='12878_26_JCLive_sf2_file.js'></script>
+		<script src='12879_26_JCLive_sf2_file.js'></script>
+		<script src='12880_26_JCLive_sf2_file.js'></script>
+		<script src='12881_26_JCLive_sf2_file.js'></script>
+		<script>
+			var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
+			var audioContext = new AudioContextFunc();
+			var player=new WebAudioFontPlayer();
+			function startWaveTableNow(drum,pitch) {
+				var audioBufferSourceNode = player.queueWaveTable(audioContext, audioContext.destination, drum, audioContext.currentTime + 0, pitch, 3.5);
+				var audioBufferSourceNode = player.queueWaveTable(audioContext, audioContext.destination, drum, audioContext.currentTime + 0.4, pitch, 3.5);
+				var audioBufferSourceNode = player.queueWaveTable(audioContext, audioContext.destination, drum, audioContext.currentTime + 0.6, pitch, 3.5);
+				var audioBufferSourceNode = player.queueWaveTable(audioContext, audioContext.destination, drum, audioContext.currentTime + 0.8, pitch, 3.5);
+			}
+		</script>
+	</head>
+	<body>
+		<p><a href='javascript:player.cancelQueue(audioContext);'>stop</a></p>
+		<p>
+		<a href='javascript:startWaveTableNow(_drum_35_26_JCLive_sf2_file,35);'>35. Bass Drum 2</a>, file 12835_26_JCLive_sf2_file.js, var _drum_35_26_JCLive_sf2_file<br/>
+		<a href='javascript:startWaveTableNow(_drum_36_26_JCLive_sf2_file,36);'>36. Bass Drum 1</a>, file 12836_26_JCLive_sf2_file.js, var _drum_36_26_JCLive_sf2_file<br/>
+		<a href='javascript:startWaveTableNow(_drum_37_26_JCLive_sf2_file,37);'>37. Side Stick/Rimshot</a>, file 12837_26_JCLive_sf2_file.js, var _drum_37_26_JCLive_sf2_file<br/>
+		<a href='javascript:startWaveTableNow(_drum_38_26_JCLive_sf2_file,38);'>38. Snare Drum 1</a>, file 12838_26_JCLive_sf2_file.js, var _drum_38_26_JCLive_sf2_file<br/>
+		<a href='javascript:startWaveTableNow(_drum_39_26_JCLive_sf2_file,39);'>39. Hand Clap</a>, file 12839_26_JCLive_sf2_file.js, var _drum_39_26_JCLive_sf2_file<br/>
+		<a href='javascript:startWaveTableNow(_drum_40_26_JCLive_sf2_file,40);'>40. Snare Drum 2</a>, file 12840_26_JCLive_sf2_file.js, var _drum_40_26_JCLive_sf2_file<br/>
+		<a href='javascript:startWaveTableNow(_drum_41_26_JCLive_sf2_file,41);'>41. Low Tom 2</a>, file 12841_26_JCLive_sf2_file.js, var _drum_41_26_JCLive_sf2_file<br/>
+		<a href='javascript:startWaveTableNow(_drum_42_26_JCLive_sf2_file,42);'>42. Closed Hi-hat</a>, file 12842_26_JCLive_sf2_file.js, var _drum_42_26_JCLive_sf2_file<br/>
+		<a href='javascript:startWaveTableNow(_drum_43_26_JCLive_sf2_file,43);'>43. Low Tom 1</a>, file 12843_26_JCLive_sf2_file.js, var _drum_43_26_JCLive_sf2_file<br/>
+		<a href='javascript:startWaveTableNow(_drum_44_26_JCLive_sf2_file,44);'>44. Pedal Hi-hat</a>, file 12844_26_JCLive_sf2_file.js, var _drum_44_26_JCLive_sf2_file<br/>
+		<a href='javascript:startWaveTableNow(_drum_45_26_JCLive_sf2_file,45);'>45. Mid Tom 2</a>, file 12845_26_JCLive_sf2_file.js, var _drum_45_26_JCLive_sf2_file<br/>
+		<a href='javascript:startWaveTableNow(_drum_46_26_JCLive_sf2_file,46);'>46. Open Hi-hat</a>, file 12846_26_JCLive_sf2_file.js, var _drum_46_26_JCLive_sf2_file<br/>
+		<a href='javascript:startWaveTableNow(_drum_47_26_JCLive_sf2_file,47);'>47. Mid Tom 1</a>, file 12847_26_JCLive_sf2_file.js, var _drum_47_26_JCLive_sf2_file<br/>
+		<a href='javascript:startWaveTableNow(_drum_48_26_JCLive_sf2_file,48);'>48. High Tom 2</a>, file 12848_26_JCLive_sf2_file.js, var _drum_48_26_JCLive_sf2_file<br/>
+		<a href='javascript:startWaveTableNow(_drum_49_26_JCLive_sf2_file,49);'>49. Crash Cymbal 1</a>, file 12849_26_JCLive_sf2_file.js, var _drum_49_26_JCLive_sf2_file<br/>
+		<a href='javascript:startWaveTableNow(_drum_50_26_JCLive_sf2_file,50);'>50. High Tom 1</a>, file 12850_26_JCLive_sf2_file.js, var _drum_50_26_JCLive_sf2_file<br/>
+		<a href='javascript:startWaveTableNow(_drum_51_26_JCLive_sf2_file,51);'>51. Ride Cymbal 1</a>, file 12851_26_JCLive_sf2_file.js, var _drum_51_26_JCLive_sf2_file<br/>
+		<a href='javascript:startWaveTableNow(_drum_52_26_JCLive_sf2_file,52);'>52. Chinese Cymbal</a>, file 12852_26_JCLive_sf2_file.js, var _drum_52_26_JCLive_sf2_file<br/>
+		<a href='javascript:startWaveTableNow(_drum_53_26_JCLive_sf2_file,53);'>53. Ride Bell</a>, file 12853_26_JCLive_sf2_file.js, var _drum_53_26_JCLive_sf2_file<br/>
+		<a href='javascript:startWaveTableNow(_drum_54_26_JCLive_sf2_file,54);'>54. Tambourine</a>, file 12854_26_JCLive_sf2_file.js, var _drum_54_26_JCLive_sf2_file<br/>
+		<a href='javascript:startWaveTableNow(_drum_55_26_JCLive_sf2_file,55);'>55. Splash Cymbal</a>, file 12855_26_JCLive_sf2_file.js, var _drum_55_26_JCLive_sf2_file<br/>
+		<a href='javascript:startWaveTableNow(_drum_56_26_JCLive_sf2_file,56);'>56. Cowbell</a>, file 12856_26_JCLive_sf2_file.js, var _drum_56_26_JCLive_sf2_file<br/>
+		<a href='javascript:startWaveTableNow(_drum_57_26_JCLive_sf2_file,57);'>57. Crash Cymbal 2</a>, file 12857_26_JCLive_sf2_file.js, var _drum_57_26_JCLive_sf2_file<br/>
+		<a href='javascript:startWaveTableNow(_drum_58_26_JCLive_sf2_file,58);'>58. Vibra Slap</a>, file 12858_26_JCLive_sf2_file.js, var _drum_58_26_JCLive_sf2_file<br/>
+		<a href='javascript:startWaveTableNow(_drum_59_26_JCLive_sf2_file,59);'>59. Ride Cymbal 2</a>, file 12859_26_JCLive_sf2_file.js, var _drum_59_26_JCLive_sf2_file<br/>
+		<a href='javascript:startWaveTableNow(_drum_60_26_JCLive_sf2_file,60);'>60. High Bongo</a>, file 12860_26_JCLive_sf2_file.js, var _drum_60_26_JCLive_sf2_file<br/>
+		<a href='javascript:startWaveTableNow(_drum_61_26_JCLive_sf2_file,61);'>61. Low Bongo</a>, file 12861_26_JCLive_sf2_file.js, var _drum_61_26_JCLive_sf2_file<br/>
+		<a href='javascript:startWaveTableNow(_drum_62_26_JCLive_sf2_file,62);'>62. Mute High Conga</a>, file 12862_26_JCLive_sf2_file.js, var _drum_62_26_JCLive_sf2_file<br/>
+		<a href='javascript:startWaveTableNow(_drum_63_26_JCLive_sf2_file,63);'>63. Open High Conga</a>, file 12863_26_JCLive_sf2_file.js, var _drum_63_26_JCLive_sf2_file<br/>
+		<a href='javascript:startWaveTableNow(_drum_64_26_JCLive_sf2_file,64);'>64. Low Conga</a>, file 12864_26_JCLive_sf2_file.js, var _drum_64_26_JCLive_sf2_file<br/>
+		<a href='javascript:startWaveTableNow(_drum_65_26_JCLive_sf2_file,65);'>65. High Timbale</a>, file 12865_26_JCLive_sf2_file.js, var _drum_65_26_JCLive_sf2_file<br/>
+		<a href='javascript:startWaveTableNow(_drum_66_26_JCLive_sf2_file,66);'>66. Low Timbale</a>, file 12866_26_JCLive_sf2_file.js, var _drum_66_26_JCLive_sf2_file<br/>
+		<a href='javascript:startWaveTableNow(_drum_67_26_JCLive_sf2_file,67);'>67. High Agogo</a>, file 12867_26_JCLive_sf2_file.js, var _drum_67_26_JCLive_sf2_file<br/>
+		<a href='javascript:startWaveTableNow(_drum_68_26_JCLive_sf2_file,68);'>68. Low Agogo</a>, file 12868_26_JCLive_sf2_file.js, var _drum_68_26_JCLive_sf2_file<br/>
+		<a href='javascript:startWaveTableNow(_drum_69_26_JCLive_sf2_file,69);'>69. Cabasa</a>, file 12869_26_JCLive_sf2_file.js, var _drum_69_26_JCLive_sf2_file<br/>
+		<a href='javascript:startWaveTableNow(_drum_70_26_JCLive_sf2_file,70);'>70. Maracas</a>, file 12870_26_JCLive_sf2_file.js, var _drum_70_26_JCLive_sf2_file<br/>
+		<a href='javascript:startWaveTableNow(_drum_71_26_JCLive_sf2_file,71);'>71. Short Whistle</a>, file 12871_26_JCLive_sf2_file.js, var _drum_71_26_JCLive_sf2_file<br/>
+		<a href='javascript:startWaveTableNow(_drum_72_26_JCLive_sf2_file,72);'>72. Long Whistle</a>, file 12872_26_JCLive_sf2_file.js, var _drum_72_26_JCLive_sf2_file<br/>
+		<a href='javascript:startWaveTableNow(_drum_73_26_JCLive_sf2_file,73);'>73. Short Guiro</a>, file 12873_26_JCLive_sf2_file.js, var _drum_73_26_JCLive_sf2_file<br/>
+		<a href='javascript:startWaveTableNow(_drum_74_26_JCLive_sf2_file,74);'>74. Long Guiro</a>, file 12874_26_JCLive_sf2_file.js, var _drum_74_26_JCLive_sf2_file<br/>
+		<a href='javascript:startWaveTableNow(_drum_75_26_JCLive_sf2_file,75);'>75. Claves</a>, file 12875_26_JCLive_sf2_file.js, var _drum_75_26_JCLive_sf2_file<br/>
+		<a href='javascript:startWaveTableNow(_drum_76_26_JCLive_sf2_file,76);'>76. High Wood Block</a>, file 12876_26_JCLive_sf2_file.js, var _drum_76_26_JCLive_sf2_file<br/>
+		<a href='javascript:startWaveTableNow(_drum_77_26_JCLive_sf2_file,77);'>77. Low Wood Block</a>, file 12877_26_JCLive_sf2_file.js, var _drum_77_26_JCLive_sf2_file<br/>
+		<a href='javascript:startWaveTableNow(_drum_78_26_JCLive_sf2_file,78);'>78. Mute Cuica</a>, file 12878_26_JCLive_sf2_file.js, var _drum_78_26_JCLive_sf2_file<br/>
+		<a href='javascript:startWaveTableNow(_drum_79_26_JCLive_sf2_file,79);'>79. Open Cuica</a>, file 12879_26_JCLive_sf2_file.js, var _drum_79_26_JCLive_sf2_file<br/>
+		<a href='javascript:startWaveTableNow(_drum_80_26_JCLive_sf2_file,80);'>80. Mute Triangle</a>, file 12880_26_JCLive_sf2_file.js, var _drum_80_26_JCLive_sf2_file<br/>
+		<a href='javascript:startWaveTableNow(_drum_81_26_JCLive_sf2_file,81);'>81. Open Triangle</a>, file 12881_26_JCLive_sf2_file.js, var _drum_81_26_JCLive_sf2_file<br/>
+		</p>
+	</body>
+</html>
