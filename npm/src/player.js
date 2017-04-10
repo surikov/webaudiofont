@@ -1,5 +1,5 @@
 'use strict'
-console.log('WebAudioFont Player v1.55');
+console.log('WebAudioFont Player v2.56');
 function WebAudioFontPlayer() {
 	this.envelopes = [];
 	this.afterTime = 0.05;
