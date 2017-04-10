@@ -1,0 +1,44 @@
+<html>
+    <head>
+		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1.01">
+        <script src='WebAudioFontPlayer.js'></script>
+        <script src='webaudiofont/107.8.Taisho_32Koto000167_461_460_45127.js'></script>
+        <script>
+            var selectedPreset=_tone_Taisho_32Koto000167_461_460_45127;
+            var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
+            var audioContext = new AudioContextFunc();
+            var player=new WebAudioFontPlayer();
+			player.adjustPreset(selectedPreset);
+			function tap(n,event){
+				player.queueWaveTable(audioContext, audioContext.destination, selectedPreset, 0, n, 1.5);
+				event.preventDefault();
+			};
+        </script>
+		<style type="text/css">
+			.tap1 {background-color:#000099; position:fixed;left:10;top:10;width:100px;height:100px;-ms-touch-action:manipulation;touch-action:manipulation;}
+			.tap2 {background-color:#990099; position:fixed;left:120;top:10;width:100px;height:100px;-ms-touch-action:manipulation;touch-action:manipulation;}
+			.tap3 {background-color:#990000; position:fixed;left:230;top:10;width:100px;height:100px;-ms-touch-action:manipulation;touch-action:manipulation;}
+			.tap4 {background-color:#999900; position:fixed;left:10;top:120;width:100px;height:100px;-ms-touch-action:manipulation;touch-action:manipulation;}
+			.tap5 {background-color:#009900; position:fixed;left:120;top:120;width:100px;height:100px;-ms-touch-action:manipulation;touch-action:manipulation;}
+			.tap6 {background-color:#009999; position:fixed;left:230;top:120;width:100px;height:100px;-ms-touch-action:manipulation;touch-action:manipulation;}
+		</style>
+    </head>
+    <body>
+		<div class="tap1" ontouchstart="tap(4*12+0,event);" onmousedown="tap(4*12+0,event);">&nbsp;</div>
+		<div class="tap2" ontouchstart="tap(4*12+5,event);" onmousedown="tap(4*12+5,event);">&nbsp;</div>
+		<div class="tap3" ontouchstart="tap(4*12+7,event);" onmousedown="tap(4*12+7,event);">&nbsp;</div>
+		<div class="tap4" ontouchstart="tap(5*12+0,event);" onmousedown="tap(5*12+0,event);">&nbsp;</div>
+		<div class="tap5" ontouchstart="tap(5*12+5,event);" onmousedown="tap(5*12+5,event);">&nbsp;</div>
+		<div class="tap6" ontouchstart="tap(5*12+7,event);" onmousedown="tap(5*12+7,event);">&nbsp;</div>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<hr/>
+		<p><a href="https://github.com/surikov/webaudiofont">source</a></p>
+    </body>
+</html>

@@ -1,0 +1,107 @@
+<html>
+	<head>
+		<script src='https://cdn.rawgit.com/surikov/webaudiofont/master/WebAudioFontPlayer.js'></script>
+		<script src='https://cdn.rawgit.com/surikov/webaudiofont/master/webaudiofont/33.0.Fingered_32Bs_46000069_461_460_45127.js'></script>
+		<script src='https://cdn.rawgit.com/surikov/webaudiofont/master/webaudiofont/128.36.Jazz_4632.js'></script>
+		<script src='https://cdn.rawgit.com/surikov/webaudiofont/master/webaudiofont/128.38.Standard_32_32_460.js'></script>
+		<script src='https://cdn.rawgit.com/surikov/webaudiofont/master/webaudiofont/128.42.Power_4616.js'></script>
+		<script src='https://cdn.rawgit.com/surikov/webaudiofont/master/webaudiofont/30.0.DistortionGt000064_461_460_45127.js'></script>
+		<script>
+			var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
+			var audioContext = new AudioContextFunc();
+			var player = new WebAudioFontPlayer();
+			var bpm = 120;
+			var N = 4 * 60 / bpm;
+			var pieceLen = 4 * N;
+			var beatLen=1/8 * N;
+			var C = 0;
+			var Cs= 1;
+			var D = 2;
+			var Ds= 3;
+			var E = 4;
+			var F = 5;
+			var Fs= 6;
+			var G = 7;
+			var Gs= 8;
+			var A = 9;
+			var As= 10;
+			var B = 11;
+			var started = false;
+			var startTime = 0;
+			function guitar(pitch, duration){return {preset:_tone_DistortionGt000064_461_460_45127,pitch:12*4+pitch,duration:duration*N};}
+			function bass(pitch, duration){return {preset:_tone_Fingered_32Bs_46000069_461_460_45127,pitch:12*2+pitch,duration:duration*N};}
+			function drum(){return {preset:_drum_Jazz_4632_36,pitch:36,duration:1};}
+			function snare(){return {preset:_drum_Standard_32_32_460_38,pitch:38,duration:1};}
+			function hihat(){return {preset:_drum_Power_4616_42,pitch:42,duration:1};}
+			function beats(notes) {
+				for (var n = 0; n < notes.length; n++) {
+					var beat = notes[n];
+					for (var i = 0; i < beat.length; i++) {
+						if (beat[i]) {
+							player.queueWaveTable(audioContext, audioContext.destination, beat[i].preset, startTime + n * beatLen , beat[i].pitch, beat[i].duration);
+						}
+					}
+				}
+			}
+			function start() {
+				if (started) {
+					console.log('started already');
+				} else {
+					started = true;
+					startTime = audioContext.currentTime + 0.1;
+					nextPiece();
+					startTime = startTime + pieceLen;
+					setInterval(function () {
+						if (audioContext.currentTime > startTime - 1 / 4 * N) {
+							nextPiece();
+							startTime = startTime + pieceLen;
+						}
+					}, 20);
+				}
+			}
+			function nextPiece() {
+				beats([
+////////////////////////////////////////////////////////////////////////////////////				
+ [guitar(D,1/8),guitar(G,1/8),		bass(G,1/8),		drum(),				hihat()]
+,[									bass(G,1/8),		drum(),				hihat()]
+,[guitar(F,1/8),guitar(As,1/8),		bass(G,1/8),				snare(),	hihat()]
+,[									bass(G,1/8),							hihat()]
+,[guitar(G,1/4),guitar(C,1/4),		bass(G,1/8),		drum(),				hihat()]
+,[									bass(G,1/8),							hihat()]
+,[guitar(G,1/16),					bass(G,1/8),				snare(),	hihat()]
+,[guitar(D,1/8),guitar(G,1/8),		bass(G,1/8),							hihat()]
+,[									bass(G,1/8),		drum(),				hihat()]
+,[guitar(F,1/8),guitar(As,1/8),		bass(G,1/8),		drum(),				hihat()]
+,[									bass(G,1/8),				snare(),	hihat()]
+,[guitar(Gs,1/8),guitar(Cs,1/8),	bass(G,1/8),							hihat()]
+,[guitar(G,1/4),guitar(C,1/4),		bass(G,1/8),		drum(),				hihat()]
+,[									bass(G,1/8),							hihat()]
+,[guitar(G,1/16),					bass(G,1/8),				snare(),	hihat()]
+,[									bass(G,1/8),							hihat()]
+,[guitar(D,1/8),guitar(G,1/8),		bass(G,1/8),		drum(),				hihat()]
+,[									bass(G,1/8),		drum(),				hihat()]
+,[guitar(F,1/8),guitar(As,1/8),		bass(G,1/8),				snare(),	hihat()]
+,[									bass(G,1/8),							hihat()]
+,[guitar(G,1/8),guitar(C,1/8),		bass(C,1/8),		drum(),				hihat()]
+,[									bass(C,1/8),							hihat()]
+,[guitar(G,1/16),					bass(C,1/8),				snare(),	hihat()]
+,[guitar(F,1/8),guitar(As,1/8),		bass(As,1/4),							hihat()]
+,[														drum(),				hihat()]
+,[guitar(D,5/8),guitar(G,5/8),		bass(G,1/8),		drum(),				hihat()]
+,[									bass(G,1/8),				snare(),	hihat()]
+,[									bass(G,1/8),							hihat()]
+,[									bass(G,1/8),		drum(),				hihat()]
+,[									bass(G,1/8),				snare(),	hihat()]
+,[guitar(G,1/16),					bass(F,1/8),				snare(),	hihat()]
+,[									bass(Fs,1/8),				snare(),	hihat()]
+////////////////////////////////////////////////////////////////////////////////////
+				]);
+			}
+		</script>
+	</head>
+	<body>
+		<p><a href="#" onmousedown="start();">start</a> example 2</p>
+		<hr/>
+		<p><a href="https://github.com/surikov/webaudiofont">source</a></p>
+	</body>
+</html>

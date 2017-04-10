@@ -1,0 +1,123 @@
+<html>
+    <head>
+        <script src='WebAudioFontPlayer.js'></script>
+        <script src='webaudiofont/128.35.Power_4616.js'></script>
+		<script src='webaudiofont/128.38.Standard_32_32_460.js'></script>
+		<script src='webaudiofont/128.42.Power_4616.js'></script>
+		<script src='webaudiofont/34.0.Picked_32Bs_46000070_461_460_45127.js'></script>
+        <script>
+			var bpm = 120;
+			var L = 4 * 60 / bpm;
+			var pieceLen = 2 * L;
+			var bassDrumPreset = _drum_Power_4616_35;
+			var bassDrumKey = 35;
+			var snarePreset = _drum_Standard_32_32_460_38;
+			var snareKey = 38;
+			var hiHatPreset = _drum_Power_4616_42;
+			var hiHatKey = 42;
+			var pickedBassPreset = _tone_Picked_32Bs_46000070_461_460_45127;
+			var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
+			var audioContext = new AudioContextFunc();
+			var player = new WebAudioFontPlayer();
+			var started = false;
+			var opt2 = false;
+			var startTime = 0;
+			function nextPiece() {
+				if (opt2) {
+					//bass drum
+					queueLater(bassDrumPreset, startTime + 0 / 8 * L, bassDrumKey, 1);
+					queueLater(bassDrumPreset, startTime + 2 / 8 * L, bassDrumKey, 1);
+					queueLater(bassDrumPreset, startTime + 4 / 8 * L, bassDrumKey, 1);
+					queueLater(bassDrumPreset, startTime + 6 / 8 * L, bassDrumKey, 1);
+					queueLater(bassDrumPreset, startTime + 8 / 8 * L, bassDrumKey, 1);
+					queueLater(bassDrumPreset, startTime + 10 / 8 * L, bassDrumKey, 1);
+					queueLater(bassDrumPreset, startTime + 12 / 8 * L, bassDrumKey, 1);
+					queueLater(bassDrumPreset, startTime + 14 / 8 * L, bassDrumKey, 1);
+					//snare
+					queueLater(snarePreset, startTime + 1 / 8 * L, snareKey, 1);
+					queueLater(snarePreset, startTime + 3 / 8 * L, snareKey, 1);
+					queueLater(snarePreset, startTime + 5 / 8 * L, snareKey, 1);
+					queueLater(snarePreset, startTime + 7 / 8 * L, snareKey, 1);
+					queueLater(snarePreset, startTime + 9 / 8 * L, snareKey, 1);
+					queueLater(snarePreset, startTime + 11 / 8 * L, snareKey, 1);
+					queueLater(snarePreset, startTime + 13 / 8 * L, snareKey, 1);
+					queueLater(snarePreset, startTime + 15 / 8 * L, snareKey, 1);
+				} else {
+					//bass drum
+					queueLater(bassDrumPreset, startTime + 0 / 4 * L, bassDrumKey, 1);
+					queueLater(bassDrumPreset, startTime + 2 / 4 * L, bassDrumKey, 1);
+					queueLater(bassDrumPreset, startTime + 4 / 4 * L, bassDrumKey, 1);
+					queueLater(bassDrumPreset, startTime + 6 / 4 * L, bassDrumKey, 1);
+					//snare
+					queueLater(snarePreset, startTime + 1 / 4 * L, snareKey, 1);
+					queueLater(snarePreset, startTime + 3 / 4 * L, snareKey, 1);
+					queueLater(snarePreset, startTime + 5 / 4 * L, snareKey, 1);
+					queueLater(snarePreset, startTime + 7 / 4 * L, snareKey, 1);
+				}
+				//hi-hat
+				queueLater(hiHatPreset, startTime + 0 / 8 * L, hiHatKey, 1);
+				queueLater(hiHatPreset, startTime + 1 / 8 * L, hiHatKey, 1);
+				queueLater(hiHatPreset, startTime + 2 / 8 * L, hiHatKey, 1);
+				queueLater(hiHatPreset, startTime + 3 / 8 * L, hiHatKey, 1);
+				queueLater(hiHatPreset, startTime + 4 / 8 * L, hiHatKey, 1);
+				queueLater(hiHatPreset, startTime + 5 / 8 * L, hiHatKey, 1);
+				queueLater(hiHatPreset, startTime + 6 / 8 * L, hiHatKey, 1);
+				queueLater(hiHatPreset, startTime + 7 / 8 * L, hiHatKey, 1);
+				queueLater(hiHatPreset, startTime + 8 / 8 * L, hiHatKey, 1);
+				queueLater(hiHatPreset, startTime + 9 / 8 * L, hiHatKey, 1);
+				queueLater(hiHatPreset, startTime + 10 / 8 * L, hiHatKey, 1);
+				queueLater(hiHatPreset, startTime + 11 / 8 * L, hiHatKey, 1);
+				queueLater(hiHatPreset, startTime + 12 / 8 * L, hiHatKey, 1);
+				queueLater(hiHatPreset, startTime + 13 / 8 * L, hiHatKey, 1);
+				queueLater(hiHatPreset, startTime + 14 / 8 * L, hiHatKey, 1);
+				queueLater(hiHatPreset, startTime + 15 / 8 * L, hiHatKey, 1);
+				//bass guitar
+				queueLater(pickedBassPreset, startTime + 0 / 8 * L, 12 * 2 + 9, 2 / 8 * L);
+				queueLater(pickedBassPreset, startTime + 2 / 8 * L, 12 * 2 + 4, 2 / 8 * L);
+				queueLater(pickedBassPreset, startTime + 4 / 8 * L, 12 * 2 + 9, 2 / 8 * L);
+				queueLater(pickedBassPreset, startTime + 6 / 8 * L, 12 * 2 + 4, 2 / 8 * L);
+				queueLater(pickedBassPreset, startTime + 8 / 8 * L, 12 * 2 + 9, 2 / 8 * L);
+				queueLater(pickedBassPreset, startTime + 10 / 8 * L, 12 * 2 + 4, 2 / 8 * L);
+				queueLater(pickedBassPreset, startTime + 12 / 8 * L, 12 * 2 + 9, 1 / 8 * L);
+				queueLater(pickedBassPreset, startTime + 13 / 8 * L, 12 * 2 + 4, 1 / 8 * L);
+				queueLater(pickedBassPreset, startTime + 14 / 8 * L, 12 * 2 + 5, 1 / 8 * L);
+				queueLater(pickedBassPreset, startTime + 15 / 8 * L, 12 * 2 + 7, 1 / 8 * L);
+				console.log('sent');
+			}
+			function queueLater(preset, when, pitch, duration) {
+				if (when > audioContext.currentTime) {
+					player.queueWaveTable(audioContext, audioContext.destination, preset, when, pitch, duration);
+				}
+			}
+			function start() {
+				if (started) {
+					console.log('started already');
+				} else {
+					started = true;
+					startTime = audioContext.currentTime + 0.1;
+					nextPiece();
+					startTime = startTime + pieceLen;
+					setInterval(function () {
+						if (audioContext.currentTime > startTime - 1 / 4 * L) {
+							nextPiece();
+							startTime = startTime + pieceLen;
+						}
+					}, 20);
+				}
+			}
+			function switchDrums() {
+				if (!started) {
+					start();
+				}
+				opt2 = !opt2;
+				player.cancelQueue(audioContext);
+				startTime = startTime - pieceLen;
+			}
+        </script>
+    </head>
+    <body>
+        <p><a href='javascript:start();'>Start music</a> | <a href='javascript:switchDrums()'>switch drums</a> </p>
+		<hr/>
+		<p><a href="https://github.com/surikov/webaudiofont">source</a></p>
+    </body>
+</html>

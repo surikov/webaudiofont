@@ -1,0 +1,57 @@
+<html>
+	<head>
+		<script src='WebAudioFontPlayer.js'></script>
+		<script src='webaudiofont/index.js'></script>
+	</head>
+	<body>
+		<p>
+			<select id="indexList" onchange="loadPreset(this.value)"></select>
+		</p>
+		<script>
+			var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
+			var audioContext = new AudioContextFunc();
+			var player=new WebAudioFontPlayer();
+			var s = document.getElementById('indexList');
+			for(var i = 0; i < webAudioFontIndex.length; i++) {
+				var p = document.createElement('option');
+				p.innerHTML = webAudioFontIndex[i].js;
+				p.value = i;
+				s.appendChild(p);
+			}
+			function loadPreset(idx){
+				console.log('test',webAudioFontIndex[idx]);
+				if(webAudioFontIndex[idx].drum){
+					loadAndWait('webaudiofont/'+webAudioFontIndex[idx].js,webAudioFontIndex[idx].name,testDrum);
+				}else{
+					loadAndWait('webaudiofont/'+webAudioFontIndex[idx].js,webAudioFontIndex[idx].name,testTone);
+				}
+			}
+			function loadAndWait(jsName,varName,onFinish){
+				console.log('init',jsName);
+				var r=document.createElement('script');
+				r.setAttribute("type","text/javascript");
+				r.setAttribute("src", jsName);
+				document.getElementsByTagName("head")[0].appendChild(r);
+				waitOrFinish(varName,onFinish);
+			}
+			function waitOrFinish(varName,onFinish){
+				console.log('wait for ',varName);
+				if(window[varName]){
+					onFinish(window[varName]);
+				}else{
+					setTimeout(function(){waitOrFinish(varName,onFinish);},100);
+				}
+			}
+			function testDrum(preset){
+				console.log('drum',preset);
+				player.queueWaveTable(audioContext, audioContext.destination, preset, 0, preset.zones[0].keyRangeLow, 2.5);
+			}
+			function testTone(preset){
+				console.log('tone',preset);
+				player.queueWaveTable(audioContext, audioContext.destination, preset, 0, 60, 2.5);
+			}
+		</script>
+		<hr/>
+		<p><a href="https://github.com/surikov/webaudiofont">source</a></p>
+	</body>
+</html>
