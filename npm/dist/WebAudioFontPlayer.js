@@ -1,8 +1,90 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict'
-console.log('WebAudioFont Player v2.56');
+console.log('WebAudioFont Loader v1.03');
+function WebAudioFontLoader(player) {
+	this.player = player;
+	this.cached = [];
+	this.startLoad = function (audioContext, filePath, variableName) {
+		for (var i = 0; i < this.cached.length; i++) {
+			if (this.cached[i].variableName == variableName) {
+				return;
+			}
+		}
+		this.cached.push({
+			filePath : filePath,
+			variableName : variableName
+		});
+		var r = document.createElement('script');
+		r.setAttribute("type", "text/javascript");
+		r.setAttribute("src", filePath);
+		document.getElementsByTagName("head")[0].appendChild(r);
+		var me = this;
+		this.waitOrFinish(variableName, function () {
+			me.player.adjustPreset(audioContext, window[variableName]);
+		});
+	};
+	this.waitOrFinish = function (variableName, onFinish) {
+		if (window[variableName]) {
+			onFinish();
+		} else {
+			var me = this;
+			setTimeout(function () {
+				me.waitOrFinish(variableName, onFinish);
+			}, 111);
+		}
+	};
+	this.loaded = function (variableName) {
+		if (!(window[variableName])) {
+			return false;
+		}
+		var preset = window[variableName];
+		for (var i = 0; i < preset.zones.length; i++) {
+			if (!(preset.zones[i].buffer)) {
+				return false;
+			}
+		}
+		return true;
+	};
+	this.progress = function () {
+		if (this.cached.length > 0) {
+			for (var k = 0; k < this.cached.length; k++) {
+				if (!this.loaded(this.cached[k].variableName)) {
+					return k / this.cached.length;
+				}
+			}
+			return 1;
+		} else {
+			return 1;
+		}
+	};
+	this.waitLoad = function (onFinish) {
+		var me = this;
+		if (this.progress() >= 1) {
+			onFinish();
+		} else {
+			setTimeout(function () {
+				me.waitLoad(onFinish);
+			}, 333);
+		}
+	};
+	return this;
+}
+if (typeof module === 'object' && module.exports) {
+	module.exports = WebAudioFontLoader;
+}
+if (typeof window !== 'undefined') {
+	window.WebAudioFontLoader = WebAudioFontLoader;
+}
+
+},{}],2:[function(require,module,exports){
+'use strict'
+console.log('WebAudioFont Player v2.58');
+var WebAudioFontLoader = require('./loader')
 function WebAudioFontPlayer() {
 	this.envelopes = [];
+	this.loader = new WebAudioFontLoader(this);
+	this.onCacheFinish = null;
+	this.onCacheProgress = null;
 	this.afterTime = 0.05;
 	this.nearZero = 0.000001;
 	this.queueWaveTable = function (audioContext, target, preset, when, pitch, duration, volume, slides) {
@@ -229,7 +311,11 @@ function WebAudioFontPlayer() {
 				break;
 			}
 		}
-		this.adjustZone(audioContext, zone);
+		try {
+			this.adjustZone(audioContext, zone);
+		} catch (ex) {
+			//console.log(ex);
+		}
 		return zone;
 	};
 	this.cancelQueue = function (audioContext) {
@@ -247,8 +333,11 @@ function WebAudioFontPlayer() {
 	};
 	return this;
 }
+if (typeof module === 'object' && module.exports) {
+	module.exports = WebAudioFontPlayer;
+}
+if (typeof window !== 'undefined') {
+	window.WebAudioFontPlayer = WebAudioFontPlayer;
+}
 
-if (typeof module === 'object' && module.exports) module.exports = WebAudioFontPlayer;
-if (typeof window !== 'undefined') window.WebAudioFontPlayer = WebAudioFontPlayer;
-
-},{}]},{},[1]);
+},{"./loader":1}]},{},[2]);

@@ -1,7 +1,11 @@
 'use strict'
-console.log('WebAudioFont Player v2.56');
+console.log('WebAudioFont Player v2.58');
+var WebAudioFontLoader = require('./loader')
 function WebAudioFontPlayer() {
 	this.envelopes = [];
+	this.loader = new WebAudioFontLoader(this);
+	this.onCacheFinish = null;
+	this.onCacheProgress = null;
 	this.afterTime = 0.05;
 	this.nearZero = 0.000001;
 	this.queueWaveTable = function (audioContext, target, preset, when, pitch, duration, volume, slides) {
@@ -228,7 +232,11 @@ function WebAudioFontPlayer() {
 				break;
 			}
 		}
-		this.adjustZone(audioContext, zone);
+		try {
+			this.adjustZone(audioContext, zone);
+		} catch (ex) {
+			//console.log(ex);
+		}
 		return zone;
 	};
 	this.cancelQueue = function (audioContext) {
@@ -246,6 +254,9 @@ function WebAudioFontPlayer() {
 	};
 	return this;
 }
-
-if (typeof module === 'object' && module.exports) module.exports = WebAudioFontPlayer;
-if (typeof window !== 'undefined') window.WebAudioFontPlayer = WebAudioFontPlayer;
+if (typeof module === 'object' && module.exports) {
+	module.exports = WebAudioFontPlayer;
+}
+if (typeof window !== 'undefined') {
+	window.WebAudioFontPlayer = WebAudioFontPlayer;
+}
