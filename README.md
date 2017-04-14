@@ -4,6 +4,12 @@ WebAudioFont is a set of resources and associated technology that uses sample-ba
 
 ![Screenshot](https://surikov.github.io/riffshare/img/sp320opt.gif)
 
+## Code examples
+
+- [simple example](http://jsbin.com/lamidog/1/edit?html,output)
+- [virtual drums](http://jsbin.com/wajopuy/1/edit?html,output)
+- [virtual piano](http://jsbin.com/binelu/1/edit?html,output)
+
 ### Parts of WebAudioFont
 
 - Library of sounds
@@ -118,11 +124,7 @@ Parameters:
 
 Function queueWaveTable returns envelope object. You can use this object to cancel sound or access to AudioBufferSourceNode.
 
-## Code examples
 
-- [simple example](http://jsbin.com/lamidog/1/edit?html,output)
-- [virtual drums](http://jsbin.com/wajopuy/1/edit?html,output)
-- [virtual piano](http://jsbin.com/binelu/1/edit?html,output)
 
 - [WebAudioFontExampleAll.html](https://surikov.github.io/webaudiofont/WebAudioFontExampleAll.html) - links to examples.
 - [WebAudioFontExampleSimple.html](https://surikov.github.io/webaudiofont/WebAudioFontExampleSimple.html) - simple example.
