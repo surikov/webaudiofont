@@ -1,22 +1,23 @@
 <html>
     <head>
-        <script src='WebAudioFontPlayer.js'></script>
-        <script src='webaudiofont/125.3.Car_45Pass000209_461_460_45127.js'></script>
+        <script src='https://surikov.github.io/webaudiofont/npm/dist/WebAudioFontPlayer.js'></script>
+        <script src='https://surikov.github.io/webaudiofontdata/sound/1250_JCLive_sf2_file.js'></script>
         <script>
-            var selectedPreset=_tone_Car_45Pass000209_461_460_45127;
-            for(var i=0;i<selectedPreset.zones.length;i++){
-		selectedPreset.zones[i].ahdsr=false;
-		}
             var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
             var audioContext = new AudioContextFunc();
             var player=new WebAudioFontPlayer();
+			player.loader.decodeAfterLoading(audioContext, '_tone_1250_JCLive_sf2_file');
+			var selectedPreset=_tone_1250_JCLive_sf2_file;
 			var started=false;
 			var envelope=null;
 			var initialRate=1;
 			var ratio=1;
+			for(var i=0;i<selectedPreset.zones.length;i++){
+				selectedPreset.zones[i].ahdsr=false;
+			}
 			function startCar(){
 					started=true;
-					envelope=player.queueWaveTable(audioContext, audioContext.destination, selectedPreset, 0, 12*4+0, 999);
+					envelope=player.queueWaveTable(audioContext, audioContext.destination, selectedPreset, 0, 12*5+0, 999);
 					initialRate=envelope.audioBufferSourceNode.playbackRate.value;
 			}
 			function faster(){
@@ -71,10 +72,10 @@
         <p>
 			<a href="#" onmousedown="faster();">Faster</a> | <a href="#" onmousedown="slower();">Slower</a>
 		</p>
-		<p id="r0" style="display:none;"><img src="img/race0.gif"></p>
-		<p id="r1" style="display:none;"><img src="img/race1.gif"></p>
-		<p id="r2" style="display:none;"><img src="img/race2.gif"></p>
+		<p id="r0" style="display:none;"><img src="https://surikov.github.io/webaudiofont/img/race0.gif"></p>
+		<p id="r1" style="display:none;"><img src="https://surikov.github.io/webaudiofont/img/race1.gif"></p>
+		<p id="r2" style="display:none;"><img src="https://surikov.github.io/webaudiofont/img/race2.gif"></p>
 		<hr/>
-		<p><a href="https://github.com/surikov/webaudiofont">source</a></p>
+		<p><a href="https://surikov.github.io/webaudiofont/">source</a></p>
     </body>
 </html>

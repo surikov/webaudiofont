@@ -1,21 +1,28 @@
 <html>
 	<head>
-		<script src='WebAudioFontPlayer.js'></script>
-		<script src='webaudiofont/39.16.Rubber_32Bass000079_461_460_45127.js'></script>
-		<script src='webaudiofont/128.36.Jazz_4632.js'></script>
-		<script src='webaudiofont/128.38.Standard_32_32_460.js'></script>
-		<script src='webaudiofont/128.42.Power_4616.js'></script>
-		<script src='webaudiofont/51.0.Synth_32Str_322_32synstrings2_461_460_45127.js'></script>
-		<script src='webaudiofont/128.46.Standard_32_32_460.js'></script>
-		<script src='webaudiofont/55.0.Orchestra_32Htorchestrahit_461_460_45127.js'></script>
+		<script src='https://surikov.github.io/webaudiofont/npm/dist/WebAudioFontPlayer.js'></script>
+		<script src='https://surikov.github.io/webaudiofontdata/sound/12836_6_JCLive_sf2_file.js'></script>
+		<script src='https://surikov.github.io/webaudiofontdata/sound/12840_6_JCLive_sf2_file.js'></script>
+		<script src='https://surikov.github.io/webaudiofontdata/sound/12842_6_JCLive_sf2_file.js'></script>
+		<script src='https://surikov.github.io/webaudiofontdata/sound/12846_6_JCLive_sf2_file.js'></script>
+		<script src='https://surikov.github.io/webaudiofontdata/sound/0390_Aspirin_sf2_file.js'></script>
+		<script src='https://surikov.github.io/webaudiofontdata/sound/0480_Chaos_sf2_file.js'></script>
+		<script src='https://surikov.github.io/webaudiofontdata/sound/0550_Chaos_sf2_file.js'></script>
 		<script>
 			var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
 			var audioContext = new AudioContextFunc();
 			var player = new WebAudioFontPlayer();
-			var gainDrums = audioContext.createGain();gainDrums.connect(audioContext.destination);gainDrums.gain.value=0.9;
-			var gainSynth = audioContext.createGain();gainSynth.connect(audioContext.destination);gainSynth.gain.value=0.5;
-			var gainBass = audioContext.createGain();gainBass.connect(audioContext.destination);gainBass.gain.value=1.0;
-			var gainHit = audioContext.createGain();gainHit.connect(audioContext.destination);gainHit.gain.value=0.9;
+			player.loader.decodeAfterLoading(audioContext, '_drum_36_6_JCLive_sf2_file');
+			player.loader.decodeAfterLoading(audioContext, '_drum_40_6_JCLive_sf2_file');
+			player.loader.decodeAfterLoading(audioContext, '_drum_42_6_JCLive_sf2_file');
+			player.loader.decodeAfterLoading(audioContext, '_tone_0390_Aspirin_sf2_file');
+			player.loader.decodeAfterLoading(audioContext, '_tone_0480_Chaos_sf2_file');
+			player.loader.decodeAfterLoading(audioContext, '_drum_46_6_JCLive_sf2_file');
+			player.loader.decodeAfterLoading(audioContext, '_tone_0550_Chaos_sf2_file');
+			var gainDrums = audioContext.createGain();gainDrums.connect(audioContext.destination);gainDrums.gain.value=0.5;
+			var gainSynth = audioContext.createGain();gainSynth.connect(audioContext.destination);gainSynth.gain.value=0.3;
+			var gainBass = audioContext.createGain();gainBass.connect(audioContext.destination);gainBass.gain.value=0.5;
+			var gainHit = audioContext.createGain();gainHit.connect(audioContext.destination);gainHit.gain.value=0.5;
 			var bpm = 120;
 			var N = 4 * 60 / bpm;
 			var pieceLen = 4 * N;
@@ -27,13 +34,16 @@
 			var C6 = 0+12*6, c6 = 1+12*6, D6 = 2+12*6, d6 = 3+12*6, E6 = 4+12*6, F6 = 5+12*6, f6 = 6+12*6, G6 = 7+12*6, g6 = 8+12*6, A6 = 9+12*6, a6 = 10+12*6, B6 = 11+12*6;
 			var started = false;
 			var startTime = 0;
-			function orchestra(pitch, duration){return {gain:gainHit,preset:_tone_Orchestra_32Htorchestrahit_461_460_45127,pitch:pitch,duration:duration*N};}
-			function synth(pitch, duration){return {gain:gainSynth,preset:_tone_Synth_32Str_322_32synstrings2_461_460_45127,pitch:pitch,duration:duration*N};}
-			function bass(pitch, duration){return {gain:gainBass,preset:_tone_Rubber_32Bass000079_461_460_45127,pitch:pitch,duration:duration*N};}
-			function drum(){return {gain:gainDrums,preset:_drum_Jazz_4632_36,pitch:36,duration:1};}
-			function snare(){return {gain:gainDrums,preset:_drum_Standard_32_32_460_38,pitch:38,duration:1};}
-			function hihat(){return {gain:gainDrums,preset:_drum_Power_4616_42,pitch:42,duration:1};}
-			function open(){return {gain:gainDrums,preset:_drum_Standard_32_32_460_46,pitch:46,duration:1};}
+			for(var i=0;i<_tone_0480_Chaos_sf2_file.zones.length;i++){
+				_tone_0480_Chaos_sf2_file.zones[i].ahdsr=false;
+			}
+			function orchestra(pitch, duration){return {gain:gainHit,preset:_tone_0550_Chaos_sf2_file,pitch:pitch,duration:duration*N};}
+			function synth(pitch, duration){return {gain:gainSynth,preset:_tone_0480_Chaos_sf2_file,pitch:pitch,duration:duration*N};}
+			function bass(pitch, duration){return {gain:gainBass,preset:_tone_0390_Aspirin_sf2_file,pitch:pitch,duration:duration*N};}
+			function drum(){return {gain:gainDrums,preset:_drum_36_6_JCLive_sf2_file,pitch:36,duration:1};}
+			function snare(){return {gain:gainDrums,preset:_drum_40_6_JCLive_sf2_file,pitch:38,duration:1};}
+			function hihat(){return {gain:gainDrums,preset:_drum_42_6_JCLive_sf2_file,pitch:42,duration:1};}
+			function open(){return {gain:gainDrums,preset:_drum_46_6_JCLive_sf2_file,pitch:46,duration:1};}
 			function nextPiece() {
 				for (var n = 0; n < notes.length; n++) {
 					var beat = notes[n];
@@ -110,7 +120,7 @@ var notes=[
 ,[open(),                bass(a2,1/16)                                                                                        ]
 ,[                       bass(a2,1/16)                                                                                        ]
 ,[hihat(),drum(),        bass(a2,1/16)                                                                                        ]//48/16
-,[hihat()]
+,[hihat()                                                                                                                     ]
 ,[open(),                bass(a2,1/16)                                                                                        ]
 ,[                       bass(a2,1/16)                                                                                        ]
 ,[hihat(),drum(),snare(),bass(a2,1/16)                                                                                        ]
@@ -130,8 +140,8 @@ var notes=[
 		</script>
 	</head>
 	<body>
-		<p><a href="#" onmousedown="start();">start</a> example 3</p>
+		<p><a href="#" onmousedown="start();">start</a> example</p>
 		<hr/>
-		<p><a href="https://github.com/surikov/webaudiofont">source</a></p>
+		<p><a href="https://surikov.github.io/webaudiofont/">source</a></p>
 	</body>
 </html>
