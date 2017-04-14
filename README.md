@@ -121,10 +121,12 @@ Function queueWaveTable returns envelope object. You can use this object to canc
 ## Code examples
 
 - [simple example](http://jsbin.com/lamidog/1/edit?html,output)
+- [virtual drums](http://jsbin.com/wajopuy/1/edit?html,output)
+- [virtual piano](http://jsbin.com/binelu/1/edit?html,output)
 
 - [WebAudioFontExampleAll.html](https://surikov.github.io/webaudiofont/WebAudioFontExampleAll.html) - links to examples.
 - [WebAudioFontExampleSimple.html](https://surikov.github.io/webaudiofont/WebAudioFontExampleSimple.html) - simple example.
-- [WebAudioFontExampleDrums.html](https://surikov.github.io/webaudiofont/WebAudioFontExampleDrums.html) - virtual drums. This example shows using of drum instruments.
+-  - virtual drums. This example shows using of drum instruments.
 - [WebAudioFontExamplePiano.html](https://surikov.github.io/webaudiofont/WebAudioFontExamplePiano.html) - virtual piano. This example shows using of tone instrument.
 - [WebAudioFontExampleFlute.html](https://surikov.github.io/webaudiofont/WebAudioFontExampleFlute.html) - virtual Pan flute. This example shows using of Envelope objects to start and stop a note playing.
 - [WebAudioFontExampleVoice.html](https://surikov.github.io/webaudiofont/WebAudioFontExampleVoice.html) - two voice connected to different AudioNodes. This example shows how to create chain of AudioNodes and handle each instrument individually.
