@@ -12,7 +12,7 @@ WebAudioFont is a set of resources and associated technology that uses sample-ba
 - [endless flute](http://jsbin.com/midadem/1/edit?html,output)
 - [two voices](http://jsbin.com/vujewem/1/edit?html,output)
 - [sound fx](http://jsbin.com/tipine/1/edit?html,output)
-- [realtime music](https://jsbin.com/wuxilab/1/edit?html,output)
+- [realtime music](https://jsbin.com/wuxilab/2/edit?html,output)
 
 ### Complex example
 
@@ -131,21 +131,6 @@ Parameters:
 - slides - array of pitch bends
 
 Function queueWaveTable returns envelope object. You can use this object to cancel sound or access to AudioBufferSourceNode.
-
-
-
-- [WebAudioFontExampleTune2.html](https://surikov.github.io/webaudiofont/WebAudioFontExampleTune2.html) - music loop. This example shows how to code music.
-- [WebAudioFontExampleTune3.html](https://surikov.github.io/webaudiofont/WebAudioFontExampleTune3.html) - music loop. This example shows how to code music.
-- [WebAudioFontExampleTune4.html](https://surikov.github.io/webaudiofont/WebAudioFontExampleTune4.html) - music loop. This example shows how to code music with compressed samples and focusless timeout.
-- [WebAudioFontExampleTouch.html](https://surikov.github.io/webaudiofont/WebAudioFontExampleTouch.html) - multitouch beatpad. This example shows how to optimize application for mobile devices.
-- [WebAudioFontExampleSelector.html](https://surikov.github.io/webaudiofont/WebAudioFontExampleSelector.html) - preset selector. This example shows how to load JS presets dynamically.
-- [WebAudioFontExampleBend.html](https://surikov.github.io/webaudiofont/WebAudioFontExampleBend.html) - music loop. This example shows how to use pitch bend.
-- [WebAudioFontExampleMIDI.html](https://surikov.github.io/webaudiofont/WebAudioFontExampleMIDI.html) - keyboard listener. This example shows how to catch MIDI events.
-- [WebAudioFontExampleFilter.html](https://surikov.github.io/webaudiofont/WebAudioFontExampleFilter.html) - sampled overdrive vs WaveShaper. This example shows how to use filters.
-- [https://jsbin.com/zabike/edit?html,output](https://jsbin.com/zabike/edit?html,output) - music loop. This example shows how to exchange code.
-
-
-
 
 
 
