@@ -1,5 +1,5 @@
 'use strict'
-console.log('WebAudioFont Loader v1.04');
+console.log('WebAudioFont Loader v1.05');
 function WebAudioFontLoader(player) {
 	this.player = player;
 	this.cached = [];

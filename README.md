@@ -36,13 +36,16 @@ Synthesizer uses [wavetables](https://www.google.ru/search?q=wavetable+synthesis
 			var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
 			var audioContext = new AudioContextFunc();
 			var player=new WebAudioFontPlayer();
-			player.loader.waitOrFinish('_tone_0250_SoundBlasterOld_sf2', function () {
-				me.player.adjustPreset(audioContext, window[variableName]);
-			});
+			player.loader.decodeAfterLoading(audioContext, '_tone_0250_SoundBlasterOld_sf2');
+			function play(){
+				player.queueWaveTable(audioContext, audioContext.destination
+					, _tone_0250_SoundBlasterOld_sf2, 0, 12*4+7, 2);
+				return false;
+			}
 		</script>
 	</head>
 	<body>
-		<p><a href='javascript:player.queueWaveTable(audioContext, audioContext.destination, _tone_0250_SoundBlasterOld_sf2, 0, 12*4+7, 2);'>click!</a></p>
+		<p><a href='javascript:play();'>click!</a></p>
 	</body>
 </html>
 ```
