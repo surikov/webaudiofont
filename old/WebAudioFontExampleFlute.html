@@ -1,11 +1,12 @@
 <html>
     <head>
-        <script src='WebAudioFontPlayer.js'></script>
-        <script src='webaudiofont/75.0.Pan_32Flute000126_461_460_45127.js'></script>
+        <script src='https://surikov.github.io/webaudiofont/npm/dist/WebAudioFontPlayer.js'></script>
+        <script src='https://surikov.github.io/webaudiofontdata/sound/0750_Chaos_sf2_file.js'></script>
         <script>
 			var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
 			var audioContext = new AudioContextFunc();
 			var player=new WebAudioFontPlayer();
+			player.loader.decodeAfterLoading(audioContext, '_tone_0750_Chaos_sf2_file');
 			var pipe1={key:4*12+0};
 			var pipe2={key:4*12+2};
 			var pipe3={key:4*12+4};
@@ -21,7 +22,7 @@
 			var pipe13={key:5*12+9};
 			function playPipe(pipe){
 				stopPipe(pipe);
-				pipe.envelope=player.queueWaveTable(audioContext, audioContext.destination, _tone_Pan_32Flute000126_461_460_45127, 0, pipe.key, 999,true);
+				pipe.envelope=player.queueWaveTable(audioContext, audioContext.destination, _tone_0750_Chaos_sf2_file, 0, pipe.key, 999,true);
 			}
 			function stopPipe(pipe){
 				if(pipe.envelope){
@@ -47,7 +48,7 @@
 		</style>
 </head>
     <body>
-        <p><img src="img/panflute.jpg" width="800" height="600"></p>
+        <p><img src="https://surikov.github.io/webaudiofont/img/panflute.jpg" width="800" height="600"></p>
 		<div class="p1" onmousedown="playPipe(pipe1);" onmouseup="stopPipe(pipe1);" onmouseout="stopPipe(pipe1);">&nbsp;</div>
 		<div class="p2" onmousedown="playPipe(pipe2);" onmouseup="stopPipe(pipe2);" onmouseout="stopPipe(pipe2);">&nbsp;</div>
 		<div class="p3" onmousedown="playPipe(pipe3);" onmouseup="stopPipe(pipe3);" onmouseout="stopPipe(pipe3);">&nbsp;</div>
@@ -62,6 +63,6 @@
 		<div class="p12" onmousedown="playPipe(pipe12);" onmouseup="stopPipe(pipe12);" onmouseout="stopPipe(pipe12);">&nbsp;</div>
 		<div class="p13" onmousedown="playPipe(pipe13);" onmouseup="stopPipe(pipe13);" onmouseout="stopPipe(pipe13);">&nbsp;</div>
 		<hr/>
-		<p><a href="https://github.com/surikov/webaudiofont">source</a></p>
+		<p><a href="https://surikov.github.io/webaudiofont/">source</a></p>
 </body>
 </html>

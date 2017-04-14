@@ -9,6 +9,12 @@ WebAudioFont is a set of resources and associated technology that uses sample-ba
 - [simple example](http://jsbin.com/lamidog/1/edit?html,output)
 - [virtual drums](http://jsbin.com/wajopuy/1/edit?html,output)
 - [virtual piano](http://jsbin.com/binelu/1/edit?html,output)
+- [endless flute](http://jsbin.com/midadem/1/edit?html,output)
+- [two voices](http://jsbin.com/vujewem/1/edit?html,output)
+
+### Complex example
+
+[RiffShare](https://surikov.github.io/riffshare/tools.html) - create and exchange tunes in 3D environment.
 
 ## Use cases
 
@@ -144,9 +150,7 @@ Function queueWaveTable returns envelope object. You can use this object to canc
 - [WebAudioFontExampleFilter.html](https://surikov.github.io/webaudiofont/WebAudioFontExampleFilter.html) - sampled overdrive vs WaveShaper. This example shows how to use filters.
 - [https://jsbin.com/zabike/edit?html,output](https://jsbin.com/zabike/edit?html,output) - music loop. This example shows how to exchange code.
 
-## Using
 
-[RiffShare](https://surikov.github.io/riffshare/tools.html) - create and exchange tunes in 3D environment.
 
 
 
