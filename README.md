@@ -45,19 +45,19 @@ Synthesizer uses [wavetables](https://www.google.ru/search?q=wavetable+synthesis
 		</script>
 	</head>
 	<body>
-		<p><a href='javascript:play();'>click!</a></p>
+		<p><a href='javascript:play();'>Play!</a></p>
 	</body>
 </html>
 ```
 		
 This code plays instrument [_tone_0250_SoundBlasterOld_sf2](https://surikov.github.io/webaudiofontdata/sound/0250_SoundBlasterOld_sf2.html) with pitch 55.
 
-[open in Codepen](https://codepen.io/sss1024/pen/wdvVgE)
+[open in JSBin](http://jsbin.com/hopuhor/1/edit?html,output)
 
 
 ### How to use catalog of sounds:
 
-- open [index page](https://surikov.github.io/webaudiofont/webaudiofont/index.html)
+- open [index page](https://surikov.github.io/webaudiofontdata/sound/)
 - find instrument
 - copy name of file to include instrument data
 - copy name of variable to refer to instrument
@@ -82,24 +82,22 @@ var _tone_Harp000087_461_460_45127={
 			,fineTune:0
 			,sampleRate:22050
 			,ahdsr:true
-			,sample:[0,-16,-17,97,124,-9, ...
+			,sample:'...
 		}
 		,{
 			midi:46
 			,originalPitch:7001
 			,keyRangeLow:63
 			,keyRangeHigh:76
-			,file:'4f67675300020
+			,file:'...
 ```
 
 It creates object and assigns it to a global variable.
 
 Each instrument consists of one or more zones, each zone has own properties for wavetable. Files contains of array with audio data. You can use instruments locally without [CORS problem](https://www.google.ru/search?q=cors+problem).
 
-- 'sample' is an array of 16bit values with PCM data
-- 'file' is a string with HEX numbers of any supported audio file
-
-You need to add *&lt;body onload='player.adjustPreset(audioContext,selectedPreset);'&gt;* for compressed sounds to avoid delay of sample data parsing.
+- 'sample' is raw PCM data
+- 'file' is content of audio file
 
 Some wavetables uses loops and [AHDSR volume](https://www.google.ru/search?q=ahdsr).
 
@@ -120,7 +118,9 @@ Parameters:
 
 Function queueWaveTable returns envelope object. You can use this object to cancel sound or access to AudioBufferSourceNode.
 
-## All examples
+## Code examples
+
+- [simple example](http://jsbin.com/lamidog/1/edit?html,output)
 
 - [WebAudioFontExampleAll.html](https://surikov.github.io/webaudiofont/WebAudioFontExampleAll.html) - links to examples.
 - [WebAudioFontExampleSimple.html](https://surikov.github.io/webaudiofont/WebAudioFontExampleSimple.html) - simple example.
@@ -144,8 +144,6 @@ Function queueWaveTable returns envelope object. You can use this object to canc
 
 [RiffShare](https://surikov.github.io/riffshare/tools.html) - create and exchange tunes in 3D environment.
 
-## Source
 
-[https://github.com/surikov/webaudiofont/](https://github.com/surikov/webaudiofont/)
 
 
