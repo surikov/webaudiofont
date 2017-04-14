@@ -4,11 +4,17 @@ WebAudioFont is a set of resources and associated technology that uses sample-ba
 
 ![Screenshot](https://surikov.github.io/riffshare/img/sp320opt.gif)
 
-## Code examples
+### Code examples
 
 - [simple example](http://jsbin.com/lamidog/1/edit?html,output)
 - [virtual drums](http://jsbin.com/wajopuy/1/edit?html,output)
 - [virtual piano](http://jsbin.com/binelu/1/edit?html,output)
+
+## Use cases
+
+- Virtual instruments
+- Interactive music generated on the fly
+- Sound effects for non-music applications
 
 ### Parts of WebAudioFont
 
@@ -22,12 +28,6 @@ WebAudioFont is a set of resources and associated technology that uses sample-ba
 WebAudioFont uses [Web Audio API](https://www.google.ru/search?q=web+audio+api) to play instruments.
 
 Synthesizer uses [wavetables](https://www.google.ru/search?q=wavetable+synthesis) to play sound.
-
-## Use cases
-
-- Virtual instruments
-- Interactive music generated on the fly
-- Sound effects for non-music applications
 
 ## How to use
 
