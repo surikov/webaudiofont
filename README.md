@@ -13,6 +13,7 @@ WebAudioFont is a set of resources and associated technology that uses sample-ba
 - [two voices](http://jsbin.com/vujewem/1/edit?html,output)
 - [sound fx](http://jsbin.com/tipine/1/edit?html,output)
 - [realtime music](https://jsbin.com/wuxilab/2/edit?html,output)
+- [dynamic loading](http://jsbin.com/jorama/1/edit?html,output)
 
 ### Complex example
 

@@ -1,11 +1,11 @@
 <html>
 	<head>
-		<script src='https://cdn.rawgit.com/surikov/webaudiofont/master/WebAudioFontPlayer.js'></script>
-		<script src='https://cdn.rawgit.com/surikov/webaudiofont/master/webaudiofont/33.0.Fingered_32Bs_46000069_461_460_45127.js'></script>
-		<script src='https://cdn.rawgit.com/surikov/webaudiofont/master/webaudiofont/128.36.Jazz_4632.js'></script>
-		<script src='https://cdn.rawgit.com/surikov/webaudiofont/master/webaudiofont/128.38.Standard_32_32_460.js'></script>
-		<script src='https://cdn.rawgit.com/surikov/webaudiofont/master/webaudiofont/128.42.Power_4616.js'></script>
-		<script src='https://cdn.rawgit.com/surikov/webaudiofont/master/webaudiofont/30.0.DistortionGt000064_461_460_45127.js'></script>
+		<script src='https://surikov.github.io/webaudiofont/npm/dist/WebAudioFontPlayer.js'></script>
+		<script src='https://surikov.github.io/webaudiofontdata/sound/0320_Chaos_sf2_file.js'></script>
+		<script src='https://surikov.github.io/webaudiofontdata/sound/12836_6_JCLive_sf2_file.js'></script>
+		<script src='https://surikov.github.io/webaudiofontdata/sound/12838_6_JCLive_sf2_file.js'></script>
+		<script src='https://surikov.github.io/webaudiofontdata/sound/12842_6_JCLive_sf2_file.js'></script>
+		<script src='https://surikov.github.io/webaudiofontdata/sound/0300_Chaos_sf2_file.js'></script>
 		<script>
 			var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
 			var audioContext = new AudioContextFunc();
@@ -28,17 +28,34 @@
 			var B = 11;
 			var started = false;
 			var startTime = 0;
-			function guitar(pitch, duration){return {preset:_tone_DistortionGt000064_461_460_45127,pitch:12*4+pitch,duration:duration*N};}
-			function bass(pitch, duration){return {preset:_tone_Fingered_32Bs_46000069_461_460_45127,pitch:12*2+pitch,duration:duration*N};}
-			function drum(){return {preset:_drum_Jazz_4632_36,pitch:36,duration:1};}
-			function snare(){return {preset:_drum_Standard_32_32_460_38,pitch:38,duration:1};}
-			function hihat(){return {preset:_drum_Power_4616_42,pitch:42,duration:1};}
+			player.loader.decodeAfterLoading(audioContext, '_drum_36_6_JCLive_sf2_file');
+			player.loader.decodeAfterLoading(audioContext, '_drum_38_6_JCLive_sf2_file');
+			player.loader.decodeAfterLoading(audioContext, '_drum_42_6_JCLive_sf2_file');
+			player.loader.decodeAfterLoading(audioContext, '_tone_0320_Chaos_sf2_file');
+			player.loader.decodeAfterLoading(audioContext, '_tone_0300_Chaos_sf2_file');
+			var currentGuitar=_tone_0300_Chaos_sf2_file;
+			function guitar(pitch, duration){return {preset:currentGuitar,pitch:12*4+pitch,duration:duration*N,volume:0.2};}
+			function bass(pitch, duration){return {preset:_tone_0320_Chaos_sf2_file,pitch:12*2+pitch,duration:duration*N,volume:0.4};}
+			function drum(){return {preset:_drum_36_6_JCLive_sf2_file,pitch:36,duration:1,volume:0.3};}
+			function snare(){return {preset:_drum_38_6_JCLive_sf2_file,pitch:38,duration:1,volume:0.5};}
+			function hihat(){return {preset:_drum_42_6_JCLive_sf2_file,pitch:42,duration:1,volume:0.25};}
+			function change(path,name){
+				console.log('change',path, name);
+				player.loader.startLoad(audioContext, path, name);
+				player.loader.waitLoad(function () {
+					console.log('done',name);
+					currentGuitar=window[name];
+					player.cancelQueue(audioContext);
+					started=false;
+					start();
+				});
+			}
 			function beats(notes) {
 				for (var n = 0; n < notes.length; n++) {
 					var beat = notes[n];
 					for (var i = 0; i < beat.length; i++) {
 						if (beat[i]) {
-							player.queueWaveTable(audioContext, audioContext.destination, beat[i].preset, startTime + n * beatLen , beat[i].pitch, beat[i].duration);
+							player.queueWaveTable(audioContext, audioContext.destination, beat[i].preset, startTime + n * beatLen , beat[i].pitch, beat[i].duration, beat[i].volume);
 						}
 					}
 				}
@@ -100,8 +117,15 @@
 		</script>
 	</head>
 	<body>
-		<p><a href="#" onmousedown="start();">start</a> example 2</p>
+		<p><a href="#" onmousedown="start();">start</a> example</p>
+		<ul>
+			<li><a href="#" onmousedown="change('https://surikov.github.io/webaudiofontdata/sound/0290_Aspirin_sf2_file.js','_tone_0290_Aspirin_sf2_file');">guitar _tone_0290_Aspirin_sf2_file</a></li>
+			<li><a href="#" onmousedown="change('https://surikov.github.io/webaudiofontdata/sound/0290_Chaos_sf2_file.js','_tone_0290_Chaos_sf2_file');">guitar _tone_0290_Chaos_sf2_file</a></li>
+			<li><a href="#" onmousedown="change('https://surikov.github.io/webaudiofontdata/sound/0300_LesPaul_sf2_file.js','_tone_0300_LesPaul_sf2_file');">guitar _tone_0300_LesPaul_sf2_file</a></li>
+			<li><a href="#" onmousedown="change('https://surikov.github.io/webaudiofontdata/sound/0301_JCLive_sf2_file.js','_tone_0301_JCLive_sf2_file');">guitar _tone_0301_JCLive_sf2_file</a></li>
+			<li><a href="#" onmousedown="change('https://surikov.github.io/webaudiofontdata/sound/0290_SBAWE32_sf2_file.js','_tone_0290_SBAWE32_sf2_file');">guitar _tone_0290_SBAWE32_sf2_file</a></li>
+		</ul>
 		<hr/>
-		<p><a href="https://github.com/surikov/webaudiofont">source</a></p>
+		<p><a href="https://surikov.github.io/webaudiofont/">source</a></p>
 	</body>
 </html>

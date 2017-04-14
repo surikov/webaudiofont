@@ -1,9 +1,12 @@
 'use strict'
-console.log('WebAudioFont Loader v1.05');
+console.log('WebAudioFont Loader v1.06');
 function WebAudioFontLoader(player) {
 	this.player = player;
 	this.cached = [];
 	this.startLoad = function (audioContext, filePath, variableName) {
+		if (window[variableName]) {
+			return;
+		}
 		for (var i = 0; i < this.cached.length; i++) {
 			if (this.cached[i].variableName == variableName) {
 				return;
