@@ -11,6 +11,8 @@ WebAudioFont is a set of resources and associated technology that uses sample-ba
 - [virtual piano](http://jsbin.com/binelu/1/edit?html,output)
 - [endless flute](http://jsbin.com/midadem/1/edit?html,output)
 - [two voices](http://jsbin.com/vujewem/1/edit?html,output)
+- [sound fx](http://jsbin.com/tipine/1/edit?html,output)
+- [realtime music](https://jsbin.com/wuxilab/1/edit?html,output)
 
 ### Complex example
 
@@ -132,14 +134,6 @@ Function queueWaveTable returns envelope object. You can use this object to canc
 
 
 
-- [WebAudioFontExampleAll.html](https://surikov.github.io/webaudiofont/WebAudioFontExampleAll.html) - links to examples.
-- [WebAudioFontExampleSimple.html](https://surikov.github.io/webaudiofont/WebAudioFontExampleSimple.html) - simple example.
--  - virtual drums. This example shows using of drum instruments.
-- [WebAudioFontExamplePiano.html](https://surikov.github.io/webaudiofont/WebAudioFontExamplePiano.html) - virtual piano. This example shows using of tone instrument.
-- [WebAudioFontExampleFlute.html](https://surikov.github.io/webaudiofont/WebAudioFontExampleFlute.html) - virtual Pan flute. This example shows using of Envelope objects to start and stop a note playing.
-- [WebAudioFontExampleVoice.html](https://surikov.github.io/webaudiofont/WebAudioFontExampleVoice.html) - two voice connected to different AudioNodes. This example shows how to create chain of AudioNodes and handle each instrument individually.
-- [WebAudioFontExampleFx.html](https://surikov.github.io/webaudiofont/WebAudioFontExampleFx.html) - sound slides from one pitch to another one. This example shows how to access AudioBufferSourceNode of played note.
-- [WebAudioFontExampleTune.html](https://surikov.github.io/webaudiofont/WebAudioFontExampleTune.html) - music loop. This example shows how to create and modify music in realtime.
 - [WebAudioFontExampleTune2.html](https://surikov.github.io/webaudiofont/WebAudioFontExampleTune2.html) - music loop. This example shows how to code music.
 - [WebAudioFontExampleTune3.html](https://surikov.github.io/webaudiofont/WebAudioFontExampleTune3.html) - music loop. This example shows how to code music.
 - [WebAudioFontExampleTune4.html](https://surikov.github.io/webaudiofont/WebAudioFontExampleTune4.html) - music loop. This example shows how to code music with compressed samples and focusless timeout.
