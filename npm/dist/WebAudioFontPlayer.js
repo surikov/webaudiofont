@@ -1,6 +1,6 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict'
-console.log('WebAudioFont Loader v1.03');
+console.log('WebAudioFont Loader v1.04');
 function WebAudioFontLoader(player) {
 	this.player = player;
 	this.cached = [];
@@ -18,6 +18,9 @@ function WebAudioFontLoader(player) {
 		r.setAttribute("type", "text/javascript");
 		r.setAttribute("src", filePath);
 		document.getElementsByTagName("head")[0].appendChild(r);
+		this.decodeAfterLoading(audioContext,variableName);
+	};
+	this.decodeAfterLoading = function (audioContext,variableName) {
 		var me = this;
 		this.waitOrFinish(variableName, function () {
 			me.player.adjustPreset(audioContext, window[variableName]);

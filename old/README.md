@@ -1,4 +1,4 @@
-# WebAudioFont
+# WebAudioFont v1.46
 
 WebAudioFont is a set of resources and associated technology that uses sample-based synthesis to play musical instruments in browser.
 
@@ -9,7 +9,8 @@ WebAudioFont is a set of resources and associated technology that uses sample-ba
 - Library of sounds
 - Metadata that describe how to play sounds
 - WebAudioFontPlayer.js that uses metadata and sounds for playing instruments
-- [Catalog of available sounds](https://surikov.github.io/webaudiofontdata/)
+- [Catalog of available sounds](https://surikov.github.io/webaudiofont/webaudiofont/index.html)
+- [Catalog of compressed sounds](https://surikov.github.io/webaudiofont/compress/index.html)
 
 ### Underlaying technology
 
@@ -19,9 +20,9 @@ Synthesizer uses [wavetables](https://www.google.ru/search?q=wavetable+synthesis
 
 ## Use cases
 
-- Virtual instruments
-- Interactive music generated on the fly
-- Sound effects for non-music applications
+- Virtual instruments: [Drums](https://surikov.github.io/webaudiofont/WebAudioFontExampleDrums.html), [Piano](https://surikov.github.io/webaudiofont/WebAudioFontExamplePiano.html), [Pan Flute](https://surikov.github.io/webaudiofont/WebAudioFontExampleFlute.html)
+- Interactive music generated on the fly: [Melody loop](https://surikov.github.io/webaudiofont/WebAudioFontExampleTune.html)
+- Sound effects for non-music applications: [Car sound](https://surikov.github.io/webaudiofont/WebAudioFontExampleFx.html)
 
 ## How to use
 
@@ -30,27 +31,21 @@ Synthesizer uses [wavetables](https://www.google.ru/search?q=wavetable+synthesis
 ```
 <html>
 	<head>
-		<script src='https://surikov.github.io/webaudiofont/npm/dist/WebAudioFontPlayer.js'></script>
-		<script src='https://surikov.github.io/webaudiofontdata/sound/0250_SoundBlasterOld_sf2.js'></script>
+		<script src='WebAudioFontPlayer.js'></script>
+		<script src='webaudiofont/32.0.Accoustic_32Bsaccousticbs_461_460_45127.js'></script>
 		<script>
 			var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
 			var audioContext = new AudioContextFunc();
 			var player=new WebAudioFontPlayer();
-			player.loader.waitOrFinish('_tone_0250_SoundBlasterOld_sf2', function () {
-				me.player.adjustPreset(audioContext, window[variableName]);
-			});
 		</script>
 	</head>
 	<body>
-		<p><a href='javascript:player.queueWaveTable(audioContext, audioContext.destination, _tone_0250_SoundBlasterOld_sf2, 0, 12*4+7, 2);'>click!</a></p>
+		<p><a href='javascript:player.queueWaveTable(audioContext, audioContext.destination, _tone_Accoustic_32Bsaccousticbs_461_460_45127, 0, 12*4+7, 2);'>click!</a></p>
 	</body>
 </html>
 ```
 		
-This code plays instrument [_tone_0250_SoundBlasterOld_sf2](https://surikov.github.io/webaudiofontdata/sound/0250_SoundBlasterOld_sf2.html) with pitch 55.
-
-[open in Codepen](https://codepen.io/sss1024/pen/wdvVgE)
-
+This code plays instrument [_tone_Accoustic_32Bsaccousticbs_461_460_45127](https://surikov.github.io/webaudiofont/webaudiofont/32.0.Accoustic_32Bsaccousticbs_461_460_45127.html) from [32.0.Accoustic_32Bsaccousticbs_461_460_45127.js](https://surikov.github.io/webaudiofont/webaudiofont/32.0.Accoustic_32Bsaccousticbs_461_460_45127.js) with pitch 55. See [simple example](https://surikov.github.io/webaudiofont/WebAudioFontExampleSimple.html).
 
 ### How to use catalog of sounds:
 
