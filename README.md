@@ -64,6 +64,25 @@ Synthesizer uses [wavetables](https://www.google.ru/search?q=wavetable+synthesis
 	</body>
 </html>
 ```
+
+### Minimal NPM code
+
+#### JavaScript
+
+```
+var webaudiofont = require('webaudiofont');
+var player = new WebAudioFontPlayer();
+```
+
+#### package.json
+
+```
+...
+"devDependencies": {
+	"webaudiofont":"^2.0.0"
+...
+```
+
 		
 This code plays instrument [_tone_0250_SoundBlasterOld_sf2](https://surikov.github.io/webaudiofontdata/sound/0250_SoundBlasterOld_sf2.html) with pitch 55.
 
