@@ -6,7 +6,7 @@ WebAudioFont is a set of resources and associated technology that uses sample-ba
 
 ### Code examples
 
-- simple example - [code](http://jsbin.com/lamidog/1/edit?html,output)| [open](https://surikov.github.io/webaudiofont/examples/testm.html)
+- simple example - [code](http://jsbin.com/lamidog/1/edit?html,output) | [open](https://surikov.github.io/webaudiofont/examples/simple.html)
 - virtual drums - [code](http://jsbin.com/wajopuy/1/edit?html,output) | [open](https://surikov.github.io/webaudiofont/examples/drums.html)
 - virtual piano - [code](http://jsbin.com/binelu/1/edit?html,output) | [open](https://surikov.github.io/webaudiofont/examples/piano.html)
 - endless flute - [code](http://jsbin.com/midadem/1/edit?html,output) | [open](https://surikov.github.io/webaudiofont/examples/flute.html)
@@ -86,7 +86,7 @@ var player = new WebAudioFontPlayer();
 		
 This code plays instrument [_tone_0250_SoundBlasterOld_sf2](https://surikov.github.io/webaudiofontdata/sound/0250_SoundBlasterOld_sf2.html) with pitch 55.
 
-[open test page](https://surikov.github.io/webaudiofont/testm.html)
+[open test page](https://surikov.github.io/webaudiofont/simple.html)
 
 
 ### How to use catalog of sounds:
