@@ -1,0 +1,72 @@
+<html>
+    <head>
+        <script src='https://surikov.github.io/webaudiofont/npm/dist/WebAudioFontPlayer.js'></script>
+        <script src='https://surikov.github.io/webaudiofontdata/sound/0090_JCLive_sf2_file.js'></script>
+        <script>
+			var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
+			var audioContext = new AudioContextFunc();
+			var player=new WebAudioFontPlayer();
+			player.loader.decodeAfterLoading(audioContext, '_tone_0090_JCLive_sf2_file');
+			function playKey(pitch){
+				player.queueWaveTable(audioContext, audioContext.destination, _tone_0090_JCLive_sf2_file, 0, pitch, 0.75);
+			}
+        </script>
+    	<style type="text/css">
+.c4 {position: absolute;left: 180px;top: 262px;width: 33px;height: 50px;}
+.c_4 {position: absolute;left: 180px;top: 220px;width: 38px;height: 40px;}
+.d4 {position: absolute;left: 215px;top: 262px;width: 33px;height: 50px;}
+.d_4 {position: absolute;left: 220px;top: 220px;width: 38px;height: 40px;}
+.e4 {position: absolute;left: 250px;top: 262px;width: 33px;height: 50px;}
+.f4 {position: absolute;left: 285px;top: 262px;width: 33px;height: 50px;}
+.f_4 {position: absolute;left: 280px;top: 220px;width: 38px;height: 40px;}
+.g4 {position: absolute;left: 320px;top: 262px;width: 33px;height: 50px;}
+.g_4 {position: absolute;left: 320px;top: 220px;width: 38px;height: 40px;}
+.a4 {position: absolute;left: 355px;top: 262px;width: 33px;height: 50px;}
+.a_4 {position: absolute;left: 360px;top: 220px;width: 38px;height: 40px;}
+.b4 {position: absolute;left: 390px;top: 262px;width: 33px;height: 50px;}
+.c5 {position: absolute;left: 425px;top: 262px;width: 33px;height: 50px;}
+.c_5 {position: absolute;left: 420px;top: 220px;width: 38px;height: 40px;}
+.d5 {position: absolute;left: 460px;top: 262px;width: 33px;height: 50px;}
+.d_5 {position: absolute;left: 460px;top: 220px;width: 38px;height: 40px;}
+.e5 {position: absolute;left: 495px;top: 262px;width: 33px;height: 50px;}
+.f5 {position: absolute;left: 530px;top: 262px;width: 33px;height: 50px;}
+.f_5 {position: absolute;left: 520px;top: 220px;width: 38px;height: 40px;}
+.g5 {position: absolute;left: 565px;top: 262px;width: 33px;height: 50px;}
+.g_5 {position: absolute;left: 560px;top: 220px;width: 38px;height: 40px;}
+.a5 {position: absolute;left: 600px;top: 262px;width: 33px;height: 50px;}
+.a_5 {position: absolute;left: 600px;top: 220px;width: 38px;height: 40px;}
+.b5 {position: absolute;left: 635px;top: 262px;width: 33px;height: 50px;}
+.c6 {position: absolute;left: 670px;top: 262px;width: 33px;height: 50px;}
+		</style>
+</head>
+    <body>
+        <p><img src="https://surikov.github.io/webaudiofont/img/piano.jpg" width="800" height="652"></p>
+		<a href="javascript:playKey(4*12+0);"><div class="c4">&nbsp;</div></a>
+		<a href="javascript:playKey(4*12+1);"><div class="c_4">&nbsp;</div></a>
+		<a href="javascript:playKey(4*12+2);"><div class="d4">&nbsp;</div></a>
+		<a href="javascript:playKey(4*12+3);"><div class="d_4">&nbsp;</div></a>
+		<a href="javascript:playKey(4*12+4);"><div class="e4">&nbsp;</div></a>
+		<a href="javascript:playKey(4*12+5);"><div class="f4">&nbsp;</div></a>
+		<a href="javascript:playKey(4*12+6);"><div class="f_4">&nbsp;</div></a>
+		<a href="javascript:playKey(4*12+7);"><div class="g4">&nbsp;</div></a>
+		<a href="javascript:playKey(4*12+8);"><div class="g_4">&nbsp;</div></a>
+		<a href="javascript:playKey(4*12+9);"><div class="a4">&nbsp;</div></a>
+		<a href="javascript:playKey(4*12+10);"><div class="a_4">&nbsp;</div></a>
+		<a href="javascript:playKey(4*12+11);"><div class="b4">&nbsp;</div></a>
+		<a href="javascript:playKey(5*12+0);"><div class="c5">&nbsp;</div></a>
+		<a href="javascript:playKey(5*12+1);"><div class="c_5">&nbsp;</div></a>
+		<a href="javascript:playKey(5*12+2);"><div class="d5">&nbsp;</div></a>
+		<a href="javascript:playKey(5*12+3);"><div class="d_5">&nbsp;</div></a>
+		<a href="javascript:playKey(5*12+4);"><div class="e5">&nbsp;</div></a>
+		<a href="javascript:playKey(5*12+5);"><div class="f5">&nbsp;</div></a>
+		<a href="javascript:playKey(5*12+6);"><div class="f_5">&nbsp;</div></a>
+		<a href="javascript:playKey(5*12+7);"><div class="g5">&nbsp;</div></a>
+		<a href="javascript:playKey(5*12+8);"><div class="g_5">&nbsp;</div></a>
+		<a href="javascript:playKey(5*12+9);"><div class="a5">&nbsp;</div></a>
+		<a href="javascript:playKey(5*12+10);"><div class="a_5">&nbsp;</div></a>
+		<a href="javascript:playKey(5*12+11);"><div class="b5">&nbsp;</div></a>
+		<a href="javascript:playKey(6*12+0);"><div class="c6">&nbsp;</div></a>
+		<hr/>
+		<p><a href="https://github.com/surikov/webaudiofont">source</a></p>
+</body>
+</html>

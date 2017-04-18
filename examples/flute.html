@@ -1,0 +1,71 @@
+<html>
+    <head>
+        <script src='https://surikov.github.io/webaudiofont/npm/dist/WebAudioFontPlayer.js'></script>
+        <script src='https://surikov.github.io/webaudiofontdata/sound/0750_Chaos_sf2_file.js'></script>
+        <script>
+			var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
+			var audioContext = new AudioContextFunc();
+			var player=new WebAudioFontPlayer();
+			player.loader.decodeAfterLoading(audioContext, '_tone_0750_Chaos_sf2_file');
+			var pipe1={key:4*12+0};
+			var pipe2={key:4*12+2};
+			var pipe3={key:4*12+4};
+			var pipe4={key:4*12+5};
+			var pipe5={key:4*12+7};
+			var pipe6={key:4*12+9};
+			var pipe7={key:4*12+11};
+			var pipe8={key:5*12+0};
+			var pipe9={key:5*12+2};
+			var pipe10={key:5*12+4};
+			var pipe11={key:5*12+5};
+			var pipe12={key:5*12+7};
+			var pipe13={key:5*12+9};
+			function playPipe(pipe){
+				stopPipe(pipe);
+				pipe.envelope=player.queueWaveTable(audioContext, audioContext.destination, _tone_0750_Chaos_sf2_file, 0, pipe.key, 999,true);
+			}
+			function stopPipe(pipe){
+				if(pipe.envelope){
+					pipe.envelope.cancel();
+					pipe.envelope=null;
+				}
+			}
+            for(var i=0;i<_tone_0750_Chaos_sf2_file.zones.length;i++){
+              _tone_0750_Chaos_sf2_file.zones[i].ahdsr=false;
+            }
+        </script>
+    	<style type="text/css">
+		.p1 {position: absolute;left: 210px;top: 10px;width: 30px;height: 600px;}
+		.p2 {position: absolute;left: 240px;top: 10px;width: 30px;height: 550px;}
+		.p3 {position: absolute;left: 270px;top: 10px;width: 40px;height: 520px;}
+		.p4 {position: absolute;left: 310px;top: 10px;width: 30px;height: 490px;}
+		.p5 {position: absolute;left: 340px;top: 10px;width: 40px;height: 450px;}
+		.p6 {position: absolute;left: 380px;top: 10px;width: 40px;height: 420px;}
+		.p7 {position: absolute;left: 420px;top: 10px;width: 30px;height: 390px;}
+		.p8 {position: absolute;left: 450px;top: 10px;width: 40px;height: 360px;}
+		.p9 {position: absolute;left: 490px;top: 10px;width: 30px;height: 330px;}
+		.p10 {position: absolute;left: 520px;top: 10px;width: 30px;height: 310px;}
+		.p11 {position: absolute;left: 550px;top: 10px;width: 20px;height: 270px;}
+		.p12 {position: absolute;left: 570px;top: 10px;width: 25px;height: 240px;}
+		.p13 {position: absolute;left: 595px;top: 10px;width: 25px;height: 210px;}
+		</style>
+</head>
+    <body>
+        <p><img src="https://surikov.github.io/webaudiofont/img/panflute.jpg" width="800" height="600"></p>
+		<div class="p1" onmousedown="playPipe(pipe1);" onmouseup="stopPipe(pipe1);" onmouseout="stopPipe(pipe1);">&nbsp;</div>
+		<div class="p2" onmousedown="playPipe(pipe2);" onmouseup="stopPipe(pipe2);" onmouseout="stopPipe(pipe2);">&nbsp;</div>
+		<div class="p3" onmousedown="playPipe(pipe3);" onmouseup="stopPipe(pipe3);" onmouseout="stopPipe(pipe3);">&nbsp;</div>
+		<div class="p4" onmousedown="playPipe(pipe4);" onmouseup="stopPipe(pipe4);" onmouseout="stopPipe(pipe4);">&nbsp;</div>
+		<div class="p5" onmousedown="playPipe(pipe5);" onmouseup="stopPipe(pipe5);" onmouseout="stopPipe(pipe5);">&nbsp;</div>
+		<div class="p6" onmousedown="playPipe(pipe6);" onmouseup="stopPipe(pipe6);" onmouseout="stopPipe(pipe6);">&nbsp;</div>
+		<div class="p7" onmousedown="playPipe(pipe7);" onmouseup="stopPipe(pipe7);" onmouseout="stopPipe(pipe7);">&nbsp;</div>
+		<div class="p8" onmousedown="playPipe(pipe8);" onmouseup="stopPipe(pipe8);" onmouseout="stopPipe(pipe8);">&nbsp;</div>
+		<div class="p9" onmousedown="playPipe(pipe9);" onmouseup="stopPipe(pipe9);" onmouseout="stopPipe(pipe9);">&nbsp;</div>
+		<div class="p10" onmousedown="playPipe(pipe10);" onmouseup="stopPipe(pipe10);" onmouseout="stopPipe(pipe10);">&nbsp;</div>
+		<div class="p11" onmousedown="playPipe(pipe11);" onmouseup="stopPipe(pipe11);" onmouseout="stopPipe(pipe11);">&nbsp;</div>
+		<div class="p12" onmousedown="playPipe(pipe12);" onmouseup="stopPipe(pipe12);" onmouseout="stopPipe(pipe12);">&nbsp;</div>
+		<div class="p13" onmousedown="playPipe(pipe13);" onmouseup="stopPipe(pipe13);" onmouseout="stopPipe(pipe13);">&nbsp;</div>
+		<hr/>
+		<p><a href="https://surikov.github.io/webaudiofont/">source</a></p>
+</body>
+</html>

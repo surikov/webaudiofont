@@ -1,0 +1,81 @@
+<html>
+    <head>
+        <script src='https://surikov.github.io/webaudiofont/npm/dist/WebAudioFontPlayer.js'></script>
+        <script src='https://surikov.github.io/webaudiofontdata/sound/1250_JCLive_sf2_file.js'></script>
+        <script>
+            var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
+            var audioContext = new AudioContextFunc();
+            var player=new WebAudioFontPlayer();
+			player.loader.decodeAfterLoading(audioContext, '_tone_1250_JCLive_sf2_file');
+			var selectedPreset=_tone_1250_JCLive_sf2_file;
+			var started=false;
+			var envelope=null;
+			var initialRate=1;
+			var ratio=1;
+			for(var i=0;i<selectedPreset.zones.length;i++){
+				selectedPreset.zones[i].ahdsr=false;
+			}
+			function startCar(){
+					started=true;
+					envelope=player.queueWaveTable(audioContext, audioContext.destination, selectedPreset, 0, 12*5+0, 999);
+					initialRate=envelope.audioBufferSourceNode.playbackRate.value;
+			}
+			function faster(){
+				if(!started){
+					startCar();
+					showRace();
+					return;
+				}
+				if(ratio<3){
+					ratio++;
+					applyNewRatio();
+				}else{
+					console.log('max speed');
+				}
+			}
+			function slower(){
+				if(!started){
+					startCar();
+					showRace();
+					return;
+				}
+				if(ratio>1){
+					ratio--;
+					applyNewRatio();
+				}else{
+					console.log('min speed');
+				}
+			}
+			function applyNewRatio(){
+				envelope.audioBufferSourceNode.playbackRate.cancelScheduledValues(audioContext.currentTime);
+				envelope.audioBufferSourceNode.playbackRate.setValueAtTime(envelope.audioBufferSourceNode.playbackRate.value, audioContext.currentTime+0.1);
+				envelope.audioBufferSourceNode.playbackRate.linearRampToValueAtTime(initialRate*ratio, audioContext.currentTime+2);
+				showRace();
+			}
+			function showRace() {
+				document.getElementById("r0").style.display = "none";
+				document.getElementById("r1").style.display = "none";
+				document.getElementById("r2").style.display = "none";
+				if (ratio == 1) {
+					document.getElementById("r0").style.display = "inline";
+				} else {
+					if (ratio == 2) {
+						document.getElementById("r1").style.display = "inline";
+					} else {
+						document.getElementById("r2").style.display = "inline";
+					}
+				}
+			}
+        </script>
+    </head>
+    <body>
+        <p>
+			<a href="#" onmousedown="faster();">Faster</a> | <a href="#" onmousedown="slower();">Slower</a>
+		</p>
+		<p id="r0" style="display:none;"><img src="https://surikov.github.io/webaudiofont/img/race0.gif"></p>
+		<p id="r1" style="display:none;"><img src="https://surikov.github.io/webaudiofont/img/race1.gif"></p>
+		<p id="r2" style="display:none;"><img src="https://surikov.github.io/webaudiofont/img/race2.gif"></p>
+		<hr/>
+		<p><a href="https://surikov.github.io/webaudiofont/">source</a></p>
+    </body>
+</html>

@@ -6,14 +6,14 @@ WebAudioFont is a set of resources and associated technology that uses sample-ba
 
 ### Code examples
 
-- [simple example](http://jsbin.com/lamidog/1/edit?html,output)
-- [virtual drums](http://jsbin.com/wajopuy/1/edit?html,output)
-- [virtual piano](http://jsbin.com/binelu/1/edit?html,output)
-- [endless flute](http://jsbin.com/midadem/1/edit?html,output)
-- [two voices](http://jsbin.com/vujewem/1/edit?html,output)
-- [sound fx](http://jsbin.com/tipine/1/edit?html,output)
-- [realtime music](https://jsbin.com/wuxilab/2/edit?html,output)
-- [dynamic loading](http://jsbin.com/jorama/2/edit?html,output)
+- simple example - [code](http://jsbin.com/lamidog/1/edit?html,output)| [open](https://surikov.github.io/webaudiofont/examples/testm.html)
+- virtual drums - [code](http://jsbin.com/wajopuy/1/edit?html,output) | [open](https://surikov.github.io/webaudiofont/examples/drums.html)
+- virtual piano - [code](http://jsbin.com/binelu/1/edit?html,output) | [open](https://surikov.github.io/webaudiofont/examples/piano.html)
+- endless flute - [code](http://jsbin.com/midadem/1/edit?html,output) | [open](https://surikov.github.io/webaudiofont/examples/flute.html)
+- two voices - [code](http://jsbin.com/vujewem/1/edit?html,output) | [open](https://surikov.github.io/webaudiofont/examples/voices.html)
+- sound fx - [code](http://jsbin.com/tipine/1/edit?html,output) | [open](https://surikov.github.io/webaudiofont/examples/fx.html)
+- realtime music - [code](https://jsbin.com/wuxilab/2/edit?html,output) | [open](https://surikov.github.io/webaudiofont/examples/realtime.html)
+- dynamic loading - [code](http://jsbin.com/jorama/2/edit?html,output) | [open](https://surikov.github.io/webaudiofont/examples/dynamic.html)
 
 ### Complex example
 
