@@ -1,0 +1,18 @@
+<html>
+	<head>
+		<script src='https://surikov.github.io/webaudiofont/npm/dist/WebAudioFontPlayer.js'></script>
+		<script src='https://surikov.github.io/webaudiofontdata/sound/0000_JCLive_sf2_file.js'></script>
+		<script>
+			var selectedPreset=_tone_0000_JCLive_sf2_file;
+			var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
+			var audioContext = new AudioContextFunc();
+			var player=new WebAudioFontPlayer();
+			player.loader.decodeAfterLoading(audioContext, '_tone_0000_JCLive_sf2_file');
+		</script>
+	</head>
+	<body>
+		<p><a href="#" onmousedown="player.queueWaveTable(audioContext, audioContext.destination, selectedPreset, 0, 55, 3.5);">Play a note</a></p>
+		<hr/>
+		<p><a href="https://github.com/surikov/webaudiofont">source</a></p>
+	</body>
+</html>
