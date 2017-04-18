@@ -86,7 +86,7 @@ var player = new WebAudioFontPlayer();
 		
 This code plays instrument [_tone_0250_SoundBlasterOld_sf2](https://surikov.github.io/webaudiofontdata/sound/0250_SoundBlasterOld_sf2.html) with pitch 55.
 
-[open in JSBin](http://jsbin.com/hopuhor/1/edit?html,output)
+[open test page](testm.html)
 
 
 ### How to use catalog of sounds:
