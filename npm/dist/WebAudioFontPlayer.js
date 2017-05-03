@@ -84,7 +84,7 @@ if (typeof window !== 'undefined') {
 
 },{}],2:[function(require,module,exports){
 'use strict'
-console.log('WebAudioFont Player v2.59');
+console.log('WebAudioFont Player v2.60');
 var WebAudioFontLoader = require('./loader')
 function WebAudioFontPlayer() {
 	this.envelopes = [];
@@ -320,7 +320,7 @@ function WebAudioFontPlayer() {
 		try {
 			this.adjustZone(audioContext, zone);
 		} catch (ex) {
-			//console.log(ex);
+			console.log('adjustZone',ex);
 		}
 		return zone;
 	};
