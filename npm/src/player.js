@@ -1,6 +1,8 @@
 'use strict'
 console.log('WebAudioFont Player v2.60');
-var WebAudioFontLoader = require('./loader')
+var WebAudioFontLoader = require('./loader');
+var WebAudioFontChannel = require('./channel');
+var WebAudioFontReverberator = require('./reverberator')
 function WebAudioFontPlayer() {
 	this.envelopes = [];
 	this.loader = new WebAudioFontLoader(this);

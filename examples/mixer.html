@@ -1,0 +1,175 @@
+<html>		
+<head>		
+	<script src='https://surikov.github.io/webaudiofont/npm/dist/WebAudioFontPlayer.js'></script>		
+	<script src='https://surikov.github.io/webaudiofontdata/sound/0290_SBLive_sf2.js'></script>		
+	<script src='https://surikov.github.io/webaudiofontdata/sound/0300_SBLive_sf2.js'></script>		
+	<script src='https://surikov.github.io/webaudiofontdata/sound/0340_SBLive_sf2.js'></script>		
+	<script src='https://surikov.github.io/webaudiofontdata/sound/12835_0_SBLive_sf2.js'></script>		
+	<script src='https://surikov.github.io/webaudiofontdata/sound/12838_0_SBLive_sf2.js'></script>		
+	<script src='https://surikov.github.io/webaudiofontdata/sound/12842_0_SBLive_sf2.js'></script>		
+	<script>		
+		var AudioContextFunc = window.AudioContext || window.webkitAudioContext;		
+		var audioContext = new AudioContextFunc();		
+		var player = new WebAudioFontPlayer();		
+		var channelDrums = new WebAudioFontChannel(audioContext);		
+		var channelBass = new WebAudioFontChannel(audioContext);		
+		var channelDistortion = new WebAudioFontChannel(audioContext);	
+		var channelMaster = new WebAudioFontChannel(audioContext);	
+		var reverberator = new WebAudioFontReverberator(audioContext);	
+		channelDrums.output.connect(channelMaster.input);
+		channelBass.output.connect(channelMaster.input);
+		channelDistortion.output.connect(channelMaster.input);
+		channelMaster.output.connect(reverberator.input);
+		reverberator.output.connect(audioContext.destination);
+		player.adjustPreset(audioContext,_tone_0290_SBLive_sf2);		
+		player.adjustPreset(audioContext,_tone_0300_SBLive_sf2);		
+		player.adjustPreset(audioContext,_tone_0340_SBLive_sf2);		
+		player.adjustPreset(audioContext,_drum_35_0_SBLive_sf2);		
+		player.adjustPreset(audioContext,_drum_38_0_SBLive_sf2);		
+		player.adjustPreset(audioContext,_drum_42_0_SBLive_sf2);		
+		var bpm = 120;		
+		var N = 4 * 60 / bpm;		
+		var pieceLen = 2 * N;		
+		var beatLen=1/8 * N;		
+		var C2 = 0+12*2, c2 = 1+12*2, D2 = 2+12*2, d2 = 3+12*2, E2 = 4+12*2, F2 = 5+12*2, f2 = 6+12*2, G2 = 7+12*2, g2 = 8+12*2, A2 = 9+12*2, a2 = 10+12*2, B2 = 11+12*2;		
+		var C3 = 0+12*3, c3 = 1+12*3, D3 = 2+12*3, d3 = 3+12*3, E3 = 4+12*3, F3 = 5+12*3, f3 = 6+12*3, G3 = 7+12*3, g3 = 8+12*3, A3 = 9+12*3, a3 = 10+12*3, B3 = 11+12*3;		
+		var C4 = 0+12*4, c4 = 1+12*4, D4 = 2+12*4, d4 = 3+12*4, E4 = 4+12*4, F4 = 5+12*4, f4 = 6+12*4, G4 = 7+12*4, g4 = 8+12*4, A4 = 9+12*4, a4 = 10+12*4, B4 = 11+12*4;		
+		var C5 = 0+12*5, c5 = 1+12*5, D5 = 2+12*5, d5 = 3+12*5, E5 = 4+12*5, F5 = 5+12*5, f5 = 6+12*5, G5 = 7+12*5, g5 = 8+12*5, A5 = 9+12*5, a5 = 10+12*5, B5 = 11+12*5;		
+		var C6 = 0+12*6, c6 = 1+12*6, D6 = 2+12*6, d6 = 3+12*6, E6 = 4+12*6, F6 = 5+12*6, f6 = 6+12*6, G6 = 7+12*6, g6 = 8+12*6, A6 = 9+12*6, a6 = 10+12*6, B6 = 11+12*6;		
+		var started = false;		
+		var startTime = 0;		
+		function overDrive(pitch, duration, slides){return {target:channelDistortion,preset:_tone_0300_SBLive_sf2,pitch:pitch,duration:duration*N,volume:0.2,slides:slides};}		
+		function palmMute(pitch, duration){return {target:channelDistortion,preset:_tone_0290_SBLive_sf2,pitch:pitch,duration:duration*N,volume:0.3};}		
+		function bass(pitch, duration){return {target:channelBass,preset:_tone_0340_SBLive_sf2,pitch:pitch,duration:duration*N,volume:0.5};}		
+		function drum(){return {target:channelDrums,preset:_drum_35_0_SBLive_sf2,pitch:35,duration:1,volume:0.7};}		
+		function snare(){return {target:channelDrums,preset:_drum_38_0_SBLive_sf2,pitch:38,duration:1,volume:0.5};}		
+		function hiHat(){return {target:channelDrums,preset:_drum_42_0_SBLive_sf2,pitch:42,duration:1,volume:0.5};}		
+		function nextPiece() {		
+			for (var n = 0; n < notes.length; n++) {		
+				var beat = notes[n];		
+				for (var i = 0; i < beat.length; i++) {		
+					if (beat[i]) {		
+						var slides=[];		
+						if(beat[i].slides){		
+							for(var s=0;s<beat[i].slides.length;s++){		
+								slides.push({when:beat[i].slides[s].when*N,pitch:beat[i].slides[s].pitch});		
+							}		
+						}
+						player.queueWaveTable(audioContext,  beat[i].target.input, beat[i].preset, startTime + n * beatLen , beat[i].pitch, beat[i].duration,beat[i].volume, slides);//[{when:startTime + n * beatLen+beat[i].duration,pitch:beat[i].pitch-12}]);		
+					}		
+				}		
+			}		
+		}		
+		function start() {		
+			if (started) {		
+				console.log('started already');		
+			} else {		
+				started = true;		
+				startTime = audioContext.currentTime + 0.1;		
+				nextPiece();		
+				startTime = startTime + pieceLen;		
+				setInterval(function () {		
+					if (audioContext.currentTime > startTime - 1 / 4 * N) {		
+						nextPiece();		
+						startTime = startTime + pieceLen;		
+					}		
+				}, 20);		
+			}		
+		}		
+ var notes=[		
+ ////////////////////////////////////////////////////////////////////////////////////		
+  [overDrive(D4,1/4,[{when:1/8,pitch:c4}]),bass(B2,1/8),drum()        ,hiHat()]		
+ ,[                                        bass(B2,1/8)               ,hiHat()]		
+ ,[palmMute(B3,1/8)                       ,bass(B2,1/8)       ,snare(),hiHat()]		
+ ,[overDrive(B3,1/4),                      bass(B2,1/8),drum()        ,hiHat()]		
+ ,[                                        bass(B2,1/8),drum()        ,hiHat()]		
+ ,[palmMute(B3,1/8)                       ,bass(B2,1/8)               ,hiHat()]		
+ ,[overDrive(B3,1/4)                      ,bass(B2,1/8)       ,snare(),hiHat()]		
+ ,[                                        bass(B2,1/8)               ,hiHat()]		
+ ,[palmMute(A3,1/8)                       ,bass(B2,1/8),drum()        ,hiHat()]		
+ ,[palmMute(B3,1/8)                       ,bass(B2,1/8),drum()        ,hiHat()]		
+ ,[palmMute(c4,1/8)                       ,bass(B2,1/8)       ,snare(),hiHat()]		
+ ,[overDrive(B3,1/4)                      ,bass(B2,1/8)               ,hiHat()]		
+ ,[                                        bass(B2,1/8),drum()        ,hiHat()]		
+ ,[palmMute(B3,1/8)                       ,bass(B2,1/8)               ,hiHat()]		
+ ,[overDrive(B3,1/4)                      ,bass(B2,1/8)       ,snare(),hiHat()]		
+ ,[                                        bass(B2,1/8)       ,snare(),hiHat()]		
+ ////////////////////////////////////////////////////////////////////////////////////		
+ ];		
+	</script>		
+<style>
+input[type=range][orient=vertical]
+{
+    writing-mode: bt-lr; /* IE */
+    -webkit-appearance: slider-vertical; /* WebKit */
+    width: 8px;
+    height: 175px;
+    padding: 0 5px;
+}
+</style>
+</head>		
+<body>		
+	<p><a href="#" onmousedown="start();">Play</a></p>	
+	<ul>
+		<li>master volume <input type="range" value="1.0" min="0.0" max="1.5" step="0.01" onchange="channelMaster.output.gain.value=value;"></li>
+		<li>drum volume <input type="range" value="1.0" min="0.0" max="1.5" step="0.01" onchange="channelDrums.output.gain.value=value;"></li>
+		<li>bass volume <input type="range" value="1.0" min="0.0" max="1.5" step="0.01" onchange="channelBass.output.gain.value=value;"></li>
+		<li>guitar volume <input type="range" value="1.0" min="0.0" max="1.5" step="0.01" onchange="channelDistortion.output.gain.value=value;"></li>
+		<li>echo <input type="range" value="0.25" min="0.0" max="1.0" step="0.01" onchange="reverberator.wet.gain.value=value;"></li>
+	</ul>
+	<p>Master equalizer</p>	
+	<p>
+		<input type="range" orient="vertical" value="0.0" min="-10.0" max="10.0" step="1" onchange="channelMaster.band32.gain.value=value;"/>
+		<input type="range" orient="vertical" value="0.0" min="-10.0" max="10.0" step="1" onchange="channelMaster.band64.gain.value=value;"/>
+		<input type="range" orient="vertical" value="0.0" min="-10.0" max="10.0" step="1" onchange="channelMaster.band128.gain.value=value;"/>
+		<input type="range" orient="vertical" value="0.0" min="-10.0" max="10.0" step="1" onchange="channelMaster.band256.gain.value=value;"/>
+		<input type="range" orient="vertical" value="0.0" min="-10.0" max="10.0" step="1" onchange="channelMaster.band512.gain.value=value;"/>
+		<input type="range" orient="vertical" value="0.0" min="-10.0" max="10.0" step="1" onchange="channelMaster.band1k.gain.value=value;"/>
+		<input type="range" orient="vertical" value="0.0" min="-10.0" max="10.0" step="1" onchange="channelMaster.band2k.gain.value=value;"/>
+		<input type="range" orient="vertical" value="0.0" min="-10.0" max="10.0" step="1" onchange="channelMaster.band4k.gain.value=value;"/>
+		<input type="range" orient="vertical" value="0.0" min="-10.0" max="10.0" step="1" onchange="channelMaster.band8k.gain.value=value;"/>
+		<input type="range" orient="vertical" value="0.0" min="-10.0" max="10.0" step="1" onchange="channelMaster.band16k.gain.value=value;"/>
+	</p>
+	<p>Drum equalizer</p>	
+	<p>
+		<input type="range" orient="vertical" value="0.0" min="-10.0" max="10.0" step="1" onchange="channelDrums.band32.gain.value=value;"/>
+		<input type="range" orient="vertical" value="0.0" min="-10.0" max="10.0" step="1" onchange="channelDrums.band64.gain.value=value;"/>
+		<input type="range" orient="vertical" value="0.0" min="-10.0" max="10.0" step="1" onchange="channelDrums.band128.gain.value=value;"/>
+		<input type="range" orient="vertical" value="0.0" min="-10.0" max="10.0" step="1" onchange="channelDrums.band256.gain.value=value;"/>
+		<input type="range" orient="vertical" value="0.0" min="-10.0" max="10.0" step="1" onchange="channelDrums.band512.gain.value=value;"/>
+		<input type="range" orient="vertical" value="0.0" min="-10.0" max="10.0" step="1" onchange="channelDrums.band1k.gain.value=value;"/>
+		<input type="range" orient="vertical" value="0.0" min="-10.0" max="10.0" step="1" onchange="channelDrums.band2k.gain.value=value;"/>
+		<input type="range" orient="vertical" value="0.0" min="-10.0" max="10.0" step="1" onchange="channelDrums.band4k.gain.value=value;"/>
+		<input type="range" orient="vertical" value="0.0" min="-10.0" max="10.0" step="1" onchange="channelDrums.band8k.gain.value=value;"/>
+		<input type="range" orient="vertical" value="0.0" min="-10.0" max="10.0" step="1" onchange="channelDrums.band16k.gain.value=value;"/>
+	</p>
+	<p>Bass equalizer</p>	
+	<p>
+		<input type="range" orient="vertical" value="0.0" min="-10.0" max="10.0" step="1" onchange="channelBass.band32.gain.value=value;"/>
+		<input type="range" orient="vertical" value="0.0" min="-10.0" max="10.0" step="1" onchange="channelBass.band64.gain.value=value;"/>
+		<input type="range" orient="vertical" value="0.0" min="-10.0" max="10.0" step="1" onchange="channelBass.band128.gain.value=value;"/>
+		<input type="range" orient="vertical" value="0.0" min="-10.0" max="10.0" step="1" onchange="channelBass.band256.gain.value=value;"/>
+		<input type="range" orient="vertical" value="0.0" min="-10.0" max="10.0" step="1" onchange="channelBass.band512.gain.value=value;"/>
+		<input type="range" orient="vertical" value="0.0" min="-10.0" max="10.0" step="1" onchange="channelBass.band1k.gain.value=value;"/>
+		<input type="range" orient="vertical" value="0.0" min="-10.0" max="10.0" step="1" onchange="channelBass.band2k.gain.value=value;"/>
+		<input type="range" orient="vertical" value="0.0" min="-10.0" max="10.0" step="1" onchange="channelBass.band4k.gain.value=value;"/>
+		<input type="range" orient="vertical" value="0.0" min="-10.0" max="10.0" step="1" onchange="channelBass.band8k.gain.value=value;"/>
+		<input type="range" orient="vertical" value="0.0" min="-10.0" max="10.0" step="1" onchange="channelBass.band16k.gain.value=value;"/>
+	</p>
+	<p>Guitar equalizer</p>	
+	<p>
+		<input type="range" orient="vertical" value="0.0" min="-10.0" max="10.0" step="1" onchange="channelDistortion.band32.gain.value=value;"/>
+		<input type="range" orient="vertical" value="0.0" min="-10.0" max="10.0" step="1" onchange="channelDistortion.band64.gain.value=value;"/>
+		<input type="range" orient="vertical" value="0.0" min="-10.0" max="10.0" step="1" onchange="channelDistortion.band128.gain.value=value;"/>
+		<input type="range" orient="vertical" value="0.0" min="-10.0" max="10.0" step="1" onchange="channelDistortion.band256.gain.value=value;"/>
+		<input type="range" orient="vertical" value="0.0" min="-10.0" max="10.0" step="1" onchange="channelDistortion.band512.gain.value=value;"/>
+		<input type="range" orient="vertical" value="0.0" min="-10.0" max="10.0" step="1" onchange="channelDistortion.band1k.gain.value=value;"/>
+		<input type="range" orient="vertical" value="0.0" min="-10.0" max="10.0" step="1" onchange="channelDistortion.band2k.gain.value=value;"/>
+		<input type="range" orient="vertical" value="0.0" min="-10.0" max="10.0" step="1" onchange="channelDistortion.band4k.gain.value=value;"/>
+		<input type="range" orient="vertical" value="0.0" min="-10.0" max="10.0" step="1" onchange="channelDistortion.band8k.gain.value=value;"/>
+		<input type="range" orient="vertical" value="0.0" min="-10.0" max="10.0" step="1" onchange="channelDistortion.band16k.gain.value=value;"/>
+	</p>
+	<hr/>		
+	<p><a href="https://github.com/surikov/webaudiofont">source</a></p>		
+</body>		
+</html> 
