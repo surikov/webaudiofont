@@ -1,5 +1,5 @@
 'use strict'
-console.log('WebAudioFont Player v2.60');
+console.log('WebAudioFont Player v2.61');
 var WebAudioFontLoader = require('./loader');
 var WebAudioFontChannel = require('./channel');
 var WebAudioFontReverberator = require('./reverberator')
@@ -77,8 +77,7 @@ function WebAudioFontPlayer() {
 		}
 	};
 	this.setupEnvelope = function (audioContext, envelope, zone, volume, when, sampleDuration, noteDuration) {
-		envelope.gain.value = this.noZeroVolume(0);
-		envelope.gain.exponentialRampToValueAtTime(this.noZeroVolume(0), audioContext.currentTime);
+		envelope.gain.setValueAtTime(this.noZeroVolume(0),audioContext.currentTime);
 		var lastTime = 0;
 		var lastVolume = 0;
 		var duration = noteDuration;
@@ -113,9 +112,8 @@ function WebAudioFontPlayer() {
 				}
 			];
 		}
-		envelope.gain.linearRampToValueAtTime(this.noZeroVolume(0), when - this.nearZero);
 		envelope.gain.cancelScheduledValues(when);
-		envelope.gain.exponentialRampToValueAtTime(ahdsr[0].volume * volume, when);
+		envelope.gain.setValueAtTime(this.noZeroVolume(ahdsr[0].volume * volume), when);
 		for (var i = 0; i < ahdsr.length; i++) {
 			if (ahdsr[i].duration > 0) {
 				if (ahdsr[i].duration + lastTime > duration) {
