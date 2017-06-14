@@ -126,7 +126,7 @@ if (typeof window !== 'undefined') {
 
 },{}],3:[function(require,module,exports){
 'use strict'
-console.log('WebAudioFont Player v2.61');
+console.log('WebAudioFont Player v2.62');
 var WebAudioFontLoader = require('./loader');
 var WebAudioFontChannel = require('./channel');
 var WebAudioFontReverberator = require('./reverberator')
@@ -182,13 +182,13 @@ function WebAudioFontPlayer() {
 		envelope.audioBufferSourceNode.buffer = zone.buffer;
 		if (loop) {
 			envelope.audioBufferSourceNode.loop = true;
-			envelope.audioBufferSourceNode.loopStart = zone.loopStart / zone.sampleRate;
-			envelope.audioBufferSourceNode.loopEnd = zone.loopEnd / zone.sampleRate;
+			envelope.audioBufferSourceNode.loopStart = zone.loopStart / zone.sampleRate + zone.delay;
+			envelope.audioBufferSourceNode.loopEnd = zone.loopEnd / zone.sampleRate + zone.delay;
 		} else {
 			envelope.audioBufferSourceNode.loop = false;
 		}
 		envelope.audioBufferSourceNode.connect(envelope);
-		envelope.audioBufferSourceNode.start(startWhen);
+		envelope.audioBufferSourceNode.start(startWhen, zone.delay);
 		envelope.audioBufferSourceNode.stop(startWhen + waveDuration);
 		envelope.when = startWhen;
 		envelope.duration = waveDuration;
@@ -204,7 +204,7 @@ function WebAudioFontPlayer() {
 		}
 	};
 	this.setupEnvelope = function (audioContext, envelope, zone, volume, when, sampleDuration, noteDuration) {
-		envelope.gain.setValueAtTime(this.noZeroVolume(0),audioContext.currentTime);
+		envelope.gain.setValueAtTime(this.noZeroVolume(0), audioContext.currentTime);
 		var lastTime = 0;
 		var lastVolume = 0;
 		var duration = noteDuration;
@@ -304,6 +304,7 @@ function WebAudioFontPlayer() {
 		if (zone.buffer) {
 			//
 		} else {
+			zone.delay = 0;
 			if (zone.sample) {
 				var decoded = atob(zone.sample);
 				zone.buffer = audioContext.createBuffer(1, decoded.length / 2, zone.sampleRate);
@@ -339,6 +340,21 @@ function WebAudioFontPlayer() {
 					}
 					audioContext.decodeAudioData(arraybuffer, function (audioBuffer) {
 						zone.buffer = audioBuffer;
+						if (zone.anchor) {
+							var float32Array = audioBuffer.getChannelData(0);
+							var mx = 0;
+							var wh = 0;
+							for (var i = 0; i < float32Array.length; i++) {
+								if (float32Array[i] > mx) {
+									mx = float32Array[i];
+									wh = i;
+								}
+							}
+							zone.delay = wh / audioBuffer.sampleRate - zone.anchor;
+							if (zone.delay < 0) {
+								zone.delay = 0;
+							}
+						}
 					});
 				}
 			}
@@ -362,7 +378,7 @@ function WebAudioFontPlayer() {
 		try {
 			this.adjustZone(audioContext, zone);
 		} catch (ex) {
-			console.log('adjustZone',ex);
+			console.log('adjustZone', ex);
 		}
 		return zone;
 	};
