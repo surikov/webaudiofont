@@ -1,6 +1,6 @@
 {
 	"name":"webaudiofont"
-	,"version":"2.0.11"
+	,"version":"2.0.12"
 	,"description":"Soundfonts for web. About of 2000 musical instruments. GM MIDI compatible."
 	,"keywords": ["audio", "guitar", "piano", "music", "drums", "beat", "sound", "synthesizer", "wavetable", "midi", "soundfont", "synth", "mixer", "distortion"]
 	,"repository":{
