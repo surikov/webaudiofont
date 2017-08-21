@@ -126,7 +126,7 @@ if (typeof window !== 'undefined') {
 
 },{}],3:[function(require,module,exports){
 'use strict'
-console.log('WebAudioFont Player v2.62');
+console.log('WebAudioFont Player v2.63');
 var WebAudioFontLoader = require('./loader');
 var WebAudioFontChannel = require('./channel');
 var WebAudioFontReverberator = require('./reverberator')
@@ -371,7 +371,7 @@ function WebAudioFontPlayer() {
 		var zone = null;
 		for (var i = preset.zones.length - 1; i >= 0; i--) {
 			zone = preset.zones[i];
-			if (zone.keyRangeLow <= pitch && zone.keyRangeHigh >= pitch) {
+			if (zone.keyRangeLow <= pitch && zone.keyRangeHigh + 1 >= pitch) {
 				break;
 			}
 		}
