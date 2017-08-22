@@ -39,6 +39,11 @@ WebAudioFont uses [Web Audio API](https://www.google.ru/search?q=web+audio+api) 
 
 Synthesizer uses [wavetables](https://www.google.ru/search?q=wavetable+synthesis) to play sound.
 
+### sf2 license
+
+- [GeneralUserGS.sf2 license](http://www.schristiancollins.com/generaluser.php)
+- [FluidR3.sf2 license](https://github.com/musescore/MuseScore/blob/master/share/sound/FluidR3Mono_License.md)
+
 ## How to use
 
 ### Minimal HTML page
