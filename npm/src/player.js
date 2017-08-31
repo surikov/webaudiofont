@@ -1,5 +1,5 @@
 'use strict'
-console.log('WebAudioFont Player v2.63');
+console.log('WebAudioFont Player v2.64');
 var WebAudioFontLoader = require('./loader');
 var WebAudioFontChannel = require('./channel');
 var WebAudioFontReverberator = require('./reverberator')
@@ -213,21 +213,6 @@ function WebAudioFontPlayer() {
 					}
 					audioContext.decodeAudioData(arraybuffer, function (audioBuffer) {
 						zone.buffer = audioBuffer;
-						if (zone.anchor) {
-							var float32Array = audioBuffer.getChannelData(0);
-							var mx = 0;
-							var wh = 0;
-							for (var i = 0; i < float32Array.length; i++) {
-								if (float32Array[i] > mx) {
-									mx = float32Array[i];
-									wh = i;
-								}
-							}
-							zone.delay = wh / audioBuffer.sampleRate - zone.anchor;
-							if (zone.delay < 0) {
-								zone.delay = 0;
-							}
-						}
 					});
 				}
 			}
