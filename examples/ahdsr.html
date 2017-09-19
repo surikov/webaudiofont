@@ -1,0 +1,74 @@
+<html>
+	<head>
+		<script src='https://surikov.github.io/webaudiofont/npm/dist/WebAudioFontPlayer.js'></script>
+		<script src='https://surikov.github.io/webaudiofontdata/sound/0170_SBLive_sf2.js'></script>
+		<script>
+			var selectedPreset = _tone_0170_SBLive_sf2;
+			var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
+			var audioContext = new AudioContextFunc();
+			var player = new WebAudioFontPlayer();
+			function playNoAHDSR() {
+				for (var i = 0; i < selectedPreset.zones.length; i++) {
+					selectedPreset.zones[i].ahdsr = false;
+				}
+				player.queueWaveTable(audioContext, audioContext.destination, selectedPreset, 0, 55, 5.5);
+			}
+			function playDefaultAHDSR() {
+				for (var i = 0; i < selectedPreset.zones.length; i++) {
+					selectedPreset.zones[i].ahdsr = true;
+				}
+				player.queueWaveTable(audioContext, audioContext.destination, selectedPreset, 0, 55, 5.5);
+			}
+			function playCustomAHDSR() {
+				for (var i = 0; i < selectedPreset.zones.length; i++) {
+					selectedPreset.zones[i].ahdsr = [{
+							duration: 0,
+							volume: 1
+						}, {
+							duration: 0.5,
+							volume: 0.2
+						}, {
+							duration: 0.5,
+							volume: 0.95
+						}, {
+							duration: 0.5,
+							volume: 0.2
+						}, {
+							duration: 0.5,
+							volume: 0.95
+						}, {
+							duration: 0.5,
+							volume: 0.2
+						}, {
+							duration: 0.5,
+							volume: 0.95
+						}, {
+							duration: 0.5,
+							volume: 0.2
+						}, {
+							duration: 0.5,
+							volume: 0.95
+						}, {
+							duration: 0.5,
+							volume: 0.2
+						}, {
+							duration: 0.5,
+							volume: 0.95
+						}, {
+							duration: 0.5,
+							volume: 0.1
+						}
+					];
+				}
+				player.queueWaveTable(audioContext, audioContext.destination, selectedPreset, 0, 55, 5.5);
+			}
+		</script>
+	</head>
+	<body>
+		<p><a href="#" onmousedown="playNoAHDSR();">play without AHDSR</a></p>
+        <p><a href="#" onmousedown="playDefaultAHDSR();">play default AHDSR</a></p>
+        <p><a href="#" onmousedown="playCustomAHDSR();">play custom AHDSR</a></p>
+		<hr/>
+		<p><a href="https://github.com/surikov/webaudiofont">source</a></p>
+	</body>
+</html>
