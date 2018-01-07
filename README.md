@@ -4,7 +4,7 @@ WebAudioFont is a set of resources and associated technology that uses sample-ba
 
 - [How to use](#how-to-use)
   - [Hello, world](#hello-world)
-  - Dynamic loading
+  - [Dynamic loading](#dynamic-loading)
   - Effects
   - Examples
   - [Example applications](#example-applications)
@@ -41,13 +41,28 @@ Minimal HTML page
 		</script>
 	</head>
 	<body>
-		<p><a href='javascript:play();'>Play!</a></p>
+		<p><a href='javascript:play();'>Hello, world!</a></p>
 	</body>
 </html>
 ```
 
+###Dynamic loading
 
+Use startLoad and waitLoad functions.
 
+```javascript
+var instr=null;
+var player=new WebAudioFontPlayer();
+function changeInstrument(path,name){
+	player.loader.startLoad(audioContext, path, name);
+	player.loader.waitLoad(function () {
+		instr=window[name];
+	});
+}
+changeInstrument('https://surikov.github.io/webaudiofontdata/sound/0290_Aspirin_sf2_file.js','_tone_0290_Aspirin_sf2_file');
+```
+
+See [live example](https://surikov.github.io/webaudiofont/examples/dynamic.html)
 
 ### Example applications
 
