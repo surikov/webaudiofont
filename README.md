@@ -1,6 +1,6 @@
 # WebAudioFont
 
-WebAudioFont is a set of resources and associated technology that uses sample-based synthesis to play musical instruments in browser.
+WebAudioFont is a set of resources and associated technology that uses sample-based synthesis to [play](#player) musical instruments in browser.
 
 ![Screenshot](https://surikov.github.io/riffshare/img/sp320opt.gif)
 
@@ -142,7 +142,7 @@ Each instrument consists of one or more zones, each zone has own properties for 
 
 Some wavetables uses loops and [AHDSR volume](https://www.google.ru/search?q=ahdsr).
 
-## Player
+## Player (#player)
 
 WebAudioFontPlayer has function queueWaveTable (audioContext, target, preset, when, pitch, duration, volume, slides)
 
