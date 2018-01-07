@@ -1,14 +1,15 @@
 # WebAudioFont
 
 WebAudioFont is a set of resources and associated technology that uses sample-based synthesis to play musical instruments in browser.
+You can use about of thousands of instrument, see Catalog.
 
 - [How to use](#how-to-use)
   - [Hello, world](#hello-world)
   - [Dynamic loading](#dynamic-loading)
-  - Effects
-  - Examples
+  - [Effects and mixer](#effects-and-mixer)
+  - [Examples](#code-examples)
   - [Example applications](#example-applications)
-- Installation
+- [Installation](#installation)
 - Parts of WebAudioFont
   - Catalog of instruments
   - Play instrument
@@ -62,7 +63,29 @@ function changeInstrument(path,name){
 changeInstrument('https://surikov.github.io/webaudiofontdata/sound/0290_Aspirin_sf2_file.js','_tone_0290_Aspirin_sf2_file');
 ```
 
+All loaded instrument cached in memory.
+
 See [live example](https://surikov.github.io/webaudiofont/examples/dynamic.html)
+
+### Effects and mixer
+
+Use WebAudioFontChannel to create chain of 10-band equalizers.
+Use WebAudioFontReverberator to add echo.
+
+See [live example](https://surikov.github.io/webaudiofont/examples/mixer.html)
+
+### Code examples
+
+- simple example - [code](http://jsbin.com/lamidog/1/edit?html,output) - [open](https://surikov.github.io/webaudiofont/examples/simple.html)
+- virtual drums - [code](http://jsbin.com/wajopuy/1/edit?html,output) - [open](https://surikov.github.io/webaudiofont/examples/drums.html)
+- virtual piano - [code](http://jsbin.com/binelu/1/edit?html,output) - [open](https://surikov.github.io/webaudiofont/examples/piano.html)
+- endless flute - [code](http://jsbin.com/midadem/1/edit?html,output) - [open](https://surikov.github.io/webaudiofont/examples/flute.html)
+- two voices - [code](http://jsbin.com/vujewem/1/edit?html,output) - [open](https://surikov.github.io/webaudiofont/examples/voices.html)
+- sound fx - [code](http://jsbin.com/tipine/1/edit?html,output) - [open](https://surikov.github.io/webaudiofont/examples/fx.html)
+- realtime music - [code](https://jsbin.com/wuxilab/2/edit?html,output) - [open](https://surikov.github.io/webaudiofont/examples/realtime.html)
+- dynamic loading - [code](http://jsbin.com/jorama/2/edit?html,output) - [open](https://surikov.github.io/webaudiofont/examples/dynamic.html)
+- mixer - [open](https://surikov.github.io/webaudiofont/examples/mixer.html)
+- AHDSR - [open](https://surikov.github.io/webaudiofont/examples/ahdsr.html)
 
 ### Example applications
 
@@ -70,6 +93,48 @@ See [live example](https://surikov.github.io/webaudiofont/examples/dynamic.html)
 - [Pianoroll editor](https://surikov.github.io/RiffShareAndroid/app/src/main/assets/load.html?riff=78-35525525-55955559-0d0d0c0704100f0e070c-0009010302090303040905030609070327c040104110421043104410451046104708673080608166826683668466856686668706a010a111a211a311a411a511a611a701e001-005030c40006102440006102740006102b40002031840000030c40035030c40032031b40033030c40065030c40062081f40060030c40095030c40093030c400c5040c400c0040c400e2041f40105030540106102440106102740106102940100030540122061b40135030540133030540165030540160030540182021b401950305401930305401a2061d401c50405401c0040540205030840206102440206102740206102b40202031840200030840235030840232031b40233030840265030840262081f402600308402950308402930308402c50408402c00408402e2041f40305030a40306102440306102740306102c40300030a40322061b40335030a40333030a40365030a40360030a40382021b40395030a40393030a403a2061d403c5040a403c0040a40)
 - [Fretboard for chords](https://surikov.github.io/RiffShareAndroid/app/src/main/assets/fretload.html?riff=1-120-035110e4020c4120a411064110741108411094110c3320c2320e3020e202034310333106331062310733107231083310823109331092310a2310a3311354113461133611644116361162611744118441194411c4421e4421c3621c2621e2621e3621736117261183611826119361192610051300433003330433204432045121054310463103631454214462143621a2611a3611a441-0001002222100010000100222210000)
 - [Lyrics editor](http://molgav.nn.ru/textchord/)
+
+## Installation
+
+WebAudioFont doesn't require installation. It hosts all code and instruments at [GitHub Pages](https://pages.github.com/).
+
+### Minimal NPM code (if you need this)
+
+#### JavaScript
+
+```javascript
+var webaudiofont = require('webaudiofont');
+var player = new WebAudioFontPlayer();
+```
+
+#### package.json
+
+```
+...
+"devDependencies": {
+	"webaudiofont":"^2.0.0"
+...
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 [licence](#sf2-license)
 
@@ -89,18 +154,7 @@ WebAudioFont is a set of resources and associated technology that uses sample-ba
 
 ![Screenshot](https://surikov.github.io/riffshare/img/sp320opt.gif)
 
-### Code examples
 
-- simple example - [code](http://jsbin.com/lamidog/1/edit?html,output) - [open](https://surikov.github.io/webaudiofont/examples/simple.html)
-- virtual drums - [code](http://jsbin.com/wajopuy/1/edit?html,output) - [open](https://surikov.github.io/webaudiofont/examples/drums.html)
-- virtual piano - [code](http://jsbin.com/binelu/1/edit?html,output) - [open](https://surikov.github.io/webaudiofont/examples/piano.html)
-- endless flute - [code](http://jsbin.com/midadem/1/edit?html,output) - [open](https://surikov.github.io/webaudiofont/examples/flute.html)
-- two voices - [code](http://jsbin.com/vujewem/1/edit?html,output) - [open](https://surikov.github.io/webaudiofont/examples/voices.html)
-- sound fx - [code](http://jsbin.com/tipine/1/edit?html,output) - [open](https://surikov.github.io/webaudiofont/examples/fx.html)
-- realtime music - [code](https://jsbin.com/wuxilab/2/edit?html,output) - [open](https://surikov.github.io/webaudiofont/examples/realtime.html)
-- dynamic loading - [code](http://jsbin.com/jorama/2/edit?html,output) - [open](https://surikov.github.io/webaudiofont/examples/dynamic.html)
-- mixer - [open](https://surikov.github.io/webaudiofont/examples/mixer.html)
-- AHDSR - [open](https://surikov.github.io/webaudiofont/examples/ahdsr.html)
 
 ### Complex example
 
@@ -157,23 +211,7 @@ Synthesizer uses [wavetables](https://www.google.ru/search?q=wavetable+synthesis
 </html>
 ```
 
-### Minimal NPM code
 
-#### JavaScript
-
-```
-var webaudiofont = require('webaudiofont');
-var player = new WebAudioFontPlayer();
-```
-
-#### package.json
-
-```
-...
-"devDependencies": {
-	"webaudiofont":"^2.0.0"
-...
-```
 
 		
 This code plays instrument [_tone_0250_SoundBlasterOld_sf2](https://surikov.github.io/webaudiofontdata/sound/0250_SoundBlasterOld_sf2.html) with pitch 55.
