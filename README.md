@@ -2,8 +2,10 @@
 
 WebAudioFont is a set of resources and associated technology that uses sample-based synthesis to play musical instruments in browser.
 
-- How to use
-  - Hello, world
+- [How to use](#how-to-use)
+  - [Hello, world](#hello-world)
+  - Dynamic loading
+  - Effects
   - Examples
   - [Example applications](#example-applications)
 - Installation
@@ -13,7 +15,36 @@ WebAudioFont is a set of resources and associated technology that uses sample-ba
   - Use reverberation and equalizer
 - How to get help
 
+## How to use
 
+Add link to WebAudioFontPlayer.js and instrument file. Invoke queueWaveTable.
+
+### Hello, world
+
+Minimal HTML page
+
+```html
+<html>
+	<head>
+		<script src='https://surikov.github.io/webaudiofont/npm/dist/WebAudioFontPlayer.js'></script>
+		<script src='https://surikov.github.io/webaudiofontdata/sound/0250_SoundBlasterOld_sf2.js'></script>
+		<script>
+			var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
+			var audioContext = new AudioContextFunc();
+			var player=new WebAudioFontPlayer();
+			player.loader.decodeAfterLoading(audioContext, '_tone_0250_SoundBlasterOld_sf2');
+			function play(){
+				player.queueWaveTable(audioContext, audioContext.destination
+					, _tone_0250_SoundBlasterOld_sf2, 0, 12*4+7, 2);
+				return false;
+			}
+		</script>
+	</head>
+	<body>
+		<p><a href='javascript:play();'>Play!</a></p>
+	</body>
+</html>
+```
 
 
 
