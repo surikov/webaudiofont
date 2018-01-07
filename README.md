@@ -3,6 +3,14 @@
 WebAudioFont is a set of resources and associated technology that uses sample-based synthesis to play musical instruments in browser.
 You can use about of thousands of instrument, see Catalog.
 
+#### Use cases
+
+- Virtual instruments
+- Interactive music generated on the fly
+- Sound effects for non-music applications
+
+#### Content
+
 - [How to use](#how-to-use)
   - [Hello, world](#hello-world)
   - [Dynamic loading](#dynamic-loading)
@@ -10,7 +18,7 @@ You can use about of thousands of instrument, see Catalog.
   - [Examples](#code-examples)
   - [Example applications](#example-applications)
 - [Installation](#installation)
-- Parts of WebAudioFont
+- [Parts of WebAudioFont](#parts-of-webaudiofont)
   - Catalog of instruments
   - Play instrument
   - Use reverberation and equalizer
@@ -116,7 +124,7 @@ var player = new WebAudioFontPlayer();
 ...
 ```
 
-
+## Parts of WebAudioFont
 
 
 
@@ -160,11 +168,7 @@ WebAudioFont is a set of resources and associated technology that uses sample-ba
 
 [RiffShare](https://surikov.github.io/riffshare/tools.html) - create and exchange tunes in 3D environment.
 
-## Use cases
 
-- Virtual instruments
-- Interactive music generated on the fly
-- Sound effects for non-music applications
 
 ### Parts of WebAudioFont
 
