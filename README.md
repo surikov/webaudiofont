@@ -46,7 +46,7 @@ Minimal HTML page
 </html>
 ```
 
-###Dynamic loading
+### Dynamic loading
 
 Use startLoad and waitLoad functions.
 
