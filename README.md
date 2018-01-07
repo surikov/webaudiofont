@@ -2,8 +2,20 @@
 
 WebAudioFont is a set of resources and associated technology that uses sample-based synthesis to play musical instruments in browser.
 
-- examples
-  - subexamples
+- How to use
+  - Hello, world
+  - Examples
+  - [Example applications](#example-applications)
+- Installation
+- Parts of WebAudioFont
+  - Catalog of instruments
+  - Play instrument
+  - Use reverberation and equalizer
+- How to get help
+
+
+
+
 
 
 ### Example applications
