@@ -19,10 +19,9 @@ You can use about of thousands of instrument, see Catalog.
   - [Example applications](#example-applications)
 - [Installation](#installation)
 - [Parts of WebAudioFont](#parts-of-webaudiofont)
-  - Catalog of instruments
-  - Play instrument
-  - Use reverberation and equalizer
-- How to get help
+  - [Catalog of instruments](#catalog-of-instruments)
+  - [Player](#player)
+- [How to get help](#how-to-get-help)
 
 ## How to use
 
@@ -126,104 +125,18 @@ var player = new WebAudioFontPlayer();
 
 ## Parts of WebAudioFont
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-[licence](#sf2-license)
-
-
-
-
-
-
-
-
-
-
-
-# WebAudioFont
-
-WebAudioFont is a set of resources and associated technology that uses sample-based synthesis to play musical instruments in browser.
-
-![Screenshot](https://surikov.github.io/riffshare/img/sp320opt.gif)
-
-
-
-### Complex example
-
-[RiffShare](https://surikov.github.io/riffshare/tools.html) - create and exchange tunes in 3D environment.
-
-
-
-### Parts of WebAudioFont
-
-- Library of sounds
-- Metadata that describe how to play sounds
-- WebAudioFontPlayer.js that uses metadata and sounds for playing instruments
-- [Catalog of available sounds](https://surikov.github.io/webaudiofontdata/)
-
-### Underlaying technology
-
 WebAudioFont uses [Web Audio API](https://www.google.ru/search?q=web+audio+api) to play instruments.
-
 Synthesizer uses [wavetables](https://www.google.ru/search?q=wavetable+synthesis) to play sound.
-
-### sf2 license
+Instruments came from free soundfonts:
 
 - [GeneralUserGS.sf2 license](http://www.schristiancollins.com/generaluser.php)
 - [FluidR3.sf2 license](https://github.com/musescore/MuseScore/blob/master/share/sound/FluidR3Mono_License.md)
 
-## How to use
+### Catalog of instruments
 
-### Minimal HTML page
+The catalog consists of a complete set of МИДИ standard. Each instrument has 5-10 sound options from different soundfonts.
 
-```
-<html>
-	<head>
-		<script src='https://surikov.github.io/webaudiofont/npm/dist/WebAudioFontPlayer.js'></script>
-		<script src='https://surikov.github.io/webaudiofontdata/sound/0250_SoundBlasterOld_sf2.js'></script>
-		<script>
-			var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
-			var audioContext = new AudioContextFunc();
-			var player=new WebAudioFontPlayer();
-			player.loader.decodeAfterLoading(audioContext, '_tone_0250_SoundBlasterOld_sf2');
-			function play(){
-				player.queueWaveTable(audioContext, audioContext.destination
-					, _tone_0250_SoundBlasterOld_sf2, 0, 12*4+7, 2);
-				return false;
-			}
-		</script>
-	</head>
-	<body>
-		<p><a href='javascript:play();'>Play!</a></p>
-	</body>
-</html>
-```
-
-
-
-		
-This code plays instrument [_tone_0250_SoundBlasterOld_sf2](https://surikov.github.io/webaudiofontdata/sound/0250_SoundBlasterOld_sf2.html) with pitch 55.
-
-[open test page](https://surikov.github.io/webaudiofont/simple.html)
-
-
-### How to use catalog of sounds:
+#### How to use catalog of sounds:
 
 - open [index page](https://surikov.github.io/webaudiofontdata/sound/)
 - find instrument
@@ -231,47 +144,9 @@ This code plays instrument [_tone_0250_SoundBlasterOld_sf2](https://surikov.gith
 - copy name of variable to refer to instrument
 - add this info to a page
 
-## Sound file format
+### Player
 
-Each file looks like this:
-
-```
-console.log('load _tone_Harp000087_461_460_45127');
-var _tone_Harp000087_461_460_45127={
-	zones:[
-		{
-			midi:46
-			,originalPitch:5700
-			,keyRangeLow:0
-			,keyRangeHigh:62
-			,loopStart:3340
-			,loopEnd:3841
-			,coarseTune:0
-			,fineTune:0
-			,sampleRate:22050
-			,ahdsr:true
-			,sample:'...
-		}
-		,{
-			midi:46
-			,originalPitch:7001
-			,keyRangeLow:63
-			,keyRangeHigh:76
-			,file:'...
-```
-
-It creates object and assigns it to a global variable.
-
-Each instrument consists of one or more zones, each zone has own properties for wavetable. Files contains of array with audio data. You can use instruments locally without [CORS problem](https://www.google.ru/search?q=cors+problem).
-
-- 'sample' is raw PCM data
-- 'file' is content of audio file
-
-Some wavetables uses loops and [AHDSR volume](https://www.google.ru/search?q=ahdsr).
-
-## Player
-
-WebAudioFontPlayer has function queueWaveTable (audioContext, target, preset, when, pitch, duration, volume, slides)
+WebAudioFontPlayer has function queueWaveTable(audioContext, target, preset, when, pitch, duration, volume, slides)
 
 Parameters:
 
@@ -285,6 +160,16 @@ Parameters:
 - slides - array of pitch bends
 
 Function queueWaveTable returns envelope object. You can use this object to cancel sound or access to AudioBufferSourceNode.
+
+## How to get help
+
+Feel free to ask any help at [project issues](https://github.com/surikov/webaudiofont/issues).
+
+
+
+
+
+
 
 
 
