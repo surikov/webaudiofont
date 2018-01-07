@@ -136,7 +136,7 @@ Instruments came from free soundfonts:
 
 ### Catalog of instruments
 
-The catalog consists of a complete set of МИДИ standard. Each instrument has 5-10 sound options from different soundfonts.
+The catalog consists of a full set of MIDI standard. Each instrument has 5-10 sound variations from different soundfonts.
 
 #### How to use catalog of sounds:
 
