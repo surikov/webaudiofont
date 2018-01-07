@@ -60,6 +60,8 @@ Use startLoad and waitLoad functions.
 
 ```javascript
 var instr=null;
+var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
+var audioContext = new AudioContextFunc();
 var player=new WebAudioFontPlayer();
 function changeInstrument(path,name){
 	player.loader.startLoad(audioContext, path, name);
