@@ -93,8 +93,8 @@ See [live example](https://surikov.github.io/webaudiofont/examples/mixer.html)
 - sound fx - [code](http://jsbin.com/tipine/1/edit?html,output) - [open](https://surikov.github.io/webaudiofont/examples/fx.html)
 - realtime music - [code](https://jsbin.com/wuxilab/2/edit?html,output) - [open](https://surikov.github.io/webaudiofont/examples/realtime.html)
 - dynamic loading - [code](http://jsbin.com/jorama/2/edit?html,output) - [open](https://surikov.github.io/webaudiofont/examples/dynamic.html)
-- mixer - [open](https://surikov.github.io/webaudiofont/examples/mixer.html)
-- AHDSR - [open](https://surikov.github.io/webaudiofont/examples/ahdsr.html)
+- mixer, equalizer and reverberation - [open](https://surikov.github.io/webaudiofont/examples/mixer.html)
+- custom AHDSR envelope - [open](https://surikov.github.io/webaudiofont/examples/ahdsr.html)
 
 ### Example applications
 
