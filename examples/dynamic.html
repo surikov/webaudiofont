@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<script src='https://surikov.github.io/webaudiofont/npm/dist/WebAudioFontPlayer.js'></script>
+		<script src='../npm/dist/WebAudioFontPlayer.js'></script>
 		<script src='https://surikov.github.io/webaudiofontdata/sound/0320_Chaos_sf2_file.js'></script>
 		<script src='https://surikov.github.io/webaudiofontdata/sound/12836_6_JCLive_sf2_file.js'></script>
 		<script src='https://surikov.github.io/webaudiofontdata/sound/12838_6_JCLive_sf2_file.js'></script>
@@ -34,17 +34,35 @@
 			player.loader.decodeAfterLoading(audioContext, '_tone_0320_Chaos_sf2_file');
 			player.loader.decodeAfterLoading(audioContext, '_tone_0300_Chaos_sf2_file');
 			var currentGuitar=_tone_0300_Chaos_sf2_file;
-			function guitar(pitch, duration){return {preset:currentGuitar,pitch:12*4+pitch,duration:duration*N,volume:0.2};}
+			var currentSnare=_drum_38_6_JCLive_sf2_file;
+			var currentSnarePitch=38;
+			function guitar(pitch, duration){return {preset:currentGuitar,pitch:12*4+pitch,duration:duration*N,volume:0.25};}
 			function bass(pitch, duration){return {preset:_tone_0320_Chaos_sf2_file,pitch:12*2+pitch,duration:duration*N,volume:0.4};}
 			function drum(){return {preset:_drum_36_6_JCLive_sf2_file,pitch:36,duration:1,volume:0.3};}
-			function snare(){return {preset:_drum_38_6_JCLive_sf2_file,pitch:38,duration:1,volume:0.5};}
+			function snare(){return {preset:currentSnare,pitch:currentSnarePitch,duration:1,volume:0.85};}
 			function hihat(){return {preset:_drum_42_6_JCLive_sf2_file,pitch:42,duration:1,volume:0.25};}
-			function change(path,name){
-				console.log('change',path, name);
-				player.loader.startLoad(audioContext, path, name);
+			function selectGuitar(o){
+				var n=document.getElementById('guitar').selectedIndex;
+				var info=player.loader.instrumentInfo(n)
+				console.log('selectGuitar',n,info);
+				player.loader.startLoad(audioContext, info.url, info.variable);
 				player.loader.waitLoad(function () {
-					console.log('done',name);
-					currentGuitar=window[name];
+					console.log('done',info.variable);
+					currentGuitar=window[info.variable];
+					player.cancelQueue(audioContext);
+					started=false;
+					start();
+				});
+			}
+			function selectSnare(o){
+				var n=document.getElementById('snare').selectedIndex;
+				var info=player.loader.drumInfo(n)
+				console.log('selectGuitar',n,info);
+				player.loader.startLoad(audioContext, info.url, info.variable);
+				player.loader.waitLoad(function () {
+					console.log('done',info.variable);
+					currentSnare=window[info.variable];
+					currentSnarePitch=info.pitch;
 					player.cancelQueue(audioContext);
 					started=false;
 					start();
@@ -118,15 +136,24 @@
 	</head>
 	<body>
 		<p><a href="#" onmousedown="start();">start</a> example</p>
-		<ul>
-			<li><a href="#" onmousedown="change('https://surikov.github.io/webaudiofontdata/sound/0290_Aspirin_sf2_file.js','_tone_0290_Aspirin_sf2_file');">guitar _tone_0290_Aspirin_sf2_file</a></li>
-			<li><a href="#" onmousedown="change('https://surikov.github.io/webaudiofontdata/sound/0290_Chaos_sf2_file.js','_tone_0290_Chaos_sf2_file');">guitar _tone_0290_Chaos_sf2_file</a></li>
-			<li><a href="#" onmousedown="change('https://surikov.github.io/webaudiofontdata/sound/0300_LesPaul_sf2_file.js','_tone_0300_LesPaul_sf2_file');">guitar _tone_0300_LesPaul_sf2_file</a></li>
-			<li><a href="#" onmousedown="change('https://surikov.github.io/webaudiofontdata/sound/0301_JCLive_sf2_file.js','_tone_0301_JCLive_sf2_file');">guitar _tone_0301_JCLive_sf2_file</a></li>
-			<li><a href="#" onmousedown="change('https://surikov.github.io/webaudiofontdata/sound/0290_SBAWE32_sf2_file.js','_tone_0290_SBAWE32_sf2_file');">guitar _tone_0290_SBAWE32_sf2_file</a></li>
-			<li><a href="#" onmousedown="change('https://surikov.github.io/webaudiofontdata/sound/0300_Chaos_sf2_file.js','_tone_0300_Chaos_sf2_file');">guitar _tone_0300_Chaos_sf2_file</a></li>
-		</ul>
+		<p>Guitar <select id='guitar' onchange="selectGuitar(this)"></select></p>
+		<p>Snare drum <select id='snare' onchange="selectSnare(this)"></select></p>
 		<hr/>
 		<p><a href="https://surikov.github.io/webaudiofont/">source</a></p>
+		<script>
+			var sel = document.getElementById('guitar');
+			for(var i = 0; i < player.loader.instrumentKeys().length; i++) {
+				var opt = document.createElement('option');
+				opt.innerHTML = ''+(i+1)+'. '+player.loader.instrumentInfo(i).title;
+				sel.appendChild(opt);
+			}
+			sel = document.getElementById('snare');
+			for(var i = 0; i < player.loader.drumKeys().length; i++) {
+				var opt = document.createElement('option');
+				opt.innerHTML = ''+(i+1)+'. '+player.loader.drumInfo(i).title;
+				sel.appendChild(opt);
+			}
+			console.log(player.loader);
+		</script>
 	</body>
 </html>
