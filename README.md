@@ -146,6 +146,8 @@ The catalog consists of a full set of MIDI standard. Each instrument has 5-10 so
 - copy name of variable to refer to instrument
 - add this info to a page
 
+Use drumInfo and instrumentInfo in realtime. See [live example](https://surikov.github.io/webaudiofont/examples/dynamic.html).
+
 ### Player
 
 WebAudioFontPlayer has function queueWaveTable(audioContext, target, preset, when, pitch, duration, volume, slides)
