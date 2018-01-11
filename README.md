@@ -96,6 +96,7 @@ See [live example](https://surikov.github.io/webaudiofont/examples/mixer.html)
 - mixer, equalizer and reverberation - [open](https://surikov.github.io/webaudiofont/examples/mixer.html)
 - custom AHDSR envelope - [open](https://surikov.github.io/webaudiofont/examples/ahdsr.html)
 - strum chord [open](https://surikov.github.io/webaudiofont/examples/strum.html)
+- MIDI keyboard [open](https://surikov.github.io/webaudiofont/examples/midikey.html)
 
 ### Example applications
 
