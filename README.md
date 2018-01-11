@@ -95,6 +95,7 @@ See [live example](https://surikov.github.io/webaudiofont/examples/mixer.html)
 - dynamic loading - [code](http://jsbin.com/jorama/2/edit?html,output) - [open](https://surikov.github.io/webaudiofont/examples/dynamic.html)
 - mixer, equalizer and reverberation - [open](https://surikov.github.io/webaudiofont/examples/mixer.html)
 - custom AHDSR envelope - [open](https://surikov.github.io/webaudiofont/examples/ahdsr.html)
+- strum chord [open](https://surikov.github.io/webaudiofont/examples/strum.html)
 
 ### Example applications
 
