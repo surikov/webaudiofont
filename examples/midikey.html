@@ -98,11 +98,13 @@
 			var msg=document.getElementById('msg');
 			var evnt=document.getElementById('evnt');
 			evnt.innerHTML='wait for keyboard...';
+			console.log(navigator.requestMIDIAccess);
 			if (navigator.requestMIDIAccess) {
 				console.log('navigator.requestMIDIAccess ok');
 				navigator.requestMIDIAccess().then(requestMIDIAccessSuccess, requestMIDIAccessFailure);
 			} else {
-				console.log('navigator.requestMIDIAccess failed', e);
+				console.log('navigator.requestMIDIAccess undefined');
+				msg.innerHTML = 'navigator.requestMIDIAccess undefined';
 			}
 		</script>
 	</body>
