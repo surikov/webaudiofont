@@ -352,7 +352,7 @@ if (typeof window !== 'undefined') {
 
 },{}],3:[function(require,module,exports){
 'use strict'
-console.log('WebAudioFont Player v2.64');
+console.log('WebAudioFont Player v2.65');
 var WebAudioFontLoader = require('./loader');
 var WebAudioFontChannel = require('./channel');
 var WebAudioFontReverberator = require('./reverberator')
@@ -363,6 +363,42 @@ function WebAudioFontPlayer() {
 	this.onCacheProgress = null;
 	this.afterTime = 0.05;
 	this.nearZero = 0.000001;
+	this.queueChord = function (audioContext, target, preset, when, pitches, duration, volume, slides) {
+		for (var i = 0; i < pitches.length; i++) {
+			this.queueWaveTable(audioContext, target, preset, when, pitches[i], duration, volume - Math.random() * 0.01, slides);
+		}
+	};
+	this.queueStrumUp = function (audioContext, target, preset, when, pitches, duration, volume, slides) {
+		pitches.sort(function (a, b) {
+			return b - a;
+		});
+		this.queueStrum(audioContext, target, preset, when, pitches, duration, volume, slides);
+	};
+	this.queueStrumDown = function (audioContext, target, preset, when, pitches, duration, volume, slides) {
+		pitches.sort(function (a, b) {
+			return a - b;
+		});
+		this.queueStrum(audioContext, target, preset, when, pitches, duration, volume, slides);
+	};
+	this.queueStrum = function (audioContext, target, preset, when, pitches, duration, volume, slides) {
+		if (volume) {
+			volume = 1.0 * volume;
+		} else {
+			volume = 1.0;
+		}
+		if (when < audioContext.currentTime) {
+			when = audioContext.currentTime;
+		}
+		for (var i = 0; i < pitches.length; i++) {
+			this.queueWaveTable(audioContext, target, preset, when + i * 0.01, pitches[i], duration, volume - Math.random() * 0.01, slides);
+			volume = 0.9 * volume;
+		}
+	};
+	this.queueSnap = function (audioContext, target, preset, when, pitches, duration, volume, slides) {
+		volume = 1.5 * (volume | 1.0);
+		duration = 0.05;
+		this.queueChord(audioContext, target, preset, when, pitches, duration, volume, slides);
+	};
 	this.queueWaveTable = function (audioContext, target, preset, when, pitch, duration, volume, slides) {
 		if (volume) {
 			volume = 1.0 * volume;
@@ -441,27 +477,27 @@ function WebAudioFontPlayer() {
 		if (ahdsr) {
 			if (!(ahdsr.length > 0)) {
 				ahdsr = [{
-						duration : 0,
-						volume : 1
+						duration: 0,
+						volume: 1
 					}, {
-						duration : 0.5,
-						volume : 1
+						duration: 0.5,
+						volume: 1
 					}, {
-						duration : 1.5,
-						volume : 0.5
+						duration: 1.5,
+						volume: 0.5
 					}, {
-						duration : 3,
-						volume : 0
+						duration: 3,
+						volume: 0
 					}
 				];
 			}
 		} else {
 			ahdsr = [{
-					duration : 0,
-					volume : 1
+					duration: 0,
+					volume: 1
 				}, {
-					duration : duration,
-					volume : 1
+					duration: duration,
+					volume: 1
 				}
 			];
 		}

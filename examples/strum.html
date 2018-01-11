@@ -1,0 +1,27 @@
+<html>
+	<head>
+		<script src='../npm/dist/WebAudioFontPlayer.js'></script>
+		<script src='https://surikov.github.io/webaudiofontdata/sound/0250_JCLive_sf2_file.js'></script>
+		<script>
+			var selectedPreset = _tone_0250_JCLive_sf2_file;
+			var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
+			var audioContext = new AudioContextFunc();
+			var player = new WebAudioFontPlayer();
+			
+			var Am = [4 + 12 * 3 + 0, 9 + 12 * 3 + 0, 2 + 12 * 4 + 2, 7 + 12 * 4+ 2, 11 + 12 * 4 + 1, 4 + 12 * 5 + 0];
+			var C = [4 + 12 * 3 + 0, 9 + 12 * 3 + 3, 2 + 12 * 4 + 2, 7 + 12 * 4 + 0, 11 + 12 * 4 + 1, 4 + 12 * 5 + 0];
+			var E = [4 + 12 * 3 + 0, 9 + 12 * 3 + 2, 2 + 12 * 4 + 2, 7 + 12 * 4 + 1, 11 + 12 * 4 + 0, 4 + 12 * 5 + 0];
+			var G = [4 + 12 * 3 + 3, 9 + 12 * 3 + 2, 2 + 12 * 4 + 0, 7 + 12 * 4 + 0, 11 + 12 * 4 + 0, 4 + 12 * 5 + 3];
+			player.loader.decodeAfterLoading(audioContext, '_tone_0250_JCLive_sf2_file');
+		</script>
+	</head>
+	<body>
+		<p>Am <a href="#" onmousedown="player.cancelQueue(audioContext);player.queueChord(audioContext, audioContext.destination, selectedPreset, 0, Am, 1.5);">chord</a>
+			| <a href="#" onmousedown="player.cancelQueue(audioContext);player.queueSnap(audioContext, audioContext.destination, selectedPreset, 0, Am, 1.5);">snap</a>
+			| strum <a href="#" onmousedown="player.cancelQueue(audioContext);player.queueStrumDown(audioContext, audioContext.destination, selectedPreset, 0, Am, 1.5);">down</a>
+			| <a href="#" onmousedown="player.cancelQueue(audioContext);player.queueStrumUp(audioContext, audioContext.destination, selectedPreset, 0, Am, 1.5);">up</a>
+		</p>
+		<hr/>
+		<p><a href="https://surikov.github.io/webaudiofont/">source</a></p>
+	</body>
+</html>
