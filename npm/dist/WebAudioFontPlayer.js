@@ -1,6 +1,6 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict'
-console.log('WebAudioFont Channel v1.01');
+console.log('WebAudioFont Channel v1.03');
 function WebAudioFontChannel(audioContext) {
 	this.audioContext = audioContext;
 	this.bandEqualizer = function (from, frequency) {
@@ -352,7 +352,7 @@ if (typeof window !== 'undefined') {
 
 },{}],3:[function(require,module,exports){
 'use strict'
-console.log('WebAudioFont Player v2.65');
+console.log('WebAudioFont Player v2.71');
 var WebAudioFontLoader = require('./loader');
 var WebAudioFontChannel = require('./channel');
 var WebAudioFontReverberator = require('./reverberator')
@@ -363,6 +363,12 @@ function WebAudioFontPlayer() {
 	this.onCacheProgress = null;
 	this.afterTime = 0.05;
 	this.nearZero = 0.000001;
+	this.createChannel = function (audioContext) {
+		return new WebAudioFontChannel(audioContext);
+	};
+	this.createReverberator = function (audioContext) {
+		return new WebAudioFontReverberator(audioContext);
+	};
 	this.queueChord = function (audioContext, target, preset, when, pitches, duration, volume, slides) {
 		for (var i = 0; i < pitches.length; i++) {
 			this.queueWaveTable(audioContext, target, preset, when, pitches[i], duration, volume - Math.random() * 0.01, slides);

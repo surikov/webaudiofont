@@ -1,5 +1,5 @@
 'use strict'
-console.log('WebAudioFont Player v2.65');
+console.log('WebAudioFont Player v2.71');
 var WebAudioFontLoader = require('./loader');
 var WebAudioFontChannel = require('./channel');
 var WebAudioFontReverberator = require('./reverberator')
@@ -10,6 +10,12 @@ function WebAudioFontPlayer() {
 	this.onCacheProgress = null;
 	this.afterTime = 0.05;
 	this.nearZero = 0.000001;
+	this.createChannel = function (audioContext) {
+		return new WebAudioFontChannel(audioContext);
+	};
+	this.createReverberator = function (audioContext) {
+		return new WebAudioFontReverberator(audioContext);
+	};
 	this.queueChord = function (audioContext, target, preset, when, pitches, duration, volume, slides) {
 		for (var i = 0; i < pitches.length; i++) {
 			this.queueWaveTable(audioContext, target, preset, when, pitches[i], duration, volume - Math.random() * 0.01, slides);

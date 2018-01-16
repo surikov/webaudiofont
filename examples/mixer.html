@@ -11,11 +11,11 @@
 		var AudioContextFunc = window.AudioContext || window.webkitAudioContext;		
 		var audioContext = new AudioContextFunc();		
 		var player = new WebAudioFontPlayer();		
-		var channelDrums = new WebAudioFontChannel(audioContext);		
-		var channelBass = new WebAudioFontChannel(audioContext);		
-		var channelDistortion = new WebAudioFontChannel(audioContext);	
-		var channelMaster = new WebAudioFontChannel(audioContext);	
-		var reverberator = new WebAudioFontReverberator(audioContext);	
+		var channelDrums = player.createChannel(audioContext);		
+		var channelBass = player.createChannel(audioContext);		
+		var channelDistortion = player.createChannel(audioContext);	
+		var channelMaster = player.createChannel(audioContext);	
+		var reverberator = player.createReverberator(audioContext);	
 		channelDrums.output.connect(channelMaster.input);
 		channelBass.output.connect(channelMaster.input);
 		channelDistortion.output.connect(channelMaster.input);
