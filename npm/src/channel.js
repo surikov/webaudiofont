@@ -4,10 +4,10 @@ function WebAudioFontChannel(audioContext) {
 	this.audioContext = audioContext;
 	this.bandEqualizer = function (from, frequency) {
 		var filter = this.audioContext.createBiquadFilter();
-		filter.frequency.value = frequency;
+		filter.frequency.setTargetAtTime(frequency,0,0.0001);
 		filter.type = "peaking";
-		filter.gain.value = 0;
-		filter.Q.value = 1.0;
+		filter.gain.setTargetAtTime(0,0,0.0001);
+		filter.Q.setTargetAtTime(1.0,0,0.0001);
 		from.connect(filter);
 		return filter;
 	};
