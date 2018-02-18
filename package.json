@@ -1,20 +1,36 @@
 {
-	"name":"webaudiofont"
-	,"version":"2.5.19"
-	,"description":"Soundfonts for web. About of 2000 musical instruments. GM MIDI compatible."
-	,"keywords": ["audio", "guitar", "piano", "music", "drums", "beat", "sound", "synthesizer", "wavetable", "midi", "soundfont", "synth", "mixer", "distortion", "microtonal"]
-	,"repository":{
-		"type":"git"
-		,"url":"https://github.com/surikov/webaudiofont"
-		}
-	,"license":"MIT"
-	,"main":"npm/src/player.js"
-	,"devDependencies":{
+	"name": "webaudiofont",
+	"version": "2.5.20",
+	"description": "Soundfonts for web. About of 2000 musical instruments. GM MIDI compatible.",
+	"keywords": [
+		"audio",
+		"guitar",
+		"piano",
+		"music",
+		"drums",
+		"beat",
+		"sound",
+		"synthesizer",
+		"wavetable",
+		"midi",
+		"soundfont",
+		"synth",
+		"mixer",
+		"distortion",
+		"microtonal"
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/surikov/webaudiofont"
+	},
+	"license": "MIT",
+	"main": "npm/src/player.js",
+	"devDependencies": {
 		"browserify": "^15.0.0"
-		}
-	,"scripts":{
-		"test":"echo test"
-		,"dist": "browserify npm/src/player.js npm/src/channel.js npm/src/loader.js npm/src/reverberator.js > npm/dist/WebAudioFontPlayer.js && echo all done"
-		,"prepublish":"npm test && npm run dist"
-		}
+	},
+	"scripts": {
+		"test": "echo test",
+		"dist": "browserify npm/src/player.js npm/src/channel.js npm/src/loader.js npm/src/reverberator.js > npm/dist/WebAudioFontPlayer.js && echo all done",
+		"prepublish": "npm test && npm run dist"
+	}
 }

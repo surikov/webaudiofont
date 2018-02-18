@@ -1,5 +1,5 @@
 'use strict'
-console.log('WebAudioFont Player v2.71');
+console.log('WebAudioFont Player v2.72');
 var WebAudioFontLoader = require('./loader');
 var WebAudioFontChannel = require('./channel');
 var WebAudioFontReverberator = require('./reverberator')
@@ -83,7 +83,7 @@ function WebAudioFontPlayer() {
 		var envelope = this.findEnvelope(audioContext, target, startWhen, waveDuration);
 		this.setupEnvelope(audioContext, envelope, zone, volume, startWhen, waveDuration, duration);
 		envelope.audioBufferSourceNode = audioContext.createBufferSource();
-		envelope.audioBufferSourceNode.playbackRate.value = playbackRate;
+		envelope.audioBufferSourceNode.playbackRate.setValueAtTime(playbackRate,0);
 		if (slides) {
 			if (slides.length > 0) {
 				envelope.audioBufferSourceNode.playbackRate.setValueAtTime(playbackRate, when);

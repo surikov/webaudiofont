@@ -1,6 +1,6 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+(function(){function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s}return e})()({1:[function(require,module,exports){
 'use strict'
-console.log('WebAudioFont Channel v1.03');
+console.log('WebAudioFont Channel v1.04');
 function WebAudioFontChannel(audioContext) {
 	this.audioContext = audioContext;
 	this.bandEqualizer = function (from, frequency) {
@@ -13,12 +13,12 @@ function WebAudioFontChannel(audioContext) {
 		return filter;
 	};
 	this.input = this.audioContext.createDynamicsCompressor();
-	this.input.threshold.value = -3; //-50
-	this.input.knee.value = 30; //40
-	this.input.ratio.value = 12; //12
+	this.input.threshold.setValueAtTime(-3,0);// = -3; //-50
+	this.input.knee.setValueAtTime(30,0); //40
+	this.input.ratio.setValueAtTime(12,0); //12
 	//this.input.reduction.value = -20; //-20
-	this.input.attack.value = 0.05; //0
-	this.input.release.value = 0.08; //0.25
+	this.input.attack.setValueAtTime(0.05,0); //0
+	this.input.release.setValueAtTime(0.08,0); //0.25
 	this.band32 = this.bandEqualizer(this.input, 32);
 	this.band64 = this.bandEqualizer(this.band32, 64);
 	this.band128 = this.bandEqualizer(this.band64, 128);
@@ -352,7 +352,7 @@ if (typeof window !== 'undefined') {
 
 },{}],3:[function(require,module,exports){
 'use strict'
-console.log('WebAudioFont Player v2.71');
+console.log('WebAudioFont Player v2.72');
 var WebAudioFontLoader = require('./loader');
 var WebAudioFontChannel = require('./channel');
 var WebAudioFontReverberator = require('./reverberator')
@@ -436,7 +436,7 @@ function WebAudioFontPlayer() {
 		var envelope = this.findEnvelope(audioContext, target, startWhen, waveDuration);
 		this.setupEnvelope(audioContext, envelope, zone, volume, startWhen, waveDuration, duration);
 		envelope.audioBufferSourceNode = audioContext.createBufferSource();
-		envelope.audioBufferSourceNode.playbackRate.value = playbackRate;
+		envelope.audioBufferSourceNode.playbackRate.setValueAtTime(playbackRate,0);
 		if (slides) {
 			if (slides.length > 0) {
 				envelope.audioBufferSourceNode.playbackRate.setValueAtTime(playbackRate, when);
