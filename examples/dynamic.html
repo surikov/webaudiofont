@@ -145,12 +145,18 @@
 			for(var i = 0; i < player.loader.instrumentKeys().length; i++) {
 				var opt = document.createElement('option');
 				opt.innerHTML = ''+(i+1)+'. '+player.loader.instrumentInfo(i).title;
+				if(i==340){
+					opt.selected = 'selected'
+				}
 				sel.appendChild(opt);
 			}
 			sel = document.getElementById('snare');
 			for(var i = 0; i < player.loader.drumKeys().length; i++) {
 				var opt = document.createElement('option');
 				opt.innerHTML = ''+(i+1)+'. '+player.loader.drumInfo(i).title;
+				if(i==17){
+					opt.selected = 'selected'
+				}
 				sel.appendChild(opt);
 			}
 			console.log(player.loader);
