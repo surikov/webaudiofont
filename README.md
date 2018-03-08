@@ -123,7 +123,7 @@ var player = new WebAudioFontPlayer();
 ```
 ...
 "devDependencies": {
-	"webaudiofont":"^2.0.0"
+	"webaudiofont":"^2.5.0"
 ...
 ```
 
