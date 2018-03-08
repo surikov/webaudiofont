@@ -167,7 +167,7 @@ Parameters:
 
 Function queueWaveTable returns envelope object. You can use this object to cancel sound or access to AudioBufferSourceNode.
 
-#### Strum
+#### Strumming
 
 Use queueChord, queueStrumUp, queueStrumDown, queueSnap for chords. See [live example](https://surikov.github.io/webaudiofont/examples/strum.html).
 
@@ -175,7 +175,9 @@ Use queueChord, queueStrumUp, queueStrumDown, queueSnap for chords. See [live ex
 
 Feel free to ask any help at [project issues](https://github.com/surikov/webaudiofont/issues).
 
+### License
 
+see [LICENSE.md](https://github.com/surikov/webaudiofont/blob/master/LICENSE.md).
 
 
 
