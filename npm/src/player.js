@@ -8,7 +8,7 @@ function WebAudioFontPlayer() {
 	this.loader = new WebAudioFontLoader(this);
 	this.onCacheFinish = null;
 	this.onCacheProgress = null;
-	this.afterTime = 0.05;
+	this.afterTime = 0.01;
 	this.nearZero = 0.000001;
 	this.createChannel = function (audioContext) {
 		return new WebAudioFontChannel(audioContext);
@@ -182,7 +182,7 @@ function WebAudioFontPlayer() {
 		var envelope = null;
 		for (var i = 0; i < this.envelopes.length; i++) {
 			var e = this.envelopes[i];
-			if (e.target == target && audioContext.currentTime > e.when + e.duration + 0.1) {
+			if (e.target == target && audioContext.currentTime > e.when + e.duration + 0.001) {
 				try {
 					e.audioBufferSourceNode.disconnect();
 					e.audioBufferSourceNode.stop(0);
