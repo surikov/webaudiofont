@@ -18,6 +18,7 @@ You can use about of thousands of instrument, see [Catalog](#catalog-of-instrume
   - [Examples](#code-examples)
   - [Example applications](#example-applications)
 - [Installation](#installation)
+  - for [ReactJS](#reactjs)
 - [Parts of WebAudioFont](#parts-of-webaudiofont)
   - [Catalog of instruments](#catalog-of-instruments)
   - [Player](#player)
@@ -174,6 +175,10 @@ Use queueChord, queueStrumUp, queueStrumDown, queueSnap for chords. See [live ex
 ## How to get help
 
 Feel free to ask any help at [project issues](https://github.com/surikov/webaudiofont/issues).
+
+## ReactJS
+
+See [ReactJS implementation](https://www.npmjs.com/package/midi-sounds-react).
 
 ### License
 
