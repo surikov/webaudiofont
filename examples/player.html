@@ -1,0 +1,39 @@
+<html>
+	<head>
+		<script src='https://surikov.github.io/webaudiofont/npm/dist/WebAudioFontPlayer.js'></script>
+		<script src='MIDIFile.js'></script>
+	</head>
+	<body>
+		<p><input type="file" id="filesinput" name="filesarr[]" /></p>
+		<hr/>
+		<p><a href="https://surikov.github.io/webaudiofont/">source</a></p>
+		<script>
+			console.log('start');
+			function handleFileSelect(event) {
+				console.log(event);
+				var file = event.target.files[0];
+				console.log(file);
+				var fileReader = new FileReader();
+				fileReader.onload = function (progressEvent ) {
+					console.log(progressEvent);
+					var arrayBuffer = progressEvent.target.result;
+					console.log(arrayBuffer);
+					var midiFile = new MIDIFile(arrayBuffer);
+					console.log(midiFile);
+					console.log('getFormat', midiFile.header.getFormat());
+					console.log('getTracksCount', midiFile.header.getTracksCount());
+					if (midiFile.header.getTimeDivision() === MIDIFile.Header.TICKS_PER_BEAT) {
+						console.log('getTicksPerBeat',midiFile.header.getTicksPerBeat());
+					} else {
+						console.log('getSMPTEFrames',midiFile.header.getSMPTEFrames());
+						console.log('getTicksPerFrame',midiFile.header.getTicksPerFrame());
+					}
+					var events = midiFile.getMidiEvents();
+					console.log(events);
+				};
+				fileReader.readAsArrayBuffer(file);
+			}
+			document.getElementById('filesinput').addEventListener('change', handleFileSelect, false);
+		</script>
+	</body>
+</html>
