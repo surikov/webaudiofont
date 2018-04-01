@@ -23,13 +23,23 @@
 					console.log('getFormat', midiFile.header.getFormat());
 					console.log('getTracksCount', midiFile.header.getTracksCount());
 					if (midiFile.header.getTimeDivision() === MIDIFile.Header.TICKS_PER_BEAT) {
-						console.log('getTicksPerBeat',midiFile.header.getTicksPerBeat());
+						console.log('getTicksPerBeat', midiFile.header.getTicksPerBeat());
 					} else {
-						console.log('getSMPTEFrames',midiFile.header.getSMPTEFrames());
-						console.log('getTicksPerFrame',midiFile.header.getTicksPerFrame());
+						console.log('getSMPTEFrames', midiFile.header.getSMPTEFrames());
+						console.log('getTicksPerFrame', midiFile.header.getTicksPerFrame());
 					}
 					var events = midiFile.getMidiEvents();
-					console.log(events);
+					for (var i = 0; i < events.length; i++) {
+						if (events[i].subtype == MIDIEvents.EVENT_MIDI_NOTE_OFF) {
+							//
+						} else {
+							if (events[i].subtype == MIDIEvents.EVENT_MIDI_NOTE_ON) {
+								//
+							} else {
+								console.log(events[i]);
+							}
+						}
+					}
 				};
 				fileReader.readAsArrayBuffer(file);
 			}
