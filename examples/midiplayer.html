@@ -4,11 +4,38 @@
 		<script src='MIDIFile.js'></script>
 	</head>
 	<body>
-		<p><input type="file" id="filesinput" name="filesarr[]" /></p>
+		<p><input type="file" id="filesinput" name="filesarr[]"/></p>
 		<hr/>
 		<p><a href="https://surikov.github.io/webaudiofont/">source</a></p>
 		<script>
 			console.log('start');
+			var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
+			var audioContext = new AudioContextFunc();
+			var player = new WebAudioFontPlayer();
+			var info = player.loader.instrumentInfo(0)
+				console.log(info);
+			var preset = null;
+			player.loader.startLoad(audioContext, info.url, info.variable);
+			player.loader.waitLoad(function () {
+				console.log('done', info.variable);
+				preset = window[info.variable];
+			});
+			function startPlay(notes) {
+				var songTime = 0;
+				var audioTime = audioContext.currentTime;
+				var step = 2000;
+				setInterval(function () {
+					for (var i = 0; i < notes.length; i++) {
+						if (notes[i].time >= songTime && notes[i].time < songTime + step) {
+							var when = 2 * step / 1000 + audioTime + notes[i].time / 1000;
+							var duration = notes[i].duration / 1000;
+							console.log(audioContext.currentTime, when, duration, notes[i]);
+							player.queueWaveTable(audioContext, audioContext.destination, preset, when, notes[i].pitch, duration, 0.25);
+						}
+					}
+					songTime = songTime + step;
+				}, step);
+			}
 			function handleFileSelect(event) {
 				console.log(event);
 				var file = event.target.files[0];
@@ -29,17 +56,45 @@
 						console.log('getTicksPerFrame', midiFile.header.getTicksPerFrame());
 					}
 					var events = midiFile.getMidiEvents();
+					var channelIns = [];
+					var channelNotes = [];
 					for (var i = 0; i < events.length; i++) {
 						if (events[i].subtype == MIDIEvents.EVENT_MIDI_NOTE_OFF) {
-							//
+							for (var cn = 0; cn < channelNotes.length; cn++) {
+								if (channelNotes[cn].channel == events[i].channel && channelNotes[cn].duration == 0 && channelNotes[cn].pitch == events[i].param1 && events[i].playTime > channelNotes[cn].time) {
+									channelNotes[cn].duration = events[i].playTime - channelNotes[cn].time;
+									//console.log(channelNotes[cn]);
+									break;
+								}
+							}
 						} else {
 							if (events[i].subtype == MIDIEvents.EVENT_MIDI_NOTE_ON) {
-								//
+								channelNotes.push({
+									time: events[i].playTime,
+									pitch: events[i].param1,
+									channel: events[i].channel,
+									duration: 0
+								});
+								//}
 							} else {
-								console.log(events[i]);
+								if (events[i].subtype == MIDIEvents.EVENT_MIDI_PROGRAM_CHANGE) {
+									console.log('EVENT_MIDI_PROGRAM_CHANGE', events[i].param1, 'for', events[i].channel, events[i]);
+									channelIns[events[i].channel] = events[i].param1;
+								} else {
+									if (events[i].subtype == MIDIEvents.EVENT_MIDI_CONTROLLER) {
+										//
+									} else {
+										if (events[i].subtype == MIDIEvents.EVENT_MIDI_PITCH_BEND) {
+											//
+										} else {
+											console.log('skip', events[i]);
+										};
+									}
+								}
 							}
 						}
 					}
+					startPlay(channelNotes);
 				};
 				fileReader.readAsArrayBuffer(file);
 			}
