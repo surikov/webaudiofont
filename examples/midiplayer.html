@@ -23,13 +23,12 @@
 			function startPlay(notes) {
 				var songTime = 0;
 				var audioTime = audioContext.currentTime;
-				var step = 2000;
+				var step = 333;
 				setInterval(function () {
 					for (var i = 0; i < notes.length; i++) {
 						if (notes[i].time >= songTime && notes[i].time < songTime + step) {
 							var when = 2 * step / 1000 + audioTime + notes[i].time / 1000;
 							var duration = notes[i].duration / 1000;
-							console.log(audioContext.currentTime, when, duration, notes[i]);
 							player.queueWaveTable(audioContext, audioContext.destination, preset, when, notes[i].pitch, duration, 0.25);
 						}
 					}
