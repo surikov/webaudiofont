@@ -4,36 +4,201 @@
 		<script src='MIDIFile.js'></script>
 	</head>
 	<body>
-		<p><input type="file" id="filesinput" name="filesarr[]"/></p>
+		<div id='cntls'>
+			<p><input type="file" id="filesinput" name="filesarr[]"/></p>
+		</div>
 		<hr/>
 		<p><a href="https://surikov.github.io/webaudiofont/">source</a></p>
 		<script>
 			console.log('start');
-			var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
-			var audioContext = new AudioContextFunc();
-			var player = new WebAudioFontPlayer();
-			var info = player.loader.instrumentInfo(0)
-				console.log(info);
-			var preset = null;
-			player.loader.startLoad(audioContext, info.url, info.variable);
+			var audioContext = null;
+			var player = null;
+			var reverberator = null;
+			var resetTime=0;
+			var input = null;
+			//var info = player.loader.instrumentInfo(0)
+			//console.log(info);
+			//var preset = null;
+			var songTime = 0;
+			/*player.loader.startLoad(audioContext, info.url, info.variable);
 			player.loader.waitLoad(function () {
-				console.log('done', info.variable);
-				preset = window[info.variable];
-			});
-			function startPlay(notes) {
-				var songTime = 0;
-				var audioTime = audioContext.currentTime;
-				var step = 333;
+			console.log('done', info.variable);
+			preset = window[info.variable];
+			});*/
+			function startPlay(song) {
+				/*var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
+				var audioContext = new AudioContextFunc();
+				var player = new WebAudioFontPlayer();
+				var reverberator = player.createReverberator(audioContext);
+				reverberator.output.connect(audioContext.destination);
+				var input=reverberator.input;
+				 */
+				songTime = 0;
+				resetTime = audioContext.currentTime;
+				var step = 99;
+				sendNotes(song, songTime, songTime + step, audioContext, reverberator, player);
+				songTime = songTime + step;
 				setInterval(function () {
-					for (var i = 0; i < notes.length; i++) {
-						if (notes[i].time >= songTime && notes[i].time < songTime + step) {
-							var when = 2 * step / 1000 + audioTime + notes[i].time / 1000;
-							var duration = notes[i].duration / 1000;
-							player.queueWaveTable(audioContext, audioContext.destination, preset, when, notes[i].pitch, duration, 0.25);
+					sendNotes(song, resetTime, songTime, songTime + step, audioContext, input, player);
+					songTime = songTime + step;
+					if (songTime > song.duration) {
+						songTime = songTime - song.duration;
+						resetTime = resetTime + song.duration / 1000;
+					}
+				}, step);
+				setInterval(function () {
+					showPosition(song, songTime);
+				}, 1234);
+			}
+			function showPosition(song, songTime) {
+				var o = document.getElementById('position');
+				o.value = 100 * songTime / song.duration;
+				//console.log(o.value,'%');
+			}
+			function sendNotes(song, resetTime, start, end, audioContext, input, player) {
+				//console.log('send',start);
+				for (var i = 0; i < song.notes.length; i++) {
+					if (song.notes[i].when >= start && song.notes[i].when < end) {
+						var when = resetTime + song.notes[i].when / 1000;
+						var duration = song.notes[i].duration / 1000;
+						var variable = null;
+						if (song.notes[i].channel == 9 && song.notes[i].pitch>34 && song.notes[i].pitch <82) {
+							var instr = song.drums[song.notes[i].pitch].variable;
+							//console.log(song.notes[i].pitch);
+							player.queueWaveTable(audioContext, input, window[instr], when, song.notes[i].pitch, duration, 0.3);
+						} else {
+							var drm = song.channels[song.notes[i].channel].variable;
+							player.queueWaveTable(audioContext, input, window[drm], when, song.notes[i].pitch, duration, 0.1);
 						}
 					}
-					songTime = songTime + step;
-				}, step);
+				}
+			}
+			function findFirstIns(player, nn) {
+				for (var i = 0; i < player.loader.instrumentKeys().length; i++) {
+					if (nn == 1 * player.loader.instrumentKeys()[i].substring(0, 3)) {
+						return i;
+					}
+				}
+			}
+			function findFirstDrum(player, nn) {
+				for (var i = 0; i < player.loader.drumKeys().length; i++) {
+					if (nn == 1 * player.loader.drumKeys()[i].substring(0, 2)) {
+						return i;
+					}
+				}
+			}
+			function startLoad(song) {
+				console.log(song);
+				var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
+				audioContext = new AudioContextFunc();
+				player = new WebAudioFontPlayer();
+				reverberator = player.createReverberator(audioContext);
+				reverberator.output.connect(audioContext.destination);
+				input = reverberator.input;
+				for (var i = 0; i < song.channels.length; i++) {
+					var nn = findFirstIns(player, 0 | song.channels[i]);
+					var info = player.loader.instrumentInfo(nn);
+					song.channels[i] = info;
+					console.log(info);
+					player.loader.startLoad(audioContext, info.url, info.variable);
+				}
+				for (var i = 35; i < 82; i++) {
+					if (song.drums[i]) {
+						var nn = findFirstDrum(player, i);
+						var info = player.loader.drumInfo(nn);
+						song.drums[i] = info;
+						console.log(info);
+						player.loader.startLoad(audioContext, info.url, info.variable);
+					}
+				}
+				player.loader.waitLoad(function () {
+					console.log('loaded');
+					buildControls(song);
+				});
+			}
+			function buildControls(song) {
+				var o = document.getElementById('cntls');
+				o.innerHTML = song.duration + '<br/><input id="position" type="range" min="0" max="100" value="0" step="1" />';
+				var pos = document.getElementById('position');
+				pos.oninput = function (e) {
+					player.cancelQueue(audioContext);
+					//console.log('jump',pos.value,'%',song.duration,songTime,resetTime);
+					var next=song.duration * pos.value / 100;
+					resetTime=resetTime-(next-songTime)/1000;
+					songTime = next;					
+					//console.log(songTime,resetTime);
+				};
+				startPlay(song);
+			}
+			function parseMIDIevents(arrayBuffer) {
+				var midiFile = new MIDIFile(arrayBuffer);
+				console.log(midiFile);
+				console.log('getFormat', midiFile.header.getFormat());
+				console.log('getTracksCount', midiFile.header.getTracksCount());
+				if (midiFile.header.getTimeDivision() === MIDIFile.Header.TICKS_PER_BEAT) {
+					console.log('getTicksPerBeat', midiFile.header.getTicksPerBeat());
+				} else {
+					console.log('getSMPTEFrames', midiFile.header.getSMPTEFrames());
+					console.log('getTicksPerFrame', midiFile.header.getTicksPerFrame());
+				}
+				var events = midiFile.getMidiEvents();
+				var song = {
+					channels: [],
+					drums: [],
+					notes: [],
+					duration: 0,
+					volumes: []
+				};
+				for (var i = 0; i < events.length; i++) {
+					if (song.duration < events[i].playTime) {
+						song.duration = events[i].playTime;
+					}
+					if (events[i].subtype == MIDIEvents.EVENT_MIDI_NOTE_OFF) {
+						for (var cn = 0; cn < song.notes.length; cn++) {
+							if (song.notes[cn].channel == events[i].channel //
+								 && song.notes[cn].duration == 0 //
+								 && song.notes[cn].pitch == events[i].param1 //
+								 && song.notes[cn].when < events[i].playTime) {
+								song.notes[cn].duration = events[i].playTime - song.notes[cn].when;
+								break;
+							}
+						}
+					} else {
+						if (events[i].subtype == MIDIEvents.EVENT_MIDI_NOTE_ON) {
+							song.notes.push({
+								when: events[i].playTime,
+								pitch: events[i].param1,
+								channel: events[i].channel,
+								duration: 0
+							});
+							if (events[i].channel == 9) {
+								song.drums[events[i].param1] = true;
+							}
+						} else {
+							if (events[i].subtype == MIDIEvents.EVENT_MIDI_PROGRAM_CHANGE) {
+								console.log('program', events[i].param1, 'for', events[i].channel, 'at', events[i].playTime);
+								song.channels[events[i].channel] = events[i].param1;
+							} else {
+								if (events[i].subtype == MIDIEvents.EVENT_MIDI_CONTROLLER) {
+									//console.log('EVENT_MIDI_PROGRAM_CHANGE', events[i].param1, 'for', events[i].channel, events[i]);
+									//console.log(events[i].param1, 'for', events[i].channel,'to',events[i].param2);
+									if (events[i].param1 == 7) {
+										console.log('volume', events[i].param2, 'for', events[i].channel, 'at', events[i].playTime);
+										song.volumes[events[i].channel] = events[i].param2;
+									}
+								} else {
+									if (events[i].subtype == MIDIEvents.EVENT_MIDI_PITCH_BEND) {
+										//console.log(events[i]);
+										//console.log('wheel', events[i].param1, events[i].param2, 'for', events[i].channel, 'at', events[i].playTime);
+									} else {
+										//
+									};
+								}
+							}
+						}
+					}
+				}
+				return song;
 			}
 			function handleFileSelect(event) {
 				console.log(event);
@@ -44,56 +209,8 @@
 					console.log(progressEvent);
 					var arrayBuffer = progressEvent.target.result;
 					console.log(arrayBuffer);
-					var midiFile = new MIDIFile(arrayBuffer);
-					console.log(midiFile);
-					console.log('getFormat', midiFile.header.getFormat());
-					console.log('getTracksCount', midiFile.header.getTracksCount());
-					if (midiFile.header.getTimeDivision() === MIDIFile.Header.TICKS_PER_BEAT) {
-						console.log('getTicksPerBeat', midiFile.header.getTicksPerBeat());
-					} else {
-						console.log('getSMPTEFrames', midiFile.header.getSMPTEFrames());
-						console.log('getTicksPerFrame', midiFile.header.getTicksPerFrame());
-					}
-					var events = midiFile.getMidiEvents();
-					var channelIns = [];
-					var channelNotes = [];
-					for (var i = 0; i < events.length; i++) {
-						if (events[i].subtype == MIDIEvents.EVENT_MIDI_NOTE_OFF) {
-							for (var cn = 0; cn < channelNotes.length; cn++) {
-								if (channelNotes[cn].channel == events[i].channel && channelNotes[cn].duration == 0 && channelNotes[cn].pitch == events[i].param1 && events[i].playTime > channelNotes[cn].time) {
-									channelNotes[cn].duration = events[i].playTime - channelNotes[cn].time;
-									//console.log(channelNotes[cn]);
-									break;
-								}
-							}
-						} else {
-							if (events[i].subtype == MIDIEvents.EVENT_MIDI_NOTE_ON) {
-								channelNotes.push({
-									time: events[i].playTime,
-									pitch: events[i].param1,
-									channel: events[i].channel,
-									duration: 0
-								});
-								//}
-							} else {
-								if (events[i].subtype == MIDIEvents.EVENT_MIDI_PROGRAM_CHANGE) {
-									console.log('EVENT_MIDI_PROGRAM_CHANGE', events[i].param1, 'for', events[i].channel, events[i]);
-									channelIns[events[i].channel] = events[i].param1;
-								} else {
-									if (events[i].subtype == MIDIEvents.EVENT_MIDI_CONTROLLER) {
-										//
-									} else {
-										if (events[i].subtype == MIDIEvents.EVENT_MIDI_PITCH_BEND) {
-											//
-										} else {
-											console.log('skip', events[i]);
-										};
-									}
-								}
-							}
-						}
-					}
-					startPlay(channelNotes);
+					var song = parseMIDIevents(arrayBuffer);
+					startLoad(song);
 				};
 				fileReader.readAsArrayBuffer(file);
 			}
