@@ -14,61 +14,50 @@
 			var audioContext = null;
 			var player = null;
 			var reverberator = null;
-			var resetTime=0;
+			var songStart = 0;
 			var input = null;
-			//var info = player.loader.instrumentInfo(0)
-			//console.log(info);
-			//var preset = null;
-			var songTime = 0;
-			/*player.loader.startLoad(audioContext, info.url, info.variable);
-			player.loader.waitLoad(function () {
-			console.log('done', info.variable);
-			preset = window[info.variable];
-			});*/
+			var currentSongTime = 0;
+			var nextStepTime = 0;
 			function startPlay(song) {
-				/*var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
-				var audioContext = new AudioContextFunc();
-				var player = new WebAudioFontPlayer();
-				var reverberator = player.createReverberator(audioContext);
-				reverberator.output.connect(audioContext.destination);
-				var input=reverberator.input;
-				 */
-				songTime = 0;
-				resetTime = audioContext.currentTime;
-				var step = 99;
-				sendNotes(song, songTime, songTime + step, audioContext, reverberator, player);
-				songTime = songTime + step;
+				currentSongTime = 0;
+				songStart = audioContext.currentTime;
+				nextStepTime = audioContext.currentTime;
+				var stepDuration = 44;
 				setInterval(function () {
-					sendNotes(song, resetTime, songTime, songTime + step, audioContext, input, player);
-					songTime = songTime + step;
-					if (songTime > song.duration) {
-						songTime = songTime - song.duration;
-						resetTime = resetTime + song.duration / 1000;
+					if (audioContext.currentTime > nextStepTime - stepDuration / 1000) {
+						sendNotes(song, songStart, currentSongTime, currentSongTime + stepDuration, audioContext, input, player);
+						currentSongTime = currentSongTime + stepDuration;
+						nextStepTime = nextStepTime + stepDuration / 1000;
+						if (currentSongTime > song.duration) {
+							currentSongTime = currentSongTime - song.duration;
+						}
 					}
-				}, step);
+				}, 22);
 				setInterval(function () {
-					showPosition(song, songTime);
+					showPosition(song, currentSongTime);
 				}, 1234);
 			}
-			function showPosition(song, songTime) {
+			function showPosition(song, currentSongTime) {
 				var o = document.getElementById('position');
-				o.value = 100 * songTime / song.duration;
-				//console.log(o.value,'%');
+				o.value = 100 * currentSongTime / song.duration;
+				document.getElementById('tmr').innerHTML = '' + Math.round(100 * currentSongTime / song.duration) + '%';
 			}
-			function sendNotes(song, resetTime, start, end, audioContext, input, player) {
-				//console.log('send',start);
+			function sendNotes(song, songStart, start, end, audioContext, input, player) {
 				for (var i = 0; i < song.notes.length; i++) {
 					if (song.notes[i].when >= start && song.notes[i].when < end) {
-						var when = resetTime + song.notes[i].when / 1000;
+						var when = songStart + song.notes[i].when / 1000;
 						var duration = song.notes[i].duration / 1000;
 						var variable = null;
-						if (song.notes[i].channel == 9 && song.notes[i].pitch>34 && song.notes[i].pitch <82) {
-							var instr = song.drums[song.notes[i].pitch].variable;
-							//console.log(song.notes[i].pitch);
-							player.queueWaveTable(audioContext, input, window[instr], when, song.notes[i].pitch, duration, 0.3);
+						if (song.notes[i].channel == 9) {
+							var drm = song.drums[song.notes[i].pitch].info.variable;
+							var v=song.drumvolumes[song.notes[i].pitch]/200;
+							console.log('drm',song.notes[i].pitch,v);
+							player.queueWaveTable(audioContext, input, window[drm], when, song.notes[i].pitch, duration, v);
 						} else {
-							var drm = song.channels[song.notes[i].channel].variable;
-							player.queueWaveTable(audioContext, input, window[drm], when, song.notes[i].pitch, duration, 0.1);
+							var instr = song.channels[song.notes[i].channel].info.variable;
+							var v=song.volumes[song.notes[i].channel]/1000;
+							console.log('ins',song.notes[i].channel,v);
+							player.queueWaveTable(audioContext, input, window[instr], when, song.notes[i].pitch, duration, v);
 						}
 					}
 				}
@@ -98,16 +87,20 @@
 				for (var i = 0; i < song.channels.length; i++) {
 					var nn = findFirstIns(player, 0 | song.channels[i]);
 					var info = player.loader.instrumentInfo(nn);
-					song.channels[i] = info;
-					console.log(info);
+					song.channels[i] = {
+						n: nn,
+						info: info
+					};
 					player.loader.startLoad(audioContext, info.url, info.variable);
 				}
 				for (var i = 35; i < 82; i++) {
 					if (song.drums[i]) {
 						var nn = findFirstDrum(player, i);
 						var info = player.loader.drumInfo(nn);
-						song.drums[i] = info;
-						console.log(info);
+						song.drums[i] = {
+							n: nn,
+							info: info
+						};
 						player.loader.startLoad(audioContext, info.url, info.variable);
 					}
 				}
@@ -117,18 +110,53 @@
 				});
 			}
 			function buildControls(song) {
+				console.log('song', song);
 				var o = document.getElementById('cntls');
-				o.innerHTML = song.duration + '<br/><input id="position" type="range" min="0" max="100" value="0" step="1" />';
+				var html = '<h2>Refresh browser page to load another song</h2><p id="tmr">&nbsp;</p><p><input id="position" type="range" min="0" max="100" value="0" step="1" /></p>';
+				html = html + '<h3>Channels</h3>';
+				for (var i = 0; i < song.channels.length; i++) {
+					var v=100*song.volumes[i]/127;
+					html = html + '<p>'+chooserIns(song.channels[i].n)  + '<input id="channel'+i+'" type="range" min="0" max="100" value="'+v+'" step="1" /></p>';
+				}
+				html = html + '<h3>Drums</h3>';
+				for (var i = 35; i < 82; i++) {
+					if (song.drums[i]) {
+						html = html + '<p>'+chooserDrum(song.drums[i].n)  + '<input id="drum'+i+'" type="range" min="0" max="100" value="100" step="1" /></p>';
+					}
+				}
+				o.innerHTML = html;
 				var pos = document.getElementById('position');
 				pos.oninput = function (e) {
 					player.cancelQueue(audioContext);
-					//console.log('jump',pos.value,'%',song.duration,songTime,resetTime);
-					var next=song.duration * pos.value / 100;
-					resetTime=resetTime-(next-songTime)/1000;
-					songTime = next;					
-					//console.log(songTime,resetTime);
+					var next = song.duration * pos.value / 100;
+					songStart = songStart - (next - currentSongTime) / 1000;
+					currentSongTime = next;
 				};
 				startPlay(song);
+			}
+			function chooserIns(n) {
+				var html = '<select>';
+				for (var i = 0; i < player.loader.instrumentKeys().length; i++) {
+					var sel = '';
+					if (i == n) {
+						sel = ' selected';
+					}
+					html = html + '<option value="' + i + '"' + sel + '>' + i + ': ' + player.loader.instrumentInfo(i).title + '</option>';
+				}
+				html = html + '</select>';
+				return html;
+			}
+			function chooserDrum(n) {
+				var html = '<select>';
+				for (var i = 0; i < player.loader.drumKeys().length; i++) {
+					var sel = '';
+					if (i == n) {
+						sel = ' selected';
+					}
+					html = html + '<option value="' + i + '"' + sel + '>' + i + ': ' + player.loader.drumInfo(i).title + '</option>';
+				}
+				html = html + '</select>';
+				return html;
 			}
 			function parseMIDIevents(arrayBuffer) {
 				var midiFile = new MIDIFile(arrayBuffer);
@@ -148,7 +176,11 @@
 					notes: [],
 					duration: 0,
 					volumes: []
+					,drumvolumes: []
 				};
+				for (var i = 35; i < 82; i++) {
+					song.drumvolumes[i]=100;
+				}
 				for (var i = 0; i < events.length; i++) {
 					if (song.duration < events[i].playTime) {
 						song.duration = events[i].playTime;
@@ -156,7 +188,7 @@
 					if (events[i].subtype == MIDIEvents.EVENT_MIDI_NOTE_OFF) {
 						for (var cn = 0; cn < song.notes.length; cn++) {
 							if (song.notes[cn].channel == events[i].channel //
-								 && song.notes[cn].duration == 0 //
+								 && song.notes[cn].duration == 0.000001 //
 								 && song.notes[cn].pitch == events[i].param1 //
 								 && song.notes[cn].when < events[i].playTime) {
 								song.notes[cn].duration = events[i].playTime - song.notes[cn].when;
@@ -165,31 +197,31 @@
 						}
 					} else {
 						if (events[i].subtype == MIDIEvents.EVENT_MIDI_NOTE_ON) {
-							song.notes.push({
-								when: events[i].playTime,
-								pitch: events[i].param1,
-								channel: events[i].channel,
-								duration: 0
-							});
-							if (events[i].channel == 9) {
-								song.drums[events[i].param1] = true;
+							if ((events[i].channel == 9 && events[i].param1 >= 35 && events[i].param1 <= 81)
+								 || (events[i].channel != 9 && events[i].param1 >= 0 && events[i].param1 <= 127)) {
+								song.notes.push({
+									when: events[i].playTime,
+									pitch: events[i].param1,
+									channel: events[i].channel,
+									duration: 0.000001
+								});
+								if (events[i].channel == 9) {
+									song.drums[events[i].param1] = true;
+								}
 							}
 						} else {
 							if (events[i].subtype == MIDIEvents.EVENT_MIDI_PROGRAM_CHANGE) {
-								console.log('program', events[i].param1, 'for', events[i].channel, 'at', events[i].playTime);
+								//console.log('program', events[i].param1, 'for', events[i].channel, 'at', events[i].playTime);
 								song.channels[events[i].channel] = events[i].param1;
 							} else {
 								if (events[i].subtype == MIDIEvents.EVENT_MIDI_CONTROLLER) {
-									//console.log('EVENT_MIDI_PROGRAM_CHANGE', events[i].param1, 'for', events[i].channel, events[i]);
-									//console.log(events[i].param1, 'for', events[i].channel,'to',events[i].param2);
 									if (events[i].param1 == 7) {
-										console.log('volume', events[i].param2, 'for', events[i].channel, 'at', events[i].playTime);
+										//console.log('volume', events[i].param2, 'for', events[i].channel, 'at', events[i].playTime);
 										song.volumes[events[i].channel] = events[i].param2;
 									}
 								} else {
 									if (events[i].subtype == MIDIEvents.EVENT_MIDI_PITCH_BEND) {
-										//console.log(events[i]);
-										//console.log('wheel', events[i].param1, events[i].param2, 'for', events[i].channel, 'at', events[i].playTime);
+										//console.log('bend', events[i].param1, events[i].param2, 'for', events[i].channel, 'at', events[i].playTime);
 									} else {
 										//
 									};
