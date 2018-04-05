@@ -352,7 +352,7 @@ if (typeof window !== 'undefined') {
 
 },{}],3:[function(require,module,exports){
 'use strict'
-console.log('WebAudioFont Player v2.72');
+console.log('WebAudioFont Player v2.74');
 var WebAudioFontLoader = require('./loader');
 var WebAudioFontChannel = require('./channel');
 var WebAudioFontReverberator = require('./reverberator')
@@ -535,7 +535,7 @@ function WebAudioFontPlayer() {
 		var envelope = null;
 		for (var i = 0; i < this.envelopes.length; i++) {
 			var e = this.envelopes[i];
-			if (e.target == target && audioContext.currentTime > e.when + e.duration + 0.1) {
+			if (e.target == target && audioContext.currentTime > e.when + e.duration + 0.001) {
 				try {
 					e.audioBufferSourceNode.disconnect();
 					e.audioBufferSourceNode.stop(0);
