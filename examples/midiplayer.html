@@ -50,13 +50,13 @@
 						var variable = null;
 						if (song.notes[i].channel == 9) {
 							var drm = song.drums[song.notes[i].pitch].info.variable;
-							var v=song.drumvolumes[song.notes[i].pitch]/200;
-							console.log('drm',song.notes[i].pitch,v);
+							var v = song.drumvolumes[song.notes[i].pitch] / 200;
+							//console.log('drm', song.notes[i].pitch, v);
 							player.queueWaveTable(audioContext, input, window[drm], when, song.notes[i].pitch, duration, v);
 						} else {
 							var instr = song.channels[song.notes[i].channel].info.variable;
-							var v=song.volumes[song.notes[i].channel]/1000;
-							console.log('ins',song.notes[i].channel,v);
+							var v =  song.insvolumes[song.notes[i].channel] / 500;
+							//console.log('ins', song.notes[i].channel, v);
 							player.queueWaveTable(audioContext, input, window[instr], when, song.notes[i].pitch, duration, v);
 						}
 					}
@@ -85,7 +85,7 @@
 				reverberator.output.connect(audioContext.destination);
 				input = reverberator.input;
 				for (var i = 0; i < song.channels.length; i++) {
-					var nn = findFirstIns(player, 0 | song.channels[i]);
+					var nn = findFirstIns(player,  song.channels[i]|0);
 					var info = player.loader.instrumentInfo(nn);
 					song.channels[i] = {
 						n: nn,
@@ -115,13 +115,17 @@
 				var html = '<h2>Refresh browser page to load another song</h2><p id="tmr">&nbsp;</p><p><input id="position" type="range" min="0" max="100" value="0" step="1" /></p>';
 				html = html + '<h3>Channels</h3>';
 				for (var i = 0; i < song.channels.length; i++) {
-					var v=100*song.volumes[i]/127;
-					html = html + '<p>'+chooserIns(song.channels[i].n)  + '<input id="channel'+i+'" type="range" min="0" max="100" value="'+v+'" step="1" /></p>';
+					if(i!=9){
+						var v = 100 * song.insvolumes[i] / 127;
+						html = html + '<p>' + chooserIns(song.channels[i].n) + '<input id="channel' + i + '" type="range" min="0" max="100" value="' + v + '" step="1" /></p>';
+					}
 				}
 				html = html + '<h3>Drums</h3>';
 				for (var i = 35; i < 82; i++) {
 					if (song.drums[i]) {
-						html = html + '<p>'+chooserDrum(song.drums[i].n)  + '<input id="drum'+i+'" type="range" min="0" max="100" value="100" step="1" /></p>';
+					
+						var v = 100 * song.drumvolumes[i] / 127;
+						html = html + '<p>' + chooserDrum(song.drums[i].n) + '<input id="drum' + i + '" type="range" min="0" max="100" value="'+v+'" step="1" /></p>';
 					}
 				}
 				o.innerHTML = html;
@@ -132,7 +136,40 @@
 					songStart = songStart - (next - currentSongTime) / 1000;
 					currentSongTime = next;
 				};
+				for (var i = 0; i < song.channels.length; i++) {
+					if(i!=9){
+						setVolumeAction(i,song);
+					}
+				}
+				for (var i = 35; i < 82; i++) {
+					if (song.drums[i]) {
+						setDrVolAction(i,song);
+					}
+				}
 				startPlay(song);
+			}
+			function setVolumeAction(i,song){
+				var vlm = document.getElementById('channel'+i);
+				vlm.oninput = function (e) {
+					player.cancelQueue(audioContext);
+					var v = 127 * vlm.value / 100;	
+					if(v<0.000001){
+						v=0.000001;
+					}
+					//console.log(v);
+					song.insvolumes[i]=v;
+				};
+			}
+			function setDrVolAction(i,song){
+				var vlm = document.getElementById('drum'+i);
+				vlm.oninput = function (e) {
+					player.cancelQueue(audioContext);
+					var v = 127 * vlm.value / 100;	
+					if(v<0.000001){
+						v=0.000001;
+					}
+					song.drumvolumes[i]=v;
+				};
 			}
 			function chooserIns(n) {
 				var html = '<select>';
@@ -175,17 +212,24 @@
 					drums: [],
 					notes: [],
 					duration: 0,
-					volumes: []
-					,drumvolumes: []
+					insvolumes: [],
+					drumvolumes: []
 				};
 				for (var i = 35; i < 82; i++) {
-					song.drumvolumes[i]=100;
+					song.drumvolumes[i] = 100;
 				}
+				for (var i = 0; i < midiFile.header.getTracksCount(); i++) {
+					song.insvolumes[i] = 100;
+				}
+				console.log('now',song.channels.length);
 				for (var i = 0; i < events.length; i++) {
 					if (song.duration < events[i].playTime) {
 						song.duration = events[i].playTime;
 					}
 					if (events[i].subtype == MIDIEvents.EVENT_MIDI_NOTE_OFF) {
+						/*if(events[i].channel>midiFile.header.getTracksCount() && events[i].channel!=9){
+							console.log(events[i]);
+						}*/
 						for (var cn = 0; cn < song.notes.length; cn++) {
 							if (song.notes[cn].channel == events[i].channel //
 								 && song.notes[cn].duration == 0.000001 //
@@ -211,25 +255,31 @@
 							}
 						} else {
 							if (events[i].subtype == MIDIEvents.EVENT_MIDI_PROGRAM_CHANGE) {
-								//console.log('program', events[i].param1, 'for', events[i].channel, 'at', events[i].playTime);
-								song.channels[events[i].channel] = events[i].param1;
+								console.log('program', events[i].param1, 'for', events[i].channel, 'at', events[i].playTime);
+								if(events[i].channel!=9){
+									song.channels[events[i].channel] = events[i].param1;
+								}
 							} else {
 								if (events[i].subtype == MIDIEvents.EVENT_MIDI_CONTROLLER) {
 									if (events[i].param1 == 7) {
-										//console.log('volume', events[i].param2, 'for', events[i].channel, 'at', events[i].playTime);
-										song.volumes[events[i].channel] = events[i].param2;
+										console.log('volume', events[i].param2, 'for', events[i].channel, 'at', events[i].playTime);
+										var v=events[i].param2|0.0000001;
+										song.insvolumes[events[i].channel] = v;
+									}else{
+										console.log('controller', events[i].param1, events[i].param2, 'for', events[i].channel, 'at', events[i].playTime);
 									}
 								} else {
 									if (events[i].subtype == MIDIEvents.EVENT_MIDI_PITCH_BEND) {
-										//console.log('bend', events[i].param1, events[i].param2, 'for', events[i].channel, 'at', events[i].playTime);
+										console.log('bend', events[i].param1, events[i].param2, 'for', events[i].channel, 'at', events[i].playTime);
 									} else {
-										//
+										console.log('unknown', events[i]);
 									};
 								}
 							}
 						}
 					}
 				}
+				console.log('now',song.channels.length);
 				return song;
 			}
 			function handleFileSelect(event) {
