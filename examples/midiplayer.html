@@ -22,12 +22,12 @@
 				currentSongTime = 0;
 				songStart = audioContext.currentTime;
 				nextStepTime = audioContext.currentTime;
-				var stepDuration = 44;
+				var stepDuration = 44/1000;
 				setInterval(function () {
-					if (audioContext.currentTime > nextStepTime - stepDuration / 1000) {
+					if (audioContext.currentTime > nextStepTime - stepDuration ) {
 						sendNotes(song, songStart, currentSongTime, currentSongTime + stepDuration, audioContext, input, player);
 						currentSongTime = currentSongTime + stepDuration;
-						nextStepTime = nextStepTime + stepDuration / 1000;
+						nextStepTime = nextStepTime + stepDuration ;
 						if (currentSongTime > song.duration) {
 							currentSongTime = currentSongTime - song.duration;
 						}
@@ -43,7 +43,33 @@
 				document.getElementById('tmr').innerHTML = '' + Math.round(100 * currentSongTime / song.duration) + '%';
 			}
 			function sendNotes(song, songStart, start, end, audioContext, input, player) {
-				for (var i = 0; i < song.notes.length; i++) {
+				for(var t=0;t<song.tracks.length;t++){
+					var track=song.tracks[t];
+					for (var i = 0; i < track.notes.length; i++) {
+						if (track.notes[i].when >= start && track.notes[i].when < end) {
+							var when = songStart + track.notes[i].when ;
+							var duration = track.notes[i].duration ;
+							//var variable = null;
+							var instr = track.info.variable;
+							var v =  track.volume / 7;
+							player.queueWaveTable(audioContext, input, window[instr], when, track.notes[i].pitch, duration, v);
+						}
+					}
+				}
+				for(var b=0;b<song.beats.length;b++){
+					var beat=song.beats[b];
+					for (var i = 0; i < beat.notes.length; i++) {
+						if (beat.notes[i].when >= start && beat.notes[i].when < end) {
+							var when = songStart + beat.notes[i].when ;
+							var duration = 1.5 ;
+							//var variable = null;
+							var instr = beat.info.variable;
+							var v =  beat.volume / 2;
+							player.queueWaveTable(audioContext, input, window[instr], when, beat.n, duration, v);
+						}
+					}
+				}
+				/*for (var i = 0; i < song.notes.length; i++) {
 					if (song.notes[i].when >= start && song.notes[i].when < end) {
 						var when = songStart + song.notes[i].when / 1000;
 						var duration = song.notes[i].duration / 1000;
@@ -60,7 +86,7 @@
 							player.queueWaveTable(audioContext, input, window[instr], when, song.notes[i].pitch, duration, v);
 						}
 					}
-				}
+				}*/
 			}
 			function findFirstIns(player, nn) {
 				for (var i = 0; i < player.loader.instrumentKeys().length; i++) {
@@ -84,25 +110,19 @@
 				reverberator = player.createReverberator(audioContext);
 				reverberator.output.connect(audioContext.destination);
 				input = reverberator.input;
-				for (var i = 0; i < song.channels.length; i++) {
-					var nn = findFirstIns(player,  song.channels[i]|0);
+				for (var i = 0; i < song.tracks.length; i++) {
+					var nn = findFirstIns(player,  song.tracks[i].program);
 					var info = player.loader.instrumentInfo(nn);
-					song.channels[i] = {
-						n: nn,
-						info: info
-					};
+					song.tracks[i].info=info;
+					song.tracks[i].id=nn;
 					player.loader.startLoad(audioContext, info.url, info.variable);
 				}
-				for (var i = 35; i < 82; i++) {
-					if (song.drums[i]) {
-						var nn = findFirstDrum(player, i);
+				for (var i = 0; i < song.beats.length; i++) {
+						var nn = findFirstDrum(player, song.beats[i].n);
 						var info = player.loader.drumInfo(nn);
-						song.drums[i] = {
-							n: nn,
-							info: info
-						};
+						song.beats[i].info=info;
+						song.beats[i].id=nn;
 						player.loader.startLoad(audioContext, info.url, info.variable);
-					}
 				}
 				player.loader.waitLoad(function () {
 					console.log('loaded');
@@ -114,37 +134,32 @@
 				var o = document.getElementById('cntls');
 				var html = '<h2>Refresh browser page to load another song</h2><p id="tmr">&nbsp;</p><p><input id="position" type="range" min="0" max="100" value="0" step="1" /></p>';
 				html = html + '<h3>Channels</h3>';
-				for (var i = 0; i < song.channels.length; i++) {
-					if(i!=9){
-						var v = 100 * song.insvolumes[i] / 127;
-						html = html + '<p>' + chooserIns(song.channels[i].n) + '<input id="channel' + i + '" type="range" min="0" max="100" value="' + v + '" step="1" /></p>';
-					}
+				for (var i = 0; i < song.tracks.length; i++) {
+						var v = 100 * song.tracks[i].volume ;
+						html = html + '<p>' + chooserIns(song.tracks[i].id) + '<input id="channel' + i + '" type="range" min="0" max="100" value="' + v + '" step="1" /></p>';
 				}
 				html = html + '<h3>Drums</h3>';
-				for (var i = 35; i < 82; i++) {
-					if (song.drums[i]) {
-					
-						var v = 100 * song.drumvolumes[i] / 127;
-						html = html + '<p>' + chooserDrum(song.drums[i].n) + '<input id="drum' + i + '" type="range" min="0" max="100" value="'+v+'" step="1" /></p>';
-					}
+				for (var i = 0; i < song.beats.length; i++) {					
+						var v = 100 * song.beats[i].volume;
+						html = html + '<p>' + chooserDrum(song.beats[i].id) + '<input id="drum' + i + '" type="range" min="0" max="100" value="'+v+'" step="1" /></p>';
 				}
 				o.innerHTML = html;
 				var pos = document.getElementById('position');
 				pos.oninput = function (e) {
 					player.cancelQueue(audioContext);
 					var next = song.duration * pos.value / 100;
-					songStart = songStart - (next - currentSongTime) / 1000;
+					songStart = songStart - (next - currentSongTime) ;
 					currentSongTime = next;
 				};
-				for (var i = 0; i < song.channels.length; i++) {
-					if(i!=9){
+				for (var i = 0; i < song.tracks.length; i++) {
+					
 						setVolumeAction(i,song);
-					}
+					
 				}
-				for (var i = 35; i < 82; i++) {
-					if (song.drums[i]) {
+				for (var i = 0; i < song.beats.length; i++) {
+				
 						setDrVolAction(i,song);
-					}
+					
 				}
 				startPlay(song);
 			}
@@ -152,23 +167,23 @@
 				var vlm = document.getElementById('channel'+i);
 				vlm.oninput = function (e) {
 					player.cancelQueue(audioContext);
-					var v = 127 * vlm.value / 100;	
+					var v =  vlm.value / 100;	
 					if(v<0.000001){
 						v=0.000001;
 					}
 					//console.log(v);
-					song.insvolumes[i]=v;
+					song.tracks[i].volume=v;
 				};
 			}
 			function setDrVolAction(i,song){
 				var vlm = document.getElementById('drum'+i);
 				vlm.oninput = function (e) {
 					player.cancelQueue(audioContext);
-					var v = 127 * vlm.value / 100;	
+					var v =  vlm.value / 100;	
 					if(v<0.000001){
 						v=0.000001;
 					}
-					song.drumvolumes[i]=v;
+					song.beats[i].volume=v;
 				};
 			}
 			function chooserIns(n) {
@@ -291,7 +306,11 @@
 					console.log(progressEvent);
 					var arrayBuffer = progressEvent.target.result;
 					console.log(arrayBuffer);
-					var song = parseMIDIevents(arrayBuffer);
+					//var song = parseMIDIevents(arrayBuffer);
+					
+					var midiFile = new MIDIFile(arrayBuffer);
+					var song=midiFile.parseSong();
+					//console.log(song);
 					startLoad(song);
 				};
 				fileReader.readAsArrayBuffer(file);
