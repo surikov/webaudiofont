@@ -6,9 +6,13 @@
 	<body>
 		<div id='cntls'>
 			<p><input type="file" id="filesinput" name="filesarr[]"/></p>
+			<ul>
+				<li>Mozart Symphony No.40 p.1<a href='midi/sym40-1.mid'>download</a> | <a href='#' onclick='handleExample("midi/sym40-1.mid")'>open</a></li>
+			</ul>
 		</div>
 		<hr/>
 		<p><a href="https://surikov.github.io/webaudiofont/">source</a></p>
+
 		<script>
 			console.log('start');
 			var audioContext = null;
@@ -51,6 +55,9 @@
 						if (track.notes[i].when >= start && track.notes[i].when < end) {
 							var when = songStart + track.notes[i].when;
 							var duration = track.notes[i].duration;
+							if(duration>5){
+								duration=5;
+							}
 							var instr = track.info.variable;
 							var v = track.volume / 7;
 							player.queueWaveTable(audioContext, input, window[instr], when, track.notes[i].pitch, duration, v,track.notes[i].slides);
@@ -224,6 +231,19 @@
 					startLoad(song);
 				};
 				fileReader.readAsArrayBuffer(file);
+			}
+			function handleExample(path) {
+				console.log(path);
+				var xmlHttpRequest = new XMLHttpRequest();
+				xmlHttpRequest.open("GET", path, true);
+				xmlHttpRequest.responseType = "arraybuffer";
+				xmlHttpRequest.onload = function (e) {
+					var arrayBuffer = xmlHttpRequest.response;
+					var midiFile = new MIDIFile(arrayBuffer);
+					var song = midiFile.parseSong();
+					startLoad(song);
+				};
+				xmlHttpRequest.send(null);
 			}
 			document.getElementById('filesinput').addEventListener('change', handleFileSelect, false);
 		</script>
