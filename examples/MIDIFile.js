@@ -991,7 +991,8 @@ MIDIFile.prototype.startNote = function (event, song) {
 	track.notes.push({
 		when: event.playTime / 1000,
 		pitch: event.param1,
-		duration: 0.0000001
+		duration: 0.0000001,
+		slides: []
 	});
 }
 MIDIFile.prototype.closeNote = function (event, song) {
@@ -1002,6 +1003,22 @@ MIDIFile.prototype.closeNote = function (event, song) {
 			 && track.notes[i].when < event.playTime / 1000) {
 			track.notes[i].duration = event.playTime / 1000 - track.notes[i].when;
 			break;
+		}
+	}
+}
+MIDIFile.prototype.addSlide = function (event, song) {
+	var track = this.takeTrack(event.channel, song);
+	for (var i = 0; i < track.notes.length; i++) {
+		if (track.notes[i].duration == 0.0000001 //
+			 && track.notes[i].when < event.playTime / 1000) {
+			//if (Math.abs(track.notes[i].shift) < Math.abs(event.param2 - 64) / 6) {
+			//track.notes[i].shift = (event.param2 - 64) / 6;
+			//console.log(event.param2-64);
+			//}
+			track.notes[i].slides.push({
+				pitch: track.notes[i].pitch + (event.param2 - 64) / 6,
+				when: event.playTime / 1000-track.notes[i].when
+			});
 		}
 	}
 }
@@ -1047,7 +1064,9 @@ MIDIFile.prototype.parseSong = function () {
 		beats: []
 	};
 	var events = this.getMidiEvents();
+	console.log(events);
 	for (var i = 0; i < events.length; i++) {
+		//console.log('		next',events[i]);
 		if (song.duration < events[i].playTime / 1000) {
 			song.duration = events[i].playTime / 1000;
 		}
@@ -1060,6 +1079,7 @@ MIDIFile.prototype.parseSong = function () {
 				}
 			} else {
 				if (events[i].param1 >= 0 && events[i].param1 <= 127) {
+					//console.log('start', events[i].param1);
 					this.startNote(events[i], song);
 				} else {
 					console.log('wrong tone', events[i]);
@@ -1069,28 +1089,33 @@ MIDIFile.prototype.parseSong = function () {
 			if (events[i].subtype == MIDIEvents.EVENT_MIDI_NOTE_OFF) {
 				if (events[i].channel != 9) {
 					this.closeNote(events[i], song);
+					//console.log('close', events[i].param1);
 				}
 			} else {
 				if (events[i].subtype == MIDIEvents.EVENT_MIDI_PROGRAM_CHANGE) {
 					if (events[i].channel != 9) {
 						var track = this.takeTrack(events[i].channel, song);
 						track.program = events[i].param1;
+					} else {
+						console.log('skip program for drums');
 					}
 				} else {
 					if (events[i].subtype == MIDIEvents.EVENT_MIDI_CONTROLLER) {
 						if (events[i].param1 == 7) {
 							if (events[i].channel != 9) {
 								var track = this.takeTrack(events[i].channel, song);
-								track.volume = (events[i].param2 | 0.001) / 127;
+								track.volume = events[i].param2/127||0.000001;
+								//console.log('volume', track.volume,'for',events[i].channel);
 							}
 						} else {
 							//console.log('controller', events[i]);
 						}
 					} else {
 						if (events[i].subtype == MIDIEvents.EVENT_MIDI_PITCH_BEND) {
-							//console.log('bend', events[i]);
+							//console.log('	bend', events[i].channel, events[i].param1, events[i].param2);
+							this.addSlide(events[i], song);
 						} else {
-							//console.log('unknown', events[i]);
+							console.log('unknown', events[i].channel, events[i]);
 						};
 					}
 				}

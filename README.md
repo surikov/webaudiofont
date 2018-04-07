@@ -163,7 +163,7 @@ Parameters:
 - when - when to play, audioContext.currentTime or 0 to play now, audioContext.currentTime + 3 to play after 3 seconds
 - pitch - note pitch from 0 to 127, for example 2+12*4 to play D of fourth octave (use MIDI key for drums)
 - duration - note duration in seconds, for example 4 to play 4 seconds
-- volume - 0.0-1.0 volume
+- volume - 0.0 <=1.0 volume (0 is 'no value', 'no value' is 1)
 - slides - array of pitch bends
 
 Function queueWaveTable returns envelope object. You can use this object to cancel sound or access to AudioBufferSourceNode.
