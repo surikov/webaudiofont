@@ -401,7 +401,7 @@ function WebAudioFontPlayer() {
 		}
 	};
 	this.queueSnap = function (audioContext, target, preset, when, pitches, duration, volume, slides) {
-		volume = 1.5 * (volume | 1.0);
+		volume = 1.5 * (1.0 | volume );
 		duration = 0.05;
 		this.queueChord(audioContext, target, preset, when, pitches, duration, volume, slides);
 	};
