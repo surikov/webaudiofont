@@ -17,6 +17,7 @@ You can use about of thousands of instrument, see [Catalog](#catalog-of-instrume
 - custom AHDSR envelope - [open](https://surikov.github.io/webaudiofont/examples/ahdsr.html)
 - strum chord - [open](https://surikov.github.io/webaudiofont/examples/strum.html)
 - MIDI keyboard - [open](https://surikov.github.io/webaudiofont/examples/midikey.html)
+- MIDI player - [open](https://surikov.github.io/webaudiofont/examples/midiplayer.html)
 
 ### Example applications
 
