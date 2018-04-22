@@ -38,6 +38,7 @@ You can use about of thousands of instrument, see [Catalog](#catalog-of-instrume
   - [Hello, world](#hello-world)
   - [Dynamic loading](#dynamic-loading)
   - [Effects and mixer](#effects-and-mixer)
+  - [Custom samples](#custom-samples)
 - [Installation](#installation)
   - for [ReactJS](#reactjs)
 - [Parts of WebAudioFont](#parts-of-webaudiofont)
@@ -104,6 +105,10 @@ Use WebAudioFontChannel to create chain of 10-band equalizers.
 Use WebAudioFontReverberator to add echo.
 
 See [live example](https://surikov.github.io/webaudiofont/examples/mixer.html)
+
+### Custom samples
+
+See [tutorial](https://surikov.github.io/webaudiofont/examples/customsample.md)
 
 ## Installation
 
