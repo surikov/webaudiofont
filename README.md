@@ -108,7 +108,7 @@ See [live example](https://surikov.github.io/webaudiofont/examples/mixer.html)
 
 ### Custom samples
 
-See [tutorial](https://surikov.github.io/webaudiofont/examples/customsample.md)
+See [tutorial](https://surikov.github.io/webaudiofont/examples/customsample.html)
 
 ## Installation
 
