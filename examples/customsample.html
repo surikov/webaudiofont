@@ -46,6 +46,7 @@
 		<h2>Tutorial</h2>
 		<p>Record sample sound and convert them into MP3 or OGG to reduce download size.</p>
 		<p><i>Warning: compression bring distortion to wave shape and you may notice clicks in looped samples. You need to change loop start/end to avoid clicks.</i></p>
+		<p><i>Warning: Of course, you can use the original uncompressed .wav files with the maximum sample rate and stereo. But this will increase the download size by 20-30 times.</i></p>
 		<p>Open any online BASE64 encoder and convert file into string</p>
 		<p><img src='csbase64.png' /></p>
 		<p>Create definition of instrument</p>
@@ -73,7 +74,7 @@ var myCustomSampledInstrument={
 		<p>Insert BASE64 string into field 'file'.</p>
 		<p>Open any SF2 editor and open your sample. Fill other fields from sample info:</p>
 		<p><img src='csf.png' /></p>
-		<p><i>Warning: Of course, you can use the original uncompressed .wav files with the maximum sample rate and stereo. But this will increase the download size by 20-30 times.</i></p>
+		
 		<p>Play custom instrument</p>
 		<p><pre>player.queueWaveTable(audioContext, audioContext.destination, myCustomSampledInstrument, 0, key, 2,0.5);</pre></p>
 		<p>Look to code of this page to find more information.</p>
