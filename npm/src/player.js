@@ -1,5 +1,5 @@
 'use strict'
-console.log('WebAudioFont Player v2.76');
+console.log('WebAudioFont Player v2.79');
 var WebAudioFontLoader = require('./loader');
 var WebAudioFontChannel = require('./channel');
 var WebAudioFontReverberator = require('./reverberator')
@@ -16,7 +16,16 @@ function WebAudioFontPlayer() {
 	this.createReverberator = function (audioContext) {
 		return new WebAudioFontReverberator(audioContext);
 	};
+	this.limitVolume = function (volume) {
+		if (volume) {
+			volume = 1.0 * volume;
+		} else {
+			volume = 0.5;
+		}
+		return volume;
+	};
 	this.queueChord = function (audioContext, target, preset, when, pitches, duration, volume, slides) {
+		volume = this.limitVolume(volume);
 		for (var i = 0; i < pitches.length; i++) {
 			this.queueWaveTable(audioContext, target, preset, when, pitches[i], duration, volume - Math.random() * 0.01, slides);
 		}
@@ -34,11 +43,7 @@ function WebAudioFontPlayer() {
 		this.queueStrum(audioContext, target, preset, when, pitches, duration, volume, slides);
 	};
 	this.queueStrum = function (audioContext, target, preset, when, pitches, duration, volume, slides) {
-		if (volume) {
-			volume = 1.0 * volume;
-		} else {
-			volume = 1.0;
-		}
+		volume = this.limitVolume(volume);
 		if (when < audioContext.currentTime) {
 			when = audioContext.currentTime;
 		}
@@ -48,6 +53,7 @@ function WebAudioFontPlayer() {
 		}
 	};
 	this.queueSnap = function (audioContext, target, preset, when, pitches, duration, volume, slides) {
+		volume = this.limitVolume(volume);
 		volume = 1.5 * (volume || 1.0);
 		duration = 0.05;
 		this.queueChord(audioContext, target, preset, when, pitches, duration, volume, slides);
@@ -57,11 +63,7 @@ function WebAudioFontPlayer() {
 			console.log('audioContext.resume');
 			audioContext.resume();
 		}
-		if (volume) {
-			volume = 1.0 * volume;
-		} else {
-			volume = 1.0;
-		}
+		volume = this.limitVolume(volume);
 		var zone = this.findZone(audioContext, preset, pitch);
 		if (!(zone.buffer)) {
 			console.log('empty buffer ', zone);
