@@ -1,7 +1,7 @@
 # WebAudioFont
 
-WebAudioFont is a set of resources and associated technology that uses sample-based synthesis to play musical instruments in browser.
-You can use about of thousands of instrument, see [Catalog](#catalog-of-instruments).
+WebAudioFont is a set of resources and associated technology that uses sample-based synthesis to play musical instruments in the browser.
+You can choose from thousands of instrument, see [Catalog](#catalog-of-instruments).
 
 ### Code examples
 
@@ -48,7 +48,7 @@ You can use about of thousands of instrument, see [Catalog](#catalog-of-instrume
 
 ## How to use
 
-Add link to WebAudioFontPlayer.js and instrument file. Invoke queueWaveTable.
+Add a link to WebAudioFontPlayer.js and the instrument file. Invoke queueWaveTable.
 
 ### Hello, world
 
@@ -79,7 +79,7 @@ Minimal HTML page
 
 ### Dynamic loading
 
-Use startLoad and waitLoad functions.
+Use the startLoad and waitLoad functions.
 
 ```javascript
 var instr=null;
@@ -95,13 +95,13 @@ function changeInstrument(path,name){
 changeInstrument('https://surikov.github.io/webaudiofontdata/sound/0290_Aspirin_sf2_file.js','_tone_0290_Aspirin_sf2_file');
 ```
 
-All loaded instrument cached in memory.
+All loaded instruments are cached in memory.
 
 See [live example](https://surikov.github.io/webaudiofont/examples/dynamic.html)
 
 ### Effects and mixer
 
-Use WebAudioFontChannel to create chain of 10-band equalizers.
+Use WebAudioFontChannel to create a chain of 10-band equalizers.
 Use WebAudioFontReverberator to add echo.
 
 See [live example](https://surikov.github.io/webaudiofont/examples/mixer.html)
@@ -143,34 +143,34 @@ Instruments came from free soundfonts:
 
 ### Catalog of instruments
 
-The catalog consists of a full set of MIDI standard. Each instrument has 5-10 sound variations from different soundfonts.
+The catalog consists of a full set of MIDI standards. Each instrument has 5-10 sound variations from different soundfonts.
 
 #### How to use catalog of sounds:
 
 - open [index page](https://surikov.github.io/webaudiofontdata/sound/)
-- find instrument
-- copy name of file to include instrument data
-- copy name of variable to refer to instrument
+- find an instrument
+- copy the name of the file to include the instrument data
+- copy the name of the variable to refer to the instrument
 - add this info to a page
 
 Use drumInfo and instrumentInfo in realtime. See [live example](https://surikov.github.io/webaudiofont/examples/dynamic.html).
 
 ### Player
 
-WebAudioFontPlayer has function queueWaveTable(audioContext, target, preset, when, pitch, duration, volume, slides)
+WebAudioFontPlayer has the function queueWaveTable(audioContext, target, preset, when, pitch, duration, volume, slides)
 
 Parameters:
 
 - audioContext - AudioContext
-- target - a node to connect, for example audioContext.destination
-- preset - variable with instrument preset
+- target - a node to connect to, for example audioContext.destination
+- preset - variable with the instrument preset
 - when - when to play, audioContext.currentTime or 0 to play now, audioContext.currentTime + 3 to play after 3 seconds
 - pitch - note pitch from 0 to 127, for example 2+12*4 to play D of fourth octave (use MIDI key for drums)
 - duration - note duration in seconds, for example 4 to play 4 seconds
 - volume - 0.0 <=1.0 volume (0 is 'no value', 'no value' is 1)
 - slides - array of pitch bends
 
-Function queueWaveTable returns envelope object. You can use this object to cancel sound or access to AudioBufferSourceNode.
+The function queueWaveTable returns an envelope object. You can use this object to cancel a sound or to access AudioBufferSourceNode.
 
 #### Strumming
 
@@ -178,7 +178,7 @@ Use queueChord, queueStrumUp, queueStrumDown, queueSnap for chords. See [live ex
 
 ## How to get help
 
-Feel free to ask any help at [project issues](https://github.com/surikov/webaudiofont/issues).
+Feel free to ask for any kind of help at [project issues](https://github.com/surikov/webaudiofont/issues).
 
 ## ReactJS
 
