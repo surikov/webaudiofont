@@ -5,7 +5,7 @@
 	</head>
 	<body>
 		<div id='cntls'>
-			<p><input type="file" id="filesinput" name="filesarr[]"/>v1.01</p>
+			<p><input type="file" id="filesinput" name="filesarr[]"/>v1.03</p>
 			<ul>
 				
 				<li>Dave Brubeck Take Five - <a href='midi/brubeck_dave-take_five.mid'>download</a> | <a href='#' onclick='handleExample("midi/brubeck_dave-take_five.mid")'>open</a></li>
@@ -31,6 +31,7 @@
 			var input = null;
 			var currentSongTime = 0;
 			var nextStepTime = 0;
+			var debugText='-';
 			function startPlay(song) {
 				currentSongTime = 0;
 				songStart = audioContext.currentTime;
@@ -39,26 +40,31 @@
 				document.getElementById('wrng').innerHTML = songStart+'/'+stepDuration;
 				console.log(songStart+'/'+stepDuration);
 				setInterval(function () {
+					debugText = '' + audioContext.currentTime + '/' + nextStepTime + '/' + stepDuration + '/' + song.duration;
 					if (audioContext.currentTime > nextStepTime - stepDuration) {
-						sendNotes(song, songStart, currentSongTime, currentSongTime + stepDuration, audioContext, input, player);
-						currentSongTime = currentSongTime + stepDuration;
-						nextStepTime = nextStepTime + stepDuration;
-						if (currentSongTime > song.duration) {
-							currentSongTime = currentSongTime - song.duration;
-							sendNotes(song, songStart, 0, currentSongTime , audioContext, input, player);
-							songStart=songStart+song.duration;
+						try {
+							sendNotes(song, songStart, currentSongTime, currentSongTime + stepDuration, audioContext, input, player);
+							currentSongTime = currentSongTime + stepDuration;
+							nextStepTime = nextStepTime + stepDuration;
+							if (currentSongTime > song.duration) {
+								currentSongTime = currentSongTime - song.duration;
+								sendNotes(song, songStart, 0, currentSongTime, audioContext, input, player);
+								songStart = songStart + song.duration;
+							}
+						} catch (exptn) {
+							debugText = debugText + '/' + exptn;
 						}
 					}
 				}, 22);
-				setInterval(function () {
-					document.getElementById('wrng').innerHTML = 'Refresh browser page to load another song';
+				setInterval(function () {					
 					showPosition(song, currentSongTime);
 				}, 1234);
+				document.getElementById('wrng').innerHTML = 'Refresh browser page to load another song';
 			}
 			function showPosition(song, currentSongTime) {
 				var o = document.getElementById('position');
 				o.value = 100 * currentSongTime / song.duration;
-				document.getElementById('tmr').innerHTML = '' + Math.round(100 * currentSongTime / song.duration) + '%';
+				document.getElementById('tmr').innerHTML = '' + Math.round(100 * currentSongTime / song.duration) + '% '+debugText;
 			}
 			function sendNotes(song, songStart, start, end, audioContext, input, player) {
 				for (var t = 0; t < song.tracks.length; t++) {
