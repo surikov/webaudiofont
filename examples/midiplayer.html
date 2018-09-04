@@ -5,7 +5,7 @@
 	</head>
 	<body>
 		<div id='cntls'>
-			<p><input type="file" id="filesinput" name="filesarr[]"/>v1.09</p>
+			<p><input type="file" id="filesinput" name="filesarr[]"/>v1.11</p>
 			<ul>
 				
 				<li>Dave Brubeck Take Five - <a href='midi/brubeck_dave-take_five.mid'>download</a> | <a href='#' onclick='handleExample("midi/brubeck_dave-take_five.mid")'>open</a></li>
@@ -38,11 +38,7 @@
 				nextStepTime = audioContext.currentTime;
 				var stepDuration = 44 / 1000;
 				document.getElementById('wrng').innerHTML = songStart + '/' + stepDuration;
-				console.log(songStart + '/' + stepDuration);
-				if (audioContext.state == 'suspended') {
-					console.log('audioContext.resume');
-					audioContext.resume();
-				}
+				console.log(songStart + '/' + stepDuration);				
 				tick(song, stepDuration);
 				document.getElementById('wrng').innerHTML = 'Refresh browser page to load another song';
 			}
@@ -149,6 +145,7 @@
 				});
 			}
 			function buildControls(song) {
+				audioContext.resume();
 				var o = document.getElementById('cntls');
 				var html = '<h2 id="wrng">Refresh browser page to load another song</h2><p id="tmr">&nbsp;</p><p><input id="position" type="range" min="0" max="100" value="0" step="1" /></p>';
 				html = html + '<h3>Channels</h3>';
