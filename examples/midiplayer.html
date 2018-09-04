@@ -5,7 +5,7 @@
 	</head>
 	<body>
 		<div id='cntls'>
-			<p><input type="file" id="filesinput" name="filesarr[]"/>v1.07</p>
+			<p><input type="file" id="filesinput" name="filesarr[]"/>v1.08</p>
 			<ul>
 				
 				<li>Dave Brubeck Take Five - <a href='midi/brubeck_dave-take_five.mid'>download</a> | <a href='#' onclick='handleExample("midi/brubeck_dave-take_five.mid")'>open</a></li>
@@ -57,11 +57,13 @@
 				if (nextPositionTime < audioContext.currentTime) {
 					var o = document.getElementById('position');
 					o.value = 100 * currentSongTime / song.duration;
-					document.getElementById('tmr').innerHTML = '' + Math.round(100 * currentSongTime / song.duration) + '% '+cntr;
+					document.getElementById('tmr').innerHTML = '' + Math.round(100 * currentSongTime / song.duration) + '%';
 					nextPositionTime = audioContext.currentTime + 1;
 				}
 				cntr++;
-				document.getElementById('tmr').innerHTML = '' + Math.round(100 * currentSongTime / song.duration) + '% '+cntr;
+				document.getElementById('tmr').innerHTML = '' + Math.round(100 * currentSongTime / song.duration) + '% '+cntr
+				+' <br/>/'+audioContext.currentTime+' <br/>/'+nextStepTime+' <br/>/'+stepDuration+' <br/>/'+nextPositionTime;
+				;
 				window.requestAnimationFrame(function(t){
 					tick(song, stepDuration);
 				});
