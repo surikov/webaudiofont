@@ -58,7 +58,6 @@
 					o.value = 100 * currentSongTime / song.duration;
 					document.getElementById('tmr').innerHTML = '' + Math.round(100 * currentSongTime / song.duration) + '%';
 					nextPositionTime = audioContext.currentTime + 1;
-					console.log('showPosition', currentSongTime);
 				}
 				window.requestAnimationFrame(function(t){
 					tick(song, stepDuration);
