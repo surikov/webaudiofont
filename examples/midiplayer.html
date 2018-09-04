@@ -5,7 +5,7 @@
 	</head>
 	<body>
 		<div id='cntls'>
-			<p><input type="file" id="filesinput" name="filesarr[]"/>v1.08</p>
+			<p><input type="file" id="filesinput" name="filesarr[]"/>v1.09</p>
 			<ul>
 				
 				<li>Dave Brubeck Take Five - <a href='midi/brubeck_dave-take_five.mid'>download</a> | <a href='#' onclick='handleExample("midi/brubeck_dave-take_five.mid")'>open</a></li>
@@ -39,6 +39,10 @@
 				var stepDuration = 44 / 1000;
 				document.getElementById('wrng').innerHTML = songStart + '/' + stepDuration;
 				console.log(songStart + '/' + stepDuration);
+				if (audioContext.state == 'suspended') {
+					console.log('audioContext.resume');
+					audioContext.resume();
+				}
 				tick(song, stepDuration);
 				document.getElementById('wrng').innerHTML = 'Refresh browser page to load another song';
 			}
@@ -63,7 +67,13 @@
 				cntr++;
 				document.getElementById('tmr').innerHTML = '' + Math.round(100 * currentSongTime / song.duration) + '% '+cntr
 				+' <br/>/'+audioContext.currentTime+' <br/>/'+nextStepTime+' <br/>/'+stepDuration+' <br/>/'+nextPositionTime;
-				;
+				//0/0.044/0.044/0
+				/*
+				/13.610666666666667 
+/13.616000000000028 
+/0.044 
+/14.570666666666666
+				*/
 				window.requestAnimationFrame(function(t){
 					tick(song, stepDuration);
 				});
