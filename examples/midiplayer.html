@@ -5,7 +5,7 @@
 	</head>
 	<body>
 		<div id='cntls'>
-			<p><input type="file" id="filesinput" name="filesarr[]"/>v1.13</p>			
+			<p><input type="file" id="filesinput" name="filesarr[]"/>v1.14</p>			
 			<ul>
 				
 				<li>Dave Brubeck Take Five - <a href='midi/brubeck_dave-take_five.mid'>download</a> | <a href='#' onclick='handleExample("midi/brubeck_dave-take_five.mid")'>open</a></li>
@@ -34,8 +34,13 @@
 			var nextPositionTime = 0;
 			var loadedsong = null;
 			function go() {
-				console.log('go');
-				startPlay(loadedsong);
+				document.getElementById('tmr').innerHTML = 'starting...';
+				try {
+					startPlay(loadedsong);
+					document.getElementById('tmr').innerHTML = 'playing...';
+				} catch (expt) {
+					document.getElementById('tmr').innerHTML = 'error ' + expt;
+				}
 			}
 			function startPlay(song) {
 				currentSongTime = 0;
@@ -72,8 +77,8 @@
 						if (track.notes[i].when >= start && track.notes[i].when < end) {
 							var when = songStart + track.notes[i].when;
 							var duration = track.notes[i].duration;
-							if (duration > 5) {
-								duration = 5;
+							if (duration > 3) {
+								duration = 3;
 							}
 							var instr = track.info.variable;
 							var v = track.volume / 7;
