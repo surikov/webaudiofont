@@ -2,11 +2,10 @@
 	<head>
 		<script src='https://surikov.github.io/webaudiofont/npm/dist/WebAudioFontPlayer.js'></script>
 		<script src='MIDIFile.js'></script>
-		<script src='ios6-timers.js'></script>
 	</head>
 	<body>
 		<div id='cntls'>
-			<p><input type="file" id="filesinput" name="filesarr[]"/>v1.05</p>
+			<p><input type="file" id="filesinput" name="filesarr[]"/>v1.06</p>
 			<ul>
 				
 				<li>Dave Brubeck Take Five - <a href='midi/brubeck_dave-take_five.mid'>download</a> | <a href='#' onclick='handleExample("midi/brubeck_dave-take_five.mid")'>open</a></li>
@@ -32,6 +31,7 @@
 			var input = null;
 			var currentSongTime = 0;
 			var nextStepTime = 0;
+			var nextPositionTime=0;
 			function startPlay(song) {
 				currentSongTime = 0;
 				songStart = audioContext.currentTime;
@@ -39,12 +39,7 @@
 				var stepDuration = 44 / 1000;
 				document.getElementById('wrng').innerHTML = songStart + '/' + stepDuration;
 				console.log(songStart + '/' + stepDuration);
-				setInterval(function () {
-					tick(song, stepDuration);
-				}, 22);
-				setInterval(function () {
-					showPosition(song, currentSongTime);
-				}, 1234);
+				tick(song, stepDuration);
 				document.getElementById('wrng').innerHTML = 'Refresh browser page to load another song';
 			}
 			function tick(song, stepDuration) {
@@ -58,11 +53,16 @@
 						songStart = songStart + song.duration;
 					}
 				}
-			}
-			function showPosition(song, currentSongTime) {
-				var o = document.getElementById('position');
-				o.value = 100 * currentSongTime / song.duration;
-				document.getElementById('tmr').innerHTML = '' + Math.round(100 * currentSongTime / song.duration) + '%';
+				if (nextPositionTime < audioContext.currentTime) {
+					var o = document.getElementById('position');
+					o.value = 100 * currentSongTime / song.duration;
+					document.getElementById('tmr').innerHTML = '' + Math.round(100 * currentSongTime / song.duration) + '%';
+					nextPositionTime = audioContext.currentTime + 1;
+					console.log('showPosition', currentSongTime);
+				}
+				window.requestAnimationFrame(function(t){
+					tick(song, stepDuration);
+				});
 			}
 			function sendNotes(song, songStart, start, end, audioContext, input, player) {
 				for (var t = 0; t < song.tracks.length; t++) {
