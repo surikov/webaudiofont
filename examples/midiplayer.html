@@ -5,7 +5,7 @@
 	</head>
 	<body>
 		<div id='cntls'>
-			<p><input type="file" id="filesinput" name="filesarr[]"/>v1.11</p>
+			<p><input type="file" id="filesinput" name="filesarr[]"/>v1.12</p>			
 			<ul>
 				
 				<li>Dave Brubeck Take Five - <a href='midi/brubeck_dave-take_five.mid'>download</a> | <a href='#' onclick='handleExample("midi/brubeck_dave-take_five.mid")'>open</a></li>
@@ -32,15 +32,20 @@
 			var currentSongTime = 0;
 			var nextStepTime = 0;
 			var nextPositionTime=0;
+			var loadedsong=null;
+			function go(){
+				console.log('go');
+				startPlay(loadedsong);
+			}
 			function startPlay(song) {
 				currentSongTime = 0;
 				songStart = audioContext.currentTime;
 				nextStepTime = audioContext.currentTime;
 				var stepDuration = 44 / 1000;
-				document.getElementById('wrng').innerHTML = songStart + '/' + stepDuration;
+				//document.getElementById('wrng').innerHTML = songStart + '/' + stepDuration;
 				console.log(songStart + '/' + stepDuration);				
 				tick(song, stepDuration);
-				document.getElementById('wrng').innerHTML = 'Refresh browser page to load another song';
+				//document.getElementById('wrng').innerHTML = 'Refresh browser page to load another song';
 			}
 			var cntr=0;
 			function tick(song, stepDuration) {
@@ -62,7 +67,9 @@
 				}
 				cntr++;
 				document.getElementById('tmr').innerHTML = '' + Math.round(100 * currentSongTime / song.duration) + '% '+cntr
-				+' <br/>/'+audioContext.currentTime+' <br/>/'+nextStepTime+' <br/>/'+stepDuration+' <br/>/'+nextPositionTime;
+				+' <br/>/'+audioContext.currentTime+' <br/>/'+nextStepTime+' <br/>/'+stepDuration+' <br/>/'+nextPositionTime
+				+' <br/>/'+audioContext.state
+				;
 				//0/0.044/0.044/0
 				/*
 				/13.610666666666667 
@@ -147,7 +154,10 @@
 			function buildControls(song) {
 				audioContext.resume();
 				var o = document.getElementById('cntls');
-				var html = '<h2 id="wrng">Refresh browser page to load another song</h2><p id="tmr">&nbsp;</p><p><input id="position" type="range" min="0" max="100" value="0" step="1" /></p>';
+				var html = '<h2 id="wrng">Refresh browser page to load another song</h2>';
+				//<p id="tmr">&nbsp;</p><p><input id="position" type="range" min="0" max="100" value="0" step="1" /></p>';
+				html = html + '<p id="tmr"><button onclick="go();">Play</button></p>';
+				html = html + '<p><input id="position" type="range" min="0" max="100" value="0" step="1" /></p>';
 				html = html + '<h3>Channels</h3>';
 				for (var i = 0; i < song.tracks.length; i++) {
 					var v = 100 * song.tracks[i].volume;
@@ -159,7 +169,7 @@
 					html = html + '<p>' + chooserDrum(song.beats[i].id,i) + '<input id="drum' + i + '" type="range" min="0" max="100" value="' + v + '" step="1" /></p>';
 				}
 				o.innerHTML = html;
-				document.getElementById('wrng').innerHTML = 'Loaded';
+				//document.getElementById('wrng').innerHTML = 'Loaded';
 				console.log('Loaded');
 				var pos = document.getElementById('position');
 				pos.oninput = function (e) {
@@ -168,17 +178,18 @@
 					songStart = songStart - (next - currentSongTime);
 					currentSongTime = next;
 				};
-				document.getElementById('wrng').innerHTML = 'Tracks';
+				//document.getElementById('wrng').innerHTML = 'Tracks';
 				console.log('Tracks');
 				for (var i = 0; i < song.tracks.length; i++) {
 					setVolumeAction(i, song);
 				}
-				document.getElementById('wrng').innerHTML = 'Drums';
+				//document.getElementById('wrng').innerHTML = 'Drums';
 				console.log('Drums');
 				for (var i = 0; i < song.beats.length; i++) {
 					setDrVolAction(i, song);
 				}
-				startPlay(song);				
+				//startPlay(song);				
+				loadedsong=song;
 			}
 			function setVolumeAction(i, song) {
 				var vlm = document.getElementById('channel' + i);
