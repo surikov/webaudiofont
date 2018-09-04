@@ -5,7 +5,7 @@
 	</head>
 	<body>
 		<div id='cntls'>
-			<p><input type="file" id="filesinput" name="filesarr[]"/>v1.12</p>			
+			<p><input type="file" id="filesinput" name="filesarr[]"/>v1.13</p>			
 			<ul>
 				
 				<li>Dave Brubeck Take Five - <a href='midi/brubeck_dave-take_five.mid'>download</a> | <a href='#' onclick='handleExample("midi/brubeck_dave-take_five.mid")'>open</a></li>
@@ -31,9 +31,9 @@
 			var input = null;
 			var currentSongTime = 0;
 			var nextStepTime = 0;
-			var nextPositionTime=0;
-			var loadedsong=null;
-			function go(){
+			var nextPositionTime = 0;
+			var loadedsong = null;
+			function go() {
 				console.log('go');
 				startPlay(loadedsong);
 			}
@@ -42,12 +42,8 @@
 				songStart = audioContext.currentTime;
 				nextStepTime = audioContext.currentTime;
 				var stepDuration = 44 / 1000;
-				//document.getElementById('wrng').innerHTML = songStart + '/' + stepDuration;
-				console.log(songStart + '/' + stepDuration);				
 				tick(song, stepDuration);
-				//document.getElementById('wrng').innerHTML = 'Refresh browser page to load another song';
 			}
-			var cntr=0;
 			function tick(song, stepDuration) {
 				if (audioContext.currentTime > nextStepTime - stepDuration) {
 					sendNotes(song, songStart, currentSongTime, currentSongTime + stepDuration, audioContext, input, player);
@@ -63,21 +59,9 @@
 					var o = document.getElementById('position');
 					o.value = 100 * currentSongTime / song.duration;
 					document.getElementById('tmr').innerHTML = '' + Math.round(100 * currentSongTime / song.duration) + '%';
-					nextPositionTime = audioContext.currentTime + 1;
+					nextPositionTime = audioContext.currentTime + 3;
 				}
-				cntr++;
-				document.getElementById('tmr').innerHTML = '' + Math.round(100 * currentSongTime / song.duration) + '% '+cntr
-				+' <br/>/'+audioContext.currentTime+' <br/>/'+nextStepTime+' <br/>/'+stepDuration+' <br/>/'+nextPositionTime
-				+' <br/>/'+audioContext.state
-				;
-				//0/0.044/0.044/0
-				/*
-				/13.610666666666667 
-/13.616000000000028 
-/0.044 
-/14.570666666666666
-				*/
-				window.requestAnimationFrame(function(t){
+				window.requestAnimationFrame(function (t) {
 					tick(song, stepDuration);
 				});
 			}
@@ -88,12 +72,12 @@
 						if (track.notes[i].when >= start && track.notes[i].when < end) {
 							var when = songStart + track.notes[i].when;
 							var duration = track.notes[i].duration;
-							if(duration>5){
-								duration=5;
+							if (duration > 5) {
+								duration = 5;
 							}
 							var instr = track.info.variable;
 							var v = track.volume / 7;
-							player.queueWaveTable(audioContext, input, window[instr], when, track.notes[i].pitch, duration, v,track.notes[i].slides);
+							player.queueWaveTable(audioContext, input, window[instr], when, track.notes[i].pitch, duration, v, track.notes[i].slides);
 						}
 					}
 				}
@@ -155,21 +139,19 @@
 				audioContext.resume();
 				var o = document.getElementById('cntls');
 				var html = '<h2 id="wrng">Refresh browser page to load another song</h2>';
-				//<p id="tmr">&nbsp;</p><p><input id="position" type="range" min="0" max="100" value="0" step="1" /></p>';
 				html = html + '<p id="tmr"><button onclick="go();">Play</button></p>';
 				html = html + '<p><input id="position" type="range" min="0" max="100" value="0" step="1" /></p>';
 				html = html + '<h3>Channels</h3>';
 				for (var i = 0; i < song.tracks.length; i++) {
 					var v = 100 * song.tracks[i].volume;
-					html = html + '<p>' + chooserIns(song.tracks[i].id,i) + '<input id="channel' + i + '" type="range" min="0" max="100" value="' + v + '" step="1" /></p>';
+					html = html + '<p>' + chooserIns(song.tracks[i].id, i) + '<input id="channel' + i + '" type="range" min="0" max="100" value="' + v + '" step="1" /></p>';
 				}
 				html = html + '<h3>Drums</h3>';
 				for (var i = 0; i < song.beats.length; i++) {
 					var v = 100 * song.beats[i].volume;
-					html = html + '<p>' + chooserDrum(song.beats[i].id,i) + '<input id="drum' + i + '" type="range" min="0" max="100" value="' + v + '" step="1" /></p>';
+					html = html + '<p>' + chooserDrum(song.beats[i].id, i) + '<input id="drum' + i + '" type="range" min="0" max="100" value="' + v + '" step="1" /></p>';
 				}
 				o.innerHTML = html;
-				//document.getElementById('wrng').innerHTML = 'Loaded';
 				console.log('Loaded');
 				var pos = document.getElementById('position');
 				pos.oninput = function (e) {
@@ -178,18 +160,15 @@
 					songStart = songStart - (next - currentSongTime);
 					currentSongTime = next;
 				};
-				//document.getElementById('wrng').innerHTML = 'Tracks';
 				console.log('Tracks');
 				for (var i = 0; i < song.tracks.length; i++) {
 					setVolumeAction(i, song);
 				}
-				//document.getElementById('wrng').innerHTML = 'Drums';
 				console.log('Drums');
 				for (var i = 0; i < song.beats.length; i++) {
 					setDrVolAction(i, song);
 				}
-				//startPlay(song);				
-				loadedsong=song;
+				loadedsong = song;
 			}
 			function setVolumeAction(i, song) {
 				var vlm = document.getElementById('channel' + i);
@@ -202,9 +181,9 @@
 					song.tracks[i].volume = v;
 				};
 				var sl = document.getElementById('selins' + i);
-				sl.onchange=function(e){
-					var nn=sl.value;
-					var info = player.loader.instrumentInfo(nn);					
+				sl.onchange = function (e) {
+					var nn = sl.value;
+					var info = player.loader.instrumentInfo(nn);
 					player.loader.startLoad(audioContext, info.url, info.variable);
 					player.loader.waitLoad(function () {
 						console.log('loaded');
@@ -224,9 +203,9 @@
 					song.beats[i].volume = v;
 				};
 				var sl = document.getElementById('seldrm' + i);
-				sl.onchange=function(e){
-					var nn=sl.value;
-					var info = player.loader.drumInfo(nn);					
+				sl.onchange = function (e) {
+					var nn = sl.value;
+					var info = player.loader.drumInfo(nn);
 					player.loader.startLoad(audioContext, info.url, info.variable);
 					player.loader.waitLoad(function () {
 						console.log('loaded');
@@ -235,8 +214,8 @@
 					});
 				};
 			}
-			function chooserIns(n,track) {
-				var html = '<select id="selins'+track+'">';
+			function chooserIns(n, track) {
+				var html = '<select id="selins' + track + '">';
 				for (var i = 0; i < player.loader.instrumentKeys().length; i++) {
 					var sel = '';
 					if (i == n) {
@@ -247,8 +226,8 @@
 				html = html + '</select>';
 				return html;
 			}
-			function chooserDrum(n,beat) {
-				var html = '<select id="seldrm'+beat+'">';
+			function chooserDrum(n, beat) {
+				var html = '<select id="seldrm' + beat + '">';
 				for (var i = 0; i < player.loader.drumKeys().length; i++) {
 					var sel = '';
 					if (i == n) {
