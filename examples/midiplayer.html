@@ -5,7 +5,7 @@
 	</head>
 	<body>
 		<div id='cntls'>
-			<p><input type="file" id="filesinput" name="filesarr[]"/>v1.15</p>			
+			<p><input type="file" id="filesinput" name="filesarr[]"/>v1.16</p>			
 			<ul>
 				
 				<li>Dave Brubeck Take Five - <a href='midi/brubeck_dave-take_five.mid'>download</a> | <a href='#' onclick='handleExample("midi/brubeck_dave-take_five.mid")'>open</a></li>
@@ -49,7 +49,6 @@
 				var stepDuration = 44 / 1000;
 				tick(song, stepDuration);
 			}
-			var cntr=0;
 			function tick(song, stepDuration) {
 				if (audioContext.currentTime > nextStepTime - stepDuration) {
 					sendNotes(song, songStart, currentSongTime, currentSongTime + stepDuration, audioContext, input, player);
@@ -64,12 +63,9 @@
 				if (nextPositionTime < audioContext.currentTime) {
 					var o = document.getElementById('position');
 					o.value = 100 * currentSongTime / song.duration;
-					//document.getElementById('tmr').innerHTML = '' + Math.round(100 * currentSongTime / song.duration) + '%';
+					document.getElementById('tmr').innerHTML = '' + Math.round(100 * currentSongTime / song.duration) + '%';
 					nextPositionTime = audioContext.currentTime + 3;
 				}
-				document.getElementById('tmr').innerHTML = cntr+'/'+audioContext.currentTime
-				;
-				cntr++;
 				window.requestAnimationFrame(function (t) {
 					tick(song, stepDuration);
 				});
