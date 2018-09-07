@@ -49,10 +49,11 @@
 					var url=player.loader.drumInfo(i).url;
 					url=url.replace(".js", ".html");
 					if (nam != curNam) {
+						console.log('  - '+nam+': see Drums part at [Catalog](https://surikov.github.io/webaudiofontdata/sound/)');
 						if (nums == '') {
 							//
 						} else {
-							console.log('  - '+curNam + nums);
+							//console.log('  - '+curNam + nums);
 						}
 						s = ': ';
 						nums = '';
@@ -60,7 +61,7 @@
 					}
 					nums = nums + s +  '['+i+']('+url+')';
 				}
-				console.log('  - '+curNam + nums);
+				//console.log('  - '+curNam + nums);
 			}
 		</script>
 	</head>
