@@ -1,0 +1,71 @@
+<html>
+	<head>
+		<script src='../npm/dist/WebAudioFontPlayer.js'></script>
+		<script>
+			var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
+			var audioContext = new AudioContextFunc();
+			var player = new WebAudioFontPlayer();
+			function dump() {
+				var curCat = "";
+				var curNam = "";
+				var nums = '';
+				var s = '';
+				for (var i = 0; i < player.loader.instrumentKeys().length; i++) {
+					var t = player.loader.instrumentInfo(i).title.split(": ");
+					var cat = t[1];
+					var nam = t[0];
+					var url=player.loader.instrumentInfo(i).url;
+					url=url.replace(".js", ".html");
+					s = ' | ';
+					if (cat != curCat) {
+						if (nums == '') {
+							//
+						} else {
+							console.log('  - '+curNam + nums);
+						}
+						nums = '';
+						curCat = cat;
+						console.log('- '+curCat);
+					}
+					if (nam != curNam) {
+						if (nums == '') {
+							//
+						} else {
+							console.log('  - '+curNam + nums);
+						}
+						s = ': ';
+						nums = '';
+						curNam = nam;
+					}
+					nums = nums + s +  '['+i+']('+url+')';
+				}
+				console.log('  - '+curNam +nums);
+				curNam = "";
+				nums = '';
+				console.log('- Percussion');
+				for (var i = 0; i < player.loader.drumKeys().length; i++) {
+					s = ' | ';
+					var nam = player.loader.drumInfo(i).title;
+					var url=player.loader.drumInfo(i).url;
+					url=url.replace(".js", ".html");
+					if (nam != curNam) {
+						console.log('  - '+nam+': see Drums part at [Catalog](https://surikov.github.io/webaudiofontdata/sound/)');
+						if (nums == '') {
+							//
+						} else {
+							//console.log('  - '+curNam + nums);
+						}
+						s = ': ';
+						nums = '';
+						curNam = nam;
+					}
+					nums = nums + s +  '['+i+']('+url+')';
+				}
+				//console.log('  - '+curNam + nums);
+			}
+		</script>
+	</head>
+	<body>
+		<p><a href="#" onmousedown="dump();">dump</a></p>
+	</body>
+</html>
