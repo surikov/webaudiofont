@@ -1,31 +1,33 @@
 <html>
-	<head>
-		<script src='https://surikov.github.io/webaudiofont/npm/dist/WebAudioFontPlayer.js'></script>
-		<script src='MIDIFile.js'></script>
-	</head>
-	<body>
-		<div id='cntls'>
-			<p><input type="file" id="filesinput" name="filesarr[]"/>v1.16</p>			
-			<ul>
-				
-				<li>Dave Brubeck Take Five - <a href='midi/brubeck_dave-take_five.mid'>download</a> | <a href='#' onclick='handleExample("midi/brubeck_dave-take_five.mid")'>open</a></li>
-				<li>Jerry Lee Lewis - Great Balls of Fire - <a href='midi/Jerry_Lee_Lewis_-_Great_Balls_of_Fire.mid'>download</a> | <a href='#' onclick='handleExample("midi/Jerry_Lee_Lewis_-_Great_Balls_of_Fire.mid")'>open</a></li>
-				<li>Mission: Impossible - <a href='midi/Movie_Themes_-_Mission_Impossible.mid'>download</a> | <a href='#' onclick='handleExample("midi/Movie_Themes_-_Mission_Impossible.mid")'>open</a></li>
-				<li>Mozart Symphony No.40 p.1 - <a href='midi/sym40-1.mid'>download</a> | <a href='#' onclick='handleExample("midi/sym40-1.mid")'>open</a></li>
-				<li>Nirvana - Come As You Are - <a href='midi/Nirvana_-_Come_As_You_Are.mid'>download</a> | <a href='#' onclick='handleExample("midi/Nirvana_-_Come_As_You_Are.mid")'>open</a></li>
-				<li>Pirates of the Caribbean - <a href='midi/Hans_Zimmer_-_Pirates_Of_The_Caribbean.mid'>download</a> | <a href='#' onclick='handleExample("midi/Hans_Zimmer_-_Pirates_Of_The_Caribbean.mid")'>open</a></li>
-				<li>Psycho - <a href='midi/Movie_Themes_-_Psycho.mid'>download</a> | <a href='#' onclick='handleExample("midi/Movie_Themes_-_Psycho.mid")'>open</a></li>
-				<li>The Good, the Bad and the Ugly - <a href='midi/GoodTheBadAndTheUgly.mid'>download</a> | <a href='#' onclick='handleExample("midi/GoodTheBadAndTheUgly.mid")'>open</a></li>
-				<li>The Phantom of the Opera - <a href='midi/Movie_Themes_-_Phantom_Of_The_Opera.mid'>download</a> | <a href='#' onclick='handleExample("midi/Movie_Themes_-_Phantom_Of_The_Opera.mid")'>open</a></li>
-				<li>U96 Das Boot - <a href='midi/DasBoot.mid'>download</a> | <a href='#' onclick='handleExample("midi/DasBoot.mid")'>open</a></li>
-			</ul>
-		</div>
-		<hr/>
-		<p><a href="https://surikov.github.io/webaudiofont/">source</a></p>
-		<script>
-			console.log('start');
-			var insdef = [
-				[1, 2]//Accoustic Grand Piano
+
+<head>
+	<script src='https://surikov.github.io/webaudiofont/npm/dist/WebAudioFontPlayer.js'></script>
+	<script src='MIDIFile.js'></script>
+</head>
+
+<body>
+	<div id='cntls'>
+		<p><input type="file" id="filesinput" name="filesarr[]" />v1.16</p>
+		<ul>
+
+			<li>Dave Brubeck Take Five - <a href='midi/brubeck_dave-take_five.mid'>download</a> | <a href='#' onclick='handleExample("midi/brubeck_dave-take_five.mid")'>open</a></li>
+			<li>Jerry Lee Lewis - Great Balls of Fire - <a href='midi/Jerry_Lee_Lewis_-_Great_Balls_of_Fire.mid'>download</a> | <a href='#' onclick='handleExample("midi/Jerry_Lee_Lewis_-_Great_Balls_of_Fire.mid")'>open</a></li>
+			<li>Mission: Impossible - <a href='midi/Movie_Themes_-_Mission_Impossible.mid'>download</a> | <a href='#' onclick='handleExample("midi/Movie_Themes_-_Mission_Impossible.mid")'>open</a></li>
+			<li>Mozart Symphony No.40 p.1 - <a href='midi/sym40-1.mid'>download</a> | <a href='#' onclick='handleExample("midi/sym40-1.mid")'>open</a></li>
+			<li>Nirvana - Come As You Are - <a href='midi/Nirvana_-_Come_As_You_Are.mid'>download</a> | <a href='#' onclick='handleExample("midi/Nirvana_-_Come_As_You_Are.mid")'>open</a></li>
+			<li>Pirates of the Caribbean - <a href='midi/Hans_Zimmer_-_Pirates_Of_The_Caribbean.mid'>download</a> | <a href='#' onclick='handleExample("midi/Hans_Zimmer_-_Pirates_Of_The_Caribbean.mid")'>open</a></li>
+			<li>Psycho - <a href='midi/Movie_Themes_-_Psycho.mid'>download</a> | <a href='#' onclick='handleExample("midi/Movie_Themes_-_Psycho.mid")'>open</a></li>
+			<li>The Good, the Bad and the Ugly - <a href='midi/GoodTheBadAndTheUgly.mid'>download</a> | <a href='#' onclick='handleExample("midi/GoodTheBadAndTheUgly.mid")'>open</a></li>
+			<li>The Phantom of the Opera - <a href='midi/Movie_Themes_-_Phantom_Of_The_Opera.mid'>download</a> | <a href='#' onclick='handleExample("midi/Movie_Themes_-_Phantom_Of_The_Opera.mid")'>open</a></li>
+			<li>U96 Das Boot - <a href='midi/DasBoot.mid'>download</a> | <a href='#' onclick='handleExample("midi/DasBoot.mid")'>open</a></li>
+		</ul>
+	</div>
+	<hr />
+	<p><a href="https://surikov.github.io/webaudiofont/">source</a></p>
+	<script>
+		console.log('start');
+		var insdef = [
+			[1, 2]//Accoustic Grand Piano
 			, [2, 14]//Bright Accoustic Piano
 			, [3, 25]//Electric Grand Piano
 			, [4, 37]//Honky-Tonk Piano
@@ -38,264 +40,280 @@
 			, [11, 107]//Music Box
 			, [12, 118]//Vibraphone
 			, [13, 127]// Marimba
-			,[14,136]// Xylophone
-			,[15,144]// Tubular Bells
-			,[16,152]// Dulcimer
-			,[17,164]// Drawbar Organ
-			,[18,170]// Percussive Organ
-			,[19,183 ]//Rock Organ
-			,[20,194]// Church Organ
-			];
-			var audioContext = null;
-			var player = null;
-			var reverberator = null;
-			var songStart = 0;
-			var input = null;
-			var currentSongTime = 0;
-			var nextStepTime = 0;
-			var nextPositionTime = 0;
-			var loadedsong = null;
-			function go() {
-				document.getElementById('tmr').innerHTML = 'starting...';
-				try {
-					startPlay(loadedsong);
-					document.getElementById('tmr').innerHTML = 'playing...';
-				} catch (expt) {
-					document.getElementById('tmr').innerHTML = 'error ' + expt;
+			, [14, 136]// Xylophone
+			, [15, 144]// Tubular Bells
+			, [16, 152]// Dulcimer
+			, [17, 164]// Drawbar Organ
+			, [18, 170]// Percussive Organ
+			, [19, 183]//Rock Organ
+			, [20, 194]// Church Organ
+			, [21, 205]//Reed Organ
+			, [22, 215]//Accordion
+			, [23, 228]
+			, [24, 241]
+			, [25, 254]
+			,[26,263]
+			,[27,277]
+			,[28,296]
+			,[29,308]
+			,[30,319]
+			,[31,350]
+			,[32,356]
+			,[33,369]
+			,[34,379]
+			,[35,385]
+		];
+		var audioContext = null;
+		var player = null;
+		var reverberator = null;
+		var songStart = 0;
+		var input = null;
+		var currentSongTime = 0;
+		var nextStepTime = 0;
+		var nextPositionTime = 0;
+		var loadedsong = null;
+		function go() {
+			document.getElementById('tmr').innerHTML = 'starting...';
+			try {
+				startPlay(loadedsong);
+				document.getElementById('tmr').innerHTML = 'playing...';
+			} catch (expt) {
+				document.getElementById('tmr').innerHTML = 'error ' + expt;
+			}
+		}
+		function startPlay(song) {
+			currentSongTime = 0;
+			songStart = audioContext.currentTime;
+			nextStepTime = audioContext.currentTime;
+			var stepDuration = 44 / 1000;
+			tick(song, stepDuration);
+		}
+		function tick(song, stepDuration) {
+			if (audioContext.currentTime > nextStepTime - stepDuration) {
+				sendNotes(song, songStart, currentSongTime, currentSongTime + stepDuration, audioContext, input, player);
+				currentSongTime = currentSongTime + stepDuration;
+				nextStepTime = nextStepTime + stepDuration;
+				if (currentSongTime > song.duration) {
+					currentSongTime = currentSongTime - song.duration;
+					sendNotes(song, songStart, 0, currentSongTime, audioContext, input, player);
+					songStart = songStart + song.duration;
 				}
 			}
-			function startPlay(song) {
-				currentSongTime = 0;
-				songStart = audioContext.currentTime;
-				nextStepTime = audioContext.currentTime;
-				var stepDuration = 44 / 1000;
+			if (nextPositionTime < audioContext.currentTime) {
+				var o = document.getElementById('position');
+				o.value = 100 * currentSongTime / song.duration;
+				document.getElementById('tmr').innerHTML = '' + Math.round(100 * currentSongTime / song.duration) + '%';
+				nextPositionTime = audioContext.currentTime + 3;
+			}
+			window.requestAnimationFrame(function (t) {
 				tick(song, stepDuration);
-			}
-			function tick(song, stepDuration) {
-				if (audioContext.currentTime > nextStepTime - stepDuration) {
-					sendNotes(song, songStart, currentSongTime, currentSongTime + stepDuration, audioContext, input, player);
-					currentSongTime = currentSongTime + stepDuration;
-					nextStepTime = nextStepTime + stepDuration;
-					if (currentSongTime > song.duration) {
-						currentSongTime = currentSongTime - song.duration;
-						sendNotes(song, songStart, 0, currentSongTime, audioContext, input, player);
-						songStart = songStart + song.duration;
-					}
-				}
-				if (nextPositionTime < audioContext.currentTime) {
-					var o = document.getElementById('position');
-					o.value = 100 * currentSongTime / song.duration;
-					document.getElementById('tmr').innerHTML = '' + Math.round(100 * currentSongTime / song.duration) + '%';
-					nextPositionTime = audioContext.currentTime + 3;
-				}
-				window.requestAnimationFrame(function (t) {
-					tick(song, stepDuration);
-				});
-			}
-			function sendNotes(song, songStart, start, end, audioContext, input, player) {
-				for (var t = 0; t < song.tracks.length; t++) {
-					var track = song.tracks[t];
-					for (var i = 0; i < track.notes.length; i++) {
-						if (track.notes[i].when >= start && track.notes[i].when < end) {
-							var when = songStart + track.notes[i].when;
-							var duration = track.notes[i].duration;
-							if (duration > 3) {
-								duration = 3;
-							}
-							var instr = track.info.variable;
-							var v = track.volume / 7;
-							player.queueWaveTable(audioContext, input, window[instr], when, track.notes[i].pitch, duration, v, track.notes[i].slides);
+			});
+		}
+		function sendNotes(song, songStart, start, end, audioContext, input, player) {
+			for (var t = 0; t < song.tracks.length; t++) {
+				var track = song.tracks[t];
+				for (var i = 0; i < track.notes.length; i++) {
+					if (track.notes[i].when >= start && track.notes[i].when < end) {
+						var when = songStart + track.notes[i].when;
+						var duration = track.notes[i].duration;
+						if (duration > 3) {
+							duration = 3;
 						}
-					}
-				}
-				for (var b = 0; b < song.beats.length; b++) {
-					var beat = song.beats[b];
-					for (var i = 0; i < beat.notes.length; i++) {
-						if (beat.notes[i].when >= start && beat.notes[i].when < end) {
-							var when = songStart + beat.notes[i].when;
-							var duration = 1.5;
-							var instr = beat.info.variable;
-							var v = beat.volume / 2;
-							player.queueWaveTable(audioContext, input, window[instr], when, beat.n, duration, v);
-						}
+						var instr = track.info.variable;
+						var v = track.volume / 7;
+						player.queueWaveTable(audioContext, input, window[instr], when, track.notes[i].pitch, duration, v, track.notes[i].slides);
 					}
 				}
 			}
-			function findFirstIns(player, nn) {
-				for (var i = 0; i < player.loader.instrumentKeys().length; i++) {
-					if (nn == 1 * player.loader.instrumentKeys()[i].substring(0, 3)) {
-						return i;
+			for (var b = 0; b < song.beats.length; b++) {
+				var beat = song.beats[b];
+				for (var i = 0; i < beat.notes.length; i++) {
+					if (beat.notes[i].when >= start && beat.notes[i].when < end) {
+						var when = songStart + beat.notes[i].when;
+						var duration = 1.5;
+						var instr = beat.info.variable;
+						var v = beat.volume / 2;
+						player.queueWaveTable(audioContext, input, window[instr], when, beat.n, duration, v);
 					}
 				}
 			}
-			function findFirstDrum(player, nn) {
-				for (var i = 0; i < player.loader.drumKeys().length; i++) {
-					if (nn == 1 * player.loader.drumKeys()[i].substring(0, 2)) {
-						return i;
-					}
+		}
+		function findFirstIns(player, nn) {
+			for (var i = 0; i < player.loader.instrumentKeys().length; i++) {
+				if (nn == 1 * player.loader.instrumentKeys()[i].substring(0, 3)) {
+					return i;
 				}
 			}
-			function startLoad(song) {
-				console.log(song);
-				var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
-				audioContext = new AudioContextFunc();
-				player = new WebAudioFontPlayer();
-				reverberator = player.createReverberator(audioContext);
-				reverberator.output.connect(audioContext.destination);
-				input = reverberator.input;
-				for (var i = 0; i < song.tracks.length; i++) {
-					var nn = findFirstIns(player, song.tracks[i].program);
-					var info = player.loader.instrumentInfo(nn);
+		}
+		function findFirstDrum(player, nn) {
+			for (var i = 0; i < player.loader.drumKeys().length; i++) {
+				if (nn == 1 * player.loader.drumKeys()[i].substring(0, 2)) {
+					return i;
+				}
+			}
+		}
+		function startLoad(song) {
+			console.log(song);
+			var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
+			audioContext = new AudioContextFunc();
+			player = new WebAudioFontPlayer();
+			reverberator = player.createReverberator(audioContext);
+			reverberator.output.connect(audioContext.destination);
+			input = reverberator.input;
+			for (var i = 0; i < song.tracks.length; i++) {
+				var nn = findFirstIns(player, song.tracks[i].program);
+				var info = player.loader.instrumentInfo(nn);
+				song.tracks[i].info = info;
+				song.tracks[i].id = nn;
+				player.loader.startLoad(audioContext, info.url, info.variable);
+			}
+			for (var i = 0; i < song.beats.length; i++) {
+				var nn = findFirstDrum(player, song.beats[i].n);
+				var info = player.loader.drumInfo(nn);
+				song.beats[i].info = info;
+				song.beats[i].id = nn;
+				player.loader.startLoad(audioContext, info.url, info.variable);
+			}
+			player.loader.waitLoad(function () {
+				console.log('buildControls');
+				buildControls(song);
+			});
+		}
+		function buildControls(song) {
+			audioContext.resume();
+			var o = document.getElementById('cntls');
+			var html = '<h2 id="wrng">Refresh browser page to load another song</h2>';
+			html = html + '<p id="tmr"><button onclick="go();">Play</button></p>';
+			html = html + '<p><input id="position" type="range" min="0" max="100" value="0" step="1" /></p>';
+			html = html + '<h3>Channels</h3>';
+			for (var i = 0; i < song.tracks.length; i++) {
+				var v = 100 * song.tracks[i].volume;
+				html = html + '<p>' + chooserIns(song.tracks[i].id, i) + '<input id="channel' + i + '" type="range" min="0" max="100" value="' + v + '" step="1" /></p>';
+			}
+			html = html + '<h3>Drums</h3>';
+			for (var i = 0; i < song.beats.length; i++) {
+				var v = 100 * song.beats[i].volume;
+				html = html + '<p>' + chooserDrum(song.beats[i].id, i) + '<input id="drum' + i + '" type="range" min="0" max="100" value="' + v + '" step="1" /></p>';
+			}
+			o.innerHTML = html;
+			console.log('Loaded');
+			var pos = document.getElementById('position');
+			pos.oninput = function (e) {
+				if (loadedsong) {
+					player.cancelQueue(audioContext);
+					var next = song.duration * pos.value / 100;
+					songStart = songStart - (next - currentSongTime);
+					currentSongTime = next;
+				}
+			};
+			console.log('Tracks');
+			for (var i = 0; i < song.tracks.length; i++) {
+				setVolumeAction(i, song);
+			}
+			console.log('Drums');
+			for (var i = 0; i < song.beats.length; i++) {
+				setDrVolAction(i, song);
+			}
+			loadedsong = song;
+		}
+		function setVolumeAction(i, song) {
+			var vlm = document.getElementById('channel' + i);
+			vlm.oninput = function (e) {
+				player.cancelQueue(audioContext);
+				var v = vlm.value / 100;
+				if (v < 0.000001) {
+					v = 0.000001;
+				}
+				song.tracks[i].volume = v;
+			};
+			var sl = document.getElementById('selins' + i);
+			sl.onchange = function (e) {
+				var nn = sl.value;
+				var info = player.loader.instrumentInfo(nn);
+				player.loader.startLoad(audioContext, info.url, info.variable);
+				player.loader.waitLoad(function () {
+					console.log('loaded');
 					song.tracks[i].info = info;
 					song.tracks[i].id = nn;
-					player.loader.startLoad(audioContext, info.url, info.variable);
+				});
+			};
+		}
+		function setDrVolAction(i, song) {
+			var vlm = document.getElementById('drum' + i);
+			vlm.oninput = function (e) {
+				player.cancelQueue(audioContext);
+				var v = vlm.value / 100;
+				if (v < 0.000001) {
+					v = 0.000001;
 				}
-				for (var i = 0; i < song.beats.length; i++) {
-					var nn = findFirstDrum(player, song.beats[i].n);
-					var info = player.loader.drumInfo(nn);
+				song.beats[i].volume = v;
+			};
+			var sl = document.getElementById('seldrm' + i);
+			sl.onchange = function (e) {
+				var nn = sl.value;
+				var info = player.loader.drumInfo(nn);
+				player.loader.startLoad(audioContext, info.url, info.variable);
+				player.loader.waitLoad(function () {
+					console.log('loaded');
 					song.beats[i].info = info;
 					song.beats[i].id = nn;
-					player.loader.startLoad(audioContext, info.url, info.variable);
-				}
-				player.loader.waitLoad(function () {
-					console.log('buildControls');
-					buildControls(song);
 				});
-			}
-			function buildControls(song) {
-				audioContext.resume();
-				var o = document.getElementById('cntls');
-				var html = '<h2 id="wrng">Refresh browser page to load another song</h2>';
-				html = html + '<p id="tmr"><button onclick="go();">Play</button></p>';
-				html = html + '<p><input id="position" type="range" min="0" max="100" value="0" step="1" /></p>';
-				html = html + '<h3>Channels</h3>';
-				for (var i = 0; i < song.tracks.length; i++) {
-					var v = 100 * song.tracks[i].volume;
-					html = html + '<p>' + chooserIns(song.tracks[i].id, i) + '<input id="channel' + i + '" type="range" min="0" max="100" value="' + v + '" step="1" /></p>';
+			};
+		}
+		function chooserIns(n, track) {
+			var html = '<select id="selins' + track + '">';
+			for (var i = 0; i < player.loader.instrumentKeys().length; i++) {
+				var sel = '';
+				if (i == n) {
+					sel = ' selected';
 				}
-				html = html + '<h3>Drums</h3>';
-				for (var i = 0; i < song.beats.length; i++) {
-					var v = 100 * song.beats[i].volume;
-					html = html + '<p>' + chooserDrum(song.beats[i].id, i) + '<input id="drum' + i + '" type="range" min="0" max="100" value="' + v + '" step="1" /></p>';
+				html = html + '<option value="' + i + '"' + sel + '>' + i + ': ' + player.loader.instrumentInfo(i).title + '</option>';
+			}
+			html = html + '</select>';
+			return html;
+		}
+		function chooserDrum(n, beat) {
+			var html = '<select id="seldrm' + beat + '">';
+			for (var i = 0; i < player.loader.drumKeys().length; i++) {
+				var sel = '';
+				if (i == n) {
+					sel = ' selected';
 				}
-				o.innerHTML = html;
-				console.log('Loaded');
-				var pos = document.getElementById('position');
-				pos.oninput = function (e) {
-					if(loadedsong){
-						player.cancelQueue(audioContext);
-						var next = song.duration * pos.value / 100;
-						songStart = songStart - (next - currentSongTime);
-						currentSongTime = next;
-					}
-				};
-				console.log('Tracks');
-				for (var i = 0; i < song.tracks.length; i++) {
-					setVolumeAction(i, song);
-				}
-				console.log('Drums');
-				for (var i = 0; i < song.beats.length; i++) {
-					setDrVolAction(i, song);
-				}
-				loadedsong = song;
+				html = html + '<option value="' + i + '"' + sel + '>' + i + ': ' + player.loader.drumInfo(i).title + '</option>';
 			}
-			function setVolumeAction(i, song) {
-				var vlm = document.getElementById('channel' + i);
-				vlm.oninput = function (e) {
-					player.cancelQueue(audioContext);
-					var v = vlm.value / 100;
-					if (v < 0.000001) {
-						v = 0.000001;
-					}
-					song.tracks[i].volume = v;
-				};
-				var sl = document.getElementById('selins' + i);
-				sl.onchange = function (e) {
-					var nn = sl.value;
-					var info = player.loader.instrumentInfo(nn);
-					player.loader.startLoad(audioContext, info.url, info.variable);
-					player.loader.waitLoad(function () {
-						console.log('loaded');
-						song.tracks[i].info = info;
-						song.tracks[i].id = nn;
-					});
-				};
-			}
-			function setDrVolAction(i, song) {
-				var vlm = document.getElementById('drum' + i);
-				vlm.oninput = function (e) {
-					player.cancelQueue(audioContext);
-					var v = vlm.value / 100;
-					if (v < 0.000001) {
-						v = 0.000001;
-					}
-					song.beats[i].volume = v;
-				};
-				var sl = document.getElementById('seldrm' + i);
-				sl.onchange = function (e) {
-					var nn = sl.value;
-					var info = player.loader.drumInfo(nn);
-					player.loader.startLoad(audioContext, info.url, info.variable);
-					player.loader.waitLoad(function () {
-						console.log('loaded');
-						song.beats[i].info = info;
-						song.beats[i].id = nn;
-					});
-				};
-			}
-			function chooserIns(n, track) {
-				var html = '<select id="selins' + track + '">';
-				for (var i = 0; i < player.loader.instrumentKeys().length; i++) {
-					var sel = '';
-					if (i == n) {
-						sel = ' selected';
-					}
-					html = html + '<option value="' + i + '"' + sel + '>' + i + ': ' + player.loader.instrumentInfo(i).title + '</option>';
-				}
-				html = html + '</select>';
-				return html;
-			}
-			function chooserDrum(n, beat) {
-				var html = '<select id="seldrm' + beat + '">';
-				for (var i = 0; i < player.loader.drumKeys().length; i++) {
-					var sel = '';
-					if (i == n) {
-						sel = ' selected';
-					}
-					html = html + '<option value="' + i + '"' + sel + '>' + i + ': ' + player.loader.drumInfo(i).title + '</option>';
-				}
-				html = html + '</select>';
-				return html;
-			}
-			function handleFileSelect(event) {
-				console.log(event);
-				var file = event.target.files[0];
-				console.log(file);
-				var fileReader = new FileReader();
-				fileReader.onload = function (progressEvent ) {
-					console.log(progressEvent);
-					var arrayBuffer = progressEvent.target.result;
-					console.log(arrayBuffer);
-					var midiFile = new MIDIFile(arrayBuffer);
-					var song = midiFile.parseSong();
-					startLoad(song);
-				};
-				fileReader.readAsArrayBuffer(file);
-			}
-			function handleExample(path) {
-				console.log(path);
-				var xmlHttpRequest = new XMLHttpRequest();
-				xmlHttpRequest.open("GET", path, true);
-				xmlHttpRequest.responseType = "arraybuffer";
-				xmlHttpRequest.onload = function (e) {
-					var arrayBuffer = xmlHttpRequest.response;
-					var midiFile = new MIDIFile(arrayBuffer);
-					var song = midiFile.parseSong();
-					startLoad(song);
-				};
-				xmlHttpRequest.send(null);
-			}
-			document.getElementById('filesinput').addEventListener('change', handleFileSelect, false);
-		</script>
-	</body>
+			html = html + '</select>';
+			return html;
+		}
+		function handleFileSelect(event) {
+			console.log(event);
+			var file = event.target.files[0];
+			console.log(file);
+			var fileReader = new FileReader();
+			fileReader.onload = function (progressEvent ) {
+				console.log(progressEvent);
+				var arrayBuffer = progressEvent.target.result;
+				console.log(arrayBuffer);
+				var midiFile = new MIDIFile(arrayBuffer);
+				var song = midiFile.parseSong();
+				startLoad(song);
+			};
+			fileReader.readAsArrayBuffer(file);
+		}
+		function handleExample(path) {
+			console.log(path);
+			var xmlHttpRequest = new XMLHttpRequest();
+			xmlHttpRequest.open("GET", path, true);
+			xmlHttpRequest.responseType = "arraybuffer";
+			xmlHttpRequest.onload = function (e) {
+				var arrayBuffer = xmlHttpRequest.response;
+				var midiFile = new MIDIFile(arrayBuffer);
+				var song = midiFile.parseSong();
+				startLoad(song);
+			};
+			xmlHttpRequest.send(null);
+		}
+		document.getElementById('filesinput').addEventListener('change', handleFileSelect, false);
+	</script>
+</body>
+
 </html>
