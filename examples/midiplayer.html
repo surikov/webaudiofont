@@ -1,7 +1,10 @@
 <html>
 
 <head>
+	<!--
 	<script src='https://surikov.github.io/webaudiofont/npm/dist/WebAudioFontPlayer.js'></script>
+	-->
+	<script src='../npm/dist/WebAudioFontPlayer.js'></script>
 	<script src='MIDIFile.js'></script>
 </head>
 
@@ -26,43 +29,6 @@
 	<p><a href="https://surikov.github.io/webaudiofont/">source</a></p>
 	<script>
 		console.log('start');
-		var insdef = [
-			[1, 2]//Accoustic Grand Piano
-			, [2, 14]//Bright Accoustic Piano
-			, [3, 25]//Electric Grand Piano
-			, [4, 37]//Honky-Tonk Piano
-			, [5, 48]//Electric Pino 1
-			, [6, 58]//Electric Piano 2
-			, [7, 70]//HarpsiChord Piano
-			, [8, 83]//Cravinet
-			, [9, 91]//Celesta
-			, [10, 99]//Glockenspiel
-			, [11, 107]//Music Box
-			, [12, 118]//Vibraphone
-			, [13, 127]// Marimba
-			, [14, 136]// Xylophone
-			, [15, 144]// Tubular Bells
-			, [16, 152]// Dulcimer
-			, [17, 164]// Drawbar Organ
-			, [18, 170]// Percussive Organ
-			, [19, 183]//Rock Organ
-			, [20, 194]// Church Organ
-			, [21, 205]//Reed Organ
-			, [22, 215]//Accordion
-			, [23, 228]
-			, [24, 241]
-			, [25, 254]
-			,[26,263]
-			,[27,277]
-			,[28,296]
-			,[29,308]
-			,[30,319]
-			,[31,350]
-			,[32,356]
-			,[33,369]
-			,[34,379]
-			,[35,385]
-		];
 		var audioContext = null;
 		var player = null;
 		var reverberator = null;
@@ -138,20 +104,6 @@
 				}
 			}
 		}
-		function findFirstIns(player, nn) {
-			for (var i = 0; i < player.loader.instrumentKeys().length; i++) {
-				if (nn == 1 * player.loader.instrumentKeys()[i].substring(0, 3)) {
-					return i;
-				}
-			}
-		}
-		function findFirstDrum(player, nn) {
-			for (var i = 0; i < player.loader.drumKeys().length; i++) {
-				if (nn == 1 * player.loader.drumKeys()[i].substring(0, 2)) {
-					return i;
-				}
-			}
-		}
 		function startLoad(song) {
 			console.log(song);
 			var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
@@ -161,14 +113,14 @@
 			reverberator.output.connect(audioContext.destination);
 			input = reverberator.input;
 			for (var i = 0; i < song.tracks.length; i++) {
-				var nn = findFirstIns(player, song.tracks[i].program);
+				var nn = player.loader.findInstrument(song.tracks[i].program);
 				var info = player.loader.instrumentInfo(nn);
 				song.tracks[i].info = info;
 				song.tracks[i].id = nn;
 				player.loader.startLoad(audioContext, info.url, info.variable);
 			}
 			for (var i = 0; i < song.beats.length; i++) {
-				var nn = findFirstDrum(player, song.beats[i].n);
+				var nn = player.loader.findDrum(song.beats[i].n);
 				var info = player.loader.drumInfo(nn);
 				song.beats[i].info = info;
 				song.beats[i].id = nn;

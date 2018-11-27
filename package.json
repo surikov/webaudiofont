@@ -1,6 +1,6 @@
 {
 	"name": "webaudiofont",
-	"version": "2.5.26",
+	"version": "2.5.46",
 	"description": "Soundfonts for web. About of 2000 musical instruments. GM MIDI compatible.",
 	"keywords": [
 		"audio",
@@ -17,7 +17,8 @@
 		"synth",
 		"mixer",
 		"distortion",
-		"microtonal"
+		"microtonal",
+		"kontakt"
 	],
 	"repository": {
 		"type": "git",
@@ -26,7 +27,7 @@
 	"license": "MIT",
 	"main": "npm/src/player.js",
 	"devDependencies": {
-		"browserify": "^15.0.0"
+		"browserify": "^16.2.3"
 	},
 	"scripts": {
 		"test": "echo test",
