@@ -1,5 +1,5 @@
 'use strict'
-console.log('WebAudioFont Player v2.79');
+console.log('WebAudioFont Player v2.80');
 var WebAudioFontLoader = require('./loader');
 var WebAudioFontChannel = require('./channel');
 var WebAudioFontReverberator = require('./reverberator')

@@ -77,6 +77,12 @@ Minimal HTML page
 </html>
 ```
 
+See [live example](https://surikov.github.io/webaudiofont/examples/simple.html).
+
+Use queueWaveTable to play single note. Use queueChord, queueSnap, queueStrumDown, queueStrumUp to play chords. See [live example for strumming](https://surikov.github.io/webaudiofont/examples/strum.html).
+
+Use time for notes to define sequence. See [live example of sequencer](https://surikov.github.io/webaudiofont/examples/realtime.html).
+
 ### Dynamic loading
 
 Use the startLoad and waitLoad functions.

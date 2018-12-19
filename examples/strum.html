@@ -1,30 +1,67 @@
 <html>
 	<head>
 		<script src='../npm/dist/WebAudioFontPlayer.js'></script>
-		<script src='https://surikov.github.io/webaudiofontdata/sound/0250_JCLive_sf2_file.js'></script>
+		<script src='https://surikov.github.io/webaudiofontdata/sound/0253_Acoustic_Guitar_sf2_file.js'></script>
 		<script>
-			var selectedPreset = _tone_0250_JCLive_sf2_file;
+			var guitar = _tone_0253_Acoustic_Guitar_sf2_file;
 			var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
 			var audioContext = new AudioContextFunc();
+			var output = audioContext.destination;
 			var player = new WebAudioFontPlayer();
+			var now = 0;
+
+			var C = 0, Cs = 1, D = 2, Ds = 3, E = 4, F = 5, Fs = 6, G = 7, Gs = 8, A = 9, As = 10, B = 11;
+			var O = 12;
+			var _6th = E +O*3, _5th = A +O*3, _4th = D +O*4, _3rd = G +O*4, _2nd = B +O*4, _1st = E +O*5;
 			
-			var Am = [4 + 12 * 3 + 0, 9 + 12 * 3 + 0, 2 + 12 * 4 + 2, 7 + 12 * 4+ 2, 11 + 12 * 4 + 1, 4 + 12 * 5 + 0];
-			var C = [4 + 12 * 3 + 0, 9 + 12 * 3 + 3, 2 + 12 * 4 + 2, 7 + 12 * 4 + 0, 11 + 12 * 4 + 1, 4 + 12 * 5 + 0];
-			var E = [4 + 12 * 3 + 0, 9 + 12 * 3 + 2, 2 + 12 * 4 + 2, 7 + 12 * 4 + 1, 11 + 12 * 4 + 0, 4 + 12 * 5 + 0];
-			var G = [4 + 12 * 3 + 3, 9 + 12 * 3 + 2, 2 + 12 * 4 + 0, 7 + 12 * 4 + 0, 11 + 12 * 4 + 0, 4 + 12 * 5 + 3];
-			player.loader.decodeAfterLoading(audioContext, '_tone_0250_JCLive_sf2_file');
+			var fretsAm = [-1, now, 2, 2, 1, 0];
+			var fretsC =  [ 0, 3, 2, now, 1, 0];
+			var fretsE =  [ 0, 2, 2, 1, now, 0];
+			var fretsG =  [ 3, 2, now, 0, now, 3];
+			player.loader.decodeAfterLoading(audioContext, '_tone_0253_Acoustic_Guitar_sf2_file');
+
+			function pitches(frets) {
+				var p = [];
+				if (frets[0] > -1) p.push(_6th + frets[0]);
+				if (frets[1] > -1) p.push(_5th + frets[1]);
+				if (frets[2] > -1) p.push(_4th + frets[2]);
+				if (frets[3] > -1) p.push(_3rd + frets[3]);
+				if (frets[4] > -1) p.push(_2nd + frets[4]);
+				if (frets[5] > -1) p.push(_1st + frets[5]);
+				return p;
+			}
+
+			function cancel(){
+				player.cancelQueue(audioContext);
+			}
 		</script>
 	</head>
 	<body>
-		<p>Am <a href="#" onmousedown="player.cancelQueue(audioContext);player.queueChord(audioContext, audioContext.destination, selectedPreset, 0, Am, 1.5);">chord</a>
-			| <a href="#" onmousedown="player.cancelQueue(audioContext);player.queueSnap(audioContext, audioContext.destination, selectedPreset, 0, Am, 1.5);">snap</a>
-			| strum <a href="#" onmousedown="player.cancelQueue(audioContext);player.queueStrumDown(audioContext, audioContext.destination, selectedPreset, 0, Am, 1.5);">down</a>
-			| <a href="#" onmousedown="player.cancelQueue(audioContext);player.queueStrumUp(audioContext, audioContext.destination, selectedPreset, 0, Am, 1.5);">up</a>
+		<p>Strings <a href="#" onmousedown ="cancel(); player.queueWaveTable(audioContext, output, guitar, now, _6th, 1.5);">6</a>
+				 | <a href="#" onmousedown ="cancel(); player.queueWaveTable(audioContext, output, guitar, now, _5th, 1.5);">5</a>
+				 | <a href="#" onmousedown ="cancel(); player.queueWaveTable(audioContext, output, guitar, now, _4th, 1.5);">4</a>
+				 | <a href="#" onmousedown ="cancel(); player.queueWaveTable(audioContext, output, guitar, now, _3rd, 1.5);">3</a>
+				 | <a href="#" onmousedown ="cancel(); player.queueWaveTable(audioContext, output, guitar, now, _2nd, 1.5);">2</a>
+				 | <a href="#" onmousedown ="cancel(); player.queueWaveTable(audioContext, output, guitar, now, _1st, 1.5);">1</a>
+		<p>Am <a href="#" onmousedown      ="cancel(); player.queueChord    (audioContext, output, guitar, now, pitches(fretsAm), 1.5);">chord</a>
+			| <a href="#" onmousedown      ="cancel(); player.queueSnap     (audioContext, output, guitar, now, pitches(fretsAm), 1.5);">snap</a>
+			| strum <a href="#" onmousedown="cancel(); player.queueStrumDown(audioContext, output, guitar, now, pitches(fretsAm), 1.5);">down</a>
+			| <a href="#" onmousedown      ="cancel(); player.queueStrumUp  (audioContext, output, guitar, now, pitches(fretsAm), 1.5);">up</a>
 		</p>
-		<p>C <a href="#" onmousedown="player.cancelQueue(audioContext);player.queueChord(audioContext, audioContext.destination, selectedPreset, 0, C, 1.5);">chord</a>
-			| <a href="#" onmousedown="player.cancelQueue(audioContext);player.queueSnap(audioContext, audioContext.destination, selectedPreset, 0, C, 1.5);">snap</a>
-			| strum <a href="#" onmousedown="player.cancelQueue(audioContext);player.queueStrumDown(audioContext, audioContext.destination, selectedPreset, 0, C, 1.5);">down</a>
-			| <a href="#" onmousedown="player.cancelQueue(audioContext);player.queueStrumUp(audioContext, audioContext.destination, selectedPreset, 0, C, 1.5);">up</a>
+		<p>C <a href="#" onmousedown       ="cancel(); player.queueChord    (audioContext, output, guitar, now, pitches(fretsC), 1.5);">chord</a>
+			| <a href="#" onmousedown      ="cancel(); player.queueSnap     (audioContext, output, guitar, now, pitches(fretsC), 1.5);">snap</a>
+			| strum <a href="#" onmousedown="cancel(); player.queueStrumDown(audioContext, output, guitar, now, pitches(fretsC), 1.5);">down</a>
+			| <a href="#" onmousedown      ="cancel(); player.queueStrumUp  (audioContext, output, guitar, now, pitches(fretsC), 1.5);">up</a>
+		</p>
+		<p>E <a href="#" onmousedown       ="cancel(); player.queueChord    (audioContext, output, guitar, now, pitches(fretsE), 1.5);">chord</a>
+			| <a href="#" onmousedown      ="cancel(); player.queueSnap     (audioContext, output, guitar, now, pitches(fretsE), 1.5);">snap</a>
+			| strum <a href="#" onmousedown="cancel(); player.queueStrumDown(audioContext, output, guitar, now, pitches(fretsE), 1.5);">down</a>
+			| <a href="#" onmousedown      ="cancel(); player.queueStrumUp  (audioContext, output, guitar, now, pitches(fretsE), 1.5);">up</a>
+		</p>
+		<p>G <a href="#" onmousedown       ="cancel(); player.queueChord    (audioContext, output, guitar, now, pitches(fretsG), 1.5);">chord</a>
+			| <a href="#" onmousedown      ="cancel(); player.queueSnap     (audioContext, output, guitar, now, pitches(fretsG), 1.5);">snap</a>
+			| strum <a href="#" onmousedown="cancel(); player.queueStrumDown(audioContext, output, guitar, now, pitches(fretsG), 1.5);">down</a>
+			| <a href="#" onmousedown      ="cancel(); player.queueStrumUp  (audioContext, output, guitar, now, pitches(fretsG), 1.5);">up</a>
 		</p>
 		<hr/>
 		<p><a href="https://surikov.github.io/webaudiofont/">source</a></p>
