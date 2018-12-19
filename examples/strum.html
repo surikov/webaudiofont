@@ -14,10 +14,11 @@
 			var O = 12;
 			var _6th = E +O*3, _5th = A +O*3, _4th = D +O*4, _3rd = G +O*4, _2nd = B +O*4, _1st = E +O*5;
 			
-			var fretsAm = [-1, now, 2, 2, 1, 0];
-			var fretsC =  [ 0, 3, 2, now, 1, 0];
-			var fretsE =  [ 0, 2, 2, 1, now, 0];
-			var fretsG =  [ 3, 2, now, 0, now, 3];
+			var fretsAm = [-1, 0, 2, 2, 1, 0];
+			var fretsC =  [-1, 3, 2, 0, 1, 0];
+			var fretsE =  [ 0, 2, 2, 1, 0, 0];
+			var fretsG =  [ 3, 2, 0, 0, 0, 3];
+			var fretsDm = [-1,-1, 0, 2, 3, 1];
 			player.loader.decodeAfterLoading(audioContext, '_tone_0253_Acoustic_Guitar_sf2_file');
 
 			function pitches(frets) {
@@ -62,6 +63,11 @@
 			| <a href="#" onmousedown      ="cancel(); player.queueSnap     (audioContext, output, guitar, now, pitches(fretsG), 1.5);">snap</a>
 			| strum <a href="#" onmousedown="cancel(); player.queueStrumDown(audioContext, output, guitar, now, pitches(fretsG), 1.5);">down</a>
 			| <a href="#" onmousedown      ="cancel(); player.queueStrumUp  (audioContext, output, guitar, now, pitches(fretsG), 1.5);">up</a>
+		</p>
+		<p>Dm <a href="#" onmousedown      ="cancel(); player.queueChord    (audioContext, output, guitar, now, pitches(fretsDm), 1.5);">chord</a>
+			| <a href="#" onmousedown      ="cancel(); player.queueSnap     (audioContext, output, guitar, now, pitches(fretsDm), 1.5);">snap</a>
+			| strum <a href="#" onmousedown="cancel(); player.queueStrumDown(audioContext, output, guitar, now, pitches(fretsDm), 1.5);">down</a>
+			| <a href="#" onmousedown      ="cancel(); player.queueStrumUp  (audioContext, output, guitar, now, pitches(fretsDm), 1.5);">up</a>
 		</p>
 		<hr/>
 		<p><a href="https://surikov.github.io/webaudiofont/">source</a></p>
