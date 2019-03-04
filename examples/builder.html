@@ -52,25 +52,24 @@
 
 			var __G     = {base: G +O*3, strings: [ 3, 2, 0, 0, 0, 3]};
 
-			var progression4 = [{a:__C,d:4}, {a:__G,d:2}, {a:__Am,d:1}, {a:__F,d:1}];
-			var progressionDuration=8;
+			//var progression8 = [{a:__Am,d:16}, {a:__C,d:16}, {a:__G,d:16}, {a:__Em,d:16}];
+			var progression8 = [{a:__Am,d:16}, {a:__G,d:16}, {a:__F,d:16}, {a:__E,d:16}];
+			var progressionStep=0;
 			
-			var tempo = 120;
+			var tempo = 240;
 			
 			var _z = 0;
 			var _V = 1;
 			var _A = 2;
 			var _X = 3;
 			
-			var pattern8 = [{p:_V,d:2},{p:_V,d:1},{p:_A,d:2},{p:_X,d:1},{p:_z,d:1},{p:_A,d:1}];
-			patternDuration=8;
+			//var pattern8 = [{p:_V,d:2},{p:_V,d:1},{p:_A,d:1},{p:_V,d:2},{p:_V,d:1},{p:_A,d:2},{p:_V,d:1},{p:_A,d:2},{p:_V,d:1},{p:_A,d:1},{p:_V,d:2}];
+			var pattern8 = [{p:_V,d:2},{p:_V,d:1},{p:_A,d:1},{p:_V,d:1},{p:_A,d:1},{p:_X,d:2}];
+			patternStep=0;
 			
 			var intervalID=0;
 			var nextTickTime = 0;
-			var ticker4 = 0;
-			var step8=0;
 			var N = 0;
-			//var ahead=0.02;
 			
 			player.loader.decodeAfterLoading(audioContext, '_tone_0253_Acoustic_Guitar_sf2_file');
 			
@@ -84,40 +83,72 @@
 				if (frets[5] > -1) p.push(_1st + frets[5]);
 				return p;
 			}
-			function chord4(step4){
-				var s=0;
-				for(var i=0;i<progression4.length;i++){
-					if(s==step4){
-						return progression4[i];
+			function progressionStepAt(n){
+				var delta=0;
+				for(var i=0;i<progression8.length;i++){
+					if(n==delta){
+						return progression8[i];
 					}
-					s=s+progression4[i].d;
+					delta=delta+progression8[i].d;
+				}
+				return null;
+			}
+			function patternStepAt(n){
+				var delta=0;
+				for(var i=0;i<pattern8.length;i++){
+					if(n==delta){
+						return pattern8[i];
+					}
+					delta=delta+pattern8[i].d;
 				}
 				return null;
 			}
 			function tick(){
-				if(audioContext.currentTime>nextTickTime){
-					//console.log('tick',ticker4,nextTickTime,audioContext.currentTime);
-					var chord=chord4(ticker4);
-					if(chord){
-						console.log('tick',ticker4,nextTickTime);
-						//player.queueStrumDown(audioContext, output, guitar, nextTickTime, pitches(chord.a.strings), chord.d*N/4);
-						var s=0;
-						while(s<chord.d*2){
-							console.log(s);
-							player.queueStrumDown(audioContext, output, guitar, nextTickTime+s*N/8, pitches(chord.a.strings), pattern8[step8].d*N/8);
-							s=s+pattern8[step8].d;
-							step8++;
-							if(step8>=pattern8.length){
-								step8=0;
+				if(audioContext.currentTime>nextTickTime-N/8){
+					var progressionDuration=0;
+					for(var i=0;i<progression8.length;i++){
+						progressionDuration=progressionDuration+progression8[i].d;
+					}
+					var patternDuration=0;
+					for(var i=0;i<pattern8.length;i++){
+						patternDuration=patternDuration+pattern8[i].d;
+					}
+					for(var i=0;i<4;i++){
+						var chord=progressionStepAt(progressionStep);
+						if(chord){
+							for(var k=0;k<chord.d;k++){
+								var beat=patternStepAt(patternStep);
+								if(beat){
+									if(beat.p==_V){
+										player.queueStrumDown(audioContext, output, guitar
+											, nextTickTime+(k+i)*N/8
+											, pitches(chord.a.strings), beat.d*N/8);
+									}else{
+										if(beat.p==_A){
+											player.queueStrumUp(audioContext, output, guitar
+												, nextTickTime+(k+i)*N/8
+												, pitches(chord.a.strings), beat.d*N/8);
+										}else{
+											if(beat.p==_X){
+												player.queueSnap(audioContext, output, guitar
+													, nextTickTime+(k+i)*N/8
+													, pitches(chord.a.strings), beat.d*N/8);
+											}
+										}
+									}
+								}
+								patternStep++;
+								if(patternStep>=patternDuration){
+									patternStep=0;
+								}
 							}
 						}
+						progressionStep++;
+						if(progressionStep>=progressionDuration){
+							progressionStep=0;
+						}
 					}
-					nextTickTime = audioContext.currentTime+N/4;
-					ticker4++;
-					if(ticker4>=progressionDuration){
-						ticker4=0;
-					}
-					//d.f.g.h();
+					nextTickTime = nextTickTime+N/2;
 				}
 			}
 			function cancelPlay(){
@@ -131,9 +162,12 @@
 				audioContext.resume().then(() => {
 					console.log('resume');
 					});
-				ticker4 = 0;
-				nextTickTime = audioContext.currentTime;
+				ticker4 = 0;				
 				N=4*60/tempo;
+				console.log(N,tempo);
+				nextTickTime = audioContext.currentTime;
+				progressionStep=0;
+				patternStep=0;
 				tick();
 				intervalID=setInterval(tick, 33);
 			}
