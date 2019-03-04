@@ -52,8 +52,8 @@
 
 			var __G     = {base: G +O*3, strings: [ 3, 2, 0, 0, 0, 3]};
 
-			var progression4 = [{a:__C,d:1}, {a:__G,d:2}, {a:__Am,d:1}, {a:__F,d:4}];
-			var progressionSize=16;
+			var progression4 = [{a:__C,d:4}, {a:__G,d:2}, {a:__Am,d:1}, {a:__F,d:1}];
+			var progressionDuration=8;
 			
 			var tempo = 120;
 			
@@ -63,14 +63,14 @@
 			var _X = 3;
 			
 			var pattern8 = [{p:_V,d:2},{p:_V,d:1},{p:_A,d:2},{p:_X,d:1},{p:_z,d:1},{p:_A,d:1}];
-			patternSize=8;
+			patternDuration=8;
 			
 			var intervalID=0;
 			var nextTickTime = 0;
 			var ticker4 = 0;
 			var step8=0;
 			var N = 0;
-			var ahead=0.2;
+			//var ahead=0.02;
 			
 			player.loader.decodeAfterLoading(audioContext, '_tone_0253_Acoustic_Guitar_sf2_file');
 			
@@ -95,25 +95,26 @@
 				return null;
 			}
 			function tick(){
-				if(audioContext.currentTime>nextTickTime-ahead){
-					console.log('tick',ticker4,nextTickTime);
+				if(audioContext.currentTime>nextTickTime){
+					//console.log('tick',ticker4,nextTickTime,audioContext.currentTime);
 					var chord=chord4(ticker4);
 					if(chord){
 						console.log('tick',ticker4,nextTickTime);
-						player.queueStrumDown(audioContext, output, guitar, nextTickTime, pitches(chord.a.strings), chord.d*N/4);
-						/*var s=0;
-						while(s<chord.d*N/2){
+						//player.queueStrumDown(audioContext, output, guitar, nextTickTime, pitches(chord.a.strings), chord.d*N/4);
+						var s=0;
+						while(s<chord.d*2){
+							console.log(s);
 							player.queueStrumDown(audioContext, output, guitar, nextTickTime+s*N/8, pitches(chord.a.strings), pattern8[step8].d*N/8);
 							s=s+pattern8[step8].d;
 							step8++;
 							if(step8>=pattern8.length){
 								step8=0;
 							}
-						}*/
+						}
 					}
 					nextTickTime = audioContext.currentTime+N/4;
 					ticker4++;
-					if(ticker4>=progressionSize){
+					if(ticker4>=progressionDuration){
 						ticker4=0;
 					}
 					//d.f.g.h();
