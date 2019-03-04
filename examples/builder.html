@@ -25,44 +25,116 @@
 				, _2nd = B +O*4
 				, _1st = E +O*5;
 			
-			var fretsAm    = {base: A +O*3, strings: [-1, 0, 2, 2, 1, 0]};
-			var fretsAm7   = {base: A +O*3, strings: [-1, 0, 2, 0, 1, 0]};
-			var fretsA7    = {base: A +O*3, strings: [-1, 0, 2, 0, 2, 0]};
-			var fretsA     = {base: A +O*3, strings: [-1, 0, 2, 2, 2, 0]};
+			var __Am    = {base: A +O*3, strings: [-1, 0, 2, 2, 1, 0]};
+			var __Am7   = {base: A +O*3, strings: [-1, 0, 2, 0, 1, 0]};
+			var __A7    = {base: A +O*3, strings: [-1, 0, 2, 0, 2, 0]};
+			var __A     = {base: A +O*3, strings: [-1, 0, 2, 2, 2, 0]};
 
-			var fretsBm7   = {base: B +O*3, strings: [-1, 2, 0, 2, 0, 2]};
-			var fretsB7    = {base: B +O*3, strings: [-1, 2, 1, 2, 0, 2]};
+			var __Bm7   = {base: B +O*3, strings: [-1, 2, 0, 2, 0, 2]};
+			var __B7    = {base: B +O*3, strings: [-1, 2, 1, 2, 0, 2]};
 
-			var fretsC     = {base: C +O*4, strings: [-1, 3, 2, 0, 1, 0]};
-			var fretsCmaj7 = {base: C +O*4, strings: [-1, 3, 2, 0, 0, 0]};
-			var fretsC2    = {base: C +O*4, strings: [-1, 3, 2, 0, 3, 0]};
+			var __C     = {base: C +O*4, strings: [-1, 3, 2, 0, 1, 0]};
+			var __Cmaj7 = {base: C +O*4, strings: [-1, 3, 2, 0, 0, 0]};
+			var __C2    = {base: C +O*4, strings: [-1, 3, 2, 0, 3, 0]};
 
-			var fretsDm    = {base: D +O*3, strings: [-1,-1, 0, 2, 3, 1]};
-			var fretsD     = {base: D +O*3, strings: [-1,-1, 0, 2, 3, 2]};
-			var fretsD7    = {base: D +O*3, strings: [-1,-1, 0, 2, 3, 2]};
-			var fretsDsus2 = {base: D +O*3, strings: [-1,-1, 0, 2, 3, 0]};
+			var __Dm    = {base: D +O*3, strings: [-1,-1, 0, 2, 3, 1]};
+			var __D     = {base: D +O*3, strings: [-1,-1, 0, 2, 3, 2]};
+			var __D7    = {base: D +O*3, strings: [-1,-1, 0, 2, 3, 2]};
+			var __Dsus2 = {base: D +O*3, strings: [-1,-1, 0, 2, 3, 0]};
 
-			var fretsE     = {base: E +O*3, strings: [ 0, 2, 2, 1, 0, 0]};
-			var fretsEm    = {base: E +O*3, strings: [ 0, 2, 2, 0, 0, 0]};
-			var fretsEm7   = {base: E +O*3, strings: [ 0, 2, 0, 0, 0, 0]};
-			var fretsE7    = {base: E +O*3, strings: [ 0, 2, 0, 1, 0, 0]};
+			var __E     = {base: E +O*3, strings: [ 0, 2, 2, 1, 0, 0]};
+			var __Em    = {base: E +O*3, strings: [ 0, 2, 2, 0, 0, 0]};
+			var __Em7   = {base: E +O*3, strings: [ 0, 2, 0, 0, 0, 0]};
+			var __E7    = {base: E +O*3, strings: [ 0, 2, 0, 1, 0, 0]};
 
-			var fretsF     = {base: F +O*3, strings: [-1,-1, 3, 2, 1, 1]};
-			var fretsFmaj7 = {base: F +O*3, strings: [-1,-1, 3, 2, 1, 0]};
+			var __F     = {base: F +O*3, strings: [-1,-1, 3, 2, 1, 1]};
+			var __Fmaj7 = {base: F +O*3, strings: [-1,-1, 3, 2, 1, 0]};
 
-			var fretsG     = {base: G +O*3, strings: [ 3, 2, 0, 0, 0, 3]};
+			var __G     = {base: G +O*3, strings: [ 3, 2, 0, 0, 0, 3]};
 
-			var progression = [fretsAm, fretsC, fretsG, fretsEm];
+			var progression4 = [{a:__C,d:1}, {a:__G,d:2}, {a:__Am,d:1}, {a:__F,d:4}];
+			var progressionSize=16;
+			
 			var tempo = 120;
-
+			
+			var _z = 0;
+			var _V = 1;
+			var _A = 2;
+			var _X = 3;
+			
+			var pattern8 = [{p:_V,d:2},{p:_V,d:1},{p:_A,d:2},{p:_X,d:1},{p:_z,d:1},{p:_A,d:1}];
+			patternSize=8;
+			
+			var intervalID=0;
+			var nextTickTime = 0;
+			var ticker4 = 0;
+			var step8=0;
+			var N = 0;
+			var ahead=0.2;
+			
 			player.loader.decodeAfterLoading(audioContext, '_tone_0253_Acoustic_Guitar_sf2_file');
-
+			
+			function pitches(frets) {
+				var p = [];
+				if (frets[0] > -1) p.push(_6th + frets[0]);
+				if (frets[1] > -1) p.push(_5th + frets[1]);
+				if (frets[2] > -1) p.push(_4th + frets[2]);
+				if (frets[3] > -1) p.push(_3rd + frets[3]);
+				if (frets[4] > -1) p.push(_2nd + frets[4]);
+				if (frets[5] > -1) p.push(_1st + frets[5]);
+				return p;
+			}
+			function chord4(step4){
+				var s=0;
+				for(var i=0;i<progression4.length;i++){
+					if(s==step4){
+						return progression4[i];
+					}
+					s=s+progression4[i].d;
+				}
+				return null;
+			}
+			function tick(){
+				if(audioContext.currentTime>nextTickTime-ahead){
+					console.log('tick',ticker4,nextTickTime);
+					var chord=chord4(ticker4);
+					if(chord){
+						console.log('tick',ticker4,nextTickTime);
+						player.queueStrumDown(audioContext, output, guitar, nextTickTime, pitches(chord.a.strings), chord.d*N/4);
+						/*var s=0;
+						while(s<chord.d*N/2){
+							player.queueStrumDown(audioContext, output, guitar, nextTickTime+s*N/8, pitches(chord.a.strings), pattern8[step8].d*N/8);
+							s=s+pattern8[step8].d;
+							step8++;
+							if(step8>=pattern8.length){
+								step8=0;
+							}
+						}*/
+					}
+					nextTickTime = audioContext.currentTime+N/4;
+					ticker4++;
+					if(ticker4>=progressionSize){
+						ticker4=0;
+					}
+					//d.f.g.h();
+				}
+			}
 			function cancelPlay(){
 				console.log('cancelPlay');
+				clearInterval(intervalID);
 				player.cancelQueue(audioContext);
 			}
 			function startPlay(){
 				console.log('startPlay');
+				cancelPlay();
+				audioContext.resume().then(() => {
+					console.log('resume');
+					});
+				ticker4 = 0;
+				nextTickTime = audioContext.currentTime;
+				N=4*60/tempo;
+				tick();
+				intervalID=setInterval(tick, 33);
 			}
 			function exportRiff(){
 				console.log('exportRiff');
@@ -74,7 +146,7 @@
 	</head>
 	<body>
 		<button onclick='randomizeRiff()'>Randomize</button>
-		<button onclick='exportRiff()'>Open</button>
+		<button onclick='exportRiff()'>Pianoroll Editor/Export MIDI</button>
 		<button onclick='startPlay()'>Play</button>
 		<button onclick='cancelPlay()'>Stop</button>
 		<hr/>
