@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<script src='../npm/dist/WebAudioFontPlayer.js'></script>
+		<script src='https://surikov.github.io/webaudiofont/npm/dist/WebAudioFontPlayer.js'></script>
 		<script src='https://surikov.github.io/webaudiofontdata/sound/0253_Acoustic_Guitar_sf2_file.js'></script>
 		<script>
 			var guitar = _tone_0253_Acoustic_Guitar_sf2_file;
@@ -52,10 +52,7 @@
 
 			var __G     = {base: G +O*3, strings: [ 3, 2, 0, 0, 0, 3]};
 
-			//var progression8 = [{a:__Am,d:16}, {a:__C,d:16}, {a:__G,d:16}, {a:__Em,d:16}];
-			//var progression16 = [{a:__Am,d:16}, {a:__G,d:16}, {a:__F,d:16}, {a:__E,d:16}];
-			//var progressionStep=0;
-			var progression = new Beats([__Am,16,__C,16,__G,16,__Em,16]);
+			var progression = new Beats([__Am,8,__C,8,__G,16,__Em,32]);
 			
 			var tempo = 120;
 			
@@ -64,15 +61,14 @@
 			var _A = 2;
 			var _X = 3;
 			
-			var pattern16 = [{p:_V,d:4},{p:_V,d:2},{p:_A,d:2},{p:_V,d:4},{p:_V,d:2},{p:_A,d:4},{p:_V,d:2},{p:_A,d:4},{p:_V,d:2},{p:_A,d:2},{p:_V,d:4}];
-			//var pattern16 = [{p:_V,d:2},{p:_V,d:1},{p:_A,d:1},{p:_V,d:1},{p:_A,d:1},{p:_X,d:2}];
-			patternStep=0;
+			var pattern = new Beats([_V,4,_V,2,_A,4,_A,2,_V,2,_A,2]);
 			
 			var intervalID=0;
 			var nextTickTime = 0;
 			var N = 0;
 			
 			player.loader.decodeAfterLoading(audioContext, '_tone_0253_Acoustic_Guitar_sf2_file');
+
 			function Beats(arr){
 				this.steps=[];
 				this.duration=0;
@@ -80,30 +76,31 @@
 				for(var i=0;i<arr.length;i=i+2){
 					this.steps.push({element:arr[i],duration:arr[i+1]});
 					this.duration=this.duration+arr[i+1];
-				}
+				};
 				this.restart=function(){
 					this.step=0;
-				}
-				this.move=function(){
+				};
+				this.next=function(){
+					var delta=0;
+					var s=this.step;
 					this.step++;
-					if(this.step>this.duration){
+					if(this.step>=this.duration){
 						this.step=0;
 					}
-				}
-				this.current=function(){
-					//console.log('current',this.steps);
-					var delta=0;
 					for(var i=0;i<this.steps.length;i++){
-						//console.log('delta',delta);
-						if(this.step==delta){
+						if(s==delta){
 							return this.steps[i];
 						}
 						delta=delta+this.steps[i].duration;
+						if(delta>s){
+							break;
+						}
 					}
 					return null;
-				}
+				};
 				return this;
 			}
+
 			function pitches(frets) {
 				var p = [];
 				if (frets[0] > -1) p.push(_6th + frets[0]);
@@ -114,16 +111,6 @@
 				if (frets[5] > -1) p.push(_1st + frets[5]);
 				return p;
 			}
-			/*function progressionStepAt(n){
-				var delta=0;
-				for(var i=0;i<progression16.length;i++){
-					if(n==delta){
-						return progression16[i];
-					}
-					delta=delta+progression16[i].d;
-				}
-				return null;
-			}*/
 			function patternStepAt(n){
 				var delta=0;
 				for(var i=0;i<pattern16.length;i++){
@@ -136,74 +123,48 @@
 			}
 			function tick(){
 				if(audioContext.currentTime>nextTickTime-N/8){
-					/*var progressionDuration=0;
-					for(var i=0;i<progression16.length;i++){
-						progressionDuration=progressionDuration+progression16[i].d;
-					}*/
-					var patternDuration=0;
-					for(var i=0;i<pattern16.length;i++){
-						patternDuration=patternDuration+pattern16[i].d;
-					}
 					for(var i=0;i<8;i++){
-						//var chord=progressionStepAt(progressionStep);
-						//console.log('i',i);
-						var chord=progression.current();
-						
+						var chord=progression.next();						
 						if(chord){
 							for(var k=0;k<chord.duration;k++){
-								var beat=patternStepAt(patternStep);
+								var beat=pattern.next();
 								if(beat){
-									if(beat.p==_V){
+									if(beat.element==_V){
 										player.queueStrumDown(audioContext, output, guitar
 											, nextTickTime+(k+i)*N/16
-											, pitches(chord.element.strings), beat.d*N/16);
+											, pitches(chord.element.strings), beat.duration*N/16);
 									}else{
-										if(beat.p==_A){
+										if(beat.element==_A){
 											player.queueStrumUp(audioContext, output, guitar
 												, nextTickTime+(k+i)*N/16
-												, pitches(chord.element.strings), beat.d*N/16);
+												, pitches(chord.element.strings), beat.duration*N/16);
 										}else{
-											if(beat.p==_X){
+											if(beat.element==_X){
 												player.queueSnap(audioContext, output, guitar
 													, nextTickTime+(k+i)*N/16
-													, pitches(chord.element.strings), beat.d*N/16);
+													, pitches(chord.element.strings), beat.duration*N/16);
 											}
 										}
 									}
 								}
-								patternStep++;
-								if(patternStep>=patternDuration){
-									patternStep=0;
-								}
 							}
 						}
-						progression.move();
-						/*progressionStep++;
-						if(progressionStep>=progressionDuration){
-							progressionStep=0;
-						}*/
+
 					}
 					nextTickTime = nextTickTime+N/2;
 				}
 			}
 			function cancelPlay(){
-				console.log('cancelPlay');
 				clearInterval(intervalID);
 				player.cancelQueue(audioContext);
 			}
 			function startPlay(){
-				console.log('startPlay');
 				cancelPlay();
-				audioContext.resume().then(() => {
-					console.log('resume');
-					});
 				ticker4 = 0;				
 				N=4*60/tempo;
-				console.log(N,tempo);
 				nextTickTime = audioContext.currentTime;
-				//progressionStep=0;
-				progression.restart()
-				patternStep=0;
+				progression.restart();
+				pattern.restart();
 				tick();
 				intervalID=setInterval(tick, 33);
 			}
