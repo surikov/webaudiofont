@@ -2,14 +2,27 @@
 	<head>
 		<script src='https://surikov.github.io/webaudiofont/npm/dist/WebAudioFontPlayer.js'></script>
 		<script src='https://surikov.github.io/webaudiofontdata/sound/0253_Acoustic_Guitar_sf2_file.js'></script>
+		<script src='https://surikov.github.io/webaudiofontdata/sound/0250_Chaos_sf2_file.js'></script>
+		<script src='https://surikov.github.io/webaudiofontdata/sound/0340_Aspirin_sf2_file.js'></script>
+		
+		<script src='https://surikov.github.io/webaudiofontdata/sound/12835_0_Chaos_sf2_file.js'></script>
+		<script src='https://surikov.github.io/webaudiofontdata/sound/12838_22_FluidR3_GM_sf2_file.js'></script>
+		<script src='https://surikov.github.io/webaudiofontdata/sound/12842_26_JCLive_sf2_file.js'></script>
 		<script>
 			var guitar = _tone_0253_Acoustic_Guitar_sf2_file;
+			//console.log(_tone_0253_Acoustic_Guitar_sf2_file);
+			/*for(var i=0;i<_tone_0253_Acoustic_Guitar_sf2_file.zones.length;i++){
+				_tone_0253_Acoustic_Guitar_sf2_file.zones[i].originalPitch=_tone_0253_Acoustic_Guitar_sf2_file.zones[i].originalPitch-100;
+			}*/
+			var drum=_drum_35_0_Chaos_sf2_file;
+			var snare=_drum_38_22_FluidR3_GM_sf2_file;
+			var hat=_drum_42_26_JCLive_sf2_file;
+			var bass=_tone_0340_Aspirin_sf2_file;
+			var clean=_tone_0250_Chaos_sf2_file;
 			var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
 			var audioContext = new AudioContextFunc();
 			var output = audioContext.destination;
 			var player = new WebAudioFontPlayer();
-			var now = 0;
-
 			var C = 0, Cs = 1
 				, Db = 1, D = 2, Ds = 3
 				, Eb = 3, E = 4
@@ -24,7 +37,8 @@
 				, _3rd = G +O*4
 				, _2nd = B +O*4
 				, _1st = E +O*5;
-			
+			var frets = [_6th,_5th,_4th,_3rd,_2nd,_1st];
+
 			var __Am    = {base: A +O*3, strings: [-1, 0, 2, 2, 1, 0]};
 			var __Am7   = {base: A +O*3, strings: [-1, 0, 2, 0, 1, 0]};
 			var __A7    = {base: A +O*3, strings: [-1, 0, 2, 0, 2, 0]};
@@ -52,23 +66,49 @@
 
 			var __G     = {base: G +O*3, strings: [ 3, 2, 0, 0, 0, 3]};
 
-			var progression = new Beats([__Am,8,__C,8,__G,16,__Em,32]);
-			
-			var tempo = 120;
+			var progressions = [
+				new Beats([__Am,8,__C,8,__G,16,__Em,32])
+				,new Beats([__Am,16,__C,16,__G,16,__Em,16])
+				,new Beats([__Am,8,__C,8,__G,8,__Em,8])
+			];
+			var progression = progressions[1];
 			
 			var _z = 0;
 			var _V = 1;
 			var _A = 2;
 			var _X = 3;
 			
-			var pattern = new Beats([_V,4,_V,2,_A,4,_A,2,_V,2,_A,2]);
+			var patterns = [
+				new Beats([_V,4,_V,2,_A,4,_A,2,_V,2,_A,2])
+				,new Beats([_V,4,_V,2,_A,2,_V,4,_A,1,_V,1,_A,2])
+				,new Beats([_V,4,_V,2,_A,2,_V,8])
+				];
+			var pattern=patterns[2];
+			
+			var arpeggios = [
+				new Beats([0,2, -1,2, -2,2, -1,1, -2,1])
+				,new Beats([0,2, -3,2, -2,2, -1,2, -2,2, -3,2, -2,2, -1,2])
+			];
+			var arpeggio = arpeggios[0];
+			
+			var drumPatterns = [
+				new Beats([[drum,hat],2, [hat],2, [snare,hat],2, [hat],2, [drum,hat],2, [drum,hat],2, [snare,hat],2, [hat],1, [hat],1])
+			];
+			percussions=drumPatterns[0];
 			
 			var intervalID=0;
 			var nextTickTime = 0;
 			var N = 0;
+			var tempo = 120;
 			
 			player.loader.decodeAfterLoading(audioContext, '_tone_0253_Acoustic_Guitar_sf2_file');
-
+			player.loader.decodeAfterLoading(audioContext, '_tone_0250_Chaos_sf2_file');
+			player.loader.decodeAfterLoading(audioContext, '_tone_0340_Aspirin_sf2_file');
+			
+			player.loader.decodeAfterLoading(audioContext, '_drum_35_0_Chaos_sf2_file');
+			player.loader.decodeAfterLoading(audioContext, '_drum_38_22_FluidR3_GM_sf2_file');
+			player.loader.decodeAfterLoading(audioContext, '_drum_42_26_JCLive_sf2_file');
+			
 			function Beats(arr){
 				this.steps=[];
 				this.duration=0;
@@ -100,7 +140,6 @@
 				};
 				return this;
 			}
-
 			function pitches(frets) {
 				var p = [];
 				if (frets[0] > -1) p.push(_6th + frets[0]);
@@ -121,32 +160,84 @@
 				}
 				return null;
 			}
-			function tick(){
-				if(audioContext.currentTime>nextTickTime-N/8){
-					for(var i=0;i<8;i++){
-						var chord=progression.next();						
-						if(chord){
-							for(var k=0;k<chord.duration;k++){
-								var beat=pattern.next();
-								if(beat){
-									if(beat.element==_V){
-										player.queueStrumDown(audioContext, output, guitar
-											, nextTickTime+(k+i)*N/16
-											, pitches(chord.element.strings), beat.duration*N/16);
-									}else{
-										if(beat.element==_A){
-											player.queueStrumUp(audioContext, output, guitar
-												, nextTickTime+(k+i)*N/16
-												, pitches(chord.element.strings), beat.duration*N/16);
-										}else{
-											if(beat.element==_X){
-												player.queueSnap(audioContext, output, guitar
-													, nextTickTime+(k+i)*N/16
-													, pitches(chord.element.strings), beat.duration*N/16);
-											}
-										}
-									}
+			function playStrumPattern(chord,at){
+				var beat=pattern.next();
+				if(beat){
+					if(beat.element==_V){
+						player.queueStrumDown(audioContext, output, guitar, at, pitches(chord.element.strings), beat.duration*N/16);
+					}else{
+						if(beat.element==_A){
+							player.queueStrumUp(audioContext, output, guitar, at, pitches(chord.element.strings), beat.duration*N/16);
+						}else{
+							if(beat.element==_X){
+								player.queueSnap(audioContext, output, guitar, at, pitches(chord.element.strings), beat.duration*N/16);
+							}
+						}
+					}
+				}
+			}
+			function playArpeggio(chord,at){
+				var string=arpeggio.next();
+				//console.log(chord,shift,string);
+				if(string){
+					var pitch=-1;
+					//console.log(string.element,chord,chord.element.strings.length);
+					if(string.element<0){
+						var counter=0;
+						for(var i=chord.element.strings.length-1;i>=0;i--){
+							if(chord.element.strings[i]>-1){
+								counter--;
+								if(counter==string.element){
+									pitch=frets[i]+chord.element.strings[i];
+									break;
 								}
+							}
+						}
+					}else{
+						var counter=0;
+						//console.log('test',string.element,chord.element.strings);
+						for(var i=0;i<chord.element.strings.length;i++){
+							if(chord.element.strings[i]>-1){
+								if(counter==string.element){
+									pitch=frets[i]+chord.element.strings[i];
+									break;
+								}
+								counter++;
+							}
+						}
+					}
+					
+					if(pitch>-1){
+						player.queueWaveTable(audioContext, output, clean, at, pitch, string.duration*N/16);
+					}
+				}
+			}
+			function playDrums(chord,at){
+				var drums=percussions.next();
+				if(drums){
+					//console.log('drums',drums);
+					for(var i=0;i<drums.element.length;i++){
+						player.queueWaveTable(audioContext, output, drums.element[i], at, drums.element[i].zones[0].keyRangeLow, 2*N/16,1);
+					}
+				}
+			}
+			function tick(){
+				//console.log('tick',nextTickTime);
+				if(audioContext.currentTime>nextTickTime-N/8){
+					//console.log(nextTickTime);
+					for(var i=0;i<8;i++){
+						var chord=progression.next();
+						if(chord){
+							//console.log(chord);
+							for(var k=0;k<chord.duration;k++){
+								//playStrumPattern(chord,nextTickTime+(k+i)*N/16);
+								playArpeggio(chord,nextTickTime+(k+i)*N/16);
+								//console.log('send',bass, nextTickTime+(k+i)*N/16, chord.base, 2*N/16);
+								if((k%2)==0)player.queueWaveTable(audioContext, output, bass, nextTickTime+(k+i)*N/16, chord.element.base-O*1, 2*N/16);
+								playDrums(chord,nextTickTime+(k+i)*N/16);
+								//if((k%2)==0)player.queueWaveTable(audioContext, output, hat, nextTickTime+(k+i)*N/16, 42, 2*N/16);
+								//if((k%8)==0)player.queueWaveTable(audioContext, output, drum, nextTickTime+(k+i)*N/16, 35, 2*N/16,1);
+								//if((k%8)==4)player.queueWaveTable(audioContext, output, snare, nextTickTime+(k+i)*N/16, 38, 2*N/16,1);
 							}
 						}
 
@@ -160,20 +251,19 @@
 			}
 			function startPlay(){
 				cancelPlay();
-				ticker4 = 0;				
+				ticker4 = 0;
 				N=4*60/tempo;
 				nextTickTime = audioContext.currentTime;
 				progression.restart();
 				pattern.restart();
 				tick();
 				intervalID=setInterval(tick, 33);
+				audioContext.resume();
 			}
 			function exportRiff(){
 				console.log('exportRiff');
 			}
-			function randomizeRiff(){
-				console.log('randomizeRiff');
-			}
+
 		</script>
 	</head>
 	<body>
