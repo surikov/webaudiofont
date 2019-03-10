@@ -4,12 +4,26 @@
 		<script src='https://surikov.github.io/webaudiofontdata/sound/0253_Acoustic_Guitar_sf2_file.js'></script>
 		<script src='https://surikov.github.io/webaudiofontdata/sound/0250_Chaos_sf2_file.js'></script>
 		<script src='https://surikov.github.io/webaudiofontdata/sound/0340_Aspirin_sf2_file.js'></script>
+
+		<script src="https://surikov.github.io/webaudiofontdata/sound/0300_LesPaul_sf2_file.js"></script>
+		<script src="https://surikov.github.io/webaudiofontdata/sound/0280_LesPaul_sf2_file.js"></script>
 		
 		<script src='https://surikov.github.io/webaudiofontdata/sound/12835_0_Chaos_sf2_file.js'></script>
 		<script src='https://surikov.github.io/webaudiofontdata/sound/12838_22_FluidR3_GM_sf2_file.js'></script>
 		<script src='https://surikov.github.io/webaudiofontdata/sound/12842_26_JCLive_sf2_file.js'></script>
 		<script>
+			var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
+			var audioContext = new AudioContextFunc();
+
+			var player = new WebAudioFontPlayer();
+			var reverberator = player.createReverberator(audioContext);	
+			reverberator.output.connect(audioContext.destination);
+
 			var guitar = _tone_0253_Acoustic_Guitar_sf2_file;
+			var channelGuitar = player.createChannel(audioContext);
+			channelGuitar.output.connect(reverberator.input);
+			console.log(channelGuitar.output);
+			channelGuitar.output.gain.setValueAtTime(0.5, audioContext.currentTime);
 			//console.log(_tone_0253_Acoustic_Guitar_sf2_file);
 			/*for(var i=0;i<_tone_0253_Acoustic_Guitar_sf2_file.zones.length;i++){
 				_tone_0253_Acoustic_Guitar_sf2_file.zones[i].originalPitch=_tone_0253_Acoustic_Guitar_sf2_file.zones[i].originalPitch-100;
@@ -17,12 +31,34 @@
 			var drum=_drum_35_0_Chaos_sf2_file;
 			var snare=_drum_38_22_FluidR3_GM_sf2_file;
 			var hat=_drum_42_26_JCLive_sf2_file;
+			var channelDrums = player.createChannel(audioContext);
+			channelDrums.output.connect(reverberator.input);	
+			channelDrums.output.gain.setValueAtTime(0.5, audioContext.currentTime);
+
+			
 			var bass=_tone_0340_Aspirin_sf2_file;
+			var channelBass = player.createChannel(audioContext);
+			channelBass.output.connect(reverberator.input);
+			channelBass.output.gain.setValueAtTime(0.5, audioContext.currentTime);
+
 			var clean=_tone_0250_Chaos_sf2_file;
-			var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
-			var audioContext = new AudioContextFunc();
-			var output = audioContext.destination;
-			var player = new WebAudioFontPlayer();
+			var channelClean = player.createChannel(audioContext);
+			channelClean.output.connect(reverberator.input);
+			channelClean.output.gain.setValueAtTime(0.5, audioContext.currentTime);
+
+			var drive=_tone_0300_LesPaul_sf2_file;
+			var palm=_tone_0280_LesPaul_sf2_file;
+			var channelDrive = player.createChannel(audioContext);
+			channelDrive.output.connect(reverberator.input);
+			channelDrive.output.gain.setValueAtTime(0.5, audioContext.currentTime);
+
+
+			
+
+			
+			
+			//var output = reverberator.input;
+
 			var C = 0, Cs = 1
 				, Db = 1, D = 2, Ds = 3
 				, Eb = 3, E = 4
@@ -31,47 +67,49 @@
 				, Ab = 8, A = 9, As = 10
 				, Bb = 10, B = 11;
 			var O = 12;
-			var _6th = E +O*3
-				, _5th = A +O*3
-				, _4th = D +O*4
-				, _3rd = G +O*4
-				, _2nd = B +O*4
-				, _1st = E +O*5;
-			var frets = [_6th,_5th,_4th,_3rd,_2nd,_1st];
+			var __6th = E +O*3
+				, __5th = A +O*3
+				, __4th = D +O*4
+				, __3rd = G +O*4
+				, __2nd = B +O*4
+				, __1st = E +O*5;
+			var stringFrets = [__6th,__5th,__4th,__3rd,__2nd,__1st];
 
-			var __Am    = {base: A +O*3, strings: [-1, 0, 2, 2, 1, 0]};
-			var __Am7   = {base: A +O*3, strings: [-1, 0, 2, 0, 1, 0]};
-			var __A7    = {base: A +O*3, strings: [-1, 0, 2, 0, 2, 0]};
-			var __A     = {base: A +O*3, strings: [-1, 0, 2, 2, 2, 0]};
+			var __Am    = {base: A +O*2, strings: [-1, 0, 2, 2, 1, 0]};
+			var __Am7   = {base: A +O*2, strings: [-1, 0, 2, 0, 1, 0]};
+			var __A7    = {base: A +O*2, strings: [-1, 0, 2, 0, 2, 0]};
+			var __A     = {base: A +O*2, strings: [-1, 0, 2, 2, 2, 0]};
 
-			var __Bm7   = {base: B +O*3, strings: [-1, 2, 0, 2, 0, 2]};
-			var __B7    = {base: B +O*3, strings: [-1, 2, 1, 2, 0, 2]};
+			var __Bm7   = {base: B +O*2, strings: [-1, 2, 0, 2, 0, 2]};
+			var __B7    = {base: B +O*2, strings: [-1, 2, 1, 2, 0, 2]};
 
-			var __C     = {base: C +O*4, strings: [-1, 3, 2, 0, 1, 0]};
-			var __Cmaj7 = {base: C +O*4, strings: [-1, 3, 2, 0, 0, 0]};
-			var __C2    = {base: C +O*4, strings: [-1, 3, 2, 0, 3, 0]};
+			var __C     = {base: C +O*3, strings: [-1, 3, 2, 0, 1, 0]};
+			var __Cmaj7 = {base: C +O*3, strings: [-1, 3, 2, 0, 0, 0]};
+			var __C2    = {base: C +O*3, strings: [-1, 3, 2, 0, 3, 0]};
 
-			var __Dm    = {base: D +O*3, strings: [-1,-1, 0, 2, 3, 1]};
-			var __D     = {base: D +O*3, strings: [-1,-1, 0, 2, 3, 2]};
-			var __D7    = {base: D +O*3, strings: [-1,-1, 0, 2, 3, 2]};
-			var __Dsus2 = {base: D +O*3, strings: [-1,-1, 0, 2, 3, 0]};
+			var __Dm    = {base: D +O*2, strings: [-1,-1, 0, 2, 3, 1]};
+			var __D     = {base: D +O*2, strings: [-1,-1, 0, 2, 3, 2]};
+			var __D7    = {base: D +O*2, strings: [-1,-1, 0, 2, 3, 2]};
+			var __Dsus2 = {base: D +O*2, strings: [-1,-1, 0, 2, 3, 0]};
 
-			var __E     = {base: E +O*3, strings: [ 0, 2, 2, 1, 0, 0]};
-			var __Em    = {base: E +O*3, strings: [ 0, 2, 2, 0, 0, 0]};
-			var __Em7   = {base: E +O*3, strings: [ 0, 2, 0, 0, 0, 0]};
-			var __E7    = {base: E +O*3, strings: [ 0, 2, 0, 1, 0, 0]};
+			var __E     = {base: E +O*2, strings: [ 0, 2, 2, 1, 0, 0]};
+			var __Em    = {base: E +O*2, strings: [ 0, 2, 2, 0, 0, 0]};
+			var __Em7   = {base: E +O*2, strings: [ 0, 2, 0, 0, 0, 0]};
+			var __E7    = {base: E +O*2, strings: [ 0, 2, 0, 1, 0, 0]};
 
-			var __F     = {base: F +O*3, strings: [-1,-1, 3, 2, 1, 1]};
-			var __Fmaj7 = {base: F +O*3, strings: [-1,-1, 3, 2, 1, 0]};
+			var __F     = {base: F +O*2, strings: [-1,-1, 3, 2, 1, 1]};
+			var __Fmaj7 = {base: F +O*2, strings: [-1,-1, 3, 2, 1, 0]};
 
-			var __G     = {base: G +O*3, strings: [ 3, 2, 0, 0, 0, 3]};
+			var __G     = {base: G +O*2, strings: [ 3, 2, 0, 0, 0, 3]};
+
+			var chords = [__Am,__Am7,__A7,__A, __Bm7,__B7, __C,__Cmaj7,__C2, __Dm,__D,__D7,__Dsus2, __E,__Em,__Em7,__E7, __F,__Fmaj7, __G];
 
 			var progressions = [
 				new Beats([__Am,8,__C,8,__G,16,__Em,32])
 				,new Beats([__Am,16,__C,16,__G,16,__Em,16])
 				,new Beats([__Am,8,__C,8,__G,8,__Em,8])
 			];
-			var progression = progressions[1];
+			var progression = new Beats([__Am,8,__E7,8,__Am,8,__Am,8,__C,8,__G,8,__C,8,__C,8,__Dm,8,__Dm,8,__Am,8,__Am,8,__E,8,__E,8,__Am,8,__Am,8])
 			
 			var _z = 0;
 			var _V = 1;
@@ -79,11 +117,29 @@
 			var _X = 3;
 			
 			var patterns = [
-				new Beats([_V,4,_V,2,_A,4,_A,2,_V,2,_A,2])
-				,new Beats([_V,4,_V,2,_A,2,_V,4,_A,1,_V,1,_A,2])
-				,new Beats([_V,4,_V,2,_A,2,_V,8])
+				new Beats([_V,4,      _V,2,_A,2,_V,8               ])
+
+				,new Beats([_V,8,               _A,8               ])
+				,new Beats([_V,6,          _A,2])
+				,new Beats([_V,4,     _V,2,_z,4,     _A,4,     _A,2])
+				,new Beats([_V,4,     _V,2,_A,4,     _A,2,_V,2,_A,2])//4
+				,new Beats([_V,4,     _X,2,_A,6,          _X,2,_z,2])
+				,new Beats([_V,2,_A,2,_V,2,_A,2,_z,8               ])//6
+				,new Beats([_X,2,_X,2,_V,2,_A,2])//7
+				,new Beats([_V,2,_A,2,_V,2,_A,2,_z,2,_V,2,_A,2,_z,2])//8
+				,new Beats([_V,2,_A,2,_A,2,_V,4,     _A,2,_V,2,_A,2])//9
+				,new Beats([_V,2,_z,2,_V,2,_A,2,_z,2,_A,2,_z,2,_A,2])
+				,new Beats([_V,2,_A,2,_V,2,_A,4,     _V,4,     _A,2])
+				,new Beats([_V,2,_A,2,_V,2,_A,4,     _X,2,_A,2,_X,2])
+				,new Beats([_X,2,_A,2,_X,2,_A,2,_V,2,_X,2,_V,2,_X,2])
+				,new Beats([_V,2,_A,2])
+				,new Beats([_V,2,_A,4,     _A,4,     _A,4,     _A,2,_V,2,_A,2,_z,2,_A,2,_z,2,_V,2,_A,2,_z,2])//15
+				,new Beats([_V,6,          _A,2,_z,4,     _V,2,_z,4,     _A,2,_V,2,_z,2,_V,2,_A,2,_z,2,_A,2])//16
+				,new Beats([_V,2,_A,2,_X,2,_A,2,_V,2,_X,2,_V,2,_A,2,_X,2,_A,2,_V,2,_X,2,_V,2,_A,2,_X,2,_X,2])
+				,new Beats([_V,2,     _V,1,_A,1,_V,1,_A,1,_V,2,     _V,2,     _V,1,_A,1,_V,1,_A,3])
+				,new Beats([_V,2,     _V,1,_A,2,     _V,1,_A,2,     _V,2,     _V,1,_A,1,_V,2,     _V,1,_A,1])
 				];
-			var pattern=patterns[2];
+			var pattern=patterns[0];
 			
 			var arpeggios = [
 				new Beats([0,2, -1,2, -2,2, -1,1, -2,1])
@@ -93,8 +149,26 @@
 			
 			var drumPatterns = [
 				new Beats([[drum,hat],2, [hat],2, [snare,hat],2, [hat],2, [drum,hat],2, [drum,hat],2, [snare,hat],2, [hat],1, [hat],1])
+				,new Beats([[drum],2, [hat],2, [drum,snare],2, [hat],2])
+				,new Beats([[drum,hat],4, [snare,hat],4, [drum,hat],4, [snare,hat],2, [drum],2])
 			];
 			percussions=drumPatterns[0];
+
+			var bassPatterns = [
+				new Beats([0,2, 0,2, 0,2, 7,2])
+				,new Beats([ 0,2, 12,2])
+				,new Beats([ 0,2, 0,2, 0,2, 0,2, 0,2, 5,2, 7,2, 5,2])
+				,new Beats([ 0,4,     -1,6,           0,2, 7,2, 5,2])
+				,new Beats([12,4,      7,4,     12,2, 7,2, 9,2,10,2])
+			];
+			bassPattern=bassPatterns[0];
+
+			var distortionPatterns = [
+				new Beats([ [2,[0,7]],8, [0,[0,7]],2, [1,[0,7]],2, [1,[0,7]],2, [1,[0,7]],2 ])
+				,new Beats([ [2,[0]],6, [1,[0]],6, [2,[0]],6, [1,[0]],6, [1,[0]],4, [1,[0]],4 ])
+				,new Beats([ [2,[0]],4, [1,[2]],2, [2,[0]],4, [1,[2]],2, [1,[0]],2, [1,[2]],2 ])
+			];
+			overPattern=distortionPatterns[0];
 			
 			var intervalID=0;
 			var nextTickTime = 0;
@@ -104,6 +178,9 @@
 			player.loader.decodeAfterLoading(audioContext, '_tone_0253_Acoustic_Guitar_sf2_file');
 			player.loader.decodeAfterLoading(audioContext, '_tone_0250_Chaos_sf2_file');
 			player.loader.decodeAfterLoading(audioContext, '_tone_0340_Aspirin_sf2_file');
+
+			player.loader.decodeAfterLoading(audioContext, '_tone_0300_LesPaul_sf2_file');
+			player.loader.decodeAfterLoading(audioContext, '_tone_0280_LesPaul_sf2_file');
 			
 			player.loader.decodeAfterLoading(audioContext, '_drum_35_0_Chaos_sf2_file');
 			player.loader.decodeAfterLoading(audioContext, '_drum_38_22_FluidR3_GM_sf2_file');
@@ -142,12 +219,18 @@
 			}
 			function pitches(frets) {
 				var p = [];
-				if (frets[0] > -1) p.push(_6th + frets[0]);
+				/*if (frets[0] > -1) p.push(_6th + frets[0]);
 				if (frets[1] > -1) p.push(_5th + frets[1]);
 				if (frets[2] > -1) p.push(_4th + frets[2]);
 				if (frets[3] > -1) p.push(_3rd + frets[3]);
 				if (frets[4] > -1) p.push(_2nd + frets[4]);
 				if (frets[5] > -1) p.push(_1st + frets[5]);
+				*/
+				for(var i=0;i<stringFrets.length;i++){
+					if(frets[i]>-1){
+						p.push(stringFrets[i] + frets[i]);
+					}
+				}
 				return p;
 			}
 			function patternStepAt(n){
@@ -164,13 +247,13 @@
 				var beat=pattern.next();
 				if(beat){
 					if(beat.element==_V){
-						player.queueStrumDown(audioContext, output, guitar, at, pitches(chord.element.strings), beat.duration*N/16);
+						player.queueStrumDown(audioContext, channelGuitar.input, guitar, at, pitches(chord.element.strings), beat.duration*N/16);
 					}else{
 						if(beat.element==_A){
-							player.queueStrumUp(audioContext, output, guitar, at, pitches(chord.element.strings), beat.duration*N/16);
+							player.queueStrumUp(audioContext, channelGuitar.input, guitar, at, pitches(chord.element.strings), beat.duration*N/16);
 						}else{
 							if(beat.element==_X){
-								player.queueSnap(audioContext, output, guitar, at, pitches(chord.element.strings), beat.duration*N/16);
+								player.queueSnap(audioContext, channelGuitar.input, guitar, at, pitches(chord.element.strings), beat.duration*N/16);
 							}
 						}
 					}
@@ -188,7 +271,7 @@
 							if(chord.element.strings[i]>-1){
 								counter--;
 								if(counter==string.element){
-									pitch=frets[i]+chord.element.strings[i];
+									pitch=stringFrets[i]+chord.element.strings[i];
 									break;
 								}
 							}
@@ -199,7 +282,7 @@
 						for(var i=0;i<chord.element.strings.length;i++){
 							if(chord.element.strings[i]>-1){
 								if(counter==string.element){
-									pitch=frets[i]+chord.element.strings[i];
+									pitch=stringFrets[i]+chord.element.strings[i];
 									break;
 								}
 								counter++;
@@ -208,16 +291,38 @@
 					}
 					
 					if(pitch>-1){
-						player.queueWaveTable(audioContext, output, clean, at, pitch, string.duration*N/16);
+						player.queueWaveTable(audioContext, channelClean.input, clean, at, pitch, string.duration*N/16);
 					}
 				}
 			}
 			function playDrums(chord,at){
 				var drums=percussions.next();
 				if(drums){
-					//console.log('drums',drums);
+					
 					for(var i=0;i<drums.element.length;i++){
-						player.queueWaveTable(audioContext, output, drums.element[i], at, drums.element[i].zones[0].keyRangeLow, 2*N/16,1);
+						//console.log('drums',drums.element[i].zones[0].keyRangeLow);
+						player.queueWaveTable(audioContext, channelDrums.input, drums.element[i], at, drums.element[i].zones[0].keyRangeLow, 2*N/16,1);
+					}
+				}
+			}
+			function playDistortion(chord,at){
+				var q=overPattern.next();
+				if(q && q.element[0]){
+					var ins=drive;
+					if(q.element[0]==1){
+						ins=palm;
+					}
+					for(var i=0;i<q.element[1].length;i++){
+						player.queueWaveTable(audioContext, channelDrive.input, ins, at, 12+chord.element.base+q.element[1][i], q.duration*N/16,0.5);
+					}
+				}
+			}
+			function playBass(chord,at){
+				var b=bassPattern.next();
+				if(b){
+					//console.log(chord.element.base,b.element);
+					if(b.element>-1){
+						player.queueWaveTable(audioContext, channelBass.input, bass, at, chord.element.base+b.element, b.duration*N/16,0.7);
 					}
 				}
 			}
@@ -230,14 +335,14 @@
 						if(chord){
 							//console.log(chord);
 							for(var k=0;k<chord.duration;k++){
-								//playStrumPattern(chord,nextTickTime+(k+i)*N/16);
+								playStrumPattern(chord,nextTickTime+(k+i)*N/16);
 								playArpeggio(chord,nextTickTime+(k+i)*N/16);
-								//console.log('send',bass, nextTickTime+(k+i)*N/16, chord.base, 2*N/16);
-								if((k%2)==0)player.queueWaveTable(audioContext, output, bass, nextTickTime+(k+i)*N/16, chord.element.base-O*1, 2*N/16);
+								
+								
 								playDrums(chord,nextTickTime+(k+i)*N/16);
-								//if((k%2)==0)player.queueWaveTable(audioContext, output, hat, nextTickTime+(k+i)*N/16, 42, 2*N/16);
-								//if((k%8)==0)player.queueWaveTable(audioContext, output, drum, nextTickTime+(k+i)*N/16, 35, 2*N/16,1);
-								//if((k%8)==4)player.queueWaveTable(audioContext, output, snare, nextTickTime+(k+i)*N/16, 38, 2*N/16,1);
+								playBass(chord,nextTickTime+(k+i)*N/16);
+								playDistortion(chord,nextTickTime+(k+i)*N/16);
+
 							}
 						}
 
@@ -267,10 +372,255 @@
 		</script>
 	</head>
 	<body>
-		<button onclick='randomizeRiff()'>Randomize</button>
-		<button onclick='exportRiff()'>Pianoroll Editor/Export MIDI</button>
-		<button onclick='startPlay()'>Play</button>
-		<button onclick='cancelPlay()'>Stop</button>
+		
+		
+		<p>Tempo
+			<!--<select onchange="tempo=1*this.value;N=4*60/tempo">
+				<option value="90">Slow</option>
+				<option value="120" selected>Normal</option>
+				<option value="150">Fast</option>
+			</select>-->
+			<input type="range" min="90" max="150" step="30" value="120" onchange="tempo=1*this.value;N=4*60/tempo">
+		</p>
+		<p>Progression</p>
+		<p>
+			<select onchange="pattern=setChord(0,1*this.value)">
+				<option value="-1">-</option>
+				<option value="0">Am</option><option value="1">Am7</option><option value="2">A7</option><option value="3">A</option>
+				<option value="4">Bm7</option><option value="5">B7</option>
+				<option value="6">C</option><option value="7">Cmaj7</option><option value="8">C2</option>
+				<option value="9">Dm</option><option value="10">D</option><option value="11">D7</option><option value="12">Dsus2</option>
+				<option value="13">E</option><option value="14">Em</option><option value="15">Em7</option><option value="16">E7</option>
+				<option value="17">F</option><option value="18">Fmaj7</option>
+				<option value="19">G</option>
+			</select>
+			<select onchange="pattern=setChord(1,1*this.value)">
+				<option value="-1">-</option>
+				<option value="0">Am</option><option value="1">Am7</option><option value="2">A7</option><option value="3">A</option>
+				<option value="4">Bm7</option><option value="5">B7</option>
+				<option value="6">C</option><option value="7">Cmaj7</option><option value="8">C2</option>
+				<option value="9">Dm</option><option value="10">D</option><option value="11">D7</option><option value="12">Dsus2</option>
+				<option value="13">E</option><option value="14">Em</option><option value="15">Em7</option><option value="16">E7</option>
+				<option value="17">F</option><option value="18">Fmaj7</option>
+				<option value="19">G</option>
+			</select>
+			<select onchange="pattern=setChord(2,1*this.value)">
+				<option value="-1">-</option>
+				<option value="0">Am</option><option value="1">Am7</option><option value="2">A7</option><option value="3">A</option>
+				<option value="4">Bm7</option><option value="5">B7</option>
+				<option value="6">C</option><option value="7">Cmaj7</option><option value="8">C2</option>
+				<option value="9">Dm</option><option value="10">D</option><option value="11">D7</option><option value="12">Dsus2</option>
+				<option value="13">E</option><option value="14">Em</option><option value="15">Em7</option><option value="16">E7</option>
+				<option value="17">F</option><option value="18">Fmaj7</option>
+				<option value="19">G</option>
+			</select>
+			<select onchange="pattern=setChord(3,1*this.value)">
+				<option value="-1">-</option>
+				<option value="0">Am</option><option value="1">Am7</option><option value="2">A7</option><option value="3">A</option>
+				<option value="4">Bm7</option><option value="5">B7</option>
+				<option value="6">C</option><option value="7">Cmaj7</option><option value="8">C2</option>
+				<option value="9">Dm</option><option value="10">D</option><option value="11">D7</option><option value="12">Dsus2</option>
+				<option value="13">E</option><option value="14">Em</option><option value="15">Em7</option><option value="16">E7</option>
+				<option value="17">F</option><option value="18">Fmaj7</option>
+				<option value="19">G</option>
+			</select>
+			<select onchange="pattern=setChord(4,1*this.value)">
+				<option value="-1">-</option>
+				<option value="0">Am</option><option value="1">Am7</option><option value="2">A7</option><option value="3">A</option>
+				<option value="4">Bm7</option><option value="5">B7</option>
+				<option value="6">C</option><option value="7">Cmaj7</option><option value="8">C2</option>
+				<option value="9">Dm</option><option value="10">D</option><option value="11">D7</option><option value="12">Dsus2</option>
+				<option value="13">E</option><option value="14">Em</option><option value="15">Em7</option><option value="16">E7</option>
+				<option value="17">F</option><option value="18">Fmaj7</option>
+				<option value="19">G</option>
+			</select>
+			<select onchange="pattern=setChord(5,1*this.value)">
+				<option value="-1">-</option>
+				<option value="0">Am</option><option value="1">Am7</option><option value="2">A7</option><option value="3">A</option>
+				<option value="4">Bm7</option><option value="5">B7</option>
+				<option value="6">C</option><option value="7">Cmaj7</option><option value="8">C2</option>
+				<option value="9">Dm</option><option value="10">D</option><option value="11">D7</option><option value="12">Dsus2</option>
+				<option value="13">E</option><option value="14">Em</option><option value="15">Em7</option><option value="16">E7</option>
+				<option value="17">F</option><option value="18">Fmaj7</option>
+				<option value="19">G</option>
+			</select>
+			<select onchange="pattern=setChord(6,1*this.value)">
+				<option value="-1">-</option>
+				<option value="0">Am</option><option value="1">Am7</option><option value="2">A7</option><option value="3">A</option>
+				<option value="4">Bm7</option><option value="5">B7</option>
+				<option value="6">C</option><option value="7">Cmaj7</option><option value="8">C2</option>
+				<option value="9">Dm</option><option value="10">D</option><option value="11">D7</option><option value="12">Dsus2</option>
+				<option value="13">E</option><option value="14">Em</option><option value="15">Em7</option><option value="16">E7</option>
+				<option value="17">F</option><option value="18">Fmaj7</option>
+				<option value="19">G</option>
+			</select>
+			<select onchange="pattern=setChord(7,1*this.value)">
+				<option value="-1">-</option>
+				<option value="0">Am</option><option value="1">Am7</option><option value="2">A7</option><option value="3">A</option>
+				<option value="4">Bm7</option><option value="5">B7</option>
+				<option value="6">C</option><option value="7">Cmaj7</option><option value="8">C2</option>
+				<option value="9">Dm</option><option value="10">D</option><option value="11">D7</option><option value="12">Dsus2</option>
+				<option value="13">E</option><option value="14">Em</option><option value="15">Em7</option><option value="16">E7</option>
+				<option value="17">F</option><option value="18">Fmaj7</option>
+				<option value="19">G</option>
+			</select>
+		</p>
+		<p>
+			<select onchange="pattern=setChord(8,1*this.value)">
+				<option value="-1">-</option>
+				<option value="0">Am</option><option value="1">Am7</option><option value="2">A7</option><option value="3">A</option>
+				<option value="4">Bm7</option><option value="5">B7</option>
+				<option value="6">C</option><option value="7">Cmaj7</option><option value="8">C2</option>
+				<option value="9">Dm</option><option value="10">D</option><option value="11">D7</option><option value="12">Dsus2</option>
+				<option value="13">E</option><option value="14">Em</option><option value="15">Em7</option><option value="16">E7</option>
+				<option value="17">F</option><option value="18">Fmaj7</option>
+				<option value="19">G</option>
+			</select>
+			<select onchange="pattern=setChord(9,1*this.value)">
+				<option value="-1">-</option>
+				<option value="0">Am</option><option value="1">Am7</option><option value="2">A7</option><option value="3">A</option>
+				<option value="4">Bm7</option><option value="5">B7</option>
+				<option value="6">C</option><option value="7">Cmaj7</option><option value="8">C2</option>
+				<option value="9">Dm</option><option value="10">D</option><option value="11">D7</option><option value="12">Dsus2</option>
+				<option value="13">E</option><option value="14">Em</option><option value="15">Em7</option><option value="16">E7</option>
+				<option value="17">F</option><option value="18">Fmaj7</option>
+				<option value="19">G</option>
+			</select>
+			<select onchange="pattern=setChord(10,1*this.value)">
+				<option value="-1">-</option>
+				<option value="0">Am</option><option value="1">Am7</option><option value="2">A7</option><option value="3">A</option>
+				<option value="4">Bm7</option><option value="5">B7</option>
+				<option value="6">C</option><option value="7">Cmaj7</option><option value="8">C2</option>
+				<option value="9">Dm</option><option value="10">D</option><option value="11">D7</option><option value="12">Dsus2</option>
+				<option value="13">E</option><option value="14">Em</option><option value="15">Em7</option><option value="16">E7</option>
+				<option value="17">F</option><option value="18">Fmaj7</option>
+				<option value="19">G</option>
+			</select>
+			<select onchange="pattern=setChord(11,1*this.value)">
+				<option value="-1">-</option>
+				<option value="0">Am</option><option value="1">Am7</option><option value="2">A7</option><option value="3">A</option>
+				<option value="4">Bm7</option><option value="5">B7</option>
+				<option value="6">C</option><option value="7">Cmaj7</option><option value="8">C2</option>
+				<option value="9">Dm</option><option value="10">D</option><option value="11">D7</option><option value="12">Dsus2</option>
+				<option value="13">E</option><option value="14">Em</option><option value="15">Em7</option><option value="16">E7</option>
+				<option value="17">F</option><option value="18">Fmaj7</option>
+				<option value="19">G</option>
+			</select>
+			<select onchange="pattern=setChord(12,1*this.value)">
+				<option value="-1">-</option>
+				<option value="0">Am</option><option value="1">Am7</option><option value="2">A7</option><option value="3">A</option>
+				<option value="4">Bm7</option><option value="5">B7</option>
+				<option value="6">C</option><option value="7">Cmaj7</option><option value="8">C2</option>
+				<option value="9">Dm</option><option value="10">D</option><option value="11">D7</option><option value="12">Dsus2</option>
+				<option value="13">E</option><option value="14">Em</option><option value="15">Em7</option><option value="16">E7</option>
+				<option value="17">F</option><option value="18">Fmaj7</option>
+				<option value="19">G</option>
+			</select>
+			<select onchange="pattern=setChord(16,1*this.value)">
+				<option value="-1">-</option>
+				<option value="0">Am</option><option value="1">Am7</option><option value="2">A7</option><option value="3">A</option>
+				<option value="4">Bm7</option><option value="5">B7</option>
+				<option value="6">C</option><option value="7">Cmaj7</option><option value="8">C2</option>
+				<option value="9">Dm</option><option value="10">D</option><option value="11">D7</option><option value="12">Dsus2</option>
+				<option value="13">E</option><option value="14">Em</option><option value="15">Em7</option><option value="16">E7</option>
+				<option value="17">F</option><option value="18">Fmaj7</option>
+				<option value="19">G</option>
+			</select>
+			<select onchange="pattern=setChord(14,1*this.value)">
+				<option value="-1">-</option>
+				<option value="0">Am</option><option value="1">Am7</option><option value="2">A7</option><option value="3">A</option>
+				<option value="4">Bm7</option><option value="5">B7</option>
+				<option value="6">C</option><option value="7">Cmaj7</option><option value="8">C2</option>
+				<option value="9">Dm</option><option value="10">D</option><option value="11">D7</option><option value="12">Dsus2</option>
+				<option value="13">E</option><option value="14">Em</option><option value="15">Em7</option><option value="16">E7</option>
+				<option value="17">F</option><option value="18">Fmaj7</option>
+				<option value="19">G</option>
+			</select>
+			<select onchange="pattern=setChord(15,1*this.value)">
+				<option value="-1">-</option>
+				<option value="0">Am</option><option value="1">Am7</option><option value="2">A7</option><option value="3">A</option>
+				<option value="4">Bm7</option><option value="5">B7</option>
+				<option value="6">C</option><option value="7">Cmaj7</option><option value="8">C2</option>
+				<option value="9">Dm</option><option value="10">D</option><option value="11">D7</option><option value="12">Dsus2</option>
+				<option value="13">E</option><option value="14">Em</option><option value="15">Em7</option><option value="16">E7</option>
+				<option value="17">F</option><option value="18">Fmaj7</option>
+				<option value="19">G</option>
+			</select>
+		</p>
+		<p>load from
+			<select>
+				<option value="0">Amaj7-ftg-e-err</option>
+				<option value="1">Dm-gvb-s-s-f-f</option>
+				<option value="2">E7-r-g-s-r</option>
+				<option value="3">G-rfgv-rf-gb-r-gr</option>
+			</select>
+		</p>
+		<p>
+			Accompaniment
+		</p>
+		<p>
+			<select onchange="pattern=patterns[1*this.value]">
+				<option value="0" selected>Strum 0</option>
+				<option value="1">Strum 1</option>
+				<option value="2">Strum 2</option>
+				<option value="3">Strum 3</option>
+				<option value="4">Strum 4</option>
+				<option value="5">Strum 5</option>
+				<option value="6">Strum 6</option>
+				<option value="7">Strum 7</option>
+				<option value="8">Strum 8</option>
+				<option value="9">Strum 9</option>
+				<option value="10">Strum 10</option>
+				<option value="11">Strum 11</option>
+				<option value="12">Strum 12</option>
+				<option value="13">Strum 13</option>
+				<option value="14">Strum 14</option>
+				<option value="15">Strum 15</option>
+				<option value="16">Strum 16</option>
+				<option value="17">Strum 17</option>
+				<option value="18">Strum 18</option>
+			</select>
+			<input type="range" min="0" max="1" step="0.1" value="0.5" onchange="channelGuitar.output.gain.setValueAtTime(1*this.value, audioContext.currentTime)">
+		</p>
+		<p>
+			<select onchange="arpeggio = arpeggios[1*this.value]">
+				<option value="0" selected>Arpeggio 0</option>
+				<option value="1">Arpeggio 1</option>
+			</select>
+			<input type="range" min="0" max="1" step="0.1" value="0.5" onchange="channelClean.output.gain.setValueAtTime(1*this.value, audioContext.currentTime)">
+		</p><p>
+			<select onchange="percussions=drumPatterns[1*this.value]">
+				<option value="0" selected>Drum 0</option>
+				<option value="1">Drum 1</option>
+				<option value="2">Drum 2</option>
+			</select>
+			<input type="range" min="0" max="1" step="0.1" value="0.5" onchange="channelDrums.output.gain.setValueAtTime(1*this.value, audioContext.currentTime)">
+		</p><p>
+			<select onchange="bassPattern=bassPatterns[1*this.value]">
+				<option value="0" selected>Bass 0</option>
+				<option value="1">Bass 1</option>
+				<option value="2">Bass 2</option>
+				<option value="3">Bass 3</option>
+				<option value="4">Bass 4</option>
+			</select>
+			<input type="range" min="0" max="1" step="0.1" value="0.5" onchange="channelBass.output.gain.setValueAtTime(1*this.value, audioContext.currentTime)">
+		</p><p>
+			<select onchange="overPattern=distortionPatterns[1*this.value]">
+				<option value="0" selected>Overdrive 0</option>
+				<option value="1">Overdrive 1</option>
+				<option value="2">Overdrive 3</option>
+			</select>
+			<input type="range" min="0" max="1" step="0.1" value="0.5" onchange="channelDrive.output.gain.setValueAtTime(1*this.value, audioContext.currentTime)">
+		</p>
+		<p>
+			Control
+		</p>
+		<p>
+			<button onclick='startPlay()'>Play</button>
+			<button onclick='cancelPlay()'>Stop</button>
+			<button onclick='randomizeRiff()'>Randomize</button>
+			<button onclick='exportRiff()'>Pianoroll Editor/Export MIDI</button>
+		</p>
 		<hr/>
 		<p><a href="https://surikov.github.io/webaudiofont/">source</a></p>
 	</body>
