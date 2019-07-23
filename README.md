@@ -41,6 +41,7 @@ You can choose from thousands of instrument, see [Catalog](#catalog-of-instrumen
   - [Custom samples](#custom-samples)
 - [Installation](#installation)
   - for [ReactJS](#reactjs)
+  - for [TypeScript](#typescript)
 - [Parts of WebAudioFont](#parts-of-webaudiofont)
   - [Catalog of instruments](#catalog-of-instruments)
   - [Player](#player)
@@ -382,6 +383,10 @@ Feel free to ask for any kind of help at [project issues](https://github.com/sur
 ## ReactJS
 
 See [ReactJS implementation](https://www.npmjs.com/package/midi-sounds-react).
+
+## TypeScript
+
+See [TypeScript implementation](https://github.com/yw662/webaudiofont-ts).
 
 ### License
 
