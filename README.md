@@ -42,6 +42,7 @@ You can choose from thousands of instrument, see [Catalog](#catalog-of-instrumen
 - [Installation](#installation)
   - for [ReactJS](#reactjs)
   - for [TypeScript](#typescript)
+- [Reference](https://github.com/surikov/webaudiofont/wiki)
 - [Parts of WebAudioFont](#parts-of-webaudiofont)
   - [Catalog of instruments](#catalog-of-instruments)
   - [Player](#player)
