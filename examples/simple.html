@@ -8,10 +8,18 @@
 			var audioContext = new AudioContextFunc();
 			var player=new WebAudioFontPlayer();
 			player.loader.decodeAfterLoading(audioContext, '_tone_0000_JCLive_sf2_file');
+			var clickCOunt=0;
+			function playStart(){
+				player.queueWaveTable(audioContext, audioContext.destination, selectedPreset, 0, 55, 3.5);
+				clickCOunt++;
+				console.log(clickCOunt);
+				console.log(audioContext);
+				console.log(selectedPreset);
+			}
 		</script>
 	</head>
 	<body>
-		<p><a href="#" onmousedown="player.queueWaveTable(audioContext, audioContext.destination, selectedPreset, 0, 55, 3.5);">Play a note</a></p>
+		<p><a href="#" onmousedown="playStart();">Play a note</a></p>
 		<hr/>
 		<p><a href="https://surikov.github.io/webaudiofont/">source</a></p>
 	</body>
