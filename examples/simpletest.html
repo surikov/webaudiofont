@@ -227,16 +227,20 @@
 			var audioContext = new AudioContextFunc();
 			var clickCOunt=0;
 			function playStart(){
-				queueWaveTable(audioContext, audioContext.destination, selectedPreset, 0, 55, 3.5);
 				clickCOunt++;
 				console.log(clickCOunt);
-				console.log(audioContext);
-				console.log(selectedPreset);
+				console.log(audioContext.state);
+				console.log(audioContext.currentTime);
+				console.log(audioContext.baseLatency);
+				for(var i=0;i<selectedPreset.zones.length;i++){
+					console.log(''+i+': '+selectedPreset.zones[i].sample.length);
+				}
+				queueWaveTable(audioContext, audioContext.destination, selectedPreset, 0, 55, 3.5);
 			}
 		</script>
 	</head>
 	<body>
-		<h1><a href="#" onmousedown="playStart();">Test</a></h1>
+		<h1><a href="#" onmousedown="playStart();">Test 2</a></h1>
 		<hr/>
 		<p><a href="https://surikov.github.io/webaudiofont/">source</a></p>
 	</body>
