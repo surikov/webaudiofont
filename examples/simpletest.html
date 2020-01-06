@@ -2,7 +2,7 @@
 	<head>
 		<script src='https://surikov.github.io/webaudiofontdata/sound/0000_SoundBlasterOld_sf2.js'></script>
 		<script>
-			var afterTime = 0.05;
+			/*var afterTime = 0.05;
 			var nearZero = 0.000001;
 			function noZeroVolume (n) {
 				if (n > nearZero) {
@@ -80,7 +80,7 @@
 					};
 				}
 				return envelope;
-			};
+			};*/
 			function numValue (aValue, defValue) {
 				if (typeof aValue === "number") {
 					return aValue;
@@ -95,6 +95,7 @@
 					zone.delay = 0;
 					if (zone.sample) {
 						var decoded = atob(zone.sample);
+						console.log('decoded',decoded);
 						zone.buffer = audioContext.createBuffer(1, decoded.length / 2, zone.sampleRate);
 						var float32Array = zone.buffer.getChannelData(0);
 						var b1,
@@ -115,6 +116,7 @@
 							}
 							float32Array[i] = n / 65536.0;
 						}
+						console.log('float32Array',float32Array);
 					} else {
 						if (zone.file) {
 							var datalen = zone.file.length;
@@ -139,7 +141,7 @@
 					zone.sampleRate = numValue(zone.sampleRate, 44100);
 					zone.sustain = numValue(zone.originalPitch, 0);
 				}
-			};
+			};/*
 			function findZone (audioContext, preset, pitch) {
 				var zone = null;
 				for (var i = preset.zones.length - 1; i >= 0; i--) {
@@ -162,27 +164,27 @@
 					volume = 0.5;
 				}
 				return volume;
-			};
+			};*/
 			function queueWaveTable(audioContext, target, preset, when, pitch, duration, volume, slides) {
 				if (audioContext.state == 'suspended') {
 					console.log('audioContext.resume');
 					audioContext.resume();
 				}
-				volume = limitVolume(volume);
+				/*volume = limitVolume(volume);
 				var zone = findZone(audioContext, preset, pitch);
 				if (!(zone.buffer)) {
 					console.log('empty buffer ', zone);
 					return;
-				}
-				var baseDetune = zone.originalPitch - 100.0 * zone.coarseTune - zone.fineTune;
-				var playbackRate = 1.0 * Math.pow(2, (100.0 * pitch - baseDetune) / 1200.0);
-				var sampleRatio = zone.sampleRate / audioContext.sampleRate;
-				var startWhen = when;
+				}*/
+				//var baseDetune = zone.originalPitch - 100.0 * zone.coarseTune - zone.fineTune;
+				//var playbackRate = 1.0 * Math.pow(2, (100.0 * pitch - baseDetune) / 1200.0);
+				//var sampleRatio = zone.sampleRate / audioContext.sampleRate;
+				/*var startWhen = when;
 				if (startWhen < audioContext.currentTime) {
 					startWhen = audioContext.currentTime;
-				}
-				var waveDuration = duration + afterTime;
-				var loop = true;
+				}*/
+				//var waveDuration = duration + afterTime;
+				/*var loop = true;
 				if (zone.loopStart < 1 || zone.loopStart >= zone.loopEnd) {
 					loop = false;
 				}
@@ -190,12 +192,13 @@
 					if (waveDuration > zone.buffer.duration / playbackRate) {
 						waveDuration = zone.buffer.duration / playbackRate;
 					}
-				}
-				var envelope = findEnvelope(audioContext, target, startWhen, waveDuration);
+				}*/
+				//var envelope = findEnvelope(audioContext, target, startWhen, waveDuration);
 				//setupEnvelope(audioContext, envelope, zone, volume, startWhen, waveDuration, duration);
-				envelope.audioBufferSourceNode = audioContext.createBufferSource();
-				envelope.audioBufferSourceNode.playbackRate.setValueAtTime(playbackRate, 0);
-				if (slides) {
+				//envelope.audioBufferSourceNode = audioContext.createBufferSource();
+				var envelope_audioBufferSourceNode = audioContext.createBufferSource();
+				//envelope.audioBufferSourceNode.playbackRate.setValueAtTime(playbackRate, 0);
+				/*if (slides) {
 					if (slides.length > 0) {
 						envelope.audioBufferSourceNode.playbackRate.setValueAtTime(playbackRate, when);
 						for (var i = 0; i < slides.length; i++) {
@@ -204,23 +207,33 @@
 							envelope.audioBufferSourceNode.playbackRate.linearRampToValueAtTime(newPlaybackRate, newWhen);
 						}
 					}
-				}
-				envelope.audioBufferSourceNode.buffer = zone.buffer;
-				if (loop) {
+				}*/
+				console.log('preset',preset);
+				var zone1=preset.zones[1];
+				adjustZone(audioContext,zone1);
+				envelope_audioBufferSourceNode.buffer = zone1.buffer;
+				console.log('buffer',envelope_audioBufferSourceNode.buffer);
+				/*for(var i=0;i<100;i++){
+					console.log(envelope_audioBufferSourceNode.getChannelData()[i]);
+				}*/
+				/*if (loop) {
 					envelope.audioBufferSourceNode.loop = true;
 					envelope.audioBufferSourceNode.loopStart = zone.loopStart / zone.sampleRate + zone.delay;
 					envelope.audioBufferSourceNode.loopEnd = zone.loopEnd / zone.sampleRate + zone.delay;
-				} else {
-					envelope.audioBufferSourceNode.loop = false;
-				}
-				envelope.audioBufferSourceNode.connect(envelope);
-				envelope.audioBufferSourceNode.start(startWhen, zone.delay);
-				envelope.audioBufferSourceNode.stop(startWhen + waveDuration);
-				envelope.when = startWhen;
-				envelope.duration = waveDuration;
-				envelope.pitch = pitch;
-				envelope.preset = preset;
-				return envelope;
+				} else {*/
+					envelope_audioBufferSourceNode.loop = false;
+				//}
+				envelope_audioBufferSourceNode.connect(audioContext.destination);
+				//console.log('duration', waveDuration);
+				//envelope.audioBufferSourceNode.connect(envelope);
+				//envelope.audioBufferSourceNode.start(startWhen, zone.delay);
+				envelope_audioBufferSourceNode.start();
+				//envelope_audioBufferSourceNode.stop(startWhen + waveDuration);
+				//envelope.when = startWhen;
+				//envelope.duration = waveDuration;
+				//envelope.pitch = pitch;
+				//envelope.preset = preset;
+				//return envelope;
 			};
 			var selectedPreset=_tone_0000_SoundBlasterOld_sf2;
 			var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
@@ -229,7 +242,7 @@
 			function playStart(){
 				clickCOunt++;
 				console.log('audioContext',audioContext);
-				console.log('click '+clickCOunt);
+				console.log('click '+14+'+'+clickCOunt);
 				console.log('state '+audioContext.state);
 				console.log('time '+audioContext.currentTime);
 				console.log('latency '+audioContext.baseLatency);
@@ -237,13 +250,29 @@
 					console.log(''+i+': '+selectedPreset.zones[i].sample.length);
 				}
 				var envelope=queueWaveTable(audioContext, audioContext.destination, selectedPreset, 0, 55, 3.5);
-				console.log('envelope',envelope);
+				//console.log('envelope',envelope);
 			}
 		</script>
 	</head>
 	<body>
-		<h1><a href="#" onmousedown="playStart();">Test 4</a></h1>
+		<h1><a href="#" onmousedown="playStart();">Test 17</a></h1>
 		<hr/>
-		<p><a href="https://surikov.github.io/webaudiofont/">source</a></p>
+
+		<h2><button onclick="testo();">play</button></h2>
+		<script>
+			function testo(){
+				console.log('start');
+				var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+				// create Oscillator node
+				var oscillator = audioCtx.createOscillator();
+
+				oscillator.type = 'square';
+				oscillator.frequency.setValueAtTime(440, audioCtx.currentTime); // value in hertz
+				oscillator.connect(audioCtx.destination);
+				oscillator.start();
+				console.log('started',oscillator);
+			}
+		</script>
 	</body>
 </html>
