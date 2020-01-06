@@ -192,7 +192,7 @@
 					}
 				}
 				var envelope = findEnvelope(audioContext, target, startWhen, waveDuration);
-				setupEnvelope(audioContext, envelope, zone, volume, startWhen, waveDuration, duration);
+				//setupEnvelope(audioContext, envelope, zone, volume, startWhen, waveDuration, duration);
 				envelope.audioBufferSourceNode = audioContext.createBufferSource();
 				envelope.audioBufferSourceNode.playbackRate.setValueAtTime(playbackRate, 0);
 				if (slides) {
@@ -242,7 +242,7 @@
 		</script>
 	</head>
 	<body>
-		<h1><a href="#" onmousedown="playStart();">Test 3</a></h1>
+		<h1><a href="#" onmousedown="playStart();">Test 4</a></h1>
 		<hr/>
 		<p><a href="https://surikov.github.io/webaudiofont/">source</a></p>
 	</body>
