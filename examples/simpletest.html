@@ -228,19 +228,21 @@
 			var clickCOunt=0;
 			function playStart(){
 				clickCOunt++;
-				console.log(clickCOunt);
-				console.log(audioContext.state);
-				console.log(audioContext.currentTime);
-				console.log(audioContext.baseLatency);
+				console.log('audioContext',audioContext);
+				console.log('click '+clickCOunt);
+				console.log('state '+audioContext.state);
+				console.log('time '+audioContext.currentTime);
+				console.log('latency '+audioContext.baseLatency);
 				for(var i=0;i<selectedPreset.zones.length;i++){
 					console.log(''+i+': '+selectedPreset.zones[i].sample.length);
 				}
-				queueWaveTable(audioContext, audioContext.destination, selectedPreset, 0, 55, 3.5);
+				var envelope=queueWaveTable(audioContext, audioContext.destination, selectedPreset, 0, 55, 3.5);
+				console.log('envelope',envelope);
 			}
 		</script>
 	</head>
 	<body>
-		<h1><a href="#" onmousedown="playStart();">Test 2</a></h1>
+		<h1><a href="#" onmousedown="playStart();">Test 3</a></h1>
 		<hr/>
 		<p><a href="https://surikov.github.io/webaudiofont/">source</a></p>
 	</body>
