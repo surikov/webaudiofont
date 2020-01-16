@@ -153,6 +153,49 @@ Instruments came from free soundfonts:
 - [GeneralUserGS.sf2 license](http://www.schristiancollins.com/generaluser.php)
 - [FluidR3.sf2 license](https://github.com/musescore/MuseScore/blob/master/share/sound/FluidR3Mono_License.md)
 
+#### How to use catalog of sounds:
+
+- open [index page](https://surikov.github.io/webaudiofontdata/sound/)
+- find an instrument
+- copy the name of the file to include the instrument data
+- copy the name of the variable to refer to the instrument
+- add this info to a page
+
+Use drumInfo and instrumentInfo in realtime. See [live example](https://surikov.github.io/webaudiofont/examples/dynamic.html).
+
+### Player
+
+WebAudioFontPlayer has the function queueWaveTable(audioContext, target, preset, when, pitch, duration, volume, slides)
+
+Parameters:
+
+- audioContext - AudioContext
+- target - a node to connect to, for example audioContext.destination
+- preset - variable with the instrument preset
+- when - when to play, audioContext.currentTime or 0 to play now, audioContext.currentTime + 3 to play after 3 seconds
+- pitch - note pitch from 0 to 127, for example 2+12*4 to play D of fourth octave (use MIDI key for drums)
+- duration - note duration in seconds, for example 4 to play 4 seconds
+- volume - 0.0 <=1.0 volume (0 is 'no value', 'no value' is 1)
+- slides - array of pitch bends
+
+The function queueWaveTable returns an envelope object. You can use this object to cancel a sound or to access AudioBufferSourceNode.
+
+#### Strumming
+
+Use queueChord, queueStrumUp, queueStrumDown, queueSnap for chords. See [live example](https://surikov.github.io/webaudiofont/examples/strum.html).
+
+## How to get help
+
+Feel free to ask for any kind of help at [project issues](https://github.com/surikov/webaudiofont/issues).
+
+## ReactJS
+
+See [ReactJS implementation](https://www.npmjs.com/package/midi-sounds-react).
+
+## TypeScript
+
+See [TypeScript implementation](https://github.com/yw662/webaudiofont-ts).
+
 ### Catalog of instruments
 
 The catalog consists of a full set of MIDI standards. Each instrument has 5-10 sound variations from different soundfonts.
@@ -350,46 +393,3 @@ The catalog consists of a full set of MIDI standards. Each instrument has 5-10 s
   - Mute Triangle: see Drums part at [Catalog](https://surikov.github.io/webaudiofontdata/sound/)
   - Open Triangle: see Drums part at [Catalog](https://surikov.github.io/webaudiofontdata/sound/)
     
-#### How to use catalog of sounds:
-
-- open [index page](https://surikov.github.io/webaudiofontdata/sound/)
-- find an instrument
-- copy the name of the file to include the instrument data
-- copy the name of the variable to refer to the instrument
-- add this info to a page
-
-Use drumInfo and instrumentInfo in realtime. See [live example](https://surikov.github.io/webaudiofont/examples/dynamic.html).
-
-### Player
-
-WebAudioFontPlayer has the function queueWaveTable(audioContext, target, preset, when, pitch, duration, volume, slides)
-
-Parameters:
-
-- audioContext - AudioContext
-- target - a node to connect to, for example audioContext.destination
-- preset - variable with the instrument preset
-- when - when to play, audioContext.currentTime or 0 to play now, audioContext.currentTime + 3 to play after 3 seconds
-- pitch - note pitch from 0 to 127, for example 2+12*4 to play D of fourth octave (use MIDI key for drums)
-- duration - note duration in seconds, for example 4 to play 4 seconds
-- volume - 0.0 <=1.0 volume (0 is 'no value', 'no value' is 1)
-- slides - array of pitch bends
-
-The function queueWaveTable returns an envelope object. You can use this object to cancel a sound or to access AudioBufferSourceNode.
-
-#### Strumming
-
-Use queueChord, queueStrumUp, queueStrumDown, queueSnap for chords. See [live example](https://surikov.github.io/webaudiofont/examples/strum.html).
-
-## How to get help
-
-Feel free to ask for any kind of help at [project issues](https://github.com/surikov/webaudiofont/issues).
-
-## ReactJS
-
-See [ReactJS implementation](https://www.npmjs.com/package/midi-sounds-react).
-
-## TypeScript
-
-See [TypeScript implementation](https://github.com/yw662/webaudiofont-ts).
-
