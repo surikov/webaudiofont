@@ -3,6 +3,10 @@
 WebAudioFont is a set of resources and associated technology that uses sample-based synthesis to play musical instruments in the browser.
 You can choose from thousands of instrument, see [Catalog](#catalog-of-instruments).
 
+### License
+
+see [LICENSE.md](https://github.com/surikov/webaudiofont/blob/master/LICENSE.md).
+
 ### Code examples
 
 - simple example - [code](http://jsbin.com/lamidog/1/edit?html,output) - [open](https://surikov.github.io/webaudiofont/examples/simple.html)
@@ -388,14 +392,4 @@ See [ReactJS implementation](https://www.npmjs.com/package/midi-sounds-react).
 ## TypeScript
 
 See [TypeScript implementation](https://github.com/yw662/webaudiofont-ts).
-
-### License
-
-see [LICENSE.md](https://github.com/surikov/webaudiofont/blob/master/LICENSE.md).
-
-
-
-
-
-
 
