@@ -241,7 +241,7 @@
 			var file = event.target.files[0];
 			console.log(file);
 			var fileReader = new FileReader();
-			fileReader.onload = function (progressEvent ) {
+			fileReader.onload = function (progressEvent) {
 				console.log(progressEvent);
 				var arrayBuffer = progressEvent.target.result;
 				console.log(arrayBuffer);
