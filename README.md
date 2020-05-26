@@ -5,7 +5,7 @@ You can choose from thousands of instrument, see [Catalog](#catalog-of-instrumen
 
 ### License
 
-see [LICENSE.md](https://github.com/surikov/webaudiofont/blob/master/LICENSE.md).
+see [LICENSE.md](https://github.com/surikov/webaudiofont/blob/master/LICENSE.md). Contact me if you need different license.
 
 ### Code examples
 
