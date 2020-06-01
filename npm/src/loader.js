@@ -1,5 +1,5 @@
 'use strict'
-console.log('WebAudioFont Loader v1.28');
+console.log('WebAudioFont Loader v1.29 GPL3');
 
 function WebAudioFontLoader(player) {
 	this.player = player;

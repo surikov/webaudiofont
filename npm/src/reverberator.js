@@ -1,5 +1,5 @@
 'use strict'
-console.log('WebAudioFont Reverberator v1.08');
+console.log('WebAudioFont Reverberator v1.09 GPL3');
 function WebAudioFontReverberator(audioContext) {
 	var me = this;
 	this.audioContext = audioContext;

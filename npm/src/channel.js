@@ -1,5 +1,5 @@
 'use strict'
-console.log('WebAudioFont Channel v1.04');
+console.log('WebAudioFont Channel v1.05 GPL3');
 function WebAudioFontChannel(audioContext) {
 	this.audioContext = audioContext;
 	this.bandEqualizer = function (from, frequency) {
