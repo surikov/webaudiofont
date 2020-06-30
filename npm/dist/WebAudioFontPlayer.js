@@ -429,7 +429,7 @@ if (typeof window !== 'undefined') {
 }
 },{}],3:[function(require,module,exports){
 'use strict'
-console.log('WebAudioFont Player v2.81 GPL3');
+console.log('WebAudioFont Player v2.82 GPL3');
 var WebAudioFontLoader = require('./loader');
 var WebAudioFontChannel = require('./channel');
 var WebAudioFontReverberator = require('./reverberator')
@@ -488,11 +488,22 @@ function WebAudioFontPlayer() {
 		duration = 0.05;
 		this.queueChord(audioContext, target, preset, when, pitches, duration, volume, slides);
 	};
-	this.queueWaveTable = function (audioContext, target, preset, when, pitch, duration, volume, slides) {
-		if (audioContext.state == 'suspended') {
-			console.log('audioContext.resume');
-			audioContext.resume();
+	this.resumeContext = function (audioContext) {
+		try {
+			if (audioContext.state == 'suspended') {
+				if (audioContext.constructor.name == 'AudioContext') {
+					console.log('audioContext.resume', audioContext);
+					audioContext.resume();
+				} else {
+					//skip
+				}
+			}
+		} catch (e) {
+			//don't care
 		}
+	}
+	this.queueWaveTable = function (audioContext, target, preset, when, pitch, duration, volume, slides) {
+		this.resumeContext(audioContext);
 		volume = this.limitVolume(volume);
 		var zone = this.findZone(audioContext, preset, pitch);
 		if (!(zone.buffer)) {
