@@ -753,7 +753,7 @@ if (typeof window !== 'undefined') {
 
 },{"./channel":1,"./loader":2,"./reverberator":4}],4:[function(require,module,exports){
 'use strict'
-console.log('WebAudioFont Reverberator v1.09 GPL3');
+console.log('WebAudioFont Reverberator/Compressor v1.10 GPL3');
 function WebAudioFontReverberator(audioContext) {
 	var me = this;
 	this.audioContext = audioContext;
@@ -761,7 +761,12 @@ function WebAudioFontReverberator(audioContext) {
 	this.input.type = "lowpass";
 	this.input.frequency.setTargetAtTime(18000,0,0.0001);
 	this.convolver = null;
-	this.output = audioContext.createGain();
+	this.output = audioContext.createDynamicsCompressor();
+	this.output.threshold.setValueAtTime(-50,0.0001);
+	this.output.knee.setValueAtTime(40,0.0001);
+	this.output.ratio.setValueAtTime(12,0.0001);
+	this.output.attack.setValueAtTime(0,0.0001);
+	this.output.release.setValueAtTime(0.25,0.0001);
 	this.dry = audioContext.createGain();
 	this.dry.gain.setTargetAtTime(0.9,0,0.0001);
 	this.dry.connect(this.output);
