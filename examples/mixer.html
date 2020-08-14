@@ -116,8 +116,8 @@ input[type=range][orient=vertical]
 		<li>bass volume <input type="range" value="1.0" min="0.0" max="1.5" step="0.1" onchange="channelBass.output.gain.setTargetAtTime(value,0,0.0001);"></li>
 		<li>guitar volume <input type="range" value="1.0" min="0.0" max="1.5" step="0.1" onchange="channelDistortion.output.gain.setTargetAtTime(value,0,0.0001);"></li>
 		<li>echo <input type="range" value="0.5" min="0.0" max="1.5" step="0.1" onchange="reverberator.wet.gain.setTargetAtTime(value,0,0.0001);"></li>
-		<li>compressor threshold <input type="range" value="-50" min="-60" max="-1" step="1" onchange="reverberator.output.threshold.setValueAtTime(value, 0);"></li>
-		<li>compressor knee <input type="range" value="40" min="0" max="40" step="2" onchange="reverberator.output.knee.setValueAtTime(value, 0)"></li>
+		<li>compressor threshold <input type="range" value="-50" min="-100" max="0" step="10" onchange="reverberator.output.threshold.setValueAtTime(value, 0);"></li>
+		<li>compressor knee <input type="range" value="40" min="0" max="40" step="5" onchange="reverberator.output.knee.setValueAtTime(value, 0)"></li>
 		<li>compressor ratio <input type="range" value="12" min="1" max="20" step="1" onchange="reverberator.output.ratio.setValueAtTime(value, 0);"></li>
 		<li>compressor attack <input type="range" value="0" min="0" max="1" step="0.01" onchange="reverberator.output.attack.setValueAtTime(value, 0);"></li>
 		<li>compressor release <input type="range" value="0.25" min="0" max="1" step="0.01" onchange="reverberator.output.release.setValueAtTime(value, 0);"></li>
