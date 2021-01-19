@@ -755,7 +755,7 @@ if (typeof window !== 'undefined') {
 
 },{"./channel":1,"./loader":2,"./reverberator":4}],4:[function(require,module,exports){
 'use strict'
-console.log('WebAudioFont Reverberator/Compressor v1.10 GPL3');
+console.log('WebAudioFont Reverberator/Compressor v1.11 GPL3');
 function WebAudioFontReverberator(audioContext) {
 	var me = this;
 	this.audioContext = audioContext;
@@ -764,11 +764,11 @@ function WebAudioFontReverberator(audioContext) {
 	this.input.frequency.setTargetAtTime(18000,0,0.0001);
 	this.convolver = null;
 	this.output = audioContext.createDynamicsCompressor();
-	this.output.threshold.setValueAtTime(-50,0.0001);
-	this.output.knee.setValueAtTime(40,0.0001);
-	this.output.ratio.setValueAtTime(12,0.0001);
-	this.output.attack.setValueAtTime(0,0.0001);
-	this.output.release.setValueAtTime(0.25,0.0001);
+	this.output.threshold.setValueAtTime(-20,0.0001);//-100,0
+	this.output.knee.setValueAtTime(35,0.0001);//0,40
+	this.output.ratio.setValueAtTime(18,0.0001);//2,20
+	this.output.attack.setValueAtTime(0.02,0.0001);//0,1
+	this.output.release.setValueAtTime(0.95,0.0001);//0,1
 	this.dry = audioContext.createGain();
 	this.dry.gain.setTargetAtTime(0.9,0,0.0001);
 	this.dry.connect(this.output);
