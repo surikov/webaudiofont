@@ -1,21 +1,32 @@
 'use strict'
-console.log('WebAudioFont Reverberator/Compressor v1.12 GPL3');
+console.log('WebAudioFont Reverberator/Compressor v1.13 GPL3');
 function WebAudioFontReverberator(audioContext) {
 	var me = this;
 	this.audioContext = audioContext;
+	this.output = audioContext.createGain();
 	this.input = this.audioContext.createBiquadFilter();
 	this.input.type = "lowpass";
 	this.input.frequency.setTargetAtTime(18000,0,0.0001);
 	this.convolver = null;
-	this.output = audioContext.createDynamicsCompressor();
-	this.output.threshold.setValueAtTime(-20,0.0001);//-100,0
-	this.output.knee.setValueAtTime(35,0.0001);//0,40
-	this.output.ratio.setValueAtTime(18,0.0001);//2,20
-	this.output.attack.setValueAtTime(0.02,0.0001);//0,1
-	this.output.release.setValueAtTime(0.95,0.0001);//0,1
+	this.compressorInput = audioContext.createGain();
+	this.compressorWet = audioContext.createGain();
+	this.compressorWet.gain.setTargetAtTime(0.0,0,0.0001);
+	this.compressorDry = audioContext.createGain();
+	this.compressorDry.gain.setTargetAtTime(1.0,0,0.0001);
+	this.compressor = audioContext.createDynamicsCompressor();
+	this.compressor.threshold.setValueAtTime(-20,0.0001);//-100,0
+	this.compressor.knee.setValueAtTime(35,0.0001);//0,40
+	this.compressor.ratio.setValueAtTime(18,0.0001);//2,20
+	this.compressor.attack.setValueAtTime(0.02,0.0001);//0,1
+	this.compressor.release.setValueAtTime(0.95,0.0001);//0,1
+	this.compressorInput.connect(this.compressorWet);
+	this.compressorWet.connect(this.compressor);
+	this.compressor.connect(this.output);
+	this.compressorInput.connect(this.compressorDry);
+	this.compressorDry.connect(this.output);
 	this.dry = audioContext.createGain();
 	this.dry.gain.setTargetAtTime(0.9,0,0.0001);
-	this.dry.connect(this.output);
+	this.dry.connect(this.compressorInput);
 	this.wet = audioContext.createGain();
 	this.wet.gain.setTargetAtTime(0.25,0,0.0001);
 	this.input.connect(this.dry);
@@ -34,7 +45,7 @@ function WebAudioFontReverberator(audioContext) {
 		me.convolver = audioContext.createConvolver();
 		me.convolver.buffer = audioBuffer;
 		me.wet.connect(me.convolver);
-		me.convolver.connect(me.output);
+		me.convolver.connect(me.compressorInput);
 		console.log('convolver audioBuffer',audioBuffer);
 	});
 	return this;
