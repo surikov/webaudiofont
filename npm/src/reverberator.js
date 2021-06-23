@@ -1,5 +1,5 @@
 'use strict'
-console.log('WebAudioFont Reverberator/Compressor v1.13 GPL3');
+console.log('WebAudioFont Reverberator/Compressor v1.14 GPL3');
 function WebAudioFontReverberator(audioContext) {
 	var me = this;
 	this.audioContext = audioContext;
@@ -14,11 +14,19 @@ function WebAudioFontReverberator(audioContext) {
 	this.compressorDry = audioContext.createGain();
 	this.compressorDry.gain.setTargetAtTime(1.0,0,0.0001);
 	this.compressor = audioContext.createDynamicsCompressor();
-	this.compressor.threshold.setValueAtTime(-20,0.0001);//-100,0
-	this.compressor.knee.setValueAtTime(35,0.0001);//0,40
-	this.compressor.ratio.setValueAtTime(18,0.0001);//2,20
-	this.compressor.attack.setValueAtTime(0.02,0.0001);//0,1
-	this.compressor.release.setValueAtTime(0.95,0.0001);//0,1
+
+	var threshold = -35;
+	var knee = 35;
+	var ratio = 8;
+	var attack = 0.02;
+	var release = 0;
+
+	this.compressor.threshold.setValueAtTime(threshold,0.0001);//-100,0
+	this.compressor.knee.setValueAtTime(knee,0.0001);//0,40
+	this.compressor.ratio.setValueAtTime(ratio,0.0001);//2,20
+	this.compressor.attack.setValueAtTime(attack,0.0001);//0,1
+	this.compressor.release.setValueAtTime(release,0.0001);//0,1
+
 	this.compressorInput.connect(this.compressorWet);
 	this.compressorWet.connect(this.compressor);
 	this.compressor.connect(this.output);
