@@ -32,6 +32,7 @@
 		var audioContext = null;
 		var player = null;
 		var reverberator = null;
+		var equalizer = null;
 		var songStart = 0;
 		var input = null;
 		var currentSongTime = 0;
@@ -109,9 +110,14 @@
 			var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
 			audioContext = new AudioContextFunc();
 			player = new WebAudioFontPlayer();
+
+			equalizer = player.createChannel(audioContext);
 			reverberator = player.createReverberator(audioContext);
+			//input = reverberator.input;
+			input = equalizer.input;
+			equalizer.output.connect(reverberator.input);
 			reverberator.output.connect(audioContext.destination);
-			input = reverberator.input;
+
 			for (var i = 0; i < song.tracks.length; i++) {
 				var nn = player.loader.findInstrument(song.tracks[i].program);
 				var info = player.loader.instrumentInfo(nn);
@@ -129,7 +135,20 @@
 			player.loader.waitLoad(function () {
 				console.log('buildControls');
 				buildControls(song);
+				resetEqlualizer();
 			});
+		}
+		function resetEqlualizer(){
+			equalizer.band32.gain.setTargetAtTime(2,0,0.0001);
+			equalizer.band64.gain.setTargetAtTime(2,0,0.0001);
+			equalizer.band128.gain.setTargetAtTime(1,0,0.0001);
+			equalizer.band256.gain.setTargetAtTime(0,0,0.0001);
+			equalizer.band512.gain.setTargetAtTime(-1,0,0.0001);
+			equalizer.band1k.gain.setTargetAtTime(5,0,0.0001);
+			equalizer.band2k.gain.setTargetAtTime(4,0,0.0001);
+			equalizer.band4k.gain.setTargetAtTime(3,0,0.0001);
+			equalizer.band8k.gain.setTargetAtTime(-2,0,0.0001);
+			equalizer.band16k.gain.setTargetAtTime(2,0,0.0001);
 		}
 		function buildControls(song) {
 			audioContext.resume();

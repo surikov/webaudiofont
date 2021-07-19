@@ -1,5 +1,5 @@
 'use strict'
-console.log('WebAudioFont Channel v1.05 GPL3');
+console.log('WebAudioFont Channel v1.06 GPL3');
 function WebAudioFontChannel(audioContext) {
 	this.audioContext = audioContext;
 	this.bandEqualizer = function (from, frequency) {
@@ -11,13 +11,7 @@ function WebAudioFontChannel(audioContext) {
 		from.connect(filter);
 		return filter;
 	};
-	this.input = this.audioContext.createDynamicsCompressor();
-	this.input.threshold.setValueAtTime(-3,0);// = -3; //-50
-	this.input.knee.setValueAtTime(30,0); //40
-	this.input.ratio.setValueAtTime(12,0); //12
-	//this.input.reduction.value = -20; //-20
-	this.input.attack.setValueAtTime(0.05,0); //0
-	this.input.release.setValueAtTime(0.08,0); //0.25
+	this.input = audioContext.createGain();
 	this.band32 = this.bandEqualizer(this.input, 32);
 	this.band64 = this.bandEqualizer(this.band32, 64);
 	this.band128 = this.bandEqualizer(this.band64, 128);
