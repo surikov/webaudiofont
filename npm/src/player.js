@@ -1,5 +1,5 @@
 'use strict'
-console.log('WebAudioFont Player v2.82 GPL3');
+console.log('WebAudioFont Player v2.92 GPL3');
 var WebAudioFontLoader = require('./loader');
 var WebAudioFontChannel = require('./channel');
 var WebAudioFontReverberator = require('./reverberator')
@@ -26,37 +26,43 @@ function WebAudioFontPlayer() {
 	};
 	this.queueChord = function (audioContext, target, preset, when, pitches, duration, volume, slides) {
 		volume = this.limitVolume(volume);
+		var envelopes = [];
 		for (var i = 0; i < pitches.length; i++) {
-			this.queueWaveTable(audioContext, target, preset, when, pitches[i], duration, volume - Math.random() * 0.01, slides);
+			var envlp = this.queueWaveTable(audioContext, target, preset, when, pitches[i], duration, volume - Math.random() * 0.01, slides);
+			envelopes.push(envlp);
 		}
+		return envelopes;
 	};
 	this.queueStrumUp = function (audioContext, target, preset, when, pitches, duration, volume, slides) {
 		pitches.sort(function (a, b) {
 			return b - a;
 		});
-		this.queueStrum(audioContext, target, preset, when, pitches, duration, volume, slides);
+		return this.queueStrum(audioContext, target, preset, when, pitches, duration, volume, slides);
 	};
 	this.queueStrumDown = function (audioContext, target, preset, when, pitches, duration, volume, slides) {
 		pitches.sort(function (a, b) {
 			return a - b;
 		});
-		this.queueStrum(audioContext, target, preset, when, pitches, duration, volume, slides);
+		return this.queueStrum(audioContext, target, preset, when, pitches, duration, volume, slides);
 	};
 	this.queueStrum = function (audioContext, target, preset, when, pitches, duration, volume, slides) {
 		volume = this.limitVolume(volume);
 		if (when < audioContext.currentTime) {
 			when = audioContext.currentTime;
 		}
+		var envelopes = [];
 		for (var i = 0; i < pitches.length; i++) {
-			this.queueWaveTable(audioContext, target, preset, when + i * 0.01, pitches[i], duration, volume - Math.random() * 0.01, slides);
+			var envlp = this.queueWaveTable(audioContext, target, preset, when + i * 0.01, pitches[i], duration, volume - Math.random() * 0.01, slides);
+			envelopes.push(envlp);
 			volume = 0.9 * volume;
 		}
+		return envelopes;
 	};
 	this.queueSnap = function (audioContext, target, preset, when, pitches, duration, volume, slides) {
 		volume = this.limitVolume(volume);
 		volume = 1.5 * (volume || 1.0);
 		duration = 0.05;
-		this.queueChord(audioContext, target, preset, when, pitches, duration, volume, slides);
+		return this.queueChord(audioContext, target, preset, when, pitches, duration, volume, slides);
 	};
 	this.resumeContext = function (audioContext) {
 		try {

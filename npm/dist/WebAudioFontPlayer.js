@@ -1,4 +1,4 @@
-(function(){function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s}return e})()({1:[function(require,module,exports){
+(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 'use strict'
 console.log('WebAudioFont Channel v1.06 GPL3');
 function WebAudioFontChannel(audioContext) {
@@ -451,7 +451,7 @@ if (typeof window !== 'undefined') {
 }
 },{}],3:[function(require,module,exports){
 'use strict'
-console.log('WebAudioFont Player v2.82 GPL3');
+console.log('WebAudioFont Player v2.92 GPL3');
 var WebAudioFontLoader = require('./loader');
 var WebAudioFontChannel = require('./channel');
 var WebAudioFontReverberator = require('./reverberator')
@@ -478,37 +478,43 @@ function WebAudioFontPlayer() {
 	};
 	this.queueChord = function (audioContext, target, preset, when, pitches, duration, volume, slides) {
 		volume = this.limitVolume(volume);
+		var envelopes = [];
 		for (var i = 0; i < pitches.length; i++) {
-			this.queueWaveTable(audioContext, target, preset, when, pitches[i], duration, volume - Math.random() * 0.01, slides);
+			var envlp = this.queueWaveTable(audioContext, target, preset, when, pitches[i], duration, volume - Math.random() * 0.01, slides);
+			envelopes.push(envlp);
 		}
+		return envelopes;
 	};
 	this.queueStrumUp = function (audioContext, target, preset, when, pitches, duration, volume, slides) {
 		pitches.sort(function (a, b) {
 			return b - a;
 		});
-		this.queueStrum(audioContext, target, preset, when, pitches, duration, volume, slides);
+		return this.queueStrum(audioContext, target, preset, when, pitches, duration, volume, slides);
 	};
 	this.queueStrumDown = function (audioContext, target, preset, when, pitches, duration, volume, slides) {
 		pitches.sort(function (a, b) {
 			return a - b;
 		});
-		this.queueStrum(audioContext, target, preset, when, pitches, duration, volume, slides);
+		return this.queueStrum(audioContext, target, preset, when, pitches, duration, volume, slides);
 	};
 	this.queueStrum = function (audioContext, target, preset, when, pitches, duration, volume, slides) {
 		volume = this.limitVolume(volume);
 		if (when < audioContext.currentTime) {
 			when = audioContext.currentTime;
 		}
+		var envelopes = [];
 		for (var i = 0; i < pitches.length; i++) {
-			this.queueWaveTable(audioContext, target, preset, when + i * 0.01, pitches[i], duration, volume - Math.random() * 0.01, slides);
+			var envlp = this.queueWaveTable(audioContext, target, preset, when + i * 0.01, pitches[i], duration, volume - Math.random() * 0.01, slides);
+			envelopes.push(envlp);
 			volume = 0.9 * volume;
 		}
+		return envelopes;
 	};
 	this.queueSnap = function (audioContext, target, preset, when, pitches, duration, volume, slides) {
 		volume = this.limitVolume(volume);
 		volume = 1.5 * (volume || 1.0);
 		duration = 0.05;
-		this.queueChord(audioContext, target, preset, when, pitches, duration, volume, slides);
+		return this.queueChord(audioContext, target, preset, when, pitches, duration, volume, slides);
 	};
 	this.resumeContext = function (audioContext) {
 		try {
