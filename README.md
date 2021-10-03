@@ -7,6 +7,10 @@ You can choose from thousands of instrument, see [Catalog](#catalog-of-instrumen
 
 see [LICENSE.md](https://github.com/surikov/webaudiofont/blob/master/LICENSE.md). Contact me if you need different license.
 
+### Help
+
+Hire me if you need advanced help (sss1024@gmail.com).
+
 ### Code examples
 
 - simple example - [code](http://jsbin.com/lamidog/1/edit?html,output) - [open](https://surikov.github.io/webaudiofont/examples/simple.html)
