@@ -88,7 +88,7 @@ function WebAudioFontPlayer() {
 		}
 		var baseDetune = zone.originalPitch - 100.0 * zone.coarseTune - zone.fineTune;
 		var playbackRate = 1.0 * Math.pow(2, (100.0 * pitch - baseDetune) / 1200.0);
-		var sampleRatio = zone.sampleRate / audioContext.sampleRate;
+		//var sampleRatio = zone.sampleRate / audioContext.sampleRate;
 		var startWhen = when;
 		if (startWhen < audioContext.currentTime) {
 			startWhen = audioContext.currentTime;

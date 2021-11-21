@@ -540,7 +540,7 @@ function WebAudioFontPlayer() {
 		}
 		var baseDetune = zone.originalPitch - 100.0 * zone.coarseTune - zone.fineTune;
 		var playbackRate = 1.0 * Math.pow(2, (100.0 * pitch - baseDetune) / 1200.0);
-		var sampleRatio = zone.sampleRate / audioContext.sampleRate;
+		//var sampleRatio = zone.sampleRate / audioContext.sampleRate;
 		var startWhen = when;
 		if (startWhen < audioContext.currentTime) {
 			startWhen = audioContext.currentTime;
@@ -851,4 +851,26 @@ if (typeof window !== 'undefined') {
 	window.WebAudioFontReverberator = WebAudioFontReverberator;
 }
 
-},{}]},{},[3,1,2,4]);
+},{}],5:[function(require,module,exports){
+'use strict'
+console.log('WebAudioFont Ticker v1.01 GPL3');
+function WebAudioFontTicker() {
+	this.startLoop = function (when, loopStart, lopPosition, loopEnd, action) {
+
+	};
+	this.tick = function (when, start, duration) {
+
+	}
+	this.cancel = function () {
+
+	};
+	return this;
+}
+if (typeof module === 'object' && module.exports) {
+	module.exports = WebAudioFontTicker;
+}
+if (typeof window !== 'undefined') {
+	window.WebAudioFontTicker = WebAudioFontTicker;
+}
+
+},{}]},{},[3,1,2,4,5]);

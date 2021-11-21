@@ -31,7 +31,7 @@
 	},
 	"scripts": {
 		"test": "echo test",
-		"dist": "browserify npm/src/player.js npm/src/channel.js npm/src/loader.js npm/src/reverberator.js > npm/dist/WebAudioFontPlayer.js && echo all done",
+		"dist": "browserify npm/src/player.js npm/src/channel.js npm/src/loader.js npm/src/reverberator.js npm/src/ticker.js > npm/dist/WebAudioFontPlayer.js && echo all done",
 		"prepublish": "npm test && npm run dist"
 	}
 }

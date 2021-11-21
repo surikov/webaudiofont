@@ -1,6 +1,7 @@
 <html>
 	<head>
-		<script src='https://surikov.github.io/webaudiofont/npm/dist/WebAudioFontPlayer.js'></script>
+		<!--<script src='https://surikov.github.io/webaudiofont/npm/dist/WebAudioFontPlayer.js'></script>-->
+		<script src='../npm/dist/WebAudioFontPlayer.js'></script>
 		<script src='https://surikov.github.io/webaudiofontdata/sound/12836_6_JCLive_sf2_file.js'></script>
 		<script src='https://surikov.github.io/webaudiofontdata/sound/12840_6_JCLive_sf2_file.js'></script>
 		<script src='https://surikov.github.io/webaudiofontdata/sound/12842_6_JCLive_sf2_file.js'></script>
@@ -136,11 +137,15 @@ var notes=[
 ,[open(),                bass(a2,1/16)                                                                                        ]
 ,[                       bass(a2,1/16)                                                                                        ]
 ];
-
+function test11(){
+	var ticker=new WebAudioFontTicker();
+	console.log('ticker',ticker);
+}
 		</script>
 	</head>
 	<body>
 		<p><a href="#" onmousedown="start();">start</a> example</p>
+		<p><a href="#" onmousedown="test11();">test11</a> test11</p>
 		<hr/>
 		<p><a href="https://surikov.github.io/webaudiofont/">source</a></p>
 	</body>
