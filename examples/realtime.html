@@ -1,7 +1,6 @@
 <html>
 	<head>
-		<!--<script src='https://surikov.github.io/webaudiofont/npm/dist/WebAudioFontPlayer.js'></script>-->
-		<script src='../npm/dist/WebAudioFontPlayer.js'></script>
+		<script src='https://surikov.github.io/webaudiofont/npm/dist/WebAudioFontPlayer.js'></script>
 		<script src='https://surikov.github.io/webaudiofontdata/sound/12836_6_JCLive_sf2_file.js'></script>
 		<script src='https://surikov.github.io/webaudiofontdata/sound/12840_6_JCLive_sf2_file.js'></script>
 		<script src='https://surikov.github.io/webaudiofontdata/sound/12842_6_JCLive_sf2_file.js'></script>
@@ -13,6 +12,8 @@
 			var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
 			var audioContext = new AudioContextFunc();
 			var player = new WebAudioFontPlayer();
+			var ticker = new WebAudioFontTicker();
+			var queue=[];
 			player.loader.decodeAfterLoading(audioContext, '_drum_36_6_JCLive_sf2_file');
 			player.loader.decodeAfterLoading(audioContext, '_drum_40_6_JCLive_sf2_file');
 			player.loader.decodeAfterLoading(audioContext, '_drum_42_6_JCLive_sf2_file');
@@ -45,31 +46,11 @@
 			function snare(){return {gain:gainDrums,preset:_drum_40_6_JCLive_sf2_file,pitch:38,duration:1};}
 			function hihat(){return {gain:gainDrums,preset:_drum_42_6_JCLive_sf2_file,pitch:42,duration:1};}
 			function open(){return {gain:gainDrums,preset:_drum_46_6_JCLive_sf2_file,pitch:46,duration:1};}
-			function nextPiece() {
-				for (var n = 0; n < notes.length; n++) {
-					var beat = notes[n];
-					for (var i = 0; i < beat.length; i++) {
-						if (beat[i]) {
-							player.queueWaveTable(audioContext, beat[i].gain, beat[i].preset, startTime + n * beatLen , beat[i].pitch, beat[i].duration);
-						}
-					}
-				}
+			function pause(){
+				ticker.cancel();
 			}
 			function start() {
-				if (started) {
-					console.log('started already');
-				} else {
-					started = true;
-					startTime = audioContext.currentTime + 0.1;
-					nextPiece();
-					startTime = startTime + pieceLen;
-					setInterval(function () {
-						if (audioContext.currentTime > startTime - 1 / 4 * N) {
-							nextPiece();
-							startTime = startTime + pieceLen;
-						}
-					}, 20);
-				}
+				ticker.playLoop(player, audioContext, 0, ticker.lastPosition, pieceLen, queue);
 			}
 var notes=[
  [hihat(),drum(),        bass(C3,1/16),orchestra(C5,1/4),synth(C3,1/1),synth(C4,1/1),synth(G3,1/1),synth(C5,1/2),synth(d5,3/8)]//1/16
@@ -137,15 +118,26 @@ var notes=[
 ,[open(),                bass(a2,1/16)                                                                                        ]
 ,[                       bass(a2,1/16)                                                                                        ]
 ];
-function test11(){
-	var ticker=new WebAudioFontTicker();
-	console.log('ticker',ticker);
+for(var n=0;n<notes.length;n++){
+	var beat = notes[n];
+	for (var i = 0; i < beat.length; i++) {
+		if (beat[i]) {
+			queue.push({
+				destination: beat[i].gain
+				, preset: beat[i].preset
+				, when: n * beatLen
+				, pitch:beat[i].pitch
+				, duration:beat[i].duration
+				, volume: 0.75
+				, slides: []
+			});
+		}
+	}
 }
 		</script>
 	</head>
 	<body>
-		<p><a href="#" onmousedown="start();">start</a> example</p>
-		<p><a href="#" onmousedown="test11();">test11</a> test11</p>
+		<p><a href="#" onmousedown="start();">start</a> / <a href="#" onmousedown="pause();">pause</a> example</p>
 		<hr/>
 		<p><a href="https://surikov.github.io/webaudiofont/">source</a></p>
 	</body>
