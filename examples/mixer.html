@@ -1,8 +1,8 @@
 <html>		
 <head>		
 	<script src='../npm/dist/WebAudioFontPlayer.js'></script>		
-	<script src='https://surikov.github.io/webaudiofontdata/sound/0290_SBLive_sf2.js'></script>		
-	<script src='https://surikov.github.io/webaudiofontdata/sound/0300_SBLive_sf2.js'></script>		
+	<script src='https://surikov.github.io/webaudiofontdata/sound/0280_LesPaul_sf2.js'></script>		
+	<script src='https://surikov.github.io/webaudiofontdata/sound/0300_LesPaul_sf2.js'></script>		
 	<script src='https://surikov.github.io/webaudiofontdata/sound/0340_SBLive_sf2.js'></script>		
 	<script src='https://surikov.github.io/webaudiofontdata/sound/12835_0_SBLive_sf2.js'></script>		
 	<script src='https://surikov.github.io/webaudiofontdata/sound/12838_0_SBLive_sf2.js'></script>		
@@ -21,8 +21,8 @@
 		channelDistortion.output.connect(channelMaster.input);
 		channelMaster.output.connect(reverberator.input);
 		reverberator.output.connect(audioContext.destination);
-		player.adjustPreset(audioContext,_tone_0290_SBLive_sf2);		
-		player.adjustPreset(audioContext,_tone_0300_SBLive_sf2);		
+		player.adjustPreset(audioContext,_tone_0280_LesPaul_sf2);		
+		player.adjustPreset(audioContext,_tone_0300_LesPaul_sf2);		
 		player.adjustPreset(audioContext,_tone_0340_SBLive_sf2);		
 		player.adjustPreset(audioContext,_drum_35_0_SBLive_sf2);		
 		player.adjustPreset(audioContext,_drum_38_0_SBLive_sf2);		
@@ -38,8 +38,8 @@
 		var C6 = 0+12*6, c6 = 1+12*6, D6 = 2+12*6, d6 = 3+12*6, E6 = 4+12*6, F6 = 5+12*6, f6 = 6+12*6, G6 = 7+12*6, g6 = 8+12*6, A6 = 9+12*6, a6 = 10+12*6, B6 = 11+12*6;		
 		var started = false;		
 		var startTime = 0;		
-		function overDrive(pitch, duration, slides){return {target:channelDistortion,preset:_tone_0300_SBLive_sf2,pitch:pitch,duration:duration*N,volume:0.2,slides:slides};}		
-		function palmMute(pitch, duration){return {target:channelDistortion,preset:_tone_0290_SBLive_sf2,pitch:pitch,duration:duration*N,volume:0.3};}		
+		function overDrive(pitch, duration, slides){return {target:channelDistortion,preset:_tone_0300_LesPaul_sf2,pitch:pitch,duration:duration*N,volume:0.5,slides:slides};}		
+		function palmMute(pitch, duration){return {target:channelDistortion,preset:_tone_0280_LesPaul_sf2,pitch:pitch,duration:duration*N,volume:0.3};}		
 		function bass(pitch, duration){return {target:channelBass,preset:_tone_0340_SBLive_sf2,pitch:pitch,duration:duration*N,volume:0.5};}		
 		function drum(){return {target:channelDrums,preset:_drum_35_0_SBLive_sf2,pitch:35,duration:1,volume:0.7};}		
 		function snare(){return {target:channelDrums,preset:_drum_38_0_SBLive_sf2,pitch:38,duration:1,volume:0.5};}		
@@ -78,21 +78,21 @@
 		}		
  var notes=[		
  ////////////////////////////////////////////////////////////////////////////////////		
-  [overDrive(D4,1/4,[{when:1/8,pitch:c4}]),bass(B2,1/8),drum()        ,hiHat()]		
+  [overDrive(D4,1/4,[{when:1/8,pitch:c4}]),bass(B2,1/8),drum()        ,hiHat(), overDrive(A4,1/4,[{when:1/8,pitch:g4}])]		
  ,[                                        bass(B2,1/8)               ,hiHat()]		
  ,[palmMute(B3,1/8)                       ,bass(B2,1/8)       ,snare(),hiHat()]		
- ,[overDrive(B3,1/4),                      bass(B2,1/8),drum()        ,hiHat()]		
+ ,[overDrive(B3,1/4),                      bass(B2,1/8),drum()        ,hiHat(), overDrive(f4,1/4)]		
  ,[                                        bass(B2,1/8),drum()        ,hiHat()]		
  ,[palmMute(B3,1/8)                       ,bass(B2,1/8)               ,hiHat()]		
- ,[overDrive(B3,1/4)                      ,bass(B2,1/8)       ,snare(),hiHat()]		
+ ,[overDrive(B3,1/4)                      ,bass(B2,1/8)       ,snare(),hiHat(), overDrive(f4,1/4)]		
  ,[                                        bass(B2,1/8)               ,hiHat()]		
  ,[palmMute(A3,1/8)                       ,bass(B2,1/8),drum()        ,hiHat()]		
- ,[palmMute(B3,1/8)                       ,bass(B2,1/8),drum()        ,hiHat()]		
+ ,[overDrive(B3,1/8)                      ,bass(B2,1/8),drum()        ,hiHat(), overDrive(f4,1/8)]		
  ,[palmMute(c4,1/8)                       ,bass(B2,1/8)       ,snare(),hiHat()]		
- ,[overDrive(B3,1/4)                      ,bass(B2,1/8)               ,hiHat()]		
+ ,[overDrive(B3,1/4)                      ,bass(B2,1/8)               ,hiHat(), overDrive(f4,1/4)]		
  ,[                                        bass(B2,1/8),drum()        ,hiHat()]		
  ,[palmMute(B3,1/8)                       ,bass(B2,1/8)               ,hiHat()]		
- ,[overDrive(B3,1/4)                      ,bass(B2,1/8)       ,snare(),hiHat()]		
+ ,[overDrive(B3,1/4)                      ,bass(B2,1/8)       ,snare(),hiHat(), overDrive(f4,1/4)]		
  ,[                                        bass(B2,1/8)       ,snare(),hiHat()]		
  ////////////////////////////////////////////////////////////////////////////////////		
  ];		
