@@ -686,10 +686,17 @@ function WebAudioFontPlayer() {
 		return envelope;
 	};
 	this.adjustPreset = function (audioContext, preset) {
-		for (var i = 0; i < preset.zones.length; i++) {
-			this.adjustZone(audioContext, preset.zones[i]);
-		}
-	};
+		const fixedZones = [];
+		for (let zone of preset.zones) {
+			if (zone.keyRangeLow > zone.keyRangeHigh) continue; // pathological case, not used anyway
+			fixedZones.push(zone);
+			this.adjustZone(audioContext, zone);
+		} //loop preset.zones
+		preset.zones = fixedZones;
+		// removing 1-semitone gaps between zones; important for microtones:
+		for (let index = 1; index < preset.zones.length; ++index)
+			preset.zones[index].keyRangeLow = preset.zones[index - 1].keyRangeHigh; 
+	};	
 	this.adjustZone = function (audioContext, zone) {
 		if (zone.buffer) {
 			//
