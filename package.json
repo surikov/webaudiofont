@@ -1,6 +1,6 @@
 {
 	"name": "webaudiofont",
-	"version": "2.7.01",
+	"version": "3.0.01",
 	"description": "Soundfonts for web. About of 2000 musical instruments. GM MIDI compatible.",
 	"keywords": [
 		"audio",
@@ -25,13 +25,14 @@
 		"url": "https://github.com/surikov/webaudiofont"
 	},
 	"license": "GPL-3.0-or-later",
-	"main": "npm/src/player.js",
-	"devDependencies": {
-		"browserify": "^16.2.3"
-	},
+	"main": "npm/dist/WebAudioFontPlayer.js",
+	"devDependencies": {},
 	"scripts": {
 		"test": "echo test",
-		"dist": "browserify npm/src/player.js npm/src/channel.js npm/src/loader.js npm/src/reverberator.js npm/src/ticker.js > npm/dist/WebAudioFontPlayer.js && echo all done",
-		"prepublish": "npm test && npm run dist"
+		"ts": "tsc --build npm/src/tsconfig.json",
+		"prepublish": "npm run ts"
+	},
+	"dependencies": {
+		"typedoc": "^0.22.14"
 	}
 }
