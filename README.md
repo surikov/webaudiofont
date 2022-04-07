@@ -11,6 +11,15 @@ see [LICENSE.md](https://github.com/surikov/webaudiofont/blob/master/LICENSE.md)
 
 Hire me if you need advanced help (sss1024@gmail.com).
 
+### Docs
+
+[API](https://surikov.github.io/webaudiofont/npm/src/docs/modules.html)
+[Wiki](https://github.com/surikov/webaudiofont/wiki)
+
+### Bug Reports
+
+[Issues](https://github.com/surikov/webaudiofont/issues?q=)
+
 ### Code examples
 
 - simple example - [code](http://jsbin.com/lamidog/1/edit?html,output) - [open](https://surikov.github.io/webaudiofont/examples/simple.html)
