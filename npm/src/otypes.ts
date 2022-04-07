@@ -18,7 +18,7 @@ type WaveZone = {
 	, buffer?: AudioBuffer
 	, sampleRate: number
 	, delay?: number
-	, ahdsr?: boolean|WaveAHDSR[]
+	, ahdsr?: boolean | WaveAHDSR[]
 	, sample?: string
 	, file?: string
 	, sustain?: number
@@ -44,4 +44,13 @@ type PresetInfo = {
 	, url: string
 	, title: string
 	, pitch: number
+};
+type ChordQueue = {
+	when: number
+	, destination: AudioNode
+	, preset: WavePreset
+	, pitch: number
+	, duration: number
+	, volume?: number
+	, slides?: WaveSlide[]
 };

@@ -7,8 +7,8 @@ class WebAudioFontTicker {
 	state = this.stateStop;
 	stepDuration = 0.1;
 	lastPosition = 0;
-	playLoop  (player:WebAudioFontPlayer, audioContext:AudioContext, loopStart:number, loopPosition:number, loopEnd:number, queue) {
-		this.startTicks(audioContext, function (when:number, from:number, to:number) {
+	playLoop(player: WebAudioFontPlayer, audioContext: AudioContext, loopStart: number, loopPosition: number, loopEnd: number, queue: ChordQueue[]) {
+		this.startTicks(audioContext, function (when: number, from: number, to: number) {
 			for (var i = 0; i < queue.length; i++) {
 				var note = queue[i];
 				if (note.when >= from && note.when < to) {
@@ -20,13 +20,13 @@ class WebAudioFontTicker {
 			player.cancelQueue(audioContext);
 		});
 	};
-	startTicks(audioContext:AudioContext, onTick:(when:number, from:number, to:number)=>void, loopStart:number, loopPosition:number, loopEnd:number, onEnd:(loopPosition:number)=>void) {
+	startTicks(audioContext: AudioContext, onTick: (when: number, from: number, to: number) => void, loopStart: number, loopPosition: number, loopEnd: number, onEnd: (loopPosition: number) => void) {
 		if (this.state == this.stateStop) {
 			this.state = this.statePlay;
 			this.tick(audioContext, audioContext.currentTime, onTick, loopStart, loopPosition, loopEnd, onEnd);
 		}
 	};
-	tick  (audioContext:AudioContext, nextAudioTime:number, onTick:(when:number, from:number, to:number)=>void, loopStart:number, loopPosition:number, loopEnd:number, onEnd:(loopPosition:number)=>void) {
+	tick(audioContext: AudioContext, nextAudioTime: number, onTick: (when: number, from: number, to: number) => void, loopStart: number, loopPosition: number, loopEnd: number, onEnd: (loopPosition: number) => void) {
 		this.lastPosition = loopPosition;
 		if (this.state == this.stateEnd) {
 			this.state = this.stateStop;
@@ -64,7 +64,7 @@ class WebAudioFontTicker {
 			}
 		}
 	}
-	cancel  () {
+	cancel() {
 		if (this.state == this.statePlay) {
 			this.state = this.stateEnd;
 		}

@@ -1,8 +1,8 @@
 'use strict'
-console.log('WebAudioFont Engine v3.0.01 GPL3');
+console.log('WebAudioFont Engine v3.0.02 GPL3');
 //docs 
 //npm link typescript
-//npx typedoc player.ts otypes.ts channel.ts loader.ts reverberator.ts
+//npx typedoc player.ts otypes.ts channel.ts loader.ts reverberator.ts ticker.ts
 
 class WebAudioFontPlayer {
 	envelopes: WaveEnvelope[] = [];
