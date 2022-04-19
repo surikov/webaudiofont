@@ -9,7 +9,7 @@ see [LICENSE.md](https://github.com/surikov/webaudiofont/blob/master/LICENSE.md)
 
 ### Help
 
-Hire me if you need advanced help (sss1024@gmail.com).
+Hire me if you need advanced help (sss1024@gmail.com) - https://www.linkedin.com/in/sergeysurikov/
 
 ### Docs
 
