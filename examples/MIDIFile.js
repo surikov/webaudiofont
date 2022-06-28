@@ -1016,7 +1016,8 @@ MIDIFile.prototype.addSlide = function (event, song) {
 			//console.log(event.param2-64);
 			//}
 			track.notes[i].slides.push({
-				pitch: track.notes[i].pitch + (event.param2 - 64) / 6,
+				//pitch: track.notes[i].pitch + (event.param2 - 64) / 6,
+				delta: (event.param2 - 64) / 6,
 				when: event.playTime / 1000-track.notes[i].when
 			});
 		}

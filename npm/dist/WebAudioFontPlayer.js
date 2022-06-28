@@ -720,10 +720,10 @@ var WebAudioFontLoader = /** @class */ (function () {
     };
     return WebAudioFontLoader;
 }());
-console.log('WebAudioFont Engine v3.0.01 GPL3');
+console.log('WebAudioFont Engine v3.0.04 GPL3');
 //docs 
 //npm link typescript
-//npx typedoc player.ts otypes.ts channel.ts loader.ts reverberator.ts
+//npx typedoc player.ts otypes.ts channel.ts loader.ts reverberator.ts ticker.ts
 var WebAudioFontPlayer = /** @class */ (function () {
     function WebAudioFontPlayer() {
         this.envelopes = [];
@@ -907,7 +907,8 @@ var WebAudioFontPlayer = /** @class */ (function () {
                 if (slides.length > 0) {
                     envelope.audioBufferSourceNode.playbackRate.setValueAtTime(playbackRate, when);
                     for (var i = 0; i < slides.length; i++) {
-                        var newPlaybackRate = 1.0 * Math.pow(2, (100.0 * slides[i].pitch - baseDetune) / 1200.0);
+                        var nextPitch = pitch + slides[i].delta;
+                        var newPlaybackRate = 1.0 * Math.pow(2, (100.0 * nextPitch - baseDetune) / 1200.0);
                         var newWhen = when + slides[i].when;
                         envelope.audioBufferSourceNode.playbackRate.linearRampToValueAtTime(newPlaybackRate, newWhen);
                     }

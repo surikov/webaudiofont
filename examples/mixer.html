@@ -52,7 +52,7 @@
 						var slides=[];		
 						if(beat[i].slides){		
 							for(var s=0;s<beat[i].slides.length;s++){		
-								slides.push({when:beat[i].slides[s].when*N,pitch:beat[i].slides[s].pitch});		
+								slides.push({when:beat[i].slides[s].when*N,delta:beat[i].slides[s].delta});		
 							}		
 						}
 						player.queueWaveTable(audioContext,  beat[i].target.input, beat[i].preset, startTime + n * beatLen , beat[i].pitch, beat[i].duration,beat[i].volume, slides);//[{when:startTime + n * beatLen+beat[i].duration,pitch:beat[i].pitch-12}]);		
@@ -78,7 +78,7 @@
 		}		
  var notes=[		
  ////////////////////////////////////////////////////////////////////////////////////		
-  [overDrive(D4,1/4,[{when:1/8,pitch:c4}]),bass(B2,1/8),drum()        ,hiHat(), overDrive(A4,1/4,[{when:1/8,pitch:g4}])]		
+  [overDrive(D4,1/4,[{when:1/8,delta:-2}]),bass(B2,1/8),drum()        ,hiHat(), overDrive(A4,1/4,[{when:1/8,delta:-2}])]		
  ,[                                        bass(B2,1/8)               ,hiHat()]		
  ,[palmMute(B3,1/8)                       ,bass(B2,1/8)       ,snare(),hiHat()]		
  ,[overDrive(B3,1/4),                      bass(B2,1/8),drum()        ,hiHat(), overDrive(f4,1/4)]		

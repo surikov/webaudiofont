@@ -28,7 +28,7 @@ type WavePreset = {
 };
 type WaveSlide = {
 	when: number
-	, pitch: number
+	, delta: number
 };
 type WaveAHDSR = {
 	duration: number
