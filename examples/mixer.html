@@ -20,7 +20,9 @@
 		channelBass.output.connect(channelMaster.input);
 		channelDistortion.output.connect(channelMaster.input);
 		channelMaster.output.connect(reverberator.input);
-		reverberator.output.connect(audioContext.destination);
+		var flanger=new flangerNode(audioContext,reverberator.output,audioContext.destination);
+		console.log('flanger',flanger);
+		//reverberator.output.connect(audioContext.destination);
 		player.adjustPreset(audioContext,_tone_0280_LesPaul_sf2);		
 		player.adjustPreset(audioContext,_tone_0300_LesPaul_sf2);		
 		player.adjustPreset(audioContext,_tone_0340_SBLive_sf2);		
@@ -44,6 +46,59 @@
 		function drum(){return {target:channelDrums,preset:_drum_35_0_SBLive_sf2,pitch:35,duration:1,volume:0.7};}		
 		function snare(){return {target:channelDrums,preset:_drum_38_0_SBLive_sf2,pitch:38,duration:1,volume:0.5};}		
 		function hiHat(){return {target:channelDrums,preset:_drum_42_0_SBLive_sf2,pitch:42,duration:1,volume:0.5};}		
+		function toggleFlanger(on){
+			if(on){
+				reverberator.output.disconnect(audioContext.destination);
+				reverberator.output.connect(flanger.node);
+				flanger.output.connect(audioContext.destination);
+			}else{
+				reverberator.output.disconnect(flanger.node);
+				flanger.output.disconnect(audioContext.destination);
+				reverberator.output.connect(audioContext.destination);
+			}
+		}
+		function flangerNode(audioContext,fromNode,toNode){
+			this.nodes = {
+				inputGainNode: audioContext.createGain(), // Create the input gain-node
+				wetGainNode: audioContext.createGain(), // Create the wetness controll gain-node
+				delayNode: audioContext.createDelay(), // Create the delay node
+				gainNode: audioContext.createGain(), // Create the gain controll gain-node
+				feedbackGainNode: audioContext.createGain(), // Create the feedback controll gain-node
+				oscillatorNode: audioContext.createOscillator() // Create the oscilator node
+			};
+			this.nodes['oscillatorNode'].connect(this.nodes['gainNode']);
+			this.nodes['gainNode'].connect(this.nodes['delayNode'].delayTime);
+			this.nodes['inputGainNode'].connect(this.nodes['wetGainNode']);
+			this.nodes['inputGainNode'].connect(this.nodes['delayNode']);
+			this.nodes['delayNode'].connect(this.nodes['wetGainNode']);
+			this.nodes['delayNode'].connect(this.nodes['feedbackGainNode']);
+			this.nodes['feedbackGainNode'].connect(this.nodes['inputGainNode']);
+			// Setup the oscillator
+			this.nodes['oscillatorNode'].type = 'sine';
+			this.nodes['oscillatorNode'].start(0);
+			// Set the input gain-node as the input-node.
+			this.node = this.nodes['inputGainNode'];
+			// Set the output gain-node as the output-node.
+			this.output = this.nodes['wetGainNode'];
+			// Set the default delay of 0.005 seconds
+			this.delay = 0.005;
+			// Set the default depth to 0.002;
+			this.depth = 0.002;
+			// Set the default feedback to 0.5
+			this.feedback = 0.5;
+			// Set the default speed to 0.25Hz
+			this.speed = 0.25;
+			this.reset=function(){
+				this.nodes['delayNode'].delayTime.value = this.delay;
+				this.nodes['gainNode'].gain.value = this.depth;
+				this.nodes['feedbackGainNode'].gain.value = this.feedback;
+				this.nodes['oscillatorNode'].frequency.value = this.speed;
+			};
+			fromNode.connect(this.node);
+			this.output.connect(toNode);
+			this.reset();
+			return this;
+		}
 		function nextPiece() {		
 			for (var n = 0; n < notes.length; n++) {		
 				var beat = notes[n];		
@@ -123,6 +178,11 @@ input[type=range][orient=vertical]
 		<li>compressor ratio <input type="range" value="12" min="1" max="20" step="1" onchange="reverberator.compressor.ratio.setValueAtTime(value, 0);"></li>
 		<li>compressor attack <input type="range" value="0" min="0" max="1" step="0.01" onchange="reverberator.compressor.attack.setValueAtTime(value, 0);"></li>
 		<li>compressor release <input type="range" value="0.25" min="0" max="1" step="0.01" onchange="reverberator.compressor.release.setValueAtTime(value, 0);"></li>
+		<li><input type="checkbox" checked onchange="toggleFlanger(checked);"> flanger</li>
+		<li>flanger delay <input type="range" value="0.005" min="0" max="0.010" step="0.001" onchange="flanger.delay=value;flanger.reset();"></li>
+		<li>flanger depth <input type="range" value="0.002" min="0" max="0.010" step="0.001" onchange="flanger.depth=value;flanger.reset();"></li>
+		<li>flanger feedback <input type="range" value="0.5" min="0" max="0.7" step="0.1" onchange="flanger.feedback=value;flanger.reset();"></li>
+		<li>flanger speed <input type="range" value="0.25" min="0.05" max="0.75" step="0.05" onchange="flanger.speed=value;flanger.reset();"></li>
 	</ul>
 	<p>Master equalizer</p>	
 	<p>
