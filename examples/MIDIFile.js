@@ -1006,7 +1006,7 @@ MIDIFile.prototype.closeNote = function (event, song) {
 		}
 	}
 }
-MIDIFile.prototype.addSlide = function (event, song) {
+MIDIFile.prototype.addSlide = function (event, song, pitchBendRange) {
 	var track = this.takeTrack(event.channel, song);
 	for (var i = 0; i < track.notes.length; i++) {
 		if (track.notes[i].duration == 0.0000001 //
@@ -1017,7 +1017,7 @@ MIDIFile.prototype.addSlide = function (event, song) {
 			//}
 			track.notes[i].slides.push({
 				//pitch: track.notes[i].pitch + (event.param2 - 64) / 6,
-				delta: (event.param2 - 64) / 6,
+				delta: (event.param2 - 64) / 64 * pitchBendRange,
 				when: event.playTime / 1000-track.notes[i].when
 			});
 		}
@@ -1066,7 +1066,12 @@ MIDIFile.prototype.parseSong = function () {
 	};
 	var events = this.getMidiEvents();
 	console.log(events);
+	// To set the pitch-bend range, three to four consecutive EVENT_MIDI_CONTROLLER messages must have consistent contents.
+	var expectedPitchBendRangeMessageNumber = 1; // counts which pitch-bend range message can be expected next: number 1 (can be sent any time, except after pitch-bend range messages number 1 or 2), number 2 (required after number 1), number 3 (required after number 2), or number 4 (optional)
+	var expectedPitchBendRangeChannel = null;
+	var pitchBendRange = Array(16).fill(2); // Default pitch-bend range is 2 semitones.
 	for (var i = 0; i < events.length; i++) {
+		var expectedPitchBendRangeMessageNumberOld = expectedPitchBendRangeMessageNumber;
 		//console.log('		next',events[i]);
 		if (song.duration < events[i].playTime / 1000) {
 			song.duration = events[i].playTime / 1000;
@@ -1103,10 +1108,32 @@ MIDIFile.prototype.parseSong = function () {
 				} else {
 					if (events[i].subtype == MIDIEvents.EVENT_MIDI_CONTROLLER) {
 						if (events[i].param1 == 7) {
-							if (events[i].channel != 9) {
+							if (events[i].channel != 9) { // TODO why not set loudness for drums?
 								var track = this.takeTrack(events[i].channel, song);
 								track.volume = events[i].param2/127||0.000001;
 								//console.log('volume', track.volume,'for',events[i].channel);
+							}
+						} else if (
+							(expectedPitchBendRangeMessageNumber == 1 && events[i].param1 == 0x65 && events[i].param2 == 0x00) ||
+							(expectedPitchBendRangeMessageNumber == 2 && events[i].param1 == 0x64 && events[i].param2 == 0x00) ||
+							(expectedPitchBendRangeMessageNumber == 3 && events[i].param1 == 0x06) ||
+							(expectedPitchBendRangeMessageNumber == 4 && events[i].param1 == 0x26)
+						) {
+							if (expectedPitchBendRangeMessageNumber > 1 && events[i].channel != expectedPitchBendRangeChannel) {
+								throw Error('Unexpected channel number in non-first pitch-bend RANGE (SENSITIVITY) message. MIDI file might be corrupt.');
+							}
+							expectedPitchBendRangeChannel = events[i].channel;
+							if (expectedPitchBendRangeMessageNumber == 3) {
+								pitchBendRange[events[i].channel] = events[i].param2; // in semitones
+								console.log('pitchBendRange', pitchBendRange);
+							}
+							if (expectedPitchBendRangeMessageNumber == 4) {
+								pitchBendRange[events[i].channel] += events[i].param2 / 100; // convert cents to semitones, add to semitones set in the previous MIDI message
+								console.log('pitchBendRange', pitchBendRange);
+							}
+							expectedPitchBendRangeMessageNumber++;
+							if (expectedPitchBendRangeMessageNumber == 5) {
+								expectedPitchBendRangeMessageNumber = 1;
 							}
 						} else {
 							//console.log('controller', events[i]);
@@ -1114,12 +1141,20 @@ MIDIFile.prototype.parseSong = function () {
 					} else {
 						if (events[i].subtype == MIDIEvents.EVENT_MIDI_PITCH_BEND) {
 							//console.log('	bend', events[i].channel, events[i].param1, events[i].param2);
-							this.addSlide(events[i], song);
+							this.addSlide(events[i], song, pitchBendRange[events[i].channel]);
 						} else {
 							console.log('unknown', events[i].channel, events[i]);
 						};
 					}
 				}
+			}
+		}
+		if (expectedPitchBendRangeMessageNumberOld == expectedPitchBendRangeMessageNumber) { // If the current message wasn't an expected pitch-bend range message
+			if (expectedPitchBendRangeMessageNumberOld >= 2 && expectedPitchBendRangeMessageNumberOld <= 3) {
+				throw Error('Pitch-bend RANGE (SENSITIVITY) messages ended prematurely. MIDI file might be corrupt.');
+			}
+			if (expectedPitchBendRangeMessageNumberOld == 4) { // The fourth message is optional, so since it wasn't sent, the setting of the pitch-bend range is done, and we might expect the first pitch-bend range message some time in the future
+				expectedPitchBendRangeMessageNumber = 1;
 			}
 		}
 	}
