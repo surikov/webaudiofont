@@ -1120,7 +1120,8 @@ MIDIFile.prototype.parseSong = function () {
 							(expectedPitchBendRangeMessageNumber == 4 && events[i].param1 == 0x26)
 						) {
 							if (expectedPitchBendRangeMessageNumber > 1 && events[i].channel != expectedPitchBendRangeChannel) {
-								throw Error('Unexpected channel number in non-first pitch-bend RANGE (SENSITIVITY) message. MIDI file might be corrupt.');
+								//throw Error('Unexpected channel number in non-first pitch-bend RANGE (SENSITIVITY) message. MIDI file might be corrupt.');
+								//don't care
 							}
 							expectedPitchBendRangeChannel = events[i].channel;
 							if (expectedPitchBendRangeMessageNumber == 3) {
@@ -1151,7 +1152,8 @@ MIDIFile.prototype.parseSong = function () {
 		}
 		if (expectedPitchBendRangeMessageNumberOld == expectedPitchBendRangeMessageNumber) { // If the current message wasn't an expected pitch-bend range message
 			if (expectedPitchBendRangeMessageNumberOld >= 2 && expectedPitchBendRangeMessageNumberOld <= 3) {
-				throw Error('Pitch-bend RANGE (SENSITIVITY) messages ended prematurely. MIDI file might be corrupt.');
+				//throw Error('Pitch-bend RANGE (SENSITIVITY) messages ended prematurely. MIDI file might be corrupt.');
+				//don't care
 			}
 			if (expectedPitchBendRangeMessageNumberOld == 4) { // The fourth message is optional, so since it wasn't sent, the setting of the pitch-bend range is done, and we might expect the first pitch-bend range message some time in the future
 				expectedPitchBendRangeMessageNumber = 1;
