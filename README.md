@@ -79,7 +79,6 @@ Hire me if you need advanced help (sss1024@gmail.com) - https://www.linkedin.com
   - [Custom samples](#custom-samples)
 - [Installation](#installation)
   - for [ReactJS](#reactjs)
-  - for [TypeScript](#typescript)
 - [Reference](https://github.com/surikov/webaudiofont/wiki)
 - [Parts of WebAudioFont](#parts-of-webaudiofont)
   - [Catalog of instruments](#catalog-of-instruments)
@@ -225,10 +224,6 @@ Feel free to ask for any kind of help at [project issues](https://github.com/sur
 ## ReactJS
 
 See [ReactJS implementation](https://www.npmjs.com/package/midi-sounds-react).
-
-## TypeScript
-
-See [TypeScript implementation](https://github.com/yw662/webaudiofont-ts).
 
 ### Catalog of instruments
 
