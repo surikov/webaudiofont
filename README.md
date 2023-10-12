@@ -52,9 +52,7 @@ Hire me if you need advanced help (sss1024@gmail.com) - https://www.linkedin.com
 
 #### Auto accompaniment
 
-[Launch](https://zvoog.app/RockDice/main.html)
-
-[Install Android version](https://play.google.com/store/apps/details?id=rockdice.chord.progression)
+[https://github.com/surikov/rockdice](https://github.com/surikov/rockdice)
 
 [![Screenplay](https://img.youtube.com/vi/6nxSduiO1RA/0.jpg)](https://www.youtube.com/watch?v=6nxSduiO1RA)
 
