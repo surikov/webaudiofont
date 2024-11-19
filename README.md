@@ -62,6 +62,11 @@ Hire me if you need advanced help (sss1024@gmail.com) - https://www.linkedin.com
 
 [![Screenplay](https://img.youtube.com/vi/WU0C0ieXZhg/0.jpg)](https://www.youtube.com/watch?v=WU0C0ieXZhg)
 
+#### BandLab clone for children
+
+[![Screenplay](https://surikov.github.io/webaudiofont/img/bandlabltbb.gif)](https://rutube.ru/video/5331e0e7590ca0c3af2e4d59dd8dc575/)
+
+
 #### Use cases
 
 - Virtual instruments
