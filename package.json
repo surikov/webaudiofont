@@ -33,6 +33,6 @@
 		"prepublish": "npm run ts"
 	},
 	"dependencies": {
-		"typedoc": "^0.22.14"
+		"typedoc": "^0.28.18"
 	}
 }
